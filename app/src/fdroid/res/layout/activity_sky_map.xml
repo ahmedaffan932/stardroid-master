@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".SkyMapActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_pink"
+        android:padding="@dimen/fab_padding"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBackSkyMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sky_map"
+            android:textColor="@color/white"
+            android:textSize="@dimen/padding_24"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpUsage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMoon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clSun"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/moon4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moon"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageView3"
+            app:layout_constraintStart_toStartOf="@id/imageView3"
+            app:layout_constraintTop_toBottomOf="@id/imageView3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clMars"
+        app:layout_constraintStart_toEndOf="@id/clMoon"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sun" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sun"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageView4"
+            app:layout_constraintStart_toStartOf="@id/imageView4"
+            app:layout_constraintTop_toBottomOf="@id/imageView4" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/clSun"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mars" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mars"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageView5"
+            app:layout_constraintStart_toStartOf="@id/imageView5"
+            app:layout_constraintTop_toBottomOf="@id/imageView5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clVenus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clMercury"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clMoon">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/venus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/venus"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageView6"
+            app:layout_constraintStart_toStartOf="@id/imageView6"
+            app:layout_constraintTop_toBottomOf="@id/imageView6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMercury"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clSaturn"
+        app:layout_constraintStart_toEndOf="@id/clVenus"
+        app:layout_constraintTop_toBottomOf="@id/clSun">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/mercury" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mercury"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageView7"
+            app:layout_constraintStart_toStartOf="@id/imageView7"
+            app:layout_constraintTop_toBottomOf="@id/imageView7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSaturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/clMercury"
+        app:layout_constraintTop_toBottomOf="@id/clMars">
+
+        <ImageView
+            android:id="@+id/imageVie"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/saturn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saturn"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageVie"
+            app:layout_constraintStart_toStartOf="@id/imageVie"
+            app:layout_constraintTop_toBottomOf="@id/imageVie" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clUranus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clJupiter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clVenus">
+
+        <ImageView
+            android:id="@+id/imageVi"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/uranus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/uranus"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageVi"
+            app:layout_constraintStart_toStartOf="@id/imageVi"
+            app:layout_constraintTop_toBottomOf="@id/imageVi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clJupiter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toStartOf="@id/clNeptune"
+        app:layout_constraintStart_toEndOf="@id/clUranus"
+        app:layout_constraintTop_toBottomOf="@id/clMercury">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/jupiter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jupiter"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/img"
+            app:layout_constraintStart_toStartOf="@id/img"
+            app:layout_constraintTop_toBottomOf="@id/img" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNeptune"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/clJupiter"
+        app:layout_constraintTop_toBottomOf="@id/clSaturn">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/neptune" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neptune"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPluto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_padding"
+        android:layout_marginStart="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="@id/clUranus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clUranus">
+
+        <ImageView
+            android:id="@+id/imgP"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pluto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pluto"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imgP"
+            app:layout_constraintStart_toStartOf="@id/imgP"
+            app:layout_constraintTop_toBottomOf="@id/imgP" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
