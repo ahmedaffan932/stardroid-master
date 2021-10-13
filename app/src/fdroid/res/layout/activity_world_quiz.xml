@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".WorldQuizActivity">
+
+    <ImageView
+        android:id="@+id/btnCloseGame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/fab_padding"
+        android:padding="@dimen/padding"
+        android:background="@drawable/bg_gradient_pink_circle"
+        app:srcCompat="@drawable/mapbox_ic_clear" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="@dimen/extra_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCloseGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/half_globe" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/imageView8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="@string/world_quiz" />
+
+
+
+    <ImageView
+        android:id="@+id/btnPlayGame"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnViewWorld"
+        android:layout_margin="@dimen/fab_padding"
+        android:padding="@dimen/padding"
+        android:background="@drawable/bg_gradient_pink_circle"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+
+
+    <ImageView
+        android:id="@+id/btnViewWorld"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_gradient_pink_circle"
+        android:padding="@dimen/padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlayGame"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/globe_white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

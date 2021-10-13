@@ -8,8 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.google.android.stardroid.clasess.Misc
+import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.main.activity_splash_screen.*
@@ -25,32 +25,32 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         setContentView(R.layout.activity_splash_screen)
 
         btnStart.setOnClickListener {
-//            if (PermissionsManager.areLocationPermissionsGranted(this)) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    getCameraPermission()
-//                } else {
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        getStoragePermission()
-//                    } else {
-//                        Misc.startActivity(
-//                            this,
-//                            Misc.isSplashIntEnabled,
-//                            object : StartActivityCallBack {
-//                                override fun onStart() {
+            if (PermissionsManager.areLocationPermissionsGranted(this)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    getCameraPermission()
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        getStoragePermission()
+                    } else {
+                        Misc.startActivity(
+                            this,
+                            Misc.isSplashIntEnabled,
+                            object : StartActivityCallBack {
+                                override fun onStart() {
                                     startActivity(
                                         Intent(
                                             this@SplashScreenActivity,
                                             MainActivity::class.java
                                         )
                                     )
-//                                }
-//                            })
-//                    }
-//                }
-//            } else {
-//                permissionsManager = PermissionsManager(this)
-//                permissionsManager.requestLocationPermissions(this)
-//            }
+                                }
+                            })
+                    }
+                }
+            } else {
+                permissionsManager = PermissionsManager(this)
+                permissionsManager.requestLocationPermissions(this)
+            }
 
         }
     }

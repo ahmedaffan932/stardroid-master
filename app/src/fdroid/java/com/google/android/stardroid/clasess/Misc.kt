@@ -42,6 +42,7 @@ class Misc {
         var isNoteCamIntEnabled: Boolean = false
         var isAltitudeIntEnabled: Boolean = false
         var isLiveEarthIntEnabled: Boolean = false
+        var isViewWorldIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
         var isNoteCamOnBackIntEnabled: Boolean = false

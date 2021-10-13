@@ -56,7 +56,7 @@
             android:layout_marginTop="@dimen/extra_padding"
             android:background="@drawable/bg_search"
             android:queryHint="Click here to explore"
-
+            android:visibility="gone"
             mapbox:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -98,6 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_padding"
+            android:elevation="@dimen/padding"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +134,7 @@
             android:layout_height="0dp"
             mapbox:layout_constraintBottom_toTopOf="@id/cl"
             app:layout_constraintTop_toTopOf="parent"
+            android:elevation="@dimen/padding"
             mapbox:mapbox_cameraTargetLat="51.50550"
             mapbox:mapbox_cameraTargetLng="-0.07520"
             mapbox:mapbox_cameraZoom="12" />

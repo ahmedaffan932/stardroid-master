@@ -242,23 +242,24 @@ class NoteCamActivity : BaseActivity() {
                 val builder = VmPolicy.Builder()
                 StrictMode.setVmPolicy(builder.build())
 
-                val i: Intent?
+                var i: Intent?
                 val manager = packageManager
-                try {
-                    i = manager.getLaunchIntentForPackage("com.google.android.apps.photos")
-                    if (i == null) throw PackageManager.NameNotFoundException()
-                    i.addCategory(Intent.CATEGORY_LAUNCHER)
+//                try {
+//                    i = Intent(manager.getLaunchIntentForPackage("com.google.android.apps.photos"))
+//
+////                    i = manager.getLaunchIntentForPackage("com.google.android.apps.photos")
+////                    if (i == null) throw PackageManager.NameNotFoundException()
+//
+//                    i.action = Intent.ACTION_VIEW
+//                    i.setDataAndType(lastUri, "image/*")
+//                    startActivity(i)
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+                    i = Intent()
+                    i.action = Intent.ACTION_VIEW
                     i.setDataAndType(lastUri, "image/*")
                     startActivity(i)
-                } catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                    val intent = Intent()
-                    intent.action = Intent.ACTION_VIEW
-                    intent.setDataAndType(lastUri, "image/*")
-                    startActivity(intent)
-                }
-
-
+//                }
             }
         }
 

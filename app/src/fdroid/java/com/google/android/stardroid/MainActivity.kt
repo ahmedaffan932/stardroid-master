@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         findViewById<LinearLayout>(R.id.llWorldQuiz).setOnClickListener {
             Misc.startActivity(this, Misc.isGameIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    val intent = Intent(this@MainActivity, AmChartsActivity::class.java)
+                    val intent = Intent(this@MainActivity, WorldQuizActivity::class.java)
                     startActivity(intent)
                 }
             })

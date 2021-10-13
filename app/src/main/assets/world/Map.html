@@ -1,0 +1,100 @@
+<style>
+#chartdiv {
+  width: auto;
+  height: auto;
+  background-color:#3F4371;
+}
+</style>
+
+<!-- Resources -->
+<script src="core.js"></script>
+<script src="maps.js"></script>
+<script src="worldLow.js"></script>
+<script src="countries2.js"></script>
+<script src="kelly.js"></script>
+<script src="animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_kelly);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var continents = {
+  "AF": 0,
+  "AN": 1,
+  "AS": 2,
+  "EU": 3,
+  "NA": 4,
+  "OC": 5,
+  "SA": 6
+}
+
+// Create map instance
+var chart = am4core.create("chartdiv", am4maps.MapChart);
+chart.projection = new am4maps.projections.Miller();
+
+// Create map polygon series for world map
+var worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
+worldSeries.useGeodata = true;
+worldSeries.geodata = am4geodata_worldLow;
+
+
+var worldPolygon = worldSeries.mapPolygons.template;
+worldPolygon.nonScalingStroke = true;
+worldPolygon.strokeOpacity = 0.5;
+worldPolygon.fill = am4core.color("#3F4371");
+worldPolygon.propertyFields.fill = "color";
+
+
+
+// Create country specific series (but hide it for now)
+var countrySeries = chart.series.push(new am4maps.MapPolygonSeries());
+countrySeries.useGeodata = true;
+
+
+// Set up click events
+worldPolygon.events.on("hit", function(ev) {
+
+  // zoom to an object
+  ev.target.series.chart.zoomToMapObject(ev.target);
+
+  ev.target.series.fill = am4core.color("#000");
+
+  // get object info
+  console.log(ev.target.dataItem.dataContext);
+  showAndroidToast(ev.target.dataItem.dataContext.name);
+});
+
+// Set up data for countries
+var data = [];
+for(var id in am4geodata_data_countries2) {
+  if (am4geodata_data_countries2.hasOwnProperty(id)) {
+    var country = am4geodata_data_countries2[id];
+    if (country.maps.length) {
+      data.push({
+        id: id,
+        color: "#3F4371",
+        map: country.maps[0]
+      });
+    }
+  }
+}
+worldSeries.data = data;
+
+worldSeries.getPolygonById("ica").color = am4core.color("#f00");
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
+
+<script type="text/javascript">
+    function showAndroidToast(toast) {
+        Android.showToast(toast);
+    }
+</script>

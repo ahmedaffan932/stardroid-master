@@ -24,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/textView5"
@@ -59,7 +60,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/moon4" />
+            app:srcCompat="@drawable/moon4"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,7 +93,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sun" />
+            app:srcCompat="@drawable/ic_sun"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,7 +127,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/mars" />
+            app:srcCompat="@drawable/ic_mars"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -144,8 +148,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toStartOf="@id/clMercury"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/clMoon"
+        app:layout_constraintStart_toStartOf="@+id/clMoon"
         app:layout_constraintTop_toBottomOf="@id/clMoon">
 
         <ImageView
@@ -155,7 +159,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/venus" />
+            app:srcCompat="@drawable/ic_venus"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -176,8 +181,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toStartOf="@id/clSaturn"
-        app:layout_constraintStart_toEndOf="@id/clVenus"
+        app:layout_constraintEnd_toEndOf="@id/clSun"
+        app:layout_constraintStart_toStartOf="@+id/clSun"
         app:layout_constraintTop_toBottomOf="@id/clSun">
 
         <ImageView
@@ -187,7 +192,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/mercury" />
+            app:srcCompat="@drawable/ic_mercury"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -208,8 +214,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/clMercury"
+        app:layout_constraintEnd_toEndOf="@id/clMars"
+        app:layout_constraintStart_toStartOf="@+id/clMars"
         app:layout_constraintTop_toBottomOf="@id/clMars">
 
         <ImageView
@@ -219,7 +225,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/saturn" />
+            app:srcCompat="@drawable/ic_saturn"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -241,8 +248,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toStartOf="@id/clJupiter"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/clVenus"
+        app:layout_constraintStart_toStartOf="@+id/clVenus"
         app:layout_constraintTop_toBottomOf="@id/clVenus">
 
         <ImageView
@@ -252,7 +259,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/uranus" />
+            app:srcCompat="@drawable/ic_uranus"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -273,8 +281,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toStartOf="@id/clNeptune"
-        app:layout_constraintStart_toEndOf="@id/clUranus"
+        app:layout_constraintEnd_toEndOf="@id/clMercury"
+        app:layout_constraintStart_toStartOf="@+id/clMercury"
         app:layout_constraintTop_toBottomOf="@id/clMercury">
 
         <ImageView
@@ -284,7 +292,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/jupiter" />
+            app:srcCompat="@drawable/ic_jupiter"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -305,8 +314,8 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/clJupiter"
+        app:layout_constraintEnd_toEndOf="@id/clSaturn"
+        app:layout_constraintStart_toStartOf="@+id/clSaturn"
         app:layout_constraintTop_toBottomOf="@id/clSaturn">
 
         <ImageView
@@ -316,7 +325,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/neptune" />
+            app:srcCompat="@drawable/ic_neptune"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -333,12 +343,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fab_padding"
-        android:layout_marginStart="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
         app:layout_constraintEnd_toEndOf="@id/clUranus"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/clUranus"
         app:layout_constraintTop_toBottomOf="@id/clUranus">
 
         <ImageView
@@ -348,7 +357,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pluto" />
+            app:srcCompat="@drawable/ic_pluto"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"

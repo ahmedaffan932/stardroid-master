@@ -2,6 +2,7 @@ package com.google.android.stardroid
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,37 +20,37 @@ import android.print.PrintJob
 import android.print.PrintManager
 
 import android.webkit.WebView
-
-
-
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.android.synthetic.main.activity_am_chatrs.*
 
 
 class AmChartsActivity : AppCompatActivity() {
-    private lateinit var webView: WebView
+
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_am_chatrs)
 
-        webView = WebView(this)
-
         webView.settings.javaScriptEnabled = true
         webView.settings.allowFileAccess = true
-        webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
+        webView.setBackgroundColor(getColor(R.color.background_color))
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // chromium, enable hardware acceleration
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         } else {
             // older android version, disable hardware acceleration
-            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE;
 
         webView.addJavascriptInterface(WebAppInterface(this), "Android")
-        webView.loadUrl("file:///android_asset/Map.html")
-        setContentView(webView)
+        webView.loadUrl("file:///android_asset/world/Map.html")
+//        setContentView(webView)
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
@@ -74,7 +75,7 @@ class AmChartsActivity : AppCompatActivity() {
         }
     }
 
-    fun createWebPagePrint(webView: WebView) {
+    private fun createWebPagePrint(webView: WebView) {
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
             return;*/
         val printManager = getSystemService(Context.PRINT_SERVICE) as PrintManager

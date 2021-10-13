@@ -149,7 +149,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     }
 
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-        TODO("Not yet implemented")
     }
 
     override fun onPermissionResult(granted: Boolean) {
