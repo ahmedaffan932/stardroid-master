@@ -725,7 +725,7 @@
     Longitude must be between -180 and 180.</string>
 
     <!-- Infowindow SymbolLayer -->
-    <string name="capital">Capital: %1$s</string>
+    <string name="capital">Capital:</string>
     <string name="tap_on_marker_instruction">Tap on a marker</string>
 
     <!-- Redo search -->
@@ -1032,6 +1032,11 @@
     <string name="current_speed">Current Speed</string>
     <string name="speedometer">Speedometer</string>
     <string name="sky_map">Sky Map</string>
+    <string name="_10">10.</string>
+    <string name="pakistan">Pakistan</string>
+    <string name="population">Population:</string>
+    <string name="area">Area</string>
+    <string name="currency">Currency:</string>
 
 
 </resources>

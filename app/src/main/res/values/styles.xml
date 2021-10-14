@@ -9,6 +9,10 @@
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+
+        <item name="colorControlNormal">?attr/colorSecondaryVariant</item>
+        <item name="colorControlActivated">?attr/colorSecondaryVariant</item>
+        <item name="colorControlHighlight">?attr/colorSecondaryVariant</item>
     </style>
 
     <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">

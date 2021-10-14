@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.blongho.country_data.World
 import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -23,6 +24,8 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        World.init(this)
 
         btnStart.setOnClickListener {
             if (PermissionsManager.areLocationPermissionsGranted(this)) {

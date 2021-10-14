@@ -381,7 +381,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
         ) { style ->
             mapBoxStyle = style
             if(isThreeDView) {
-                buildingPlugin = BuildingPlugin(mapView, mapboxMap, style)
+                buildingPlugin?.setVisibility(true)
                 mapboxMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(
                         CameraPosition.Builder()
@@ -391,11 +391,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                             .build()
                     ), 4000
                 )
-                buildingPlugin?.setMinZoomLevel(15f)
-                buildingPlugin?.setVisibility(true)
                 isThreeDViewEnabled = true
             }else{
-                buildingPlugin = null
                 mapboxMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(
                         CameraPosition.Builder()
@@ -405,6 +402,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                             .build()
                     ), 4000
                 )
+                buildingPlugin?.setVisibility(false)
                 isThreeDViewEnabled = false
             }
 
@@ -417,6 +415,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
                 }
+                buildingPlugin = BuildingPlugin(mapView, mapboxMap, style)
+                buildingPlugin?.setMinZoomLevel(15f)
                 isFirstTime = false
             }
 

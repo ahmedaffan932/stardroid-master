@@ -1,12 +1,20 @@
+<!-- Styles -->
 <style>
-#chartdiv {
-  width: auto;
-  height: auto;
-  background-color:#3F4371;
-}
-</style>
+    #chartdiv {
+      width: auto;
+      height: auto;
+      background-color: #3F4371;
+    }
+
+    </style>
 
 <!-- Resources -->
+<!-- <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+ -->
+
 <script src="core.js"></script>
 <script src="maps.js"></script>
 <script src="worldLow.js"></script>
@@ -16,85 +24,103 @@
 
 <!-- Chart code -->
 <script>
-am4core.ready(function() {
+        var polygonSeries
+        var chart
+        var polygonTemplate
+    am4core.ready(function() {
 
-// Themes begin
-am4core.useTheme(am4themes_kelly);
-am4core.useTheme(am4themes_animated);
-// Themes end
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
 
-var continents = {
-  "AF": 0,
-  "AN": 1,
-  "AS": 2,
-  "EU": 3,
-  "NA": 4,
-  "OC": 5,
-  "SA": 6
+    /* Create map instance */
+    chart = am4core.create("chartdiv", am4maps.MapChart);
+
+    /* Set map definition */
+    chart.geodata = am4geodata_worldLow;
+
+    /* Set projection */
+    chart.projection = new am4maps.projections.Miller();
+    chart.minZoomLevel = 3;
+chart.maxZoomLevel = 32;
+
+chart.homeZoomLevel = 3;
+
+    /* Create map polygon series */
+    polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+    /* Make map load polygon (like country names) data from GeoJSON */
+    polygonSeries.useGeodata = true;
+
+    /* Configure series */
+    polygonTemplate = polygonSeries.mapPolygons.template;
+    polygonTemplate.applyOnClones = true;
+    polygonTemplate.togglable = true;
+    // polygonTemplate.tooltipText = "{name}";
+    polygonTemplate.nonScalingStroke = true;
+    polygonTemplate.strokeOpacity = 0.5;
+    // polygonTemplate.isHover = true;
+    polygonTemplate.fill = "#90A4AE";//chart.colors.getIndex(0);
+    var lastSelected;
+    polygonTemplate.events.on("hit", function(ev) {
+      
+      if (lastSelected) {
+        // This line serves multiple purposes:
+        // 1. Clicking a country twice actually de-activates, the line below
+        //    de-activates it in advance, so the toggle then re-activates, making it
+        //    appear as if it was never de-activated to begin with.
+        // 2. Previously activated countries should be de-activated.
+        lastSelected.isActive = false;
+      }
+
+      ev.target.series.chart.zoomToMapObject(ev.target, 2, true, 500);
+      
+      console.log(ev);
+      if (lastSelected !== ev.target) {
+        lastSelected = ev.target;
+      }
+    })
+
+
+    /* Create selected and hover states and set alternative fill color */
+    var ss = polygonTemplate.states.create("active");
+    ss.properties.fill = "#757575";
+    var hs = polygonTemplate.states.create("hover");
+    hs.properties.fill = am4core.color("#757575");
+
+    // Hide Antarctica
+    polygonSeries.exclude = ["AQ"];
+
+    // Zoom control
+
+    chart.zoomControl = new am4maps.ZoomControl();
+    chart.zoomControl.align = "right"
+    chart.zoomControl.valign = "top"
+    
+    chart.zoomControl.background.fill = am4core.color("#3c416b");
+
+    // chart.zoomToMapObject(polygonSeries.getPolygonById(id));
+
+    }); // end am4core.ready()
+
+function zoomCountry(id){
+  chart.zoomToMapObject(polygonSeries.getPolygonById(id));
 }
 
-// Create map instance
-var chart = am4core.create("chartdiv", am4maps.MapChart);
-chart.projection = new am4maps.projections.Miller();
 
-// Create map polygon series for world map
-var worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
-worldSeries.useGeodata = true;
-worldSeries.geodata = am4geodata_worldLow;
-
-
-var worldPolygon = worldSeries.mapPolygons.template;
-worldPolygon.nonScalingStroke = true;
-worldPolygon.strokeOpacity = 0.5;
-worldPolygon.fill = am4core.color("#3F4371");
-worldPolygon.propertyFields.fill = "color";
-
-
-
-// Create country specific series (but hide it for now)
-var countrySeries = chart.series.push(new am4maps.MapPolygonSeries());
-countrySeries.useGeodata = true;
-
-
-// Set up click events
-worldPolygon.events.on("hit", function(ev) {
-
-  // zoom to an object
-  ev.target.series.chart.zoomToMapObject(ev.target);
-
-  ev.target.series.fill = am4core.color("#000");
-
-  // get object info
-  console.log(ev.target.dataItem.dataContext);
-  showAndroidToast(ev.target.dataItem.dataContext.name);
-});
-
-// Set up data for countries
-var data = [];
-for(var id in am4geodata_data_countries2) {
-  if (am4geodata_data_countries2.hasOwnProperty(id)) {
-    var country = am4geodata_data_countries2[id];
-    if (country.maps.length) {
-      data.push({
-        id: id,
-        color: "#3F4371",
-        map: country.maps[0]
-      });
-    }
+var selected;
+function selectCountry(id) {
+chart.zoomToMapObject(polygonSeries.getPolygonById(id), 2, true, 1000);
+if (selected) {
+    selected.isHover = false;
   }
+  selected = polygonSeries.getPolygonById(id);
+  selected.isHover = true;
 }
-worldSeries.data = data;
 
-worldSeries.getPolygonById("ica").color = am4core.color("#f00");
 
-}); // end am4core.ready()
+
 </script>
 
 <!-- HTML -->
 <div id="chartdiv"></div>
-
-<script type="text/javascript">
-    function showAndroidToast(toast) {
-        Android.showToast(toast);
-    }
-</script>

@@ -1,6 +1,5 @@
 package com.google.android.stardroid.interfaces
 
-import android.app.Activity
 import android.content.Context
 import android.webkit.JavascriptInterface
 import android.widget.Toast

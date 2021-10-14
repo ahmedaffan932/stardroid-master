@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.blongho.country_data.Country
 import com.google.android.stardroid.clasess.Misc
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -49,7 +50,7 @@ import java.io.IOException
 import java.util.*
 
 
-class CompassActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
+class CompassActivity(allCountries: MutableList<Country>, amChartsActivity: AmChartsActivity) : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
     MapboxMap.OnMapClickListener {
     private val point: LatLng = LatLng()
     private lateinit var mapView: MapView
