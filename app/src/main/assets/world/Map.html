@@ -1,8 +1,6 @@
 <!-- Styles -->
 <style>
     #chartdiv {
-      width: auto;
-      height: auto;
       background-color: #3F4371;
     }
 
@@ -38,12 +36,22 @@
 
     /* Set map definition */
     chart.geodata = am4geodata_worldLow;
-
     /* Set projection */
-    chart.projection = new am4maps.projections.Miller();
-    chart.minZoomLevel = 3;
-chart.maxZoomLevel = 32;
 
+    
+// var graticuleSeries = chart.series.push(new am4maps.GraticuleSeries());
+// graticuleSeries.mapLines.template.line.stroke = am4core.color("#ffffff");
+// graticuleSeries.mapLines.template.line.strokeOpacity = 0.08;
+// graticuleSeries.fitExtent = true;
+
+    // chart.projection = new am4maps.projections.Miller();
+    chart.projection = new am4maps.projections.NaturalEarth1();
+    // chart.panBehavior = "rotateLong";
+    chart.deltaLongitude = -10;
+
+   
+chart.minZoomLevel = 3;
+// chart.maxZoomLevel = 32;
 chart.homeZoomLevel = 3;
 
     /* Create map polygon series */
@@ -59,6 +67,10 @@ chart.homeZoomLevel = 3;
     // polygonTemplate.tooltipText = "{name}";
     polygonTemplate.nonScalingStroke = true;
     polygonTemplate.strokeOpacity = 0.5;
+
+    // chart.backgroundSeries.mapPolygons.template.polygon.fill = am4core.color("#454a58");
+    // chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 1;
+
     // polygonTemplate.isHover = true;
     polygonTemplate.fill = "#90A4AE";//chart.colors.getIndex(0);
     var lastSelected;
@@ -73,8 +85,9 @@ chart.homeZoomLevel = 3;
         lastSelected.isActive = false;
       }
 
-      ev.target.series.chart.zoomToMapObject(ev.target, 2, true, 500);
-      
+      // ev.target.series.chart.zoomToMapObject(ev.target, 2, true, 500);
+      ev.target.series.chart.zoomToMapObject(ev.target);
+      // rotateTo(ev.point.x, ev.point.y);
       console.log(ev);
       if (lastSelected !== ev.target) {
         lastSelected = ev.target;
@@ -110,7 +123,8 @@ function zoomCountry(id){
 
 var selected;
 function selectCountry(id) {
-chart.zoomToMapObject(polygonSeries.getPolygonById(id), 2, true, 1000);
+// chart.zoomToMapObject(polygonSeries.getPolygonById(id), 2, true, 1000);
+chart.zoomToMapObject(polygonSeries.getPolygonById(id));
 if (selected) {
     selected.isHover = false;
   }
@@ -119,6 +133,20 @@ if (selected) {
 }
 
 
+
+var animation;
+function rotateTo(long, lat) {
+  if(animation){
+    animation.stop();
+  }
+  animation = chart.animate([{
+    property: "deltaLongitude",
+    to: long
+  }, {
+    property: "deltaLatitude",
+    to: lat
+  }], 2000);
+}
 
 </script>
 

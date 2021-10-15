@@ -67,6 +67,7 @@ class CountryAdapter(
 
     override fun getFilter(): Filter {
         return object : Filter() {
+            @SuppressLint("LogNotTimber")
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val result = FilterResults()
                 val founded: MutableList<Country> = ArrayList()

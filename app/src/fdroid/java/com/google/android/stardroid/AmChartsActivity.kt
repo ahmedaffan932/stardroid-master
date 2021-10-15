@@ -20,6 +20,8 @@ import android.print.PrintJob
 import android.print.PrintManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.animation.Interpolator
+import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.InputMethodManager
 
 import android.webkit.WebView
@@ -43,10 +45,6 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_am_chatrs)
 
-//        for (country in World.getAllCountries()) {
-//            Log.d(Misc.logKey, country.toString())
-//        }
-
         btnBackViewWorld.setOnClickListener {
             onBackPressed()
         }
@@ -61,7 +59,8 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                         this@AmChartsActivity,
                         R.anim.slide_from_left_to_right
                     )
-                a.duration = 500
+                a.duration = 300
+                a.interpolator  = OvershootInterpolator()
                 clCountryInfo.startAnimation(a)
                 clCountryInfo.visibility = View.VISIBLE
                 flagCountryInfo.setImageResource(World.getFlagOf(country.alpha2))
@@ -71,6 +70,16 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 countryAreaInfo.text = "Area: ${country.area} km²"
                 countryCurrencyInfo.text =
                     "Currency: ${country.currency.name} (${country.currency.symbol})"
+
+                val inputManager: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+                if (currentFocus != null) {
+                    inputManager.hideSoftInputFromWindow(
+                        currentFocus!!.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+                }
             }
         })
         recyclerViewCountryList.adapter = adapter
@@ -101,10 +110,10 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             ) {
                 super.onReceivedError(view, request, error)
                 Log.d("TAG", error.description.toString())
-                // handler.proceed(); This line wont make a different on API 29, Webview still bank
             }
         }
 
+        simpleSearchView.setOnQueryTextListener(this)
     }
 
     override fun onBackPressed() {
@@ -144,9 +153,11 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         return true
     }
 
+    @SuppressLint("LogNotTimber")
     override fun onQueryTextChange(p0: String?): Boolean {
         adapter.filter.filter(p0)
         recyclerViewCountryList.adapter = adapter
+        Log.d(Misc.logKey, "onQueryTextChange")
         return true
     }
 }
