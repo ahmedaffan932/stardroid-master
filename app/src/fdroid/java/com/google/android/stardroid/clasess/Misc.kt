@@ -45,6 +45,7 @@ class Misc {
         var isViewWorldIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
+        var isQuizCountriesIntEnabled: Boolean = false
         var isNoteCamOnBackIntEnabled: Boolean = false
         var isLiveEarthOnBackIntEnabled: Boolean = false
         var isGenerateQrOnBackIntEnabled: Boolean = false
@@ -80,9 +81,6 @@ class Misc {
                 false
             } else {
                 zoomOutView(view, activity, 150)
-                Handler().postDelayed({
-                    view.visibility = View.GONE
-                }, 150)
                 false
             }
         }
@@ -118,7 +116,6 @@ class Misc {
         }
 
 
-
         fun setCameraFace(activity: Activity, boolean: Boolean) {
             val sharedPreferences = activity.getSharedPreferences(
                 cameraFace,
@@ -145,7 +142,11 @@ class Misc {
 
         }
 
-        fun saveImageToExternal(activity: Activity, bitmap: Bitmap, onImageSaveCallBack: OnImageSaveCallBack?): Uri? {
+        fun saveImageToExternal(
+            activity: Activity,
+            bitmap: Bitmap,
+            onImageSaveCallBack: OnImageSaveCallBack?
+        ): Uri? {
             val imageCollection = sdk29AndUp {
                 MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
             } ?: MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -173,7 +174,7 @@ class Misc {
             }
         }
 
-        fun getLastSavedUri(activity: Activity): String{
+        fun getLastSavedUri(activity: Activity): String {
             val sharedPreferences: SharedPreferences =
                 activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getString(lastUri, "o").toString()

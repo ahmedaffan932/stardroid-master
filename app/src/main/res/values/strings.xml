@@ -1037,6 +1037,15 @@
     <string name="population">Population:</string>
     <string name="area">Area</string>
     <string name="currency">Currency:</string>
+    <string name="country_list">Country List</string>
+    <string name="select_mode">Select Mode</string>
+    <string name="countries">Countries</string>
+    <string name="asia">Asia</string>
+    <string name="europe">Europe</string>
+    <string name="africa">Africa</string>
+    <string name="america">America</string>
+    <string name="oceania">Oceania</string>
+    <string name="world">World</string>
 
 
 </resources>

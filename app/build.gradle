@@ -99,12 +99,7 @@ dependencies {
     implementation project(path: ':country_data')
     implementation project(path: ':country_data')
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
-    // For annotations not in Android but needed by Dagger
-//    implementation 'javax.annotation:jsr250-api:1.0'
-    // Lite version for Android - it's lighter (obviously) but also doesn't use reflection
-    // which can cause no end of problems with minifiers like proguard.
 
-    //implementation 'com.google.protobuf:protobuf-javalite:3.13.0'
     implementation 'com.google.protobuf:protobuf-java:3.15.2'
 
 
@@ -159,6 +154,8 @@ dependencies {
     implementation 'com.github.arbelkilani:Compass-View:v1.1.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
 
 }
 repositories {

@@ -44,8 +44,8 @@
 // graticuleSeries.mapLines.template.line.strokeOpacity = 0.08;
 // graticuleSeries.fitExtent = true;
 
-    // chart.projection = new am4maps.projections.Miller();
-    chart.projection = new am4maps.projections.NaturalEarth1();
+    chart.projection = new am4maps.projections.Miller();
+    // chart.projection = new am4maps.projections.NaturalEarth1();
     // chart.panBehavior = "rotateLong";
     chart.deltaLongitude = -10;
 
@@ -68,6 +68,7 @@ chart.homeZoomLevel = 3;
     polygonTemplate.nonScalingStroke = true;
     polygonTemplate.strokeOpacity = 0.5;
 
+    //Water
     // chart.backgroundSeries.mapPolygons.template.polygon.fill = am4core.color("#454a58");
     // chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 1;
 
@@ -87,6 +88,7 @@ chart.homeZoomLevel = 3;
 
       // ev.target.series.chart.zoomToMapObject(ev.target, 2, true, 500);
       ev.target.series.chart.zoomToMapObject(ev.target);
+      showAndroidToast(ev.target.dataItem.dataContext.id);
       // rotateTo(ev.point.x, ev.point.y);
       console.log(ev);
       if (lastSelected !== ev.target) {
@@ -120,6 +122,9 @@ function zoomCountry(id){
   chart.zoomToMapObject(polygonSeries.getPolygonById(id));
 }
 
+function showAndroidToast(toast) {
+        Android.selectCountryInCountry(toast);
+    }
 
 var selected;
 function selectCountry(id) {

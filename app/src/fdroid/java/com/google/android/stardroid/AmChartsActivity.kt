@@ -4,38 +4,31 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
+import android.print.PrintAttributes
+import android.print.PrintJob
+import android.print.PrintManager
 import android.util.Log
 import android.view.View
-import android.webkit.*
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.stardroid.interfaces.WebAppInterface
-import android.widget.Toast
-
-import android.print.PrintAttributes
-
-import android.print.PrintJob
-
-import android.print.PrintManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.Interpolator
 import android.view.animation.OvershootInterpolator
 import android.view.inputmethod.InputMethodManager
-
-import android.webkit.WebView
+import android.webkit.*
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.google.android.stardroid.adapters.CountryAdapter
 import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.CountryListInterface
+import com.google.android.stardroid.interfaces.WebAppInterface
 import kotlinx.android.synthetic.main.activity_am_chatrs.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
-
-class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     lateinit var adapter: CountryAdapter
 
@@ -49,27 +42,24 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             onBackPressed()
         }
 
+        setEventListener(this, object : KeyboardVisibilityEventListener {
+            override fun onVisibilityChanged(isOpen: Boolean) {
+                if (isOpen) {
+                    Misc.hideView(
+                        clCountryInfo,
+                        this@AmChartsActivity,
+                        clCountryInfo.visibility == View.VISIBLE
+                    )
+                }
+            }
+        })
+
         recyclerViewCountryList.layoutManager = LinearLayoutManager(this)
         adapter = CountryAdapter(World.getAllCountries(), this, object : CountryListInterface {
             @SuppressLint("SetTextI18n")
             override fun onCountryClick(country: Country) {
                 webView.loadUrl("javascript:selectCountry('${country.alpha2}');")
-                val a: Animation =
-                    AnimationUtils.loadAnimation(
-                        this@AmChartsActivity,
-                        R.anim.slide_from_left_to_right
-                    )
-                a.duration = 300
-                a.interpolator  = OvershootInterpolator()
-                clCountryInfo.startAnimation(a)
-                clCountryInfo.visibility = View.VISIBLE
-                flagCountryInfo.setImageResource(World.getFlagOf(country.alpha2))
-                countryNameInfo.text = country.name
-                countryCapitalInfo.text = "Capital: ${country.capital}"
-                countryPopulationInfo.text = "Population: ${country.population}"
-                countryAreaInfo.text = "Area: ${country.area} km²"
-                countryCurrencyInfo.text =
-                    "Currency: ${country.currency.name} (${country.currency.symbol})"
+                setCountryData(country)
 
                 val inputManager: InputMethodManager =
                     getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -98,7 +88,12 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         }
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE;
 
-        webView.addJavascriptInterface(WebAppInterface(this), "Android")
+        webView.addJavascriptInterface(WebAppInterface(this, object : CountryListInterface {
+            @SuppressLint("SetTextI18n")
+            override fun onCountryClick(country: Country) {
+                setCountryData(country)
+            }
+        }), "Android")
 
         webView.loadUrl("file:///android_asset/world/Map.html")
 
@@ -113,6 +108,15 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             }
         }
 
+        checkBoxCountryList.setOnCheckedChangeListener { compoundButton, b ->
+            if(compoundButton.isChecked){
+                simpleSearchView.visibility = View.VISIBLE
+                recyclerViewCountryList.visibility = View.VISIBLE
+            }else {
+                simpleSearchView.visibility = View.GONE
+                recyclerViewCountryList.visibility = View.GONE
+            }
+        }
         simpleSearchView.setOnQueryTextListener(this)
     }
 
@@ -159,5 +163,30 @@ class AmChartsActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         recyclerViewCountryList.adapter = adapter
         Log.d(Misc.logKey, "onQueryTextChange")
         return true
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setCountryData(country: Country) {
+
+        runOnUiThread {
+
+            flagCountryInfo.setImageResource(World.getFlagOf(country.alpha2))
+            countryNameInfo.text = country.name
+            countryCapitalInfo.text = "Capital: ${country.capital}"
+            countryPopulationInfo.text = "Population: ${country.population}"
+            countryAreaInfo.text = "Area: ${country.area} km²"
+            countryCurrencyInfo.text =
+                "Currency: ${country.currency.name} (${country.currency.symbol})"
+            clCountryInfo.visibility = View.VISIBLE
+        }
+        val a: Animation =
+            AnimationUtils.loadAnimation(
+                this@AmChartsActivity,
+                R.anim.slide_from_left_to_right
+            )
+        a.duration = 300
+        a.interpolator = OvershootInterpolator()
+        clCountryInfo.startAnimation(a)
+
     }
 }

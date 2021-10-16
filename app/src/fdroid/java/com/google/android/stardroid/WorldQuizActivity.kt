@@ -20,14 +20,15 @@ class WorldQuizActivity : AppCompatActivity() {
                 }
             })
         }
-//        btnPlayGame.setOnClickListener{
-//            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
-//                override fun onStart() {
-//                    val intent = Intent(this@WorldQuizActivity, AmChartsActivity::class.java)
-//                    intent.putExtra(Misc.data, "sda")
-//                    startActivity(intent)
-//                }
-//            })
-//        }
+
+        btnPlayGame.setOnClickListener{
+            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    val intent = Intent(this@WorldQuizActivity, WorldQuizScreenOneActivity::class.java)
+                    intent.putExtra(Misc.data, "sda")
+                    startActivity(intent)
+                }
+            })
+        }
     }
 }

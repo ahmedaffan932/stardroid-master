@@ -134,7 +134,7 @@
         <activity android:name=".QRActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".AmChartsActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:fitsSystemWindows="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".LiveEarthActivity"

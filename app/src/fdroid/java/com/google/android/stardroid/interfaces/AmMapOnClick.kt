@@ -1,15 +1,22 @@
 package com.google.android.stardroid.interfaces
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.webkit.JavascriptInterface
-import android.widget.Toast
+import com.blongho.country_data.World
 
-class WebAppInterface(private val mContext: Context) {
+class WebAppInterface(private val activity: Activity, private val countryListInterface: CountryListInterface) {
 
     /** Show a toast from the web page  */
+    @SuppressLint("LogNotTimber", "SetTextI18n")
     @JavascriptInterface
-    fun showToast(toast: String): String {
-        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show()
-        return toast
+    fun selectCountryInCountry(countryId: String) {
+        try{
+            val country = World.getCountryFrom(countryId)
+
+            countryListInterface.onCountryClick(country)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 }

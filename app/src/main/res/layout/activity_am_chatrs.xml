@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
+    android:id="@+id/clRoot"
     tools:context=".AmChartsActivity">
 
 
@@ -30,22 +31,26 @@
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
         app:tint="@color/white" />
 
-    <ImageView
-        android:id="@+id/btnSettingsViewWorld"
+
+    <CheckBox
+        android:id="@+id/checkBoxCountryList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_nothing"
-        android:layout_margin="@dimen/fab_padding"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/fab_padding"
         app:layout_constraintStart_toEndOf="@id/btnBackViewWorld"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings"
-        app:tint="@color/white" />
+        app:layout_constraintTop_toTopOf="@id/btnBackViewWorld"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBackViewWorld"
+        android:text="@string/country_list" />
 
     <SearchView
         android:id="@+id/simpleSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/extra_padding"
+        android:visibility="gone"
         android:background="@color/translucent_black"
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
@@ -62,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/extra_padding"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
