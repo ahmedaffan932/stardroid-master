@@ -61,7 +61,6 @@
         app:layout_goneMarginTop="@dimen/fab_padding"
         tools:ignore="RtlSymmetry" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCountryList"
         android:layout_width="match_parent"

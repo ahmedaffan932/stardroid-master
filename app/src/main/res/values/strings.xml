@@ -1046,6 +1046,21 @@
     <string name="america">America</string>
     <string name="oceania">Oceania</string>
     <string name="world">World</string>
+    <string name="confirm">Confirm</string>
+    <string name="find">Find:</string>
+    <string name="correct">Correct !</string>
+    <string name="_0_30">0 / 30</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="pro_player">Pro Player</string>
+    <string name="_0_70">0 / 70</string>
+    <string name="_0_236">0 / 236</string>
+    <string name="quiz_result">Quiz Result</string>
+    <string name="total_levels">Total Levels:</string>
+    <string name="correct_answers">Correct Answers</string>
+    <string name="false_answers">False Answers:</string>
+    <string name="back">Back</string>
 
 
 </resources>

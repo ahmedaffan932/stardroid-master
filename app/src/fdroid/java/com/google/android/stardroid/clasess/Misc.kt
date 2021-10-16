@@ -25,6 +25,7 @@ import java.util.*
 
 class Misc {
     companion object {
+        var levels: String = "levels"
         var startingTime: Long = 0
         const val data: String = "data"
 
@@ -43,10 +44,12 @@ class Misc {
         var isAltitudeIntEnabled: Boolean = false
         var isLiveEarthIntEnabled: Boolean = false
         var isViewWorldIntEnabled: Boolean = false
+        var isStartGameIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
         var isQuizCountriesIntEnabled: Boolean = false
         var isNoteCamOnBackIntEnabled: Boolean = false
+        var isQuizCompeletedIntEnabled: Boolean = false
         var isLiveEarthOnBackIntEnabled: Boolean = false
         var isGenerateQrOnBackIntEnabled: Boolean = false
 

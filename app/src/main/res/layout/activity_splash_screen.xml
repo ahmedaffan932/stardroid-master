@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"

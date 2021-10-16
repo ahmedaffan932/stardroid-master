@@ -157,6 +157,29 @@
             android:name="com.google.android.stardroid.SkyMapActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+
+        <activity
+            android:name="com.google.android.stardroid.QuizCountriesActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.google.android.stardroid.WorldQuizSelectContinentActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.google.android.stardroid.WorldQuizScreenOneActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.google.android.stardroid.WordQuizModeSelectorActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name="com.google.android.stardroid.QuizCompletedActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
+
 
 </manifest>
