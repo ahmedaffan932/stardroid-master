@@ -12,6 +12,10 @@ class WorldQuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz)
 
+        btnCloseGame.setOnClickListener {
+            onBackPressed()
+        }
+
         btnViewWorld.setOnClickListener{
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {

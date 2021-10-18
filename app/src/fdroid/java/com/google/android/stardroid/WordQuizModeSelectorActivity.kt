@@ -25,9 +25,13 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
             startGame(236)
         }
 
+        btnBackWorldQizModeSelector.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
-    fun startGame(levels: Int){
+    private fun startGame(levels: Int){
         val intent = Intent(this, QuizCountriesActivity::class.java)
         intent.putExtra(Misc.data, levels)
         Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {

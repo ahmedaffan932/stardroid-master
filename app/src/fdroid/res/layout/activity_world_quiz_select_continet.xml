@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        android:padding="@dimen/fab_padding"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -20,7 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:padding="@dimen/fab_padding"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/bg_nothing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
@@ -30,10 +31,11 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_mode"
+            android:text="@string/continents"
             android:textColor="@color/white"
             android:textSize="@dimen/padding_24"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/asia"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -92,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/europe"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -125,7 +127,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/africa"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -157,7 +159,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/america"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -190,7 +192,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/ocenia"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -223,7 +225,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/transparent_globe"
+            app:srcCompat="@drawable/world_map"
             tools:ignore="ContentDescription" />
 
         <TextView

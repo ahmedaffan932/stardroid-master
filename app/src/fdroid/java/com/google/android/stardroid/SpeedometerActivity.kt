@@ -30,6 +30,10 @@ class SpeedometerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
 
+        btnBackSpeedometer.setOnClickListener {
+            onBackPressed()
+        }
+
         btnStartPauseDigital.setOnClickListener {
             if (!isStarted) {
                 maxSpeed = 0

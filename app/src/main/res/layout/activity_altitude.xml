@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        android:padding="@dimen/fab_padding"
         mapbox:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -20,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_nothing"
+            android:padding="@dimen/fab_padding"
             mapbox:layout_constraintStart_toStartOf="parent"
             mapbox:layout_constraintTop_toTopOf="parent"
             mapbox:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
@@ -41,6 +41,7 @@
             android:id="@+id/btnScreenShot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/fab_padding"
             android:background="@drawable/bg_nothing"
             mapbox:layout_constraintEnd_toEndOf="parent"
             mapbox:layout_constraintTop_toTopOf="parent"
@@ -88,6 +89,7 @@
             android:layout_margin="@dimen/fab_padding"
             android:background="@drawable/ripple_rounded"
             android:scaleType="fitCenter"
+            android:elevation="@dimen/fab_padding"
             app:layout_constraintTop_toTopOf="parent"
             mapbox:layout_constraintEnd_toEndOf="parent"
             mapbox:srcCompat="@drawable/ic_current_location" />
@@ -134,7 +136,6 @@
             android:layout_height="0dp"
             mapbox:layout_constraintBottom_toTopOf="@id/cl"
             app:layout_constraintTop_toTopOf="parent"
-            android:elevation="@dimen/padding"
             mapbox:mapbox_cameraTargetLat="51.50550"
             mapbox:mapbox_cameraTargetLng="-0.07520"
             mapbox:mapbox_cameraZoom="12" />
@@ -144,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/extra_padding"
+            android:elevation="@dimen/fab_padding"
             android:background="@drawable/bg_gradient_pink_rounded"
             android:backgroundTint="@color/blue"
             android:padding="@dimen/padding"

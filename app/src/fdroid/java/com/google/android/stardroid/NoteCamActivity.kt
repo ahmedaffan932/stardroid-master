@@ -2,7 +2,6 @@ package com.google.android.stardroid
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
@@ -187,7 +186,7 @@ class NoteCamActivity : BaseActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        btnNoteCam.setOnClickListener {
+        btnBackNoteCam.setOnClickListener {
             onBackPressed()
         }
 

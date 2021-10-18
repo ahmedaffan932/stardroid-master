@@ -50,24 +50,16 @@ class QuizCountriesActivity : AppCompatActivity() {
         webView.setBackgroundColor(getColor(R.color.background_color))
 
         btnConfirm.setOnClickListener {
-            if(!isCompleted){
-                if(selectedCountry == arrCountries[currentLevel]){
-                    textResult.text = "Correct !"
-                    textResult.visibility = View.VISIBLE
-                    numberOfCorrectAnswers++
-                }else{
-                    textResult.text = "Wrong !"
-                    textResult.visibility = View.VISIBLE
-                    textCorrectCountry.text = "You selected ${selectedCountry?.name}"
-                    textCorrectCountry.visibility = View.VISIBLE
-                }
+            if (!isCompleted) {
+                getResult()
 
                 setCountryData(arrCountries[currentLevel])
                 btnConfirmText.text = "Next"
                 webView.loadUrl("javascript:selectCountry('${arrCountries[currentLevel].alpha2}');")
                 blockView.visibility = View.VISIBLE
                 isCompleted = true
-            }else{
+            } else {
+                webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
                 currentLevel++
                 getCurrentLevel()
                 btnConfirmText.text = "Confirm"
@@ -94,7 +86,7 @@ class QuizCountriesActivity : AppCompatActivity() {
         webView.addJavascriptInterface(WebAppInterface(this, object : CountryListInterface {
             @SuppressLint("SetTextI18n")
             override fun onCountryClick(country: Country) {
-                runOnUiThread{
+                runOnUiThread {
                     selectCountry(country)
                 }
 //                setCountryData(country)
@@ -138,31 +130,68 @@ class QuizCountriesActivity : AppCompatActivity() {
 
     }
 
-    fun selectCountry(country: Country){
+    fun selectCountry(country: Country) {
         selectedCountry = country
         isCountrySelected = true
         btnConfirm.visibility = View.VISIBLE
     }
 
     @SuppressLint("SetTextI18n")
-    fun getCurrentLevel(){
+    fun getCurrentLevel() {
         try {
-            findCountry.text = "Find: ${arrCountries[currentLevel].name}"
             textLevel.text = "Level: ${currentLevel + 1}/${levels}"
-        }catch (e: Exception){
-            Misc.startActivity(this, Misc.isQuizCompeletedIntEnabled, object : StartActivityCallBack{
-                override fun onStart() {
-                    finish()
-                    val intent = Intent(this@QuizCountriesActivity, QuizCompletedActivity::class.java)
-                    intent.putExtra(Misc.levels, levels)
-                    intent.putExtra(Misc.data, numberOfCorrectAnswers)
-                    startActivity(intent)
+            when (Misc.gameMode) {
+                Misc.countries -> {
+                    findCountry.text = "Find: ${arrCountries[currentLevel].name}"
                 }
-            })
+                Misc.capitals -> {
+                    findCountry.text = "${arrCountries[currentLevel].capital} is capital of ..."
+                }
+                Misc.flags -> {
+                    flagCountryGame.visibility = View.VISIBLE
+                    flagCountryGame.setImageResource(arrCountries[currentLevel].flagResource)
+                    findCountry.text = "This is Flag of ..."
+                }
+            }
+        } catch (e: Exception) {
+            Misc.startActivity(
+                this,
+                Misc.isQuizCompeletedIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        finish()
+                        val intent =
+                            Intent(this@QuizCountriesActivity, QuizCompletedActivity::class.java)
+                        intent.putExtra(Misc.levels, levels)
+                        intent.putExtra(Misc.data, numberOfCorrectAnswers)
+                        startActivity(intent)
+                    }
+                })
         }
     }
 
-    fun hideCountryInfo(){
+    @SuppressLint("SetTextI18n")
+    fun getResult() {
+        if (selectedCountry == arrCountries[currentLevel]) {
+            textResult.text = "Correct !"
+            textResult.visibility = View.VISIBLE
+            numberOfCorrectAnswers++
+        } else {
+            textResult.text = "Wrong !"
+            textResult.visibility = View.VISIBLE
+            textCorrectCountry.text = "You selected ${selectedCountry?.name}"
+            textCorrectCountry.visibility = View.VISIBLE
+        }
+        if (Misc.gameMode == Misc.capitals) {
+            findCountry.text =
+                "${arrCountries[currentLevel].capital} is capital of ${arrCountries[currentLevel].name}"
+        } else if (Misc.gameMode == Misc.flags) {
+            findCountry.text =
+                "his is flag of ${arrCountries[currentLevel].name}"
+        }
+    }
+
+    fun hideCountryInfo() {
         val a: Animation =
             AnimationUtils.loadAnimation(
                 this,
@@ -172,23 +201,34 @@ class QuizCountriesActivity : AppCompatActivity() {
         clCountryInfo.startAnimation(a)
         Handler().postDelayed({
             clCountryInfo.visibility = View.INVISIBLE
-        },300)
+        }, 300)
     }
 
-    @SuppressLint("SetTextI18n")
-    fun initGame(){
-        levels = intent.getIntExtra(Misc.data, 0)
+    @SuppressLint("SetTextI18n", "LogNotTimber")
+    fun initGame() {
+        try {
+            levels = intent.getIntExtra(Misc.data, 0)
 
-        val arr = World.getAllCountries()
-        var i = 0
-        while (i < levels) {
-            val tempCountry = arr.random()
-            if(!arrCountries.contains(tempCountry)){
+            World.init(this)
+            val arr = World.getAllCountries()
+            Log.d(Misc.logKey, arr.size.toString())
+            if (levels < 120)
+                arr.sortByDescending { it.area }
+            var i = 0
+            while (i < levels) {
+                val tempCountry = arr[i]
+//            if(!arrCountries.contains(tempCountry)){
                 arrCountries.add(tempCountry)
+                arr.remove(tempCountry)
                 i++
+                Log.d(Misc.logKey, i.toString())
+//            }
             }
-        }
+            arrCountries.shuffle()
 
-        textLevel.text = "Level: ${currentLevel + 1}/${levels}"
+            textLevel.text = "Level: ${currentLevel + 1}/${levels}"
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

@@ -1,345 +1,359 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:elevation="@dimen/fab_padding"
-        android:padding="@dimen/padding"
-        android:layout_margin="@dimen/extra_padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_rectangle_small_top_right"
-        app:srcCompat="@drawable/ic_menu" />
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:background="@drawable/ic_bg_pink"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/nothing">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold"
+            android:elevation="@dimen/fab_padding"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/extra_padding"
+            android:text="@string/live_earth_map" />
 
-            <ImageView
-                android:id="@+id/topBanner"
+        <View
+            android:id="@+id/blockOnClickMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/nothing"
+            android:elevation="@dimen/extra_padding"
+            android:visibility="gone"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_bg_pink"
+            android:scrollbars="none"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/wold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/nothing">
 
-            <LinearLayout
-                android:id="@+id/llSearchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
-                android:layout_marginTop="80dp"
-                android:background="@drawable/ic_rectangle"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/padding"
-                android:paddingBottom="@dimen/extra_padding"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="32dp">
 
-                <TextView
-                    android:id="@+id/textView2"
+                <LinearLayout
+                    android:id="@+id/llSearchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/extra_padding"
-                    android:text="@string/explore"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/bg_gradient_pink_rounded"
+                    android:gravity="center"
+                    android:backgroundTint="@color/translucent_black"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding"
+                    android:paddingBottom="@dimen/fab_padding"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="32dp">
 
-                <TextView
-                    android:id="@+id/textView"
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/extra_padding"
+                        android:text="@string/explore"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/extra_padding"
+                        android:text="@string/lorem_ispum_dollar_ist"
+                        android:textColor="@color/white" />
+
+                    <SearchView
+                        android:id="@+id/svLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/extra_padding"
+                        android:background="@drawable/bg_search"
+                        android:queryHint="Click here to explore"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4"
+                        tools:layout_editor_absoluteX="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLiveEarthMap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/extra_padding"
-                    android:text="@string/lorem_ispum_dollar_ist"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:background="@drawable/bg_rectangle_top_left"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/llSearchView"
+                    tools:layout_editor_absoluteX="32dp">
 
-                <SearchView
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_live_earth_map" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/extra_padding"
+                        android:layout_weight="1"
+                        android:text="@string/live_earth_map"
+                        android:textColor="@color/white"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llWorldQuiz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/extra_padding"
-                    android:background="@drawable/bg_search"
-                    android:queryHint="Click here to explore" />
-            </LinearLayout>
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:background="@drawable/bg_rectangle_top_left"
+                    android:clickable="true"
+                    android:elevation="@dimen/padding"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap">
 
-            <LinearLayout
-                android:id="@+id/llLiveEarthMap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:background="@drawable/bg_rectangle_top_left"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintTop_toBottomOf="@+id/llSearchView"
-                tools:layout_editor_absoluteX="32dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_quiz" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_live_earth_map" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/extra_padding"
+                        android:layout_weight="1"
+                        android:text="@string/world_quiz"
+                        android:textColor="@color/white"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView3"
+                <LinearLayout
+                    android:id="@+id/llGPSMapCams"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/extra_padding"
-                    android:text="@string/live_earth_map"
-                    android:textColor="@color/white"
-                    android:textSize="24dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:background="@drawable/bg_rectangle_small_top_left"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/padding"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintEnd_toStartOf="@+id/llNoteCam"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
 
-            <LinearLayout
-                android:id="@+id/llWorldQuiz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
-                android:elevation="@dimen/padding"
-                android:background="@drawable/bg_rectangle_top_left"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:gravity="center_vertical"
-                android:clickable="true"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap"
-                android:focusable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_gps_cam" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_quiz" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/gps_map_nmap"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/llNoteCam"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/world_quiz"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:layout_marginEnd="@dimen/extra_padding"
+                    android:background="@drawable/bg_rectangle_small_top_right"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/padding"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/llGPSMapCams"
+                    app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_cam_note" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/note_cam"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSpeedometer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="@dimen/extra_padding"
-                    android:textColor="@color/white"
-                    android:textSize="24dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llGPSMapCams"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:background="@drawable/bg_rectangle_small_top_left"
-                android:gravity="center"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_marginStart="@dimen/extra_padding"
-                android:layout_marginEnd="@dimen/padding"
-                android:elevation="@dimen/padding"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toStartOf="@+id/llNoteCam"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_gps_cam" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:background="@drawable/bg_rectangle_small_top_left"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/padding"
                     android:gravity="center"
-                    android:text="@string/gps_map_nmap"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintBottom_toBottomOf="@id/llSkyMap"
+                    app:layout_constraintEnd_toStartOf="@+id/llSkyMap"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/llSkyMap">
 
-            <LinearLayout
-                android:id="@+id/llNoteCam"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:background="@drawable/bg_rectangle_small_top_right"
-                android:elevation="@dimen/padding"
-                android:gravity="center"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_marginStart="@dimen/padding"
-                android:orientation="vertical"
-                android:layout_marginEnd="@dimen/extra_padding"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/llGPSMapCams"
-                app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
+                    <ImageView
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
+                        app:srcCompat="@drawable/speedometer" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/speedometer"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSkyMap"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_cam_note" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:layout_marginEnd="@dimen/extra_padding"
+                    android:background="@drawable/bg_rectangle_small_top_right"
+                    android:elevation="@dimen/padding"
                     android:gravity="center"
-                    android:text="@string/note_cam"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    android:paddingVertical="@dimen/padding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/llSpeedometer"
+                    app:layout_constraintTop_toBottomOf="@id/llNoteCam">
 
-            <LinearLayout
-                android:id="@+id/llSpeedometer"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bg_rectangle_small_top_left"
-                android:gravity="center"
-                android:layout_marginStart="@dimen/extra_padding"
-                android:layout_marginEnd="@dimen/padding"
-                android:orientation="vertical"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:elevation="@dimen/padding"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toStartOf="@+id/llSkyMap"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/llSkyMap"
-                app:layout_constraintTop_toTopOf="@id/llSkyMap">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_space" />
 
-                <ImageView
-                    android:layout_width="68dp"
-                    android:layout_height="68dp"
-                    app:srcCompat="@drawable/speedometer" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/sky_map"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:id="@+id/llCompass"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginStart="@dimen/extra_padding"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:background="@drawable/bg_rectangle_small_top_left"
+                    android:elevation="@dimen/padding"
                     android:gravity="center"
-                    android:text="@string/speedometer"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintEnd_toStartOf="@+id/llAltitude"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llSpeedometer">
 
-            <LinearLayout
-                android:id="@+id/llSkyMap"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:background="@drawable/bg_rectangle_small_top_right"
-                android:gravity="center"
-                android:layout_marginStart="@dimen/padding"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/padding"
-                android:elevation="@dimen/padding"
-                android:layout_marginEnd="@dimen/extra_padding"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/llSpeedometer"
-                app:layout_constraintTop_toBottomOf="@id/llNoteCam">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_compass" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/compass"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llAltitude"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_space" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:layout_marginEnd="@dimen/extra_padding"
+                    android:background="@drawable/bg_rectangle_small_top_right"
+                    android:elevation="@dimen/padding"
                     android:gravity="center"
-                    android:text="@string/sky_map"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/extra_padding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/llCompass"
+                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_altitude" />
 
-            <LinearLayout
-                android:id="@+id/llCompass"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/extra_padding"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:layout_marginEnd="@dimen/padding"
-                android:background="@drawable/bg_rectangle_small_top_left"
-                android:elevation="@dimen/padding"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toStartOf="@+id/llAltitude"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llSpeedometer">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:gravity="center"
+                        android:text="@string/altitude"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/fab_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_compass" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/bottom_sheet_quit" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
-                    android:gravity="center"
-                    android:text="@string/compass"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llAltitude"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding"
-                android:layout_marginTop="@dimen/fab_padding"
-                android:layout_marginEnd="@dimen/extra_padding"
-                android:background="@drawable/bg_rectangle_small_top_right"
-                android:elevation="@dimen/padding"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/extra_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/llCompass"
-                app:layout_constraintTop_toBottomOf="@id/llSkyMap">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_altitude" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding"
-                    android:gravity="center"
-                    android:text="@string/altitude"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fab_text_size"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

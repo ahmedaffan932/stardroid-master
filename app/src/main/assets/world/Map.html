@@ -25,6 +25,7 @@
         var polygonSeries
         var chart
         var polygonTemplate
+        var lastSelected
     am4core.ready(function() {
 
     // Themes begin
@@ -50,9 +51,9 @@
     chart.deltaLongitude = -10;
 
    
-chart.minZoomLevel = 3;
+// chart.minZoomLevel = 3;
 // chart.maxZoomLevel = 32;
-chart.homeZoomLevel = 3;
+// chart.homeZoomLevel = 3;
 
     /* Create map polygon series */
     polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
@@ -74,26 +75,19 @@ chart.homeZoomLevel = 3;
 
     // polygonTemplate.isHover = true;
     polygonTemplate.fill = "#90A4AE";//chart.colors.getIndex(0);
-    var lastSelected;
     polygonTemplate.events.on("hit", function(ev) {
       
       if (lastSelected) {
-        // This line serves multiple purposes:
-        // 1. Clicking a country twice actually de-activates, the line below
-        //    de-activates it in advance, so the toggle then re-activates, making it
-        //    appear as if it was never de-activated to begin with.
-        // 2. Previously activated countries should be de-activated.
         lastSelected.isActive = false;
       }
 
-      // ev.target.series.chart.zoomToMapObject(ev.target, 2, true, 500);
       ev.target.series.chart.zoomToMapObject(ev.target);
       showAndroidToast(ev.target.dataItem.dataContext.id);
-      // rotateTo(ev.point.x, ev.point.y);
-      console.log(ev);
+      
       if (lastSelected !== ev.target) {
         lastSelected = ev.target;
       }
+      selected.isHover = false;
     })
 
 
@@ -135,23 +129,13 @@ if (selected) {
   }
   selected = polygonSeries.getPolygonById(id);
   selected.isHover = true;
+  lastSelected.isActive = false;
 }
 
-
-
-var animation;
-function rotateTo(long, lat) {
-  if(animation){
-    animation.stop();
-  }
-  animation = chart.animate([{
-    property: "deltaLongitude",
-    to: long
-  }, {
-    property: "deltaLatitude",
-    to: lat
-  }], 2000);
+function zoomOutByCountryId(id){
+chart.zoomToMapObject(polygonSeries.getPolygonById(id), 2, true, 1000);
 }
+
 
 </script>
 

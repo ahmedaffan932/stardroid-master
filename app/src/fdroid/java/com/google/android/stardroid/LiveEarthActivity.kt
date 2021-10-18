@@ -90,6 +90,24 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        if (intent.getStringExtra(Misc.data) != null){
+            val intent = PlaceAutocomplete.IntentBuilder()
+                .accessToken(
+                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
+                        R.string.mapbox_access_token
+                    ))!!
+                )
+                .placeOptions(
+                    PlaceOptions.builder()
+                        .backgroundColor(Color.parseColor("#EEEEEE"))
+                        .limit(10)
+                        .build(PlaceOptions.MODE_CARDS)
+                )
+                .build(this)
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
+        }
+
+
         isBtnGenerateVisible = Misc.hideShowView(btnGenerateQR, this, isBtnGenerateVisible)
 
         btnShareLocation.setOnClickListener {

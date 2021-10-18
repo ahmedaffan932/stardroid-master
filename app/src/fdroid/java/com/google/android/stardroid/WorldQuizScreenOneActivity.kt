@@ -12,10 +12,33 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz_screen_one)
 
+        btnBackWorldQuizScreenOne.setOnClickListener {
+            onBackPressed()
+        }
+        val intent = Intent(this@WorldQuizScreenOneActivity, WorldQuizSelectContinentActivity::class.java)
+
         clCountries.setOnClickListener {
             Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    val intent = Intent(this@WorldQuizScreenOneActivity, WorldQuizSelectContinentActivity::class.java)
+                    Misc.gameMode = Misc.countries
+                    startActivity(intent)
+                }
+            })
+        }
+
+        clFlags.setOnClickListener {
+            Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    Misc.gameMode = Misc.flags
+                    startActivity(intent)
+                }
+            })
+        }
+
+        clCapitals.setOnClickListener {
+            Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    Misc.gameMode = Misc.capitals
                     startActivity(intent)
                 }
             })

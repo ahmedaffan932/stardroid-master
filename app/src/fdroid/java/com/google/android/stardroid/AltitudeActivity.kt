@@ -95,6 +95,8 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         mapView.getMapAsync(this)
 
 
+
+
         btnScreenShot.setOnClickListener {
             val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)

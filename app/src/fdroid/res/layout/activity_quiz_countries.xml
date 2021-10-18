@@ -147,7 +147,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <ImageView
+        android:id="@+id/flagCountryGame"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="@dimen/padding"
+        android:visibility="gone"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+        app:srcCompat="@drawable/pk"
+        tools:ignore="ContentDescription" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding"

@@ -1061,6 +1061,13 @@
     <string name="correct_answers">Correct Answers</string>
     <string name="false_answers">False Answers:</string>
     <string name="back">Back</string>
+    <string name="quit">Quit ?</string>
+    <string name="do_you_really_want_to_quit">Do you really want to quit ?</string>
+    <string name="capitals">Capitals</string>
+    <string name="flags" >Flags</string>
+    <string name="continents">Continents</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="km_h">KM/H</string>
 
 
 </resources>

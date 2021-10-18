@@ -15,9 +15,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/fab_padding"
+        android:elevation="@dimen/fab_padding"
         android:padding="@dimen/padding"
         android:background="@drawable/bg_gradient_pink_circle"
-        app:srcCompat="@drawable/mapbox_ic_clear" />
+        app:srcCompat="@drawable/mapbox_ic_clear"
+        app:tint="@color/blue" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -43,28 +45,29 @@
         android:text="@string/world_quiz" />
 
 
-
     <ImageView
         android:id="@+id/btnPlayGame"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_gradient_pink_circle"
+        android:padding="@dimen/padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnViewWorld"
-        android:layout_margin="@dimen/fab_padding"
-        android:padding="@dimen/padding"
-        android:background="@drawable/bg_gradient_pink_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
         app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
 
     <ImageView
         android:id="@+id/btnViewWorld"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
         android:layout_margin="@dimen/fab_padding"
         android:src="@drawable/ic_live_earth_gradient_pink"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnPlayGame"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/btnPlayGame"
+        app:layout_constraintStart_toStartOf="@+id/btnPlayGame"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlayGame" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

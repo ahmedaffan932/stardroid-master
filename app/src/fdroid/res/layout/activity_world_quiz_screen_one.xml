@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        android:padding="@dimen/fab_padding"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -22,6 +21,8 @@
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:padding="@dimen/fab_padding"
+            android:background="@drawable/bg_nothing"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
             tools:ignore="ContentDescription" />
@@ -34,6 +35,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/padding_24"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,10 +58,11 @@
             android:id="@+id/imageView3"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:padding="@dimen/less_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_countries"
+            app:srcCompat="@drawable/countries"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -89,16 +92,17 @@
             android:id="@+id/imageView4"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:padding="@dimen/less_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_countries"
+            app:srcCompat="@drawable/capital"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sun"
+            android:text="@string/capitals"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/imageView4"
             app:layout_constraintStart_toStartOf="@id/imageView4"
@@ -123,16 +127,17 @@
             android:id="@+id/imageView5"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:padding="@dimen/less_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_countries"
+            app:srcCompat="@drawable/flags"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mars"
+            android:text="@string/flags"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/imageView5"
             app:layout_constraintStart_toStartOf="@id/imageView5"

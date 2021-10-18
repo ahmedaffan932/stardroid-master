@@ -25,12 +25,23 @@ import java.util.*
 
 class Misc {
     companion object {
+        const val oceania: String = "oceania"
+        const val america: String = "america"
+        const val africa: String = "africa"
+        const val europe: String = "europe"
+        const val asia: String = "asia"
+        const val wholeWorld: String = "wholeWorld"
+        var gameMode: String = ""
+        var gameContinents: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
         const val data: String = "data"
 
         const val logKey: String = "logKey"
 
+        const val flags: String = "flags"
+        const val capitals: String = "capitals"
+        const val countries: String = "countries"
         private const val flash: String = "flash"
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"

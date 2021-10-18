@@ -12,7 +12,6 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/fab_padding"
         android:background="@drawable/bg_gradient_pink"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,6 +22,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintStart_toStartOf="parent"
+            android:padding="@dimen/fab_padding"
+            android:background="@drawable/bg_nothing"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:tint="@color/white" />
@@ -38,14 +39,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            mapbox:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="SpUsage" />
 
 
         <ImageView
             android:id="@+id/btnSearchLocationCompass"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_search"
+            android:padding="@dimen/fab_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-        app:needle="@drawable/compass_needle"
+        app:needle="@drawable/ic_needle"
         app:orientation_labels_color="@color/blue"
         app:show_border="false"
         app:show_degree_value="false"

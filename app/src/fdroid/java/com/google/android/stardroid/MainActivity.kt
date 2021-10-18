@@ -6,24 +6,71 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import kotlinx.android.synthetic.fdroid.bottom_sheet_quit.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.llSkyMap
 
 
 class MainActivity : AppCompatActivity(), PermissionsListener {
     private val cameraPermissionRequest = 100
     private lateinit var permissionsManager: PermissionsManager
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+        svLocation.setOnClickListener {
+            Misc.startActivity(this, Misc.isLiveEarthIntEnabled, object :
+                StartActivityCallBack {
+                override fun onStart() {
+                    val intent = Intent(this@MainActivity, LiveEarthActivity::class.java)
+                    intent.putExtra(Misc.data, Misc.data)
+                    startActivity(intent)
+                }
+            })
+        }
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if(newState == BottomSheetBehavior.STATE_EXPANDED){
+                    blockOnClickMain.visibility = View.VISIBLE
+                }else if(newState == BottomSheetBehavior.STATE_COLLAPSED){
+                    blockOnClickMain.visibility = View.GONE
+                }
+            }
+        })
+
+        blockOnClickMain.setOnClickListener {
+            blockOnClickMain.visibility = View.GONE
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
+        btnYes.setOnClickListener {
+            finishAffinity()
+        }
+
+        btnNo.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
 
 
         llSkyMap.setOnClickListener{
@@ -150,6 +197,16 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            return
+        }else {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+
         }
     }
 }

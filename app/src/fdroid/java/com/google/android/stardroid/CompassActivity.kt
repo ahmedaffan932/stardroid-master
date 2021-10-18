@@ -50,7 +50,7 @@ import java.io.IOException
 import java.util.*
 
 
-class CompassActivity(allCountries: MutableList<Country>, amChartsActivity: AmChartsActivity) : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
+class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
     MapboxMap.OnMapClickListener {
     private val point: LatLng = LatLng()
     private lateinit var mapView: MapView
@@ -79,6 +79,11 @@ class CompassActivity(allCountries: MutableList<Country>, amChartsActivity: AmCh
             onBackPressed()
         }
 
+        val pm = packageManager
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)) {
+           Toast.makeText(this, "Your device does not support compass.", Toast.LENGTH_SHORT).show()
+            onBackPressed()
+        }
 
         compass_1.setListener(object : CompassListener {
             @SuppressLint("LogNotTimber")
