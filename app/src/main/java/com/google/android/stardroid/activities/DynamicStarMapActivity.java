@@ -14,6 +14,7 @@
 
 package com.google.android.stardroid.activities;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -97,6 +98,7 @@ public class DynamicStarMapActivity extends InjectableActivity
   private static final int TIME_DISPLAY_DELAY_MILLIS = 1000;
   private FullscreenControlsManager fullscreenControlsManager;
   private boolean isAutoMode = true;
+  private boolean isSearchMode = false;
 
   @Override
   public DynamicStarMapComponent getComponent() {
@@ -197,6 +199,7 @@ public class DynamicStarMapActivity extends InjectableActivity
   private ActivityLightLevelManager activityLightLevelManager;
   private long sessionStartTime;
 
+  @SuppressLint("LogNotTimber")
   @Override
   public void onCreate(Bundle icicle) {
     Log.d(TAG, "onCreate at " + System.currentTimeMillis());
@@ -260,8 +263,14 @@ public class DynamicStarMapActivity extends InjectableActivity
       setAutoMode(isAutoMode);
     });
 
-    Handler h = new Handler(Looper.getMainLooper());
-    handler.postDelayed(() -> doSearchWithIntent(intent), 100);
+    if(intent.getStringExtra(Misc.data).equals("search")){
+//      menuEventBundle.putString(Analytics.MENU_ITEM_EVENT_VALUE, Analytics.SEARCH_REQUESTED_LABEL);
+      isSearchMode = true;
+      onSearchRequested();
+    }else {
+      Handler h = new Handler(Looper.getMainLooper());
+      handler.postDelayed(() -> doSearchWithIntent(intent), 100);
+    }
   }
 
   private void checkForSensorsAndMaybeWarn() {
@@ -607,30 +616,62 @@ public class DynamicStarMapActivity extends InjectableActivity
     return true;
   }
 
+  @SuppressLint("LogNotTimber")
   private void doSearchWithIntent(Intent searchIntent) {
     // If we're already in search mode, cancel it.
-    if (searchMode) {
-      cancelSearch();
-    }
-    Log.d(TAG, "Performing Search");
-    final String queryString = getIntent().getStringExtra(Misc.data);
-    searchMode = true;
-    Log.d(TAG, "Query string " + queryString);
-    List<SearchResult> results = layerManager.searchByObjectName(queryString);
-    Bundle b = new Bundle();
-    b.putString(Analytics.SEARCH_TERM, queryString);
-    b.putBoolean(Analytics.SEARCH_SUCCESS, results.size() > 0);
-    analytics.trackEvent(Analytics.SEARCH_EVENT, b);
-    if (results.isEmpty()) {
-      Log.d(TAG, "No results returned");
-      noSearchResultsDialogFragment.show(fragmentManager, "No Search Results");
-    } else if (results.size() > 1) {
-      Log.d(TAG, "Multiple results returned");
-      showUserChooseResultDialog(results);
-    } else {
-      Log.d(TAG, "One result returned.");
-      final SearchResult result = results.get(0);
-      activateSearchTarget(result.coords, result.capitalizedName);
+
+    if (isSearchMode){
+      // If we're already in search mode, cancel it.
+      if (searchMode) {
+        cancelSearch();
+      }
+      Log.d(TAG, "Performing Search");
+      final String queryString = searchIntent.getStringExtra(SearchManager.QUERY);
+      searchMode = true;
+      Log.d(TAG, "Query string " + queryString);
+      List<SearchResult> results = layerManager.searchByObjectName(queryString);
+      Bundle b = new Bundle();
+      b.putString(Analytics.SEARCH_TERM, queryString);
+      b.putBoolean(Analytics.SEARCH_SUCCESS, results.size() > 0);
+      analytics.trackEvent(Analytics.SEARCH_EVENT, b);
+      if (results.isEmpty()) {
+        Log.d(TAG, "No results returned");
+        noSearchResultsDialogFragment.show(fragmentManager, "No Search Results");
+        onBackPressed();
+      } else if (results.size() > 1) {
+        Log.d(TAG, "Multiple results returned");
+        showUserChooseResultDialog(results);
+      } else {
+        Log.d(TAG, "One result returned.");
+        final SearchResult result = results.get(0);
+        activateSearchTarget(result.coords, result.capitalizedName);
+      }
+    }else {
+      Log.d(Misc.logKey, "This is search function.");
+      if (searchMode) {
+        cancelSearch();
+      }
+      Log.d(TAG, "Performing Search");
+      final String queryString = getIntent().getStringExtra(Misc.data);
+      searchMode = true;
+      Log.d(TAG, "Query string " + queryString);
+      List<SearchResult> results = layerManager.searchByObjectName(queryString);
+      Bundle b = new Bundle();
+      b.putString(Analytics.SEARCH_TERM, queryString);
+      b.putBoolean(Analytics.SEARCH_SUCCESS, results.size() > 0);
+      analytics.trackEvent(Analytics.SEARCH_EVENT, b);
+      if (results.isEmpty()) {
+        Log.d(TAG, "No results returned");
+        onBackPressed();
+        noSearchResultsDialogFragment.show(fragmentManager, "No Search Results");
+      } else if (results.size() > 1) {
+        Log.d(TAG, "Multiple results returned");
+        showUserChooseResultDialog(results);
+      } else {
+        Log.d(TAG, "One result returned.");
+        final SearchResult result = results.get(0);
+        activateSearchTarget(result.coords, result.capitalizedName);
+      }
     }
   }
 

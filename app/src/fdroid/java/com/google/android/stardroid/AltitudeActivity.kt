@@ -73,8 +73,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
     private lateinit var mapBoxStyle: Style
-    private lateinit var permissionsManager: PermissionsManager
-    private var isFirstTime = true
     private lateinit var hoveringMarker: ImageView
     private lateinit var locationCallback: LocationCallback
     private val point = LatLng()
@@ -90,12 +88,9 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_altitude)
 
-        mapView = findViewById(R.id.mapViewAltitude)
+        mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-
-
-
 
         btnScreenShot.setOnClickListener {
             val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
@@ -197,37 +192,37 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             styleName
         ) { style ->
             mapBoxStyle = style
-            mapboxMap.animateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    CameraPosition.Builder()
-                        .target(mapboxMap.cameraPosition.target)
-                        .zoom(mapboxMap.cameraPosition.zoom)
-                        .tilt(0.0)
-                        .build()
-                ), 4000
-            )
+//            mapboxMap.animateCamera(
+//                CameraUpdateFactory.newCameraPosition(
+//                    CameraPosition.Builder()
+//                        .target(mapboxMap.cameraPosition.target)
+//                        .zoom(mapboxMap.cameraPosition.zoom)
+//                        .tilt(0.0)
+//                        .build()
+//                ), 4000
+//            )
 
-            mapboxMap.addOnMapClickListener(this)
+//            mapboxMap.addOnMapClickListener(this)
             initSearchFab();
 
-            if (isFirstTime) {
+//            if (isFirstTime) {
                 enableLocationPlugin(style)
                 val manager = getSystemService(LOCATION_SERVICE) as LocationManager
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
                 }
-                isFirstTime = false
-            }
+//                isFirstTime = false
+//            }
 
 
-            hoveringMarker = ImageView(this)
-            hoveringMarker.setImageResource(R.drawable.ic_pin)
-            val params = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
-            )
-            hoveringMarker.layoutParams = params
-            initDroppedMarker(style)
+//            hoveringMarker = ImageView(this)
+//            hoveringMarker.setImageResource(R.drawable.ic_pin)
+//            val params = FrameLayout.LayoutParams(
+//                ViewGroup.LayoutParams.WRAP_CONTENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
+//            )
+//            hoveringMarker.layoutParams = params
+//            initDroppedMarker(style)
         }
     }
 
@@ -311,9 +306,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             // Set the component's camera mode
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.NORMAL
-        } else {
-            permissionsManager = PermissionsManager(this)
-            permissionsManager.requestLocationPermissions(this)
         }
         return locationComponent!!.lastKnownLocation
     }
@@ -395,10 +387,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
                     .build()
             ), 4000
         )
-
     }
-
-
 
     private fun displaySpeechRecognizer() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
@@ -409,6 +398,38 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             "en"
         )
         startActivityForResult(intent, speechRequestCode)
+    }
+
+
+
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 
 }

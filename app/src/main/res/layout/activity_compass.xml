@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_search"
+            android:visibility="gone"
             android:padding="@dimen/fab_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +83,7 @@
         app:needle="@drawable/ic_needle"
         app:orientation_labels_color="@color/blue"
         app:show_border="false"
-        app:show_degree_value="false"
+        app:show_degree_value="true"
         app:show_orientation_labels="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

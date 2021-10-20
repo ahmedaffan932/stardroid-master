@@ -20,7 +20,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clWholeWorld.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.wholeWorld
+                    Misc.gameContinent = Misc.wholeWorld
                     startActivity(intent)
                 }
             })
@@ -29,7 +29,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clAsia.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.asia
+                    Misc.gameContinent = Misc.asia
                     startActivity(intent)
                 }
             })
@@ -38,7 +38,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clEurope.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.europe
+                    Misc.gameContinent = Misc.europe
                     startActivity(intent)
                 }
             })
@@ -47,7 +47,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clAfrica.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.africa
+                    Misc.gameContinent = Misc.africa
                     startActivity(intent)
                 }
             })
@@ -56,7 +56,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clAmerica.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.america
+                    Misc.gameContinent = Misc.america
                     startActivity(intent)
                 }
             })
@@ -64,7 +64,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         clOceania.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.gameContinents = Misc.oceania
+                    Misc.gameContinent = Misc.oceania
                     startActivity(intent)
                 }
             })

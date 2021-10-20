@@ -13,6 +13,10 @@ class SkyMapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sky_map)
 
+        clSearchSkyMap.setOnClickListener {
+           searchPlanet("search")
+        }
+
         btnBackSkyMap.setOnClickListener {
             onBackPressed()
         }

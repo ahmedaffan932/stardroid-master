@@ -380,7 +380,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                         ).show()
                     }
                     Log.d(Misc.logKey, addresses[0].getAddressLine(0))
-                    address = addresses[0].getAddressLine(0)
+                    address = addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
                 }
                 addresses[0].countryName
             } else "null"
@@ -528,7 +528,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
 
             point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
             point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 14.0)
+            animateCamera(point, 10.0)
             setMarker(point)
             getAddress(point)
         }
@@ -557,7 +557,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                                 point.latitude = p[1].toDouble()
                                 point.longitude = p[0].toDouble()
                                 setMarker(point)
-                                animateCamera(point, 14.0)
+                                animateCamera(point, 10.0)
                                 for(item in arr)
                                 Log.d(Misc.logKey,item)
                             }else{
@@ -587,7 +587,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                     )
                     .zoom(zoom)
                     .build()
-            ), 4000
+            ), 3000
         )
 
     }

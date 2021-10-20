@@ -10,20 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold"
-            android:elevation="@dimen/fab_padding"
-            android:textColor="@color/white"
-            android:layout_margin="@dimen/extra_padding"
-            android:text="@string/live_earth_map" />
-
         <View
             android:id="@+id/blockOnClickMain"
             android:layout_width="match_parent"
@@ -44,20 +30,32 @@
                 android:layout_height="wrap_content"
                 android:background="@color/nothing">
 
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold"
+                    android:elevation="@dimen/fab_padding"
+                    android:textColor="@color/white"
+                    android:layout_margin="@dimen/extra_padding"
+                    android:text="@string/live_earth_map" />
 
                 <LinearLayout
                     android:id="@+id/llSearchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/extra_padding"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="@dimen/fab_padding"
                     android:background="@drawable/bg_gradient_pink_rounded"
                     android:gravity="center"
                     android:backgroundTint="@color/translucent_black"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/padding"
                     android:paddingBottom="@dimen/fab_padding"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView12"
                     tools:layout_editor_absoluteX="32dp">
 
                     <TextView
@@ -71,7 +69,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/textHard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/extra_padding"

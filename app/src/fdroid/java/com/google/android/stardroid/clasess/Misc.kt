@@ -32,7 +32,7 @@ class Misc {
         const val asia: String = "asia"
         const val wholeWorld: String = "wholeWorld"
         var gameMode: String = ""
-        var gameContinents: String = ""
+        var gameContinent: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
         const val data: String = "data"

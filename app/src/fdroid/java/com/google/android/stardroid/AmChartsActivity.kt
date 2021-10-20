@@ -106,6 +106,11 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 super.onReceivedError(view, request, error)
                 Log.d("TAG", error.description.toString())
             }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                llPBViewWorld.visibility = View.GONE
+            }
         }
 
         checkBoxCountryList.setOnCheckedChangeListener { compoundButton, b ->

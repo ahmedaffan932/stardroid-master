@@ -45,19 +45,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clEasy"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/fab_padding"
         android:layout_marginTop="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
-        android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
         app:layout_constraintEnd_toStartOf="@id/clMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textEasy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/pink"
@@ -73,26 +72,25 @@
             android:layout_height="wrap_content"
             android:text="@string/easy"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/textView11"
-            app:layout_constraintStart_toStartOf="@id/textView11"
-            app:layout_constraintTop_toBottomOf="@id/textView11" />
+            app:layout_constraintEnd_toEndOf="@id/textEasy"
+            app:layout_constraintStart_toStartOf="@id/textEasy"
+            app:layout_constraintTop_toBottomOf="@id/textEasy" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clMedium"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/padding"
         android:layout_marginTop="@dimen/fab_padding"
-        android:background="@drawable/bg_top_right_corner"
-        android:paddingHorizontal="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
         android:paddingVertical="@dimen/padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/clEasy"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/fab_padding"
@@ -108,25 +106,24 @@
             android:layout_height="wrap_content"
             android:text="@string/medium"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/textView1"
-            app:layout_constraintStart_toStartOf="@id/textView1"
-            app:layout_constraintTop_toBottomOf="@id/textView1" />
+            app:layout_constraintEnd_toEndOf="@id/textMedium"
+            app:layout_constraintStart_toStartOf="@id/textMedium"
+            app:layout_constraintTop_toBottomOf="@id/textMedium" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHard"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
-        android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
         app:layout_constraintStart_toStartOf="@id/clEasy"
         app:layout_constraintEnd_toEndOf="@id/clEasy"
         app:layout_constraintTop_toBottomOf="@id/clEasy">
 
     <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textHard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/pink"
@@ -142,25 +139,24 @@
             android:layout_height="wrap_content"
             android:text="@string/hard"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/textView"
-            app:layout_constraintStart_toStartOf="@id/textView"
-            app:layout_constraintTop_toBottomOf="@id/textView" />
+            app:layout_constraintEnd_toEndOf="@id/textHard"
+            app:layout_constraintStart_toStartOf="@id/textHard"
+            app:layout_constraintTop_toBottomOf="@id/textHard" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPro"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fab_padding"
-        android:background="@drawable/bg_top_right_corner"
-        android:paddingHorizontal="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
         android:paddingVertical="@dimen/padding"
         app:layout_constraintStart_toStartOf="@id/clMedium"
         app:layout_constraintEnd_toEndOf="@id/clMedium"
         app:layout_constraintTop_toBottomOf="@id/clMedium">
 
         <TextView
-            android:id="@+id/textVie"
+            android:id="@+id/textPro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/pink"
@@ -176,9 +172,9 @@
             android:layout_height="wrap_content"
             android:text="@string/pro_player"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/textVie"
-            app:layout_constraintStart_toStartOf="@id/textVie"
-            app:layout_constraintTop_toBottomOf="@id/textVie" />
+            app:layout_constraintEnd_toEndOf="@id/textPro"
+            app:layout_constraintStart_toStartOf="@id/textPro"
+            app:layout_constraintTop_toBottomOf="@id/textPro" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

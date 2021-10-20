@@ -25,6 +25,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        permissionsManager = PermissionsManager(this)
         World.init(this)
 
         btnStart.setOnClickListener {
@@ -51,7 +52,6 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                     }
                 }
             } else {
-                permissionsManager = PermissionsManager(this)
                 permissionsManager.requestLocationPermissions(this)
             }
 

@@ -11,10 +11,10 @@
     android:padding="@dimen/fab_padding">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textViewSavePhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/photo_settings"
+        android:text="@string/add_note"
         android:textColor="@color/pink"
         android:textSize="@dimen/padding_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@drawable/bg_gradient_pink"
-        app:layout_constraintTop_toBottomOf="@id/textView8" />
+        app:layout_constraintTop_toBottomOf="@id/textViewSavePhoto" />
 
     <TextView
         android:id="@+id/tvPhotoNote"

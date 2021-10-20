@@ -72,6 +72,18 @@ class QuizCountriesActivity : AppCompatActivity() {
             }
         }
 
+        blockView.setOnClickListener {
+            webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
+            currentLevel++
+            getCurrentLevel()
+            btnConfirmText.text = "Confirm"
+            btnConfirm.visibility = View.INVISIBLE
+            textResult.visibility = View.INVISIBLE
+            textCorrectCountry.visibility = View.INVISIBLE
+            hideCountryInfo()
+            blockView.visibility = View.GONE
+            isCompleted = false
+        }
 
         initGame()
         getCurrentLevel()
@@ -93,7 +105,26 @@ class QuizCountriesActivity : AppCompatActivity() {
             }
         }), "Android")
 
-        webView.loadUrl("file:///android_asset/world/Map.html")
+        when (Misc.gameContinent) {
+            Misc.africa -> {
+                webView.loadUrl("file:///android_asset/world/africa.html")
+            }
+            Misc.asia -> {
+                webView.loadUrl("file:///android_asset/world/asia.html")
+            }
+            Misc.oceania -> {
+                webView.loadUrl("file:///android_asset/world/oceania.html")
+            }
+            Misc.america -> {
+                webView.loadUrl("file:///android_asset/world/america.html")
+            }
+            Misc.europe -> {
+                webView.loadUrl("file:///android_asset/world/europe.html")
+            }
+            else -> {
+                webView.loadUrl("file:///android_asset/world/Map.html")
+            }
+        }
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
@@ -103,6 +134,11 @@ class QuizCountriesActivity : AppCompatActivity() {
             ) {
                 super.onReceivedError(view, request, error)
                 Log.d("TAG", error.description.toString())
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                llPBGame.visibility = View.GONE
             }
         }
     }
@@ -175,10 +211,16 @@ class QuizCountriesActivity : AppCompatActivity() {
         if (selectedCountry == arrCountries[currentLevel]) {
             textResult.text = "Correct !"
             textResult.visibility = View.VISIBLE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                textResult.setTextColor(getColor(R.color.green))
+            }
             numberOfCorrectAnswers++
         } else {
             textResult.text = "Wrong !"
             textResult.visibility = View.VISIBLE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                textResult.setTextColor(getColor(R.color.red))
+            }
             textCorrectCountry.text = "You selected ${selectedCountry?.name}"
             textCorrectCountry.visibility = View.VISIBLE
         }
@@ -207,23 +249,33 @@ class QuizCountriesActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "LogNotTimber")
     fun initGame() {
         try {
+            arrCountries.clear()
             levels = intent.getIntExtra(Misc.data, 0)
 
             World.init(this)
-            val arr = World.getAllCountries()
+            var arr = if(Misc.gameContinent != Misc.wholeWorld){
+                World.getAllCountries().filter { con -> con.continent.contains(Misc.gameContinent, ignoreCase = true) }
+            }else {
+                World.getAllCountries()
+            }
             Log.d(Misc.logKey, arr.size.toString())
             if (levels < 120)
-                arr.sortByDescending { it.area }
-            var i = 0
-            while (i < levels) {
-                val tempCountry = arr[i]
-//            if(!arrCountries.contains(tempCountry)){
-                arrCountries.add(tempCountry)
-                arr.remove(tempCountry)
-                i++
-                Log.d(Misc.logKey, i.toString())
-//            }
+                arr = arr.sortedByDescending { it.area }
+            for (a in arr){
+                Log.d(Misc.logKey, a.area.toString())
             }
+            var i = 0
+            while (arrCountries.size < levels) {
+                val tempCountry = arr[i]
+                if (tempCountry.alpha2 != "xx") {
+                    arrCountries.add(tempCountry)
+//                    arr.drop(i)
+                    i++
+                }else{
+                    i++
+                }
+            }
+            Log.d(Misc.logKey, arrCountries.toString())
             arrCountries.shuffle()
 
             textLevel.text = "Level: ${currentLevel + 1}/${levels}"

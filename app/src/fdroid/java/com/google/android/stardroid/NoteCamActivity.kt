@@ -37,8 +37,9 @@ class NoteCamActivity : BaseActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var lastUri: Uri
     var cameraProvider: ProcessCameraProvider? = null
+    var isAddNote = false
 
-    @SuppressLint("LogNotTimber", "MissingPermission")
+    @SuppressLint("LogNotTimber", "MissingPermission", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_cam)
@@ -46,6 +47,49 @@ class NoteCamActivity : BaseActivity() {
         getImageForCollection()
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetNoteCam))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        btnSavePhotoNote.setOnClickListener {
+            if (isAddNote) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                tvNoteNoteCam.text = "Note: ${etPhotoNote.text}"
+
+            } else {
+                if (etPhotoNote.text.toString() == "") {
+                    Toast.makeText(
+                        this@NoteCamActivity,
+                        "Please enter some note.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    tvNoteNoteCam.text = "Note: ${etPhotoNote.text}"
+//                    tvNoteNoteCam.visibility = View.VISIBLE
+
+                    Handler().postDelayed({
+                        val bitmap = Bitmap.createBitmap(
+                            clPreviewImageView.width,
+                            clPreviewImageView.height,
+                            Bitmap.Config.ARGB_8888
+                        )
+                        val canvas = Canvas(bitmap)
+                        clPreviewImageView.draw(canvas)
+
+                        val tempUri =
+                            Misc.saveImageToExternal(
+                                this@NoteCamActivity,
+                                bitmap,
+                                null
+                            )
+                        Misc.setLatestUri(tempUri.toString(), this@NoteCamActivity)
+
+                        getImageForCollection()
+
+                        bottomSheetBehavior.state =
+                            BottomSheetBehavior.STATE_COLLAPSED
+                    }, 10)
+                }
+            }
+        }
+
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -55,13 +99,13 @@ class NoteCamActivity : BaseActivity() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     previewImageNoteCam.visibility = View.GONE
-                    tvNoteNoteCam.visibility = View.GONE
+//                    tvNoteNoteCam.visibility = View.GONE
                 }
             }
         })
         startCamera()
-        btnChangeCameraFace.setOnClickListener{
-            Misc.setCameraFace(this,!Misc.getCameraFace(this))
+        btnChangeCameraFace.setOnClickListener {
+            Misc.setCameraFace(this, !Misc.getCameraFace(this))
             startCamera()
         }
 
@@ -118,6 +162,12 @@ class NoteCamActivity : BaseActivity() {
 
         } else {
             tvNoteNoteCam.visibility = View.VISIBLE
+            clPreviewImageView.setOnClickListener {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                btnSavePhotoNote.text = "Add"
+                textViewSavePhoto.text = "Add Note"
+                isAddNote = true
+            }
             btnCapture.setOnClickListener {
                 val file = File(
                     externalMediaDirs.firstOrNull(),
@@ -137,43 +187,10 @@ class NoteCamActivity : BaseActivity() {
                             previewImageNoteCam.setImageURI(uri)
                             previewImageNoteCam.visibility = View.VISIBLE
                             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                            btnSavePhotoNote.text = "Save"
+                            textViewSavePhoto.text = "Save Photo"
 
-                            btnSavePhotoNote.setOnClickListener {
-                                if (etPhotoNote.text.toString() == "") {
-                                    Toast.makeText(
-                                        this@NoteCamActivity,
-                                        "Please enter some note.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                } else {
-
-                                    tvNoteNoteCam.text = "Note: ${etPhotoNote.text}"
-                                    tvNoteNoteCam.visibility = View.VISIBLE
-
-                                    Handler().postDelayed({
-                                        val bitmap = Bitmap.createBitmap(
-                                            clPreviewImageView.width,
-                                            clPreviewImageView.height,
-                                            Bitmap.Config.ARGB_8888
-                                        )
-                                        val canvas = Canvas(bitmap)
-                                        clPreviewImageView.draw(canvas)
-
-                                        val tempUri =
-                                            Misc.saveImageToExternal(
-                                                this@NoteCamActivity,
-                                                bitmap,
-                                                null
-                                            )
-                                        Misc.setLatestUri(tempUri.toString(), this@NoteCamActivity)
-
-                                        getImageForCollection()
-
-                                        bottomSheetBehavior.state =
-                                            BottomSheetBehavior.STATE_COLLAPSED
-                                    }, 10)
-                                }
-                            }
+                            isAddNote = false
                         }
                     }
                 )
@@ -254,17 +271,17 @@ class NoteCamActivity : BaseActivity() {
 //                    startActivity(i)
 //                } catch (e: Exception) {
 //                    e.printStackTrace()
-                    i = Intent()
-                    i.action = Intent.ACTION_VIEW
-                    i.setDataAndType(lastUri, "image/*")
-                    startActivity(i)
+                i = Intent()
+                i.action = Intent.ACTION_VIEW
+                i.setDataAndType(lastUri, "image/*")
+                startActivity(i)
 //                }
             }
         }
 
     }
 
-    private fun startCamera(){
+    private fun startCamera() {
         if (cameraProvider != null) {
             cameraProvider?.unbindAll()
         }

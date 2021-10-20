@@ -34,7 +34,7 @@ class SpeedometerActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        btnStartPauseDigital.setOnClickListener {
+        imgBtnStart.setOnClickListener {
             if (!isStarted) {
                 maxSpeed = 0
                 distance = 0.0

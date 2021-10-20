@@ -1003,7 +1003,6 @@
 
     <!-- Extrusion color expression highlight -->
     <string name="tap_on_building_to_highlight">Tap on a building to highlight it</string>
-    <string name="live_earth_map">Live Earth Map</string>
     <string name="satellite">Satellite</string>
     <string name="default_string">Default</string>
     <string name="terrain">Terrain</string>
@@ -1068,6 +1067,10 @@
     <string name="continents">Continents</string>
     <string name="difficulty_level">Difficulty Level</string>
     <string name="km_h">KM/H</string>
+    <string name="km">KM</string>
+    <string name="add_note">Add Note</string>
+    <string name="loading">Loading..</string>
+    <string name="live_earth_map">Live Earth Map</string>
 
 
 </resources>

@@ -41,7 +41,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage" />
+
+        <ImageView
+            android:id="@+id/imgBtnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fab_padding"
+            android:background="@drawable/bg_nothing"
+            app:srcCompat="@drawable/ic_baseline_play_arrow_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <TextView
         android:id="@+id/textTimeDigital"
@@ -106,13 +118,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/padding"
-        android:layout_marginStart="@dimen/fab_padding"
         android:layout_marginVertical="@dimen/padding"
         android:paddingVertical="@dimen/fab_padding"
-        android:paddingHorizontal="@dimen/extra_padding"
         android:background="@drawable/bg_top_left_corner"
         app:layout_constraintTop_toBottomOf="@+id/textTimeDigital"
         app:layout_constraintStart_toEndOf="@id/constraintLayout6"
@@ -136,7 +145,7 @@
             android:id="@+id/textDDU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/km_h"
+            android:text="@string/km"
             android:layout_marginTop="@dimen/padding"
             android:textSize="@dimen/btn_text_size"
             app:layout_constraintTop_toBottomOf="@id/textDistanceDigital"
@@ -161,13 +170,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/padding"
-        android:layout_marginStart="@dimen/fab_padding"
         android:layout_marginVertical="@dimen/padding"
         android:paddingVertical="@dimen/fab_padding"
-        android:paddingHorizontal="@dimen/extra_padding"
         android:background="@drawable/bg_top_left_corner"
         app:layout_constraintTop_toBottomOf="@+id/textTimeDigital"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
@@ -176,7 +182,6 @@
             android:id="@+id/textMaxSpeedDigital"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_padding"
             android:fontFamily="@font/digital"
             android:gravity="center"
             android:text="@string/_0"
@@ -218,21 +223,15 @@
         android:background="@drawable/ripple_gradient_pink"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/fab_padding"
         app:layout_constraintTop_toBottomOf="@+id/txtMaxDigital">
-
-        <ImageView
-            android:id="@+id/imgBtnStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_play_arrow_24"
-            app:tint="@color/black" />
 
         <Button
             android:id="@+id/textStartStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_nothing"
+            android:background="@color/nothing"
             android:tag="1"
             android:text="@string/start"
             android:textColor="@color/black"

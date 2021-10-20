@@ -58,7 +58,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private lateinit var mapboxMap: MapboxMap
     private val REQUEST_CODE_AUTOCOMPLETE = 1
     private lateinit var locationCallback: LocationCallback
-    private lateinit var permissionsManager: PermissionsManager
     var isCurrentLocation = true
 
 
@@ -129,26 +128,26 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         ) { style ->
             mapBoxStyle = style
 
-            mapboxMap.animateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                    CameraPosition.Builder()
-                        .target(mapboxMap.cameraPosition.target)
-                        .zoom(mapboxMap.cameraPosition.zoom)
-                        .tilt(0.0)
-                        .build()
-                ), 4000
-            )
+//            mapboxMap.animateCamera(
+//                CameraUpdateFactory.newCameraPosition(
+//                    CameraPosition.Builder()
+//                        .target(mapboxMap.cameraPosition.target)
+//                        .zoom(mapboxMap.cameraPosition.zoom)
+//                        .tilt(0.0)
+//                        .build()
+//                ), 4000
+//            )
+
+            enableLocationPlugin(style)
+            val manager = getSystemService(LOCATION_SERVICE) as LocationManager
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps()
+            }
 
 
             mapboxMap.addOnMapClickListener(this)
 
             initSearchFab()
-
-//            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
-//            point.latitude = lastKnownLocation!!.latitude
-//            point.longitude = lastKnownLocation.longitude
-//            animateCamera(point, 14.0)
-//            getAddress(point)
         }
     }
 
@@ -196,9 +195,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             // Set the component's camera mode
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.NORMAL
-        } else {
-            permissionsManager = PermissionsManager(this)
-            permissionsManager.requestLocationPermissions(this)
         }
         return locationComponent!!.lastKnownLocation
     }
@@ -209,7 +205,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onExplanationNeeded(permissionsToExplain: List<String>) {
