@@ -23,6 +23,7 @@
     <dimen name="text_size_normal">30sp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="text_size_large">50sp</dimen>
+    <dimen name="large_icon_size">40sp</dimen>
     <dimen name="digital_speed_size">150sp</dimen>
     <dimen name="border_width">1dp</dimen>
 </resources>

@@ -42,16 +42,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage" />
 
-        <ImageView
-            android:id="@+id/imgBtnStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/fab_padding"
-            android:background="@drawable/bg_nothing"
-            app:srcCompat="@drawable/ic_baseline_play_arrow_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -63,7 +53,7 @@
         android:background="@color/nothing"
         android:fontFamily="@font/digital"
         android:paddingHorizontal="@dimen/fab_padding"
-        android:paddingVertical="@dimen/less_padding"
+        android:layout_marginTop="@dimen/padding"
         android:text="@string/_00_00_00"
         android:textColor="@color/pink"
         android:textSize="30sp"
@@ -71,10 +61,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout7"/>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/bg_gradient_pink"
+        app:layout_constraintTop_toBottomOf="@id/textTimeDigital"/>
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/bg_gradient_pink"
+        app:layout_constraintTop_toBottomOf="@id/textStart"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center"
@@ -118,12 +124,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-        android:layout_width="130dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding"
-        android:paddingVertical="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"
         android:background="@drawable/bg_top_left_corner"
-        app:layout_constraintTop_toBottomOf="@+id/textTimeDigital"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintStart_toEndOf="@id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -137,7 +143,6 @@
             android:text="@string/_0"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -145,12 +150,14 @@
             android:id="@+id/textDDU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fab_padding"
             android:text="@string/km"
-            android:layout_marginTop="@dimen/padding"
+            android:textStyle="bold"
             android:textSize="@dimen/btn_text_size"
-            app:layout_constraintTop_toBottomOf="@id/textDistanceDigital"
-            app:layout_constraintEnd_toEndOf="@id/textDistanceDigital"
-            app:layout_constraintStart_toStartOf="@+id/textDistanceDigital" />
+            app:layout_constraintBottom_toBottomOf="@id/textDistanceDigital"
+            app:layout_constraintStart_toEndOf="@id/textDistanceDigital"
+            app:layout_constraintTop_toTopOf="@+id/textDistanceDigital" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -161,6 +168,8 @@
         android:gravity="center"
         android:text="@string/distance"
         android:textColor="@color/white"
+        android:layout_marginTop="@dimen/padding"
+        android:textStyle="bold"
         android:textSize="@dimen/btn_text_size"
         app:layout_constraintStart_toStartOf="@id/constraintLayout5"
         app:layout_constraintEnd_toEndOf="@id/constraintLayout5"
@@ -170,24 +179,25 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="130dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding"
-        android:paddingVertical="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
         android:background="@drawable/bg_top_left_corner"
-        app:layout_constraintTop_toBottomOf="@+id/textTimeDigital"
+        android:layout_marginTop="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
         app:layout_constraintStart_toStartOf="parent">
+
         <TextView
             android:id="@+id/textMaxSpeedDigital"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/digital"
             android:gravity="center"
+            android:layout_marginHorizontal="@dimen/fab_padding"
             android:text="@string/_0"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_large"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -196,11 +206,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/km_h"
-            android:layout_marginTop="@dimen/padding"
             android:textSize="@dimen/btn_text_size"
-            app:layout_constraintTop_toBottomOf="@id/textMaxSpeedDigital"
-            app:layout_constraintEnd_toEndOf="@id/textMaxSpeedDigital"
-            app:layout_constraintStart_toStartOf="@+id/textMaxSpeedDigital" />
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/fab_padding"
+            app:layout_constraintBottom_toBottomOf="@id/textMaxSpeedDigital"
+            app:layout_constraintStart_toEndOf="@id/textMaxSpeedDigital"
+            app:layout_constraintTop_toTopOf="@+id/textMaxSpeedDigital" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
@@ -210,11 +221,50 @@
         android:gravity="center"
         android:text="@string/max_speed"
         android:textColor="@color/white"
+        android:layout_marginTop="@dimen/padding"
+        android:textStyle="bold"
         android:textSize="@dimen/btn_text_size"
         app:layout_constraintStart_toStartOf="@id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="@id/constraintLayout6"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
         tools:ignore="NestedWeights,SpUsage" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_pink_circle"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxDigital">
+
+        <ImageView
+            android:id="@+id/imgBtnStart"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_play_arrow_24"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fab_padding"
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="@dimen/fab_padding"
+        app:layout_constraintEnd_toEndOf="@+id/btnStart"
+        app:layout_constraintStart_toStartOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+
 
     <LinearLayout
         android:id="@+id/btnStartPauseDigital"
@@ -224,7 +274,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/fab_padding"
+        android:layout_marginTop="@dimen/padding"
         app:layout_constraintTop_toBottomOf="@+id/txtMaxDigital">
 
         <Button

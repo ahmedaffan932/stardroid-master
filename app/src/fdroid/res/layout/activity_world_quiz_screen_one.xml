@@ -44,8 +44,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCountries"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_margin="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
@@ -56,23 +56,25 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="@dimen/less_padding"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv"
             app:srcCompat="@drawable/countries"
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/countries"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/imageView3"
             app:layout_constraintStart_toStartOf="@id/imageView3"
-            app:layout_constraintTop_toBottomOf="@id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@id/imageView3"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,19 +86,18 @@
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toStartOf="@id/clFlags"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/clCountries"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout">
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="@dimen/less_padding"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/capital"
+            app:srcCompat="@drawable/capitals"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -113,21 +114,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clFlags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_margin="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
         android:paddingHorizontal="@dimen/fab_padding"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/clCapitals"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+        app:layout_constraintEnd_toEndOf="@id/clCountries"
+        app:layout_constraintStart_toStartOf="@id/clCountries"
+        app:layout_constraintTop_toBottomOf="@id/clCountries">
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="@dimen/less_padding"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -142,6 +142,39 @@
             app:layout_constraintEnd_toEndOf="@id/imageView5"
             app:layout_constraintStart_toStartOf="@id/imageView5"
             app:layout_constraintTop_toBottomOf="@id/imageView5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCurrencies"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_margin="@dimen/fab_padding"
+        android:background="@drawable/bg_top_left_corner"
+        android:paddingHorizontal="@dimen/fab_padding"
+        android:paddingVertical="@dimen/padding"
+        app:layout_constraintEnd_toEndOf="@id/clCapitals"
+        app:layout_constraintStart_toStartOf="@id/clCapitals"
+        app:layout_constraintTop_toBottomOf="@id/clCapitals">
+
+        <ImageView
+            android:id="@+id/imageV"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/flags"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/flags"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/imageV"
+            app:layout_constraintStart_toStartOf="@id/imageV"
+            app:layout_constraintTop_toBottomOf="@id/imageV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

@@ -162,7 +162,7 @@ class NoteCamActivity : BaseActivity() {
 
         } else {
             tvNoteNoteCam.visibility = View.VISIBLE
-            clPreviewImageView.setOnClickListener {
+            clNote.setOnClickListener {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 btnSavePhotoNote.text = "Add"
                 textViewSavePhoto.text = "Add Note"
