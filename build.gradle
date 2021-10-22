@@ -1,4 +1,6 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+//ext {
+//    sourceCompatibility = VERSION_1_8
+//}// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     ext.kotlin_version = '1.4.20-RC'
@@ -6,6 +8,19 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: 'sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg'
+            }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.2'
@@ -26,7 +41,23 @@ allprojects {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+
+
+
         maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: 'sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg'
+            }
+        }
     }
 }
 

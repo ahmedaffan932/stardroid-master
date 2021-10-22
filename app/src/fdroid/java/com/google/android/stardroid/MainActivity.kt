@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
+        llSoundMeter.setOnClickListener {
+            Misc.startActivity(this, Misc.isSoundMeterIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    val intent = Intent(this@MainActivity, SoundMeterActivity::class.java)
+                    startActivity(intent)
+                }
+            })
+        }
+
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {

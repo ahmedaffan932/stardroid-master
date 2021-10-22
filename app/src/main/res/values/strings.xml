@@ -481,7 +481,7 @@
     <string name="app_name">GpsToolbox</string>
     <string name="spacer">Spacer</string>
 
-    <string name="mapbox_access_token">"pk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3RjcnpwaW0wOHF6MnVwcGZ4bXd4YWZxIn0.yFoQv4FbO16cAN5lIoiuNg"</string>
+    <string name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>
     <string name="game_globe">Game Globe</string>
     <string name="live_earth">Live Earth</string>
     <string name="cams">Cams</string>
@@ -1072,6 +1072,14 @@
     <string name="loading">Loading..</string>
     <string name="live_earth_map">Live Earth Map</string>
     <string name="sound_meter">Sound Meter</string>
+    <string name="view_world">View World</string>
+    <string name="close">Close</string>
+    <string name="min">Min</string>
+    <string name="avg">Avg</string>
+    <string name="info">Info</string>
+    <string name="reset">Reset</string>
+    <string name="max">Max</string>
+    <string name="currencies">Currencies</string>
 
 
 </resources>

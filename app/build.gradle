@@ -20,6 +20,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -45,11 +48,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             if (file('no-checkin.properties').exists()) {
                 signingConfig signingConfigs.release
-                Properties properties = new Properties()
+//                Properties properties = new Properties()
                 // Sky Map devs should create this file with the Google Analytics key
-                properties.load(project.file('no-checkin.properties').newDataInputStream())
-                def analyticsKey = properties.getProperty('analytics-key')
-                buildConfigField 'String', 'GOOGLE_ANALYTICS_CODE', analyticsKey
+//                properties.load(project.file('no-checkin.properties').newDataInputStream())
+//                def analyticsKey = properties.getProperty('analytics-key')
+//                buildConfigField 'String', 'GOOGLE_ANALYTICS_CODE', analyticsKey
             }
         }
     }
@@ -98,15 +101,15 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation project(path: ':country_data')
     implementation project(path: ':country_data')
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
 
     implementation 'com.google.protobuf:protobuf-java:3.15.2'
 
-
 // Flavor
     gmsImplementation 'com.google.android.gms:play-services-analytics:17.0.1'
     gmsImplementation 'com.google.android.gms:play-services-location:18.0.0'
-    gmsImplementation 'com.google.firebase:firebase-analytics:19.0.1'
+    implementation 'com.google.firebase:firebase-storage'
 
 // Testing
     testImplementation 'junit:junit:4.13.1'
@@ -132,9 +135,11 @@ dependencies {
     //GPS Toolbox libraries.
     implementation 'gov.nasa.worldwind.android:worldwind:0.8.0'
 
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0'
+    implementation 'com.mapbox.maps:android:10.0.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
-    implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0"
+//    implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0"
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v9:0.7.0'
 
@@ -159,7 +164,16 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    implementation 'com.github.anastr:speedviewlib:1.5.52'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+
 }
-repositories {
-    mavenCentral()
-}
+
+
+//repositories {
+//    mavenCentral()
+//}

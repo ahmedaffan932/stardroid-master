@@ -44,5 +44,17 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
             })
         }
 
+        clCurrencies.setOnClickListener {
+            Misc.startActivity(
+                this,
+                Misc.isQuizCurrenciesIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameMode = Misc.currencies
+                        startActivity(intent)
+                    }
+                })
+        }
+
     }
 }

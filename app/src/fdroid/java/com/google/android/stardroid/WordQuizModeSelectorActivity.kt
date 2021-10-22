@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.blongho.country_data.World
 import com.google.android.stardroid.clasess.Misc
@@ -61,7 +60,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
     }
 
     private fun startGame(levels: Int) {
-        val intent = Intent(this, QuizCountriesActivity::class.java)
+        val intent = Intent(this, WorldQuizCountriesActivity::class.java)
         intent.putExtra(Misc.data, levels)
         Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
             override fun onStart() {

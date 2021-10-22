@@ -18,6 +18,7 @@ import com.google.android.stardroid.interfaces.OnImageSaveCallBack
 import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.example.qrcodescanner.activities.sdk29AndUp
 import com.google.android.stardroid.R
+import com.google.firebase.storage.FirebaseStorage
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +26,7 @@ import java.util.*
 
 class Misc {
     companion object {
+        const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
         const val africa: String = "africa"
@@ -47,6 +49,7 @@ class Misc {
         private const val cameraFace: String = "cameraFace"
         var location: Location? = null
 
+
         var isGameIntEnabled: Boolean = false
         var isSkyMapIntEnabled: Boolean = false
         var isSplashIntEnabled: Boolean = false
@@ -56,10 +59,12 @@ class Misc {
         var isLiveEarthIntEnabled: Boolean = false
         var isViewWorldIntEnabled: Boolean = false
         var isStartGameIntEnabled: Boolean = false
+        var isSoundMeterIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
         var isQuizCountriesIntEnabled: Boolean = false
         var isNoteCamOnBackIntEnabled: Boolean = false
+        var isQuizCurrenciesIntEnabled: Boolean = false
         var isQuizCompeletedIntEnabled: Boolean = false
         var isLiveEarthOnBackIntEnabled: Boolean = false
         var isGenerateQrOnBackIntEnabled: Boolean = false

@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import com.blongho.country_data.World
 import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.StartActivityCallBack
+import com.google.firebase.FirebaseApp
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.main.activity_splash_screen.*
@@ -27,6 +28,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
 
         permissionsManager = PermissionsManager(this)
         World.init(this)
+        FirebaseApp.initializeApp(this)
 
         btnStart.setOnClickListener {
             if (PermissionsManager.areLocationPermissionsGranted(this)) {

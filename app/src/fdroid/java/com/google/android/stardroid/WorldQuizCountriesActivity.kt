@@ -1,6 +1,7 @@
 package com.google.android.stardroid
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -19,17 +20,22 @@ import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.CountryListInterface
 import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.google.android.stardroid.interfaces.WebAppInterface
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.*
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.clCountryInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.countryAreaInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.countryCapitalInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.countryCurrencyInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.countryNameInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.countryPopulationInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.flagCountryInfo
-import kotlinx.android.synthetic.fdroid.activity_quiz_countries.webView
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.clCountryInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryAreaInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryCapitalInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryCurrencyInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryNameInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryPopulationInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.flagCountryInfo
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.webView
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
-class QuizCountriesActivity : AppCompatActivity() {
+
+class WorldQuizCountriesActivity : AppCompatActivity() {
     var currentLevel = 0
     var levels = 0
     var selectedCountry: Country? = null
@@ -42,12 +48,14 @@ class QuizCountriesActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled", "LogNotTimber", "SetTextI18n", "ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_quiz_countries)
+        setContentView(R.layout.activity_world_quiz_countries)
 
         webView.settings.javaScriptEnabled = true
         webView.settings.allowFileAccess = true
         webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
         webView.setBackgroundColor(getColor(R.color.background_color))
+
+
 
         btnConfirm.setOnClickListener {
             if (!isCompleted) {
@@ -105,24 +113,31 @@ class QuizCountriesActivity : AppCompatActivity() {
             }
         }), "Android")
 
-        when (Misc.gameContinent) {
-            Misc.africa -> {
-                webView.loadUrl("file:///android_asset/world/africa.html")
-            }
-            Misc.asia -> {
-                webView.loadUrl("file:///android_asset/world/asia.html")
-            }
-            Misc.oceania -> {
-                webView.loadUrl("file:///android_asset/world/oceania.html")
-            }
-            Misc.america -> {
-                webView.loadUrl("file:///android_asset/world/america.html")
-            }
-            Misc.europe -> {
-                webView.loadUrl("file:///android_asset/world/europe.html")
-            }
-            else -> {
-                webView.loadUrl("file:///android_asset/world/Map.html")
+        GlobalScope.launch {
+            when (Misc.gameContinent) {
+                Misc.africa -> {
+                    getMapHtml(Misc.africa)
+                }
+                Misc.asia -> {
+                    getMapHtml(Misc.africa)
+//                    webView.loadUrl("file:///android_asset/world/asia.html")
+                }
+                Misc.oceania -> {
+                    getMapHtml(Misc.oceania)
+//                    webView.loadUrl("file:///android_asset/world/oceania.html")
+                }
+                Misc.america -> {
+                    getMapHtml(Misc.america)
+//                    webView.loadUrl("file:///android_asset/world/america.html")
+                }
+                Misc.europe -> {
+                    getMapHtml(Misc.europe)
+//                    webView.loadUrl("file:///android_asset/world/europe.html")
+                }
+                else -> {
+                    getMapHtml("world")
+//                    webView.loadUrl("file:///android_asset/world/Map.html")
+                }
             }
         }
 
@@ -183,6 +198,10 @@ class QuizCountriesActivity : AppCompatActivity() {
                 Misc.capitals -> {
                     findCountry.text = "${arrCountries[currentLevel].capital} is capital of ..."
                 }
+                Misc.currencies -> {
+                    findCountry.text =
+                        "${arrCountries[currentLevel].currency.name} (${arrCountries[currentLevel].currency.symbol}) is currency of ..."
+                }
                 Misc.flags -> {
                     flagCountryGame.visibility = View.VISIBLE
                     flagCountryGame.setImageResource(arrCountries[currentLevel].flagResource)
@@ -197,7 +216,10 @@ class QuizCountriesActivity : AppCompatActivity() {
                     override fun onStart() {
                         finish()
                         val intent =
-                            Intent(this@QuizCountriesActivity, QuizCompletedActivity::class.java)
+                            Intent(
+                                this@WorldQuizCountriesActivity,
+                                WorldQuizCompletedActivity::class.java
+                            )
                         intent.putExtra(Misc.levels, levels)
                         intent.putExtra(Misc.data, numberOfCorrectAnswers)
                         startActivity(intent)
@@ -230,6 +252,9 @@ class QuizCountriesActivity : AppCompatActivity() {
         } else if (Misc.gameMode == Misc.flags) {
             findCountry.text =
                 "his is flag of ${arrCountries[currentLevel].name}"
+        } else if (Misc.gameMode == Misc.currencies) {
+            findCountry.text =
+                "${arrCountries[currentLevel].currency.name} (${arrCountries[currentLevel].currency.symbol}) is currency of ${arrCountries[currentLevel].name}"
         }
     }
 
@@ -253,15 +278,16 @@ class QuizCountriesActivity : AppCompatActivity() {
             levels = intent.getIntExtra(Misc.data, 0)
 
             World.init(this)
-            var arr = if(Misc.gameContinent != Misc.wholeWorld){
-                World.getAllCountries().filter { con -> con.continent.contains(Misc.gameContinent, ignoreCase = true) }
-            }else {
+            var arr = if (Misc.gameContinent != Misc.wholeWorld) {
+                World.getAllCountries()
+                    .filter { con -> con.continent.contains(Misc.gameContinent, ignoreCase = true) }
+            } else {
                 World.getAllCountries()
             }
             Log.d(Misc.logKey, arr.size.toString())
             if (levels < 120)
                 arr = arr.sortedByDescending { it.area }
-            for (a in arr){
+            for (a in arr) {
                 Log.d(Misc.logKey, a.area.toString())
             }
             var i = 0
@@ -271,7 +297,7 @@ class QuizCountriesActivity : AppCompatActivity() {
                     arrCountries.add(tempCountry)
 //                    arr.drop(i)
                     i++
-                }else{
+                } else {
                     i++
                 }
             }
@@ -283,4 +309,36 @@ class QuizCountriesActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
+    @SuppressLint("LogNotTimber")
+    private suspend fun getMapHtml(mapName: String): String? {
+        return try {
+            val sharedPref = getSharedPreferences("SavedLanguages", Context.MODE_PRIVATE)
+
+            var valueString = sharedPref?.getString(mapName, null)
+
+            if (valueString != null) {
+                Log.d("Getting Language", "Getting value from SP")
+                return valueString
+            }
+
+
+            val storage: FirebaseStorage =
+                FirebaseStorage.getInstance()
+
+
+            val islandRef = storage.reference.child("/$mapName.html")
+            val fiftyKBs: Long = 1024 * 50
+            Log.d("Getting Language", "Getting value from FB")
+            valueString = String(islandRef.getBytes(fiftyKBs).await())
+            sharedPref?.edit()?.putString(mapName, valueString)?.apply()
+
+            valueString?.let { webView.loadUrl(it) }
+            valueString
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Unable to fetch value, please check your internet."
+        }
+    }
+
 }

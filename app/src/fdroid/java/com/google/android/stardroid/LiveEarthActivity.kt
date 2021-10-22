@@ -61,8 +61,8 @@ import java.io.IOException
 import java.util.*
 
 
-class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
-    OnMapReadyCallback, MapboxMap.OnMapClickListener {
+class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCallback, MapboxMap.OnMapClickListener
+{
     private val REQUEST_CODE_AUTOCOMPLETE = 1
     private val speechRequestCode = 0
     private var buildingPlugin: BuildingPlugin? = null
@@ -90,7 +90,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        if (intent.getStringExtra(Misc.data) != null){
+        /*if (intent.getStringExtra(Misc.data) != null){
             val intent = PlaceAutocomplete.IntentBuilder()
                 .accessToken(
                     (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
@@ -105,7 +105,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                 )
                 .build(this)
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-        }
+        }*/
 
 
         isBtnGenerateVisible = Misc.hideShowView(btnGenerateQR, this, isBtnGenerateVisible)
@@ -189,11 +189,16 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
         llHybrid.setOnClickListener {
             setMapBoxStyle(Style.DARK, false)
         }
-
+//        mapView.getMapAsync { mapboxMap ->
+//            this.mapboxMap = mapboxMap
+//            mapboxMap.setStyle(Style.SATELLITE_STREETS)
+//        }
+//        mapView.getMapAsync(this)
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
         this@LiveEarthActivity.mapboxMap = mapboxMap
+//        mapboxMap.setStyle(Style.SATELLITE)
         setMapBoxStyle(Style.OUTDOORS, false)
     }
 
@@ -423,7 +428,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                 buildingPlugin?.setVisibility(false)
                 isThreeDViewEnabled = false
             }
-
             mapboxMap.addOnMapClickListener(this)
             initSearchFab();
 
@@ -438,7 +442,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
                 isFirstTime = false
             }
 
-
             hoveringMarker = ImageView(this@LiveEarthActivity)
             hoveringMarker.setImageResource(R.drawable.ic_pin)
             val params = FrameLayout.LayoutParams(
@@ -448,7 +451,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,
             hoveringMarker.layoutParams = params
 //            mapView.addView(hoveringMarker)
 
-            // Initialize, but don't show, a SymbolLayer for the marker icon which will represent a selected location.
+//            Initialize, but don't show, a SymbolLayer for the marker icon which will represent a selected location.
             initDroppedMarker(style)
         }
     }
