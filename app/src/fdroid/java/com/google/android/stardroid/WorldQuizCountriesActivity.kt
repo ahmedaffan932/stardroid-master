@@ -20,6 +20,7 @@ import com.google.android.stardroid.clasess.Misc
 import com.google.android.stardroid.interfaces.CountryListInterface
 import com.google.android.stardroid.interfaces.StartActivityCallBack
 import com.google.android.stardroid.interfaces.WebAppInterface
+import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.clCountryInfo
@@ -113,32 +114,38 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             }
         }), "Android")
 
+
+        Misc.wholeWorld
+        webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
+
         GlobalScope.launch {
-            when (Misc.gameContinent) {
-                Misc.africa -> {
-                    getMapHtml(Misc.africa)
-                }
-                Misc.asia -> {
-                    getMapHtml(Misc.africa)
+//            getMapHtml(Misc.gameContinent)
+//            when (Misc.gameContinent) {
+//                Misc.africa -> {
+//                    getMapHtml(Misc.africa)
+//                    webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
+//                }
+//                Misc.asia -> {
+////                    getMapHtml(Misc.africa)
 //                    webView.loadUrl("file:///android_asset/world/asia.html")
-                }
-                Misc.oceania -> {
-                    getMapHtml(Misc.oceania)
+//                }
+//                Misc.oceania -> {
+////                    getMapHtml(Misc.oceania)
 //                    webView.loadUrl("file:///android_asset/world/oceania.html")
-                }
-                Misc.america -> {
-                    getMapHtml(Misc.america)
+//                }
+//                Misc.america -> {
+////                    getMapHtml(Misc.america)
 //                    webView.loadUrl("file:///android_asset/world/america.html")
-                }
-                Misc.europe -> {
-                    getMapHtml(Misc.europe)
+//                }
+//                Misc.europe -> {
+////                    getMapHtml(Misc.europe)
 //                    webView.loadUrl("file:///android_asset/world/europe.html")
-                }
-                else -> {
-                    getMapHtml("world")
+//                }
+//                else -> {
+////                    getMapHtml("world")
 //                    webView.loadUrl("file:///android_asset/world/Map.html")
-                }
-            }
+//                }
+//            }
         }
 
         webView.webViewClient = object : WebViewClient() {
@@ -322,7 +329,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 return valueString
             }
 
-
+//            FirebaseApp.initializeApp(applicationContext)
             val storage: FirebaseStorage =
                 FirebaseStorage.getInstance()
 
@@ -333,7 +340,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             valueString = String(islandRef.getBytes(fiftyKBs).await())
             sharedPref?.edit()?.putString(mapName, valueString)?.apply()
 
-            valueString?.let { webView.loadUrl(it) }
+            valueString.let { webView.loadUrl(it) }
             valueString
         } catch (e: Exception) {
             e.printStackTrace()
