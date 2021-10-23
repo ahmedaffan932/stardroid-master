@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.example.gpstoolbox"
+        applicationId "com.google.android.stardroid"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1524
@@ -166,12 +167,13 @@ dependencies {
 
     implementation 'com.github.anastr:speedviewlib:1.5.52'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
+
+    implementation 'com.google.firebase:firebase-core:9.6.1'
+
 }
 
 

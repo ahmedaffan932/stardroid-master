@@ -28,7 +28,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
 
         permissionsManager = PermissionsManager(this)
         World.init(this)
-        FirebaseApp.initializeApp(this)
+        FirebaseApp.initializeApp(applicationContext)
 
         btnStart.setOnClickListener {
             if (PermissionsManager.areLocationPermissionsGranted(this)) {

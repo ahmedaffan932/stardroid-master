@@ -55,6 +55,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
         webView.settings.allowFileAccess = true
         webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
         webView.setBackgroundColor(getColor(R.color.background_color))
+        FirebaseApp.initializeApp(this)
 
 
 
@@ -116,10 +117,10 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
 
 
         Misc.wholeWorld
-        webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
+//        webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
 
         GlobalScope.launch {
-//            getMapHtml(Misc.gameContinent)
+            getMapDotHtml(Misc.gameContinent)
 //            when (Misc.gameContinent) {
 //                Misc.africa -> {
 //                    getMapHtml(Misc.africa)
@@ -318,7 +319,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
     }
 
     @SuppressLint("LogNotTimber")
-    private suspend fun getMapHtml(mapName: String): String? {
+    private suspend fun getMapDotHtml(mapName: String): String? {
         return try {
             val sharedPref = getSharedPreferences("SavedLanguages", Context.MODE_PRIVATE)
 
@@ -329,7 +330,6 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 return valueString
             }
 
-//            FirebaseApp.initializeApp(applicationContext)
             val storage: FirebaseStorage =
                 FirebaseStorage.getInstance()
 
