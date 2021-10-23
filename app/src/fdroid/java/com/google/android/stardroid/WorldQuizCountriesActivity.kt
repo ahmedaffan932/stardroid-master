@@ -116,38 +116,12 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
         }), "Android")
 
 
-        Misc.wholeWorld
-//        webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
+//        Misc.wholeWorld
+        webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
 
-        GlobalScope.launch {
-            getMapDotHtml(Misc.gameContinent)
-//            when (Misc.gameContinent) {
-//                Misc.africa -> {
-//                    getMapHtml(Misc.africa)
-//                    webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
-//                }
-//                Misc.asia -> {
-////                    getMapHtml(Misc.africa)
-//                    webView.loadUrl("file:///android_asset/world/asia.html")
-//                }
-//                Misc.oceania -> {
-////                    getMapHtml(Misc.oceania)
-//                    webView.loadUrl("file:///android_asset/world/oceania.html")
-//                }
-//                Misc.america -> {
-////                    getMapHtml(Misc.america)
-//                    webView.loadUrl("file:///android_asset/world/america.html")
-//                }
-//                Misc.europe -> {
-////                    getMapHtml(Misc.europe)
-//                    webView.loadUrl("file:///android_asset/world/europe.html")
-//                }
-//                else -> {
-////                    getMapHtml("world")
-//                    webView.loadUrl("file:///android_asset/world/Map.html")
-//                }
-//            }
-        }
+//        GlobalScope.launch {
+//            getMapDotHtml(Misc.gameContinent)
+//        }
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
@@ -340,7 +314,9 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             valueString = String(islandRef.getBytes(fiftyKBs).await())
             sharedPref?.edit()?.putString(mapName, valueString)?.apply()
 
-            valueString.let { webView.loadUrl(it) }
+            webView.loadData(valueString, "text/html", "UTF-8")
+            Log.d(Misc.logKey, valueString)
+//            valueString.let { webView.loadUrl(it) }
             valueString
         } catch (e: Exception) {
             e.printStackTrace()
