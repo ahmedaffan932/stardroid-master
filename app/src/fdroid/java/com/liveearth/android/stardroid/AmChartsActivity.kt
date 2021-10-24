@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -20,11 +20,11 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
-import com.google.android.stardroid.adapters.CountryAdapter
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.CountryListInterface
-import com.google.android.stardroid.interfaces.WebAppInterface
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.BaseActivity
+import com.liveearth.android.stardroid.adapters.CountryAdapter
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.CountryListInterface
+import com.liveearth.android.stardroid.interfaces.WebAppInterface
 import kotlinx.android.synthetic.main.activity_am_chatrs.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener

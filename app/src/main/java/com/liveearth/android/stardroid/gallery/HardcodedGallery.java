@@ -16,7 +16,7 @@ package com.liveearth.android.stardroid.gallery;
 
 import android.content.res.Resources;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

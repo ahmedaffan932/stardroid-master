@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.blongho.country_data.World
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.StartActivityCallBack
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.StartActivityCallBack
+
 import kotlinx.android.synthetic.fdroid.activity_word_quiz_mode_selector.*
 
 class WordQuizModeSelectorActivity : AppCompatActivity() {

@@ -11,10 +11,9 @@ import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.google.android.stardroid.R;
-import com.google.android.stardroid.activities.DaggerCompassCalibrationComponent;
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.activities.util.SensorAccuracyDecoder;
-import com.google.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.MiscUtil;
 import com.liveearth.android.stardroid.util.Toaster;
 
@@ -38,9 +37,9 @@ public class CompassCalibrationActivity extends InjectableActivity implements Se
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DaggerCompassCalibrationComponent.builder()
-        .applicationComponent(getApplicationComponent())
-        .compassCalibrationModule(new CompassCalibrationModule(this)).build().inject(this);
+//    DaggerCompassCalibrationComponent.builder()
+//        .applicationComponent(getApplicationComponent())
+//        .compassCalibrationModule(new CompassCalibrationModule(this)).build().inject(this);
 
     setContentView(R.layout.activity_compass_calibration);
     WebView web = (WebView) findViewById(R.id.compass_calib_activity_webview);

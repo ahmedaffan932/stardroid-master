@@ -1,4 +1,4 @@
-package com.google.android.stardroid.clasess
+package com.liveearth.android.stardroid.clasess
 
 import android.app.Activity
 import android.app.Dialog
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import com.liveearth.android.stardroid.R
+
 
 class CustomDialog(var c: Activity) : Dialog(c), View.OnClickListener {
     var d: Dialog? = null

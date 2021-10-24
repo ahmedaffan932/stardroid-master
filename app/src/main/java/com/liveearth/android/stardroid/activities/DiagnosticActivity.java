@@ -14,15 +14,14 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.StardroidApplication;
-import com.google.android.stardroid.activities.DaggerDiagnosticActivityComponent;
 import com.liveearth.android.stardroid.activities.util.SensorAccuracyDecoder;
 import com.liveearth.android.stardroid.control.AstronomerModel;
 import com.liveearth.android.stardroid.control.LocationController;
 import com.liveearth.android.stardroid.units.GeocentricCoordinates;
 import com.liveearth.android.stardroid.units.LatLong;
-import com.google.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 import java.text.SimpleDateFormat;

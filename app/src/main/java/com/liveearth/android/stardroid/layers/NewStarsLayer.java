@@ -17,7 +17,7 @@ package com.liveearth.android.stardroid.layers;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 
 /**
  * An implementation of the {@link AbstractFileBasedLayer} for displaying stars

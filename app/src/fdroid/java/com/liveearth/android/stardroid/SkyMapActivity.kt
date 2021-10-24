@@ -1,12 +1,11 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.liveearth.android.stardroid.activities.DynamicStarMapActivity
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.StartActivityCallBack
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_sky_map.*
 
 class SkyMapActivity : AppCompatActivity() {

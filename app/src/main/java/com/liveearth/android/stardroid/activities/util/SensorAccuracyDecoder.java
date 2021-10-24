@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.SensorManager;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 
 import javax.inject.Inject;
 

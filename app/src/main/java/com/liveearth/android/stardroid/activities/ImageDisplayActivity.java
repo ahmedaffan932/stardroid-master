@@ -27,12 +27,12 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceManager;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.activities.util.ActivityLightLevelChanger;
 import com.liveearth.android.stardroid.activities.util.ActivityLightLevelManager;
 import com.liveearth.android.stardroid.gallery.GalleryFactory;
 import com.liveearth.android.stardroid.gallery.GalleryImage;
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,13 +16,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.CountryListInterface
-import com.google.android.stardroid.interfaces.StartActivityCallBack
-import com.google.android.stardroid.interfaces.WebAppInterface
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.CountryListInterface
+import com.liveearth.android.stardroid.interfaces.StartActivityCallBack
+import com.liveearth.android.stardroid.interfaces.WebAppInterface
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
-import com.liveearth.android.stardroid.R
+
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.clCountryInfo
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.countryAreaInfo

@@ -1,22 +1,5 @@
 package com.google.android.stardroid.test;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.lifecycle.Lifecycle;
-import androidx.preference.PreferenceManager;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
-
-import com.google.android.stardroid.R;
-import com.google.android.stardroid.activities.SplashScreenActivity;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExternalResource;
-import org.junit.rules.RuleChain;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -27,6 +10,23 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import androidx.lifecycle.Lifecycle;
+import androidx.preference.PreferenceManager;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
+
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.activities.SplashScreenActivity;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExternalResource;
+import org.junit.rules.RuleChain;
 
 /*
 If you're running this on your phone and you get an error about

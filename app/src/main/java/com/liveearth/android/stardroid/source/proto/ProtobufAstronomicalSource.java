@@ -17,7 +17,7 @@ package com.liveearth.android.stardroid.source.proto;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.source.AbstractAstronomicalSource;
 import com.liveearth.android.stardroid.source.AstronomicalSource;
 import com.liveearth.android.stardroid.source.LineSource;

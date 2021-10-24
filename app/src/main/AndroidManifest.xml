@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.stardroid"
+    package="com.liveearth.android.stardroid"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="auto"
           android:vmSafeMode="false">
@@ -60,9 +60,7 @@
     <application
         android:name=".StardroidApplication"
         android:icon="@drawable/globe_white"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:label="@string/app_name"
-        tools:ignore="UnusedAttribute">
+        android:label="@string/app_name">
         <activity
             android:name=".activities.SplashScreenActivity"
             android:label="@string/app_name"
@@ -156,42 +154,42 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
-            android:name="com.google.android.stardroid.WorldQuizActivity"
+            android:name=".WorldQuizActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name="com.google.android.stardroid.SkyMapActivity"
+            android:name=".SkyMapActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
 
         <activity
-            android:name="com.google.android.stardroid.WorldQuizCountriesActivity"
+            android:name=".WorldQuizCountriesActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name="com.google.android.stardroid.WorldQuizSelectContinentActivity"
+            android:name=".WorldQuizSelectContinentActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name="com.google.android.stardroid.WorldQuizScreenOneActivity"
+            android:name=".WorldQuizScreenOneActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name="com.google.android.stardroid.WordQuizModeSelectorActivity"
+            android:name=".WordQuizModeSelectorActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name="com.google.android.stardroid.WorldQuizCompletedActivity"
+            android:name=".WorldQuizCompletedActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
-            android:name="com.google.android.stardroid.ProScreenActivity"
+            android:name=".ProScreenActivity"
             android:exported="true"/>
 
         <activity
-            android:name="com.google.android.stardroid.SoundMeterActivity"
+            android:name=".SoundMeterActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />

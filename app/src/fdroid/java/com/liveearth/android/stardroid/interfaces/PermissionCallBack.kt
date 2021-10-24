@@ -1,4 +1,4 @@
-package com.google.android.stardroid.interfaces
+package com.liveearth.android.stardroid.interfaces
 
 interface PermissionCallBack {
     fun onPermissionGranted()

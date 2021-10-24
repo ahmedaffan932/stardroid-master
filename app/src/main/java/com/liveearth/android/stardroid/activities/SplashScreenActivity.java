@@ -23,15 +23,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.ApplicationConstants;
-import com.google.android.stardroid.R;
 import com.liveearth.android.stardroid.StardroidApplication;
-import com.google.android.stardroid.activities.DaggerSplashScreenComponent;
 import com.liveearth.android.stardroid.activities.dialogs.EulaDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.WhatsNewDialogFragment;
 import com.liveearth.android.stardroid.activities.util.ConstraintsChecker;
 import com.liveearth.android.stardroid.inject.HasComponent;
-import com.google.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 import javax.inject.Inject;

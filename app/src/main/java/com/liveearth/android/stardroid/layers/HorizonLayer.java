@@ -17,7 +17,7 @@ package com.liveearth.android.stardroid.layers;
 import android.content.res.Resources;
 import android.graphics.Color;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.base.Lists;
 import com.liveearth.android.stardroid.base.TimeConstants;
 import com.liveearth.android.stardroid.control.AstronomerModel;

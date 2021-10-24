@@ -1,4 +1,4 @@
-package com.google.android.stardroid.activities.util;
+package com.liveearth.android.stardroid.activities.util;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.liveearth.android.stardroid.activities.dialogs.LocationPermissionRationaleFragment;
-import com.liveearth.android.stardroid.activities.util.AbstractGooglePlayServicesChecker;
 import com.liveearth.android.stardroid.control.LocationController;
 
 import javax.inject.Inject;

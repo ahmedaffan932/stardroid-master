@@ -30,10 +30,8 @@ import android.util.Log;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.stardroid.DaggerApplicationComponent;
-import com.google.android.stardroid.R;
 import com.liveearth.android.stardroid.layers.LayerManager;
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.AnalyticsInterface;
 import com.liveearth.android.stardroid.util.MiscUtil;
 import com.liveearth.android.stardroid.util.PreferenceChangeAnalyticsTracker;

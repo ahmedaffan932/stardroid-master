@@ -16,7 +16,7 @@ package com.liveearth.android.stardroid.provider.ephemeris;
 
 import android.util.Log;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.base.TimeConstants;
 import com.liveearth.android.stardroid.base.VisibleForTesting;
 import com.liveearth.android.stardroid.units.GeocentricCoordinates;

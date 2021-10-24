@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.StardroidApplication;
 import com.liveearth.android.stardroid.inject.HasComponent;
 import com.liveearth.android.stardroid.util.MiscUtil;

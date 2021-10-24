@@ -16,7 +16,7 @@ package com.liveearth.android.stardroid.control;
 
 import android.util.Log;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 import java.util.Date;

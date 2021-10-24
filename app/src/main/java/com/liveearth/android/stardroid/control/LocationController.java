@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.units.LatLong;
 import com.liveearth.android.stardroid.util.MiscUtil;
 

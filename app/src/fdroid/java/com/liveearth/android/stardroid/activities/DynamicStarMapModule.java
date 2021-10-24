@@ -1,7 +1,4 @@
-package com.google.android.stardroid.activities;
-
-import com.liveearth.android.stardroid.activities.AbstractDynamicStarMapModule;
-import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
+package com.liveearth.android.stardroid.activities;
 
 import dagger.Module;
 

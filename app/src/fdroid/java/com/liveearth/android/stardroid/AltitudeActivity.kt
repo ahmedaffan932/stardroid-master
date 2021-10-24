@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,21 +15,17 @@ import android.os.Looper
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.OnImageSaveCallBack
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.OnImageSaveCallBack
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.liveearth.android.stardroid.R
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.geocoding.v5.MapboxGeocoding

@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
 import com.liveearth.android.stardroid.control.AstronomerModel;
 import com.liveearth.android.stardroid.provider.ephemeris.Planet;

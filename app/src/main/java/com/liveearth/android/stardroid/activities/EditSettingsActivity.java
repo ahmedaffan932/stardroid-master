@@ -29,11 +29,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.liveearth.android.stardroid.ApplicationConstants;
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.StardroidApplication;
 import com.liveearth.android.stardroid.activities.util.ActivityLightLevelChanger;
 import com.liveearth.android.stardroid.activities.util.ActivityLightLevelManager;
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 import java.io.IOException;

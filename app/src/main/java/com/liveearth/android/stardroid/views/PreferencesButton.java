@@ -27,8 +27,8 @@ import android.widget.ImageButton;
 
 import androidx.preference.PreferenceManager;
 
-import com.google.android.stardroid.R;
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.AnalyticsInterface;
 import com.liveearth.android.stardroid.util.MiscUtil;
 

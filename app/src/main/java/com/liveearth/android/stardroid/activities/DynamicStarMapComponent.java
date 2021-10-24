@@ -1,7 +1,6 @@
 package com.liveearth.android.stardroid.activities;
 
 import com.liveearth.android.stardroid.ApplicationComponent;
-import com.google.android.stardroid.activities.DynamicStarMapModule;
 import com.liveearth.android.stardroid.activities.dialogs.EulaDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.HelpDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.MultipleSearchResultsDialogFragment;

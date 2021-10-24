@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,9 +23,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.ActivityOnBackPress
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.ActivityOnBackPress
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.geocoding.v5.GeocodingCriteria

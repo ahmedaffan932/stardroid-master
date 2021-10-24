@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
 import com.liveearth.android.stardroid.inject.HasComponent;
 import com.liveearth.android.stardroid.search.SearchResult;

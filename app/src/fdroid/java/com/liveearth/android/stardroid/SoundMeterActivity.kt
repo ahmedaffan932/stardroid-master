@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -13,7 +13,6 @@ import android.text.style.ImageSpan
 import android.util.Log
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
-import com.liveearth.android.stardroid.R
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
 class SoundMeterActivity : AppCompatActivity() {

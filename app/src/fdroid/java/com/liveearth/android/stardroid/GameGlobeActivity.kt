@@ -1,9 +1,8 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.liveearth.android.stardroid.R
 import gov.nasa.worldwind.Frame
 import gov.nasa.worldwind.WorldWindow
 import gov.nasa.worldwind.globe.BasicElevationCoverage

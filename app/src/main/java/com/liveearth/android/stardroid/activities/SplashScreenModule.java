@@ -5,7 +5,7 @@ import android.app.FragmentManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.activities.dialogs.EulaDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.WhatsNewDialogFragment;
 import com.liveearth.android.stardroid.inject.PerActivity;

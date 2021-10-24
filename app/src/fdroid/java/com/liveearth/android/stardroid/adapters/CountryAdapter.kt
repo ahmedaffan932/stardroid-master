@@ -1,4 +1,4 @@
-package com.google.android.stardroid.adapters
+package com.liveearth.android.stardroid.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,8 +14,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.blongho.country_data.Country
 import com.liveearth.android.stardroid.R
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.CountryListInterface
+
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.CountryListInterface
 import kotlin.collections.ArrayList
 
 @SuppressLint("StaticFieldLeak")

@@ -17,7 +17,7 @@ package com.liveearth.android.stardroid.layers;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.control.AstronomerModel;
 import com.liveearth.android.stardroid.provider.ephemeris.Planet;
 import com.liveearth.android.stardroid.provider.ephemeris.PlanetSource;

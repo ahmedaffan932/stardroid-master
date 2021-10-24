@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.annotation.SuppressLint
 import android.location.Location
@@ -8,12 +8,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.TextView
-import com.google.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.clasess.Misc
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.liveearth.android.stardroid.R
 import kotlinx.android.synthetic.main.activity_speedometer.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToLong

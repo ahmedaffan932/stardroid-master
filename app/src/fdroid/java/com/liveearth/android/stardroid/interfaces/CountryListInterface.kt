@@ -1,4 +1,4 @@
-package com.google.android.stardroid.interfaces
+package com.liveearth.android.stardroid.interfaces
 
 import com.blongho.country_data.Country
 

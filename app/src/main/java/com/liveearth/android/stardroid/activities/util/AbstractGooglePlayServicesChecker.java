@@ -5,12 +5,12 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import androidx.core.app.ActivityCompat;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
 
 import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
 import com.liveearth.android.stardroid.activities.dialogs.LocationPermissionRationaleFragment;
-import com.google.android.stardroid.activities.util.GooglePlayServicesChecker;
 import com.liveearth.android.stardroid.util.MiscUtil;
 
 /**

@@ -1,4 +1,5 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
+
 
 import android.content.Intent
 import android.view.View
@@ -7,7 +8,6 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.liveearth.android.stardroid.R
 
 open class BaseActivity : AppCompatActivity() {
 

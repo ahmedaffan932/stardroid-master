@@ -28,7 +28,7 @@ import com.liveearth.android.stardroid.layers.NewMessierLayer;
 import com.liveearth.android.stardroid.layers.NewStarsLayer;
 import com.liveearth.android.stardroid.layers.PlanetsLayer;
 import com.liveearth.android.stardroid.layers.SkyGradientLayer;
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.util.Analytics;
 import com.liveearth.android.stardroid.util.AnalyticsInterface;
 import com.liveearth.android.stardroid.util.MiscUtil;
 

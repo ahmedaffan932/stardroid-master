@@ -14,7 +14,7 @@
 
 package com.liveearth.android.stardroid.renderer;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.renderer.util.IndexBuffer;
 import com.liveearth.android.stardroid.renderer.util.NightVisionColorBuffer;
 import com.liveearth.android.stardroid.renderer.util.TexCoordBuffer;

@@ -1,4 +1,4 @@
-package com.google.android.stardroid.interfaces
+package com.liveearth.android.stardroid.interfaces
 
 import android.annotation.SuppressLint
 import android.app.Activity

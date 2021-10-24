@@ -1,7 +1,15 @@
 package com.google.android.stardroid.test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.not;
+
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -10,29 +18,16 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import com.google.android.stardroid.R;
-import com.google.android.stardroid.activities.CompassCalibrationActivity;
-import com.google.android.stardroid.activities.DynamicStarMapActivity;
-import com.google.android.stardroid.activities.util.FullscreenControlsManager;
-import com.google.android.stardroid.control.LocationController;
+import com.liveearth.android.stardroid.R;
+import com.liveearth.android.stardroid.activities.CompassCalibrationActivity;
+import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
+import com.liveearth.android.stardroid.activities.util.FullscreenControlsManager;
+import com.liveearth.android.stardroid.control.LocationController;
 
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExternalResource;
 import org.junit.rules.RuleChain;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.pressBack;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.Matchers.not;
 
 public class DynamicStarMapActivityTest {
 

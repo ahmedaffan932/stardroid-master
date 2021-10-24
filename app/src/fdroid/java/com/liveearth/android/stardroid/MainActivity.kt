@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.Manifest
 import android.content.Intent
@@ -11,9 +11,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.StartActivityCallBack
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.StartActivityCallBack
+import com.liveearth.android.stardroid.AltitudeActivity
+import com.liveearth.android.stardroid.SpeedometerActivity
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.fdroid.bottom_sheet_quit.*

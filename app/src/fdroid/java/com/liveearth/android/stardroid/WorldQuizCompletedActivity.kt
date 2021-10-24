@@ -1,10 +1,10 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.stardroid.clasess.Misc
-import com.liveearth.android.stardroid.R
+import com.liveearth.android.stardroid.clasess.Misc
+
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_completed.*
 
 class WorldQuizCompletedActivity : AppCompatActivity() {

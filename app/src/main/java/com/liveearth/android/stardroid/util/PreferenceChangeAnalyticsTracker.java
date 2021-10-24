@@ -19,7 +19,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.stardroid.util.Analytics;
+import com.liveearth.android.stardroid.util.Analytics;
 
 import java.util.Arrays;
 import java.util.HashSet;

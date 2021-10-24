@@ -1,8 +1,7 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.liveearth.android.stardroid.R
 
 class ProScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

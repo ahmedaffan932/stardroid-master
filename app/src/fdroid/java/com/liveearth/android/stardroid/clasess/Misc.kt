@@ -1,4 +1,4 @@
-package com.google.android.stardroid.clasess
+package com.liveearth.android.stardroid.clasess
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -13,11 +13,12 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.stardroid.interfaces.ActivityOnBackPress
-import com.google.android.stardroid.interfaces.OnImageSaveCallBack
-import com.google.android.stardroid.interfaces.StartActivityCallBack
+import com.liveearth.android.stardroid.interfaces.ActivityOnBackPress
+import com.liveearth.android.stardroid.interfaces.OnImageSaveCallBack
+import com.liveearth.android.stardroid.interfaces.StartActivityCallBack
 import com.example.qrcodescanner.activities.sdk29AndUp
 import com.liveearth.android.stardroid.R
+
 import com.google.firebase.storage.FirebaseStorage
 import java.io.IOException
 import java.text.SimpleDateFormat

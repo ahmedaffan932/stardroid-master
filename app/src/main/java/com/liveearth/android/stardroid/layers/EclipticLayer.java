@@ -17,7 +17,7 @@ package com.liveearth.android.stardroid.layers;
 import android.content.res.Resources;
 import android.graphics.Color;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.source.AbstractAstronomicalSource;
 import com.liveearth.android.stardroid.source.AstronomicalSource;
 import com.liveearth.android.stardroid.source.LineSource;

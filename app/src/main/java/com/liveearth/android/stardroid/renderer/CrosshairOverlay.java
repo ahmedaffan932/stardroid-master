@@ -18,7 +18,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.res.Resources;
 
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.renderer.util.SearchHelper;
 import com.liveearth.android.stardroid.renderer.util.TextureManager;
 import com.liveearth.android.stardroid.renderer.util.TextureReference;

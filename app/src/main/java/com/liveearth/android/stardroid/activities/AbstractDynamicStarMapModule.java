@@ -9,8 +9,7 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.google.android.stardroid.R;
-import com.google.android.stardroid.activities.DynamicStarMapModule;
+import com.liveearth.android.stardroid.R;
 import com.liveearth.android.stardroid.activities.dialogs.EulaDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.HelpDialogFragment;
 import com.liveearth.android.stardroid.activities.dialogs.LocationPermissionRationaleFragment;

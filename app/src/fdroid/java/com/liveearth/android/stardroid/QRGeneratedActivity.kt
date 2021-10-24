@@ -1,4 +1,4 @@
-package com.google.android.stardroid
+package com.liveearth.android.stardroid
 
 import android.Manifest
 import android.content.Intent
@@ -15,11 +15,10 @@ import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.stardroid.clasess.Misc
-import com.google.android.stardroid.interfaces.ActivityOnBackPress
-import com.google.android.stardroid.interfaces.OnImageSaveCallBack
+import com.liveearth.android.stardroid.clasess.Misc
+import com.liveearth.android.stardroid.interfaces.ActivityOnBackPress
+import com.liveearth.android.stardroid.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
-import com.liveearth.android.stardroid.R
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
 
 

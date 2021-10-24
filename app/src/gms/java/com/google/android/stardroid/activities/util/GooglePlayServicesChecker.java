@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.stardroid.R;
+import com.liveearth.android.stardroid.R;
 import com.google.android.stardroid.activities.DynamicStarMapActivity;
 import com.google.android.stardroid.activities.dialogs.LocationPermissionRationaleFragment;
 import com.google.android.stardroid.control.LocationController;
