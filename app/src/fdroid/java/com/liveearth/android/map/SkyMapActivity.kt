@@ -11,8 +11,7 @@ import kotlinx.android.synthetic.fdroid.activity_sky_map.*
 class SkyMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(
-            R.layout.activity_sky_map)
+        setContentView(R.layout.activity_sky_map)
 
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")

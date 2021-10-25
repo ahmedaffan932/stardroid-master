@@ -49,6 +49,12 @@ class ProScreenActivity : AppCompatActivity() {
             }
         }
 
+        if(BuildConfig.DEBUG){
+            btnContinue.setOnClickListener {
+                startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+            }
+        }
+
         val timer = object: CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 textContinueCounter.text = millisUntilFinished.toString()[0].toString()

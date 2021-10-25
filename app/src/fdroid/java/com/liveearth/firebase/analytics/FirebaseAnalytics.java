@@ -1,6 +1,6 @@
 // A dummy version of this class to keep the f-Droid build happy.
 
-package com.google.firebase.analytics;
+package com.liveearth.firebase.analytics;
 
 public class FirebaseAnalytics {
     public static class Param {

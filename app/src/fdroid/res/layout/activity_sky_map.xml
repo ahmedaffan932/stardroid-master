@@ -44,21 +44,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clSearchSkyMap"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/bg_search"
         android:layout_marginTop="@dimen/fab_padding"
-        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:background="@drawable/bg_search"
+        app:layout_constraintEnd_toEndOf="@+id/clMars"
+        app:layout_constraintStart_toStartOf="@+id/clMoon"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_search"
-            android:layout_marginStart="@dimen/padding"
+            android:layout_marginStart="@dimen/fab_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

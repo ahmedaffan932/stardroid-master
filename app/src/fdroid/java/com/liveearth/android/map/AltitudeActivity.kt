@@ -49,6 +49,8 @@ import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import com.tarek360.instacapture.Instacapture
+import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_altitude.btnSpeakSearchLocation
 import kotlinx.android.synthetic.main.activity_altitude.btnZoomIn
@@ -83,22 +85,35 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(com.liveearth.android.map.R.string.mapbox_access_token))
-        setContentView(com.liveearth.android.map.R.layout.activity_altitude)
+        setContentView(R.layout.activity_altitude)
 
         mapView = findViewById(com.liveearth.android.map.R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
         btnScreenShot.setOnClickListener {
-            val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            clForSSAltitude.draw(canvas)
 
-            Misc.saveImageToExternal(this, bitmap, object : OnImageSaveCallBack {
-                override fun onImageSaved() {
-                    Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
+            Instacapture.capture(this, object : SimpleScreenCapturingListener() {
+                override fun onCaptureComplete(bitmap: Bitmap) {
+
+                    Misc.saveImageToExternal(this@AltitudeActivity, bitmap, object : OnImageSaveCallBack {
+                        override fun onImageSaved() {
+                            Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
                 }
             })
+
+//            val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
+//            val canvas = Canvas(bitmap)
+//            clForSSAltitude.draw(canvas)
+//
+//            Misc.saveImageToExternal(this, bitmap, object : OnImageSaveCallBack {
+//                override fun onImageSaved() {
+//                    Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
+//                }
+//            })
         }
 
         btnZoomIn.setOnClickListener {
