@@ -59,6 +59,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 import java.util.*
+import com.mapbox.common.TileStoreOptions.MAPBOX_ACCESS_TOKEN
+
+import com.mapbox.api.directions.v5.DirectionsCriteria
+
+import com.mapbox.api.directions.v5.MapboxDirections
+import com.mapbox.common.TileStoreOptions
 
 
 class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCallback, MapboxMap.OnMapClickListener
@@ -79,7 +85,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     private lateinit var hoveringMarker: ImageView
     private lateinit var droppedMarkerLayer: Layer
     private var latLng: String = ""
-    private val point = LatLng()
+    private var point = LatLng()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,6 +126,16 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
             sharingIntent.putExtra(Intent.EXTRA_TEXT, address)
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
+
+//        btnGetDirection.setOnClickListener {
+//            val client = MapboxDirections.builder()
+//                .origin(origin)
+//                .destination(point)
+//                .overview(DirectionsCriteria.OVERVIEW_FULL)
+//                .profile(DirectionsCriteria.PROFILE_DRIVING)
+//                .accessToken(MAPBOX_ACCESS_TOKEN)
+//                .build()
+//        }
 
         btnZoomIn.setOnClickListener {
             val position = CameraPosition.Builder()
@@ -460,6 +476,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         setMarker(point)
         animateCamera(point, 14.0)
         getAddress(point)
+        this.point = point
         return true
     }
 

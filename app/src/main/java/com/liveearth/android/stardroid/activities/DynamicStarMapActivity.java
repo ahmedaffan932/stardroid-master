@@ -91,6 +91,7 @@ import javax.inject.Provider;
 /**
  * The main map-rendering Activity.
  */
+@SuppressLint("LogNotTimber")
 public class DynamicStarMapActivity extends InjectableActivity
     implements OnSharedPreferenceChangeListener, HasComponent<DynamicStarMapComponent> {
   private static final int TIME_DISPLAY_DELAY_MILLIS = 1000;
@@ -109,16 +110,15 @@ public class DynamicStarMapActivity extends InjectableActivity
    * @author John Taylor
    */
   private static final class RendererModelUpdateClosure extends AbstractUpdateClosure {
-    private RendererController rendererController;
-    private AstronomerModel model;
-    private boolean horizontalRotation;
+    private final RendererController rendererController;
+    private final AstronomerModel model;
 
     public RendererModelUpdateClosure(AstronomerModel model,
         RendererController rendererController, SharedPreferences sharedPreferences) {
       this.model = model;
       this.rendererController = rendererController;
-      this.horizontalRotation = sharedPreferences.getBoolean(ApplicationConstants.ROTATE_HORIZON_PREFKEY, false);
-      model.setHorizontalRotation(this.horizontalRotation);
+      boolean horizontalRotation = sharedPreferences.getBoolean(ApplicationConstants.ROTATE_HORIZON_PREFKEY, false);
+      model.setHorizontalRotation(horizontalRotation);
     }
 
     @Override
@@ -552,6 +552,7 @@ public class DynamicStarMapActivity extends InjectableActivity
     view.startAnimation(flashAnimation);
   }
 
+  @SuppressLint("LogNotTimber")
   @Override
   public void onPause() {
     Log.d(TAG, "DynamicStarMap onPause");
@@ -691,6 +692,7 @@ public class DynamicStarMapActivity extends InjectableActivity
     multipleSearchResultsDialogFragment.show(fragmentManager, "Multiple Search Results");
   }
 
+  @SuppressLint("LogNotTimber")
   private void initializeModelViewController() {
     Log.i(TAG, "Initializing Model, View and Controller @ " + System.currentTimeMillis());
     setContentView(R.layout.skyrenderer);
