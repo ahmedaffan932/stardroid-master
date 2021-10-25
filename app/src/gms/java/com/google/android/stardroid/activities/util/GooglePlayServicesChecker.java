@@ -11,7 +11,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.stardroid.activities.DynamicStarMapActivity;
 import com.google.android.stardroid.activities.dialogs.LocationPermissionRationaleFragment;
 import com.google.android.stardroid.control.LocationController;
-import com.liveearth.android.stardroid.R;
+import com.liveearth.android.map.R;
 
 import javax.inject.Inject;
 

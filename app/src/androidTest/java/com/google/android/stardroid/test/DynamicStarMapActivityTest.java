@@ -18,11 +18,11 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import com.liveearth.android.stardroid.R;
-import com.liveearth.android.stardroid.activities.CompassCalibrationActivity;
-import com.liveearth.android.stardroid.activities.DynamicStarMapActivity;
-import com.liveearth.android.stardroid.activities.util.FullscreenControlsManager;
-import com.liveearth.android.stardroid.control.LocationController;
+import com.liveearth.android.map.R;
+import com.liveearth.android.map.activities.CompassCalibrationActivity;
+import com.liveearth.android.map.activities.DynamicStarMapActivity;
+import com.liveearth.android.map.activities.util.FullscreenControlsManager;
+import com.liveearth.android.map.control.LocationController;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -20,8 +20,8 @@ import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.liveearth.android.stardroid.R;
-import com.liveearth.android.stardroid.activities.SplashScreenActivity;
+import com.liveearth.android.map.R;
+import com.liveearth.android.map.activities.SplashScreenActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

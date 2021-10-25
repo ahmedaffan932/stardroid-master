@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.liveearth.android.stardroid"
+    package="com.liveearth.android.map"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="auto"
           android:vmSafeMode="false">
@@ -58,11 +58,11 @@
         android:xlargeScreens="true"/>
 
     <application
-        android:name=".StardroidApplication"
+        android:name="com.liveearth.android.map.StardroidApplication"
         android:icon="@drawable/globe_white"
         android:label="@string/app_name">
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name="com.liveearth.android.map.activities.SplashScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="nosensor"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -70,7 +70,7 @@
 
         </activity>
         <activity
-            android:name=".activities.DynamicStarMapActivity"
+            android:name="com.liveearth.android.map.activities.DynamicStarMapActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -87,24 +87,24 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".activities.EditSettingsActivity"/>
+            android:name="com.liveearth.android.map.activities.EditSettingsActivity"/>
         <activity
-            android:name=".activities.ImageGalleryActivity"/>
+            android:name="com.liveearth.android.map.activities.ImageGalleryActivity"/>
         <activity
-            android:name=".activities.ImageDisplayActivity"
+            android:name="com.liveearth.android.map.activities.ImageDisplayActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activities.DiagnosticActivity"
+            android:name="com.liveearth.android.map.activities.DiagnosticActivity"
             android:label="@string/title_activity_diagnostic">
         </activity>
         <!-- Provides search suggestions. -->
         <provider
-            android:name=".search.SearchTermsProvider"
+            android:name="com.liveearth.android.map.search.SearchTermsProvider"
             android:authorities="com.google.android.stardroid.searchterms"
             android:exported="false"
             android:syncable="false"/>
 
-        <activity android:name=".activities.CompassCalibrationActivity"
+        <activity android:name="com.liveearth.android.map.activities.CompassCalibrationActivity"
                   android:launchMode="singleTop">
         </activity>
 
@@ -112,7 +112,7 @@
             android:name=".SpeedometerActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".AltitudeActivity"
+        <activity android:name="com.liveearth.android.map.AltitudeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".CompassActivity"
@@ -186,13 +186,15 @@
 
         <activity
             android:name=".ProScreenActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
             android:name=".SoundMeterActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
+
     </application>
 
 

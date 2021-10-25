@@ -1080,6 +1080,13 @@
     <string name="reset">Reset</string>
     <string name="max">Max</string>
     <string name="currencies">Currencies</string>
+    <string name="unlock_to_n_pro_features">Unlock to \nPro Features</string>
+    <string name="if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos">If you unlock you will access to: \n \n Ads free App \n Unlock All games features \n Capture unlimited photos.</string>
+    <string name="terms_and_condition">Terms &amp; Condition</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="unlock">Unlock</string>
+    <string name="continue_with_ads">Continue with ads</string>
+    <string name="_5">5</string>
 
 
 </resources>

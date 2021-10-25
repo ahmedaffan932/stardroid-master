@@ -24,6 +24,7 @@
             android:background="@drawable/ic_bg"
             android:scrollbars="none"
             android:paddingBottom="@dimen/padding"
+            android:clipToPadding="false"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
