@@ -49,15 +49,18 @@ class ProScreenActivity : AppCompatActivity() {
             }
         }
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             btnContinue.setOnClickListener {
                 startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
             }
         }
 
-        val timer = object: CountDownTimer(5000, 1000) {
+        val timer = object : CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                textContinueCounter.text = millisUntilFinished.toString()[0].toString()
+                if (millisUntilFinished > 999)
+                    textContinueCounter.text = millisUntilFinished.toString()[0].toString()
+                else
+                    textContinueCounter.text = "0"
             }
 
             override fun onFinish() {
@@ -90,6 +93,7 @@ class ProScreenActivity : AppCompatActivity() {
             }
         })
     }
+
     private suspend fun querySkuDetails() {
         try {
             val skuList = ArrayList<String>()

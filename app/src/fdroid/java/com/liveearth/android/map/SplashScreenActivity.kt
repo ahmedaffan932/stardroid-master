@@ -32,64 +32,48 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         FirebaseApp.initializeApp(applicationContext)
 
         btnStart.setOnClickListener {
-            if (PermissionsManager.areLocationPermissionsGranted(this)) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    getCameraPermission()
-                } else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        getStoragePermission()
-                    } else {
-                        Misc.startActivity(
-                            this,
-                            Misc.isSplashIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
-                                        Intent(
-                                            this@SplashScreenActivity,
-                                            ProScreenActivity::class.java
-                                        )
-                                    )
-                                }
-                            })
-                    }
-                }
-            } else {
-                permissionsManager.requestLocationPermissions(this)
-            }
-
+            start()
         }
+
+        textView.setOnClickListener {
+//            start()
+            val i = Intent(this, MainActivity::class.java)
+            i.putExtra(Misc.data, Misc.data)
+            startActivity(i)
+        }
+
     }
 
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
+            .show()
     }
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getCameraPermission()
+                getStoragePermission()
             } else {
-                Misc.startActivity(this, Misc.isSplashIntEnabled, object : StartActivityCallBack {
-                    override fun onStart() {
-                        startActivity(Intent(this@SplashScreenActivity, ProScreenActivity::class.java))
-                    }
-                })
+            Misc.startActivity(this, Misc.isSplashIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    startActivity(Intent(this@SplashScreenActivity, ProScreenActivity::class.java))
+                }
+            })
             }
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
         }
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun getCameraPermission() {
-        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
-        } else {
-            getStoragePermission()
-        }
-    }
+//
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    fun getCameraPermission() {
+//        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
+//        } else {
+//            getStoragePermission()
+//        }
+//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -127,5 +111,30 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                 }
             })
         }
+    }
+
+    fun start() {
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getStoragePermission()
+            } else {
+                Misc.startActivity(
+                    this,
+                    Misc.isSplashIntEnabled,
+                    object : StartActivityCallBack {
+                        override fun onStart() {
+                            startActivity(
+                                Intent(
+                                    this@SplashScreenActivity,
+                                    ProScreenActivity::class.java
+                                )
+                            )
+                        }
+                    })
+            }
+        } else {
+            permissionsManager.requestLocationPermissions(this)
+        }
+
     }
 }

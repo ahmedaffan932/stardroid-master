@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/fab_padding"
-        android:background="@drawable/bg_gradient_pink"
+        android:background="@drawable/pattern_horizontal"
         mapbox:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -93,6 +93,7 @@
         android:background="@drawable/bg_gradient_pink_circle"
         android:padding="@dimen/less_padding"
         android:backgroundTint="@color/blue"
+        android:visibility="gone"
         android:scaleType="fitCenter"
         mapbox:layout_constraintBottom_toTopOf="@+id/btnGenerateQR"
         mapbox:layout_constraintEnd_toEndOf="@+id/btnGenerateQR"

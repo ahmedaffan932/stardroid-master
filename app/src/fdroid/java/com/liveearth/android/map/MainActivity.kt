@@ -5,30 +5,41 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.style.ImageSpan
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.liveearth.android.map.AltitudeActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 import kotlinx.android.synthetic.fdroid.bottom_sheet_quit.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), PermissionsListener {
     private val cameraPermissionRequest = 100
+    private val cameraPermissionRequestForGPSCam = 10
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
+    private val micPermissionRequest = 1032
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        if (intent.getStringExtra(Misc.data) != null) {
+            setContentView(R.layout.activity_main_seconde_design)
+        } else {
+            setContentView(R.layout.activity_main)
+        }
 
+        permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
@@ -44,12 +55,38 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llSoundMeter.setOnClickListener {
-            Misc.startActivity(this, Misc.isSoundMeterIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, SoundMeterActivity::class.java)
-                    startActivity(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.RECORD_AUDIO),
+                        micPermissionRequest
+                    )
+                } else {
+                    Misc.startActivity(
+                        this,
+                        Misc.isSoundMeterIntEnabled,
+                        object : StartActivityCallBack {
+                            override fun onStart() {
+                                val intent =
+                                    Intent(this@MainActivity, SoundMeterActivity::class.java)
+                                startActivity(intent)
+                            }
+                        })
                 }
-            })
+            } else {
+                Misc.startActivity(
+                    this,
+                    Misc.isSoundMeterIntEnabled,
+                    object : StartActivityCallBack {
+                        override fun onStart() {
+                            val intent =
+                                Intent(this@MainActivity, SoundMeterActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                )
+            }
+
         }
 
         bottomSheetBehavior.addBottomSheetCallback(object :
@@ -58,9 +95,9 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if(newState == BottomSheetBehavior.STATE_EXPANDED){
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     blockOnClickMain.visibility = View.VISIBLE
-                }else if(newState == BottomSheetBehavior.STATE_COLLAPSED){
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     blockOnClickMain.visibility = View.GONE
                 }
             }
@@ -80,7 +117,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
 
-        llSkyMap.setOnClickListener{
+        llSkyMap.setOnClickListener {
             Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
@@ -98,7 +135,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
-        llSpeedometer.setOnClickListener{
+        llSpeedometer.setOnClickListener {
             Misc.startActivity(this, Misc.isSpeedometerIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     val intent = Intent(this@MainActivity, SpeedometerActivity::class.java)
@@ -108,19 +145,39 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llGPSMapCams.setOnClickListener {
-            Misc.startActivity(this, Misc.isGPSMapCamsIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
-                    intent.putExtra(Misc.data, Misc.data)
-                    startActivity(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequestForGPSCam)
+                } else {
+                    Misc.startActivity(this, Misc.isGPSMapCamsIntEnabled, object : StartActivityCallBack {
+                        override fun onStart() {
+                            val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
+                            intent.putExtra(Misc.data, Misc.data)
+                            startActivity(intent)
+                        }
+                    })
                 }
-            })
+            } else {
+                Misc.startActivity(this, Misc.isGPSMapCamsIntEnabled, object : StartActivityCallBack {
+                    override fun onStart() {
+                        val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
+                        intent.putExtra(Misc.data, Misc.data)
+                        startActivity(intent)
+                    }
+                })
+            }
+
         }
 
         llAltitude.setOnClickListener {
             Misc.startActivity(this, Misc.isAltitudeIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    startActivity(Intent(this@MainActivity, com.liveearth.android.map.AltitudeActivity::class.java))
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            com.liveearth.android.map.AltitudeActivity::class.java
+                        )
+                    )
                 }
             })
         }
@@ -140,8 +197,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         startActivity(Intent(this@MainActivity, LiveEarthActivity::class.java))
                     }
                 })
-            }else{
-                permissionsManager = PermissionsManager(this)
+            } else {
                 permissionsManager.requestLocationPermissions(this)
             }
         }
@@ -149,7 +205,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         llNoteCam.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getCameraPermission()
-            }else{
+            } else {
                 Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
                     override fun onStart() {
                         startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
@@ -163,13 +219,14 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     fun getCameraPermission() {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
-        }else{
+        } else {
             Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
                 }
             })
         }
+
     }
 
 
@@ -180,12 +237,44 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == cameraPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == cameraPermissionRequestForGPSCam && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Misc.startActivity(this, Misc.isGPSMapCamsIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
+                    intent.putExtra(Misc.data, Misc.data)
+                    startActivity(intent)
+                }
+            })
+        }
+
+        if (requestCode == cameraPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
                 }
             })
+        }
+
+        if (requestCode == micPermissionRequest) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Misc.startActivity(
+                    this,
+                    Misc.isSoundMeterIntEnabled,
+                    object : StartActivityCallBack {
+                        override fun onStart() {
+                            val intent =
+                                Intent(this@MainActivity, SoundMeterActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                )
+            } else {
+                Toast.makeText(
+                    this,
+                    "Recording Permission is required for Sound Meter",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
     }
@@ -211,7 +300,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
-        }else {
+        } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
         }

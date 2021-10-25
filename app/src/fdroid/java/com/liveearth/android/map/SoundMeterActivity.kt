@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
 class SoundMeterActivity : AppCompatActivity() {
     private val mRecorder = MediaRecorder()
-    private val micPermissionRequest = 1032
     private val handler: Handler = Handler()
     private val arr = ArrayList<Int>()
 
@@ -30,8 +29,6 @@ class SoundMeterActivity : AppCompatActivity() {
         }
 
         btnInfo.setOnClickListener {
-
-
             Toast.makeText(
                 this,
                 "Example:\n20 dB-Whisper\n40 dB-Quite library\n60 dB-Conversation\n80 dB-Loud Music\n100 dB-Motorcycle\n120 dB-Threshold of pain",
@@ -46,20 +43,14 @@ class SoundMeterActivity : AppCompatActivity() {
             textAvg.text = "0"
             textMax.text = "0"
             textMin.text = "0"
+            arr.clear()
 
             Handler().postDelayed({
                 handler.post(runSoundMeter)
             }, 1000)
         }
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), micPermissionRequest)
-            } else {
-                startRecording()
-                handler.post(runSoundMeter)
-            }
-        }
+
 
     }
 
@@ -97,40 +88,11 @@ class SoundMeterActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("ShowToast")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == micPermissionRequest) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startRecording()
-                handler.post(runSoundMeter)
-            } else {
+    override fun onResume() {
+        super.onResume()
+        startRecording()
+        handler.post(runSoundMeter)
 
-                val builder = SpannableStringBuilder()
-                builder.append(" ").append(" ")
-                builder.setSpan(
-                    ImageSpan(this, R.drawable.ic_baseline_close_24),
-                    builder.length - 1,
-                    builder.length,
-                    0
-                )
-                builder.append("")
-
-                val sb = Snackbar.make(
-                    clParent,
-                    "Recording Permission is required for Sound Meter",
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                sb.setAction(builder) {
-                    sb.dismiss()
-                }
-                sb.show()
-            }
-        }
     }
 
     override fun onPause() {

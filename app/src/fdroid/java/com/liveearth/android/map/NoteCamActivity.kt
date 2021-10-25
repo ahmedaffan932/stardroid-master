@@ -116,6 +116,7 @@ class NoteCamActivity : BaseActivity() {
             tvAccuracyNoteCam.visibility = View.VISIBLE
             tvTimeNoteCam.visibility = View.VISIBLE
             tvNoteNoteCam.visibility = View.GONE
+            textViewNoteCam.text = "GPS Map Cam"
 
             btnCapture.setOnClickListener {
 

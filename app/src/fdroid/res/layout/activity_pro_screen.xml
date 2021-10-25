@@ -24,10 +24,10 @@
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@drawable/pro_screen"
-        android:background="@drawable/pro_screen"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_300sdp"
+        tools:srcCompat="@drawable/clipart"
+        android:background="@drawable/clipart"
         android:layout_marginTop="@dimen/fab_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

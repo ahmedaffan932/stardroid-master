@@ -56,6 +56,7 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
         })
 
         recyclerViewCountryList.layoutManager = LinearLayoutManager(this)
+        World.init(this)
         adapter = CountryAdapter(World.getAllCountries(), this, object : CountryListInterface {
             @SuppressLint("SetTextI18n")
             override fun onCountryClick(country: Country) {

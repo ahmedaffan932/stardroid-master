@@ -1071,7 +1071,7 @@
     <string name="add_note">Add Note</string>
     <string name="loading">Loading..</string>
     <string name="live_earth_map">Live Earth Map</string>
-    <string name="sound_meter">Sound Meter</string>
+    <string name="noise_detector">Noise Detector</string>
     <string name="view_world">View World</string>
     <string name="close">Close</string>
     <string name="min">Min</string>

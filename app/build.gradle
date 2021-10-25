@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1524
-        versionName "1.9.7 - RC1"
+        versionName "1.0"
         buildConfigField 'String', 'GOOGLE_ANALYTICS_CODE', '""'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
