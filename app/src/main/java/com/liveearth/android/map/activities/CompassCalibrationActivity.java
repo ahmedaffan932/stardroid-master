@@ -37,9 +37,9 @@ public class CompassCalibrationActivity extends InjectableActivity implements Se
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-//    DaggerCompassCalibrationComponent.builder()
-//        .applicationComponent(getApplicationComponent())
-//        .compassCalibrationModule(new CompassCalibrationModule(this)).build().inject(this);
+    DaggerCompassCalibrationComponent.builder()
+        .applicationComponent(getApplicationComponent())
+        .compassCalibrationModule(new CompassCalibrationModule(this)).build().inject(this);
 
     setContentView(R.layout.activity_compass_calibration);
     WebView web = (WebView) findViewById(R.id.compass_calib_activity_webview);

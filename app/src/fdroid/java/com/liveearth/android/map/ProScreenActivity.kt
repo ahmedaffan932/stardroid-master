@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
 class ProScreenActivity : AppCompatActivity() {
 
     private var isBillingClientConnected = false
-
+    private lateinit var billingClient: BillingClient
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
@@ -28,10 +28,9 @@ class ProScreenActivity : AppCompatActivity() {
             }
         }
 
-    private lateinit var billingClient: BillingClient
 
     @OptIn(DelicateCoroutinesApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pro_screen)
 

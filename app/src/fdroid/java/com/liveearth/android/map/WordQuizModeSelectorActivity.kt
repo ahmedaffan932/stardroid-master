@@ -32,7 +32,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
             textHard.text = "0 / $hardLevel"
 
         }else{
-            easyLevel = 3
+            easyLevel = 30
             mediumLevel = 70
             hardLevel = 150
         }

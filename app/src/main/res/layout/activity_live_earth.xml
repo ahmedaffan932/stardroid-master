@@ -84,20 +84,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <ImageView
-        android:id="@+id/btnGetDirection"
-        android:layout_width="@dimen/large_icon_size"
-        android:layout_height="@dimen/large_icon_size"
-        android:layout_margin="@dimen/fab_padding"
-        android:background="@drawable/bg_gradient_pink_circle"
-        android:padding="@dimen/less_padding"
-        android:backgroundTint="@color/blue"
-        android:scaleType="fitCenter"
-        mapbox:layout_constraintBottom_toTopOf="@+id/btnGenerateQR"
-        mapbox:layout_constraintEnd_toEndOf="@+id/btnGenerateQR"
-        mapbox:layout_constraintStart_toStartOf="@+id/btnGenerateQR"
-        mapbox:srcCompat="@drawable/ic_baseline_directions_24" />
+<!--    <ImageView-->
+<!--        android:id="@+id/btnGetDirection"-->
+<!--        android:layout_width="@dimen/large_icon_size"-->
+<!--        android:layout_height="@dimen/large_icon_size"-->
+<!--        android:layout_margin="@dimen/fab_padding"-->
+<!--        android:background="@drawable/bg_gradient_pink_circle"-->
+<!--        android:padding="@dimen/less_padding"-->
+<!--        android:backgroundTint="@color/blue"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        mapbox:layout_constraintBottom_toTopOf="@+id/btnGenerateQR"-->
+<!--        mapbox:layout_constraintEnd_toEndOf="@+id/btnGenerateQR"-->
+<!--        mapbox:layout_constraintStart_toStartOf="@+id/btnGenerateQR"-->
+<!--        mapbox:srcCompat="@drawable/ic_baseline_directions_24" />-->
 
     <ImageView
         android:id="@+id/btnGenerateQR"
@@ -154,7 +153,7 @@
         android:layout_height="wrap_content"
         mapbox:layout_constraintBottom_toTopOf="@id/cl"
         mapbox:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/fab_padding"
+        android:paddingStart="@dimen/fab_padding"
         android:layout_marginBottom="@dimen/extra_padding"
         android:gravity="center"
         android:orientation="vertical">

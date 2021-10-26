@@ -81,9 +81,11 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
     private lateinit var mapBoxStyle: Style
+    private var lastStyle: String = Style.OUTDOORS
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var hoveringMarker: ImageView
     private lateinit var droppedMarkerLayer: Layer
+    private var isTraficEnabled = false
     private var latLng: String = ""
     private var point = LatLng()
 
@@ -127,8 +129,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
 
-        btnGetDirection.setOnClickListener {
-        }
 
         btnZoomIn.setOnClickListener {
             val position = CameraPosition.Builder()
@@ -178,11 +178,20 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         }
 
         btnTraffic.setOnClickListener {
-            setMapBoxStyle(Style.TRAFFIC_DAY, false)
+            if(isTraficEnabled){
+                setMapBoxStyle(lastStyle, false)
+            }else{
+                setMapBoxStyle(Style.TRAFFIC_DAY, false)
+            }
+            isTraficEnabled = !isTraficEnabled
         }
 
         btnThreeDView.setOnClickListener {
-            setMapBoxStyle(Style.MAPBOX_STREETS, true)
+            if(isThreeDViewEnabled){
+                setMapBoxStyle(lastStyle, false)
+            }else {
+                setMapBoxStyle(Style.MAPBOX_STREETS, true)
+            }
         }
 
         llDefault.setOnClickListener {
@@ -198,11 +207,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         llHybrid.setOnClickListener {
             setMapBoxStyle(Style.DARK, false)
         }
-//        mapView.getMapAsync { mapboxMap ->
-//            this.mapboxMap = mapboxMap
-//            mapboxMap.setStyle(Style.SATELLITE_STREETS)
-//        }
-//        mapView.getMapAsync(this)
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
@@ -405,13 +409,13 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     }
 
     private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
-        if(isThreeDViewEnabled && isThreeDView){
-            return
-        }
         mapboxMap.setStyle(
             styleName
         ) { style ->
             mapBoxStyle = style
+            if(styleName != Style.TRAFFIC_DAY && isThreeDView){
+                lastStyle = styleName
+            }
             if(isThreeDView) {
                 buildingPlugin?.setVisibility(true)
                 mapboxMap.animateCamera(

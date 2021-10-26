@@ -54,11 +54,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getStoragePermission()
             } else {
-            Misc.startActivity(this, Misc.isSplashIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@SplashScreenActivity, ProScreenActivity::class.java))
-                }
-            })
+                startActivity()
             }
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
@@ -89,11 +85,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         }
 
         if (requestCode == storageReadPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(this, Misc.isSplashIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@SplashScreenActivity, ProScreenActivity::class.java))
-                }
-            })
+            startActivity()
         }
     }
 
@@ -105,11 +97,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                 storageReadPermissionRequest
             )
         } else {
-            Misc.startActivity(this, Misc.isSplashIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@SplashScreenActivity, ProScreenActivity::class.java))
-                }
-            })
+            startActivity()
         }
     }
 
@@ -118,23 +106,31 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getStoragePermission()
             } else {
-                Misc.startActivity(
-                    this,
-                    Misc.isSplashIntEnabled,
-                    object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(
-                                Intent(
-                                    this@SplashScreenActivity,
-                                    ProScreenActivity::class.java
-                                )
-                            )
-                        }
-                    })
+                startActivity()
             }
         } else {
             permissionsManager.requestLocationPermissions(this)
         }
+    }
 
+    fun startActivity() {
+        if (Misc.getPurchasedStatus(this)) {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            Misc.startActivity(
+                this,
+                Misc.isSplashIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        startActivity(
+                            Intent(
+                                this@SplashScreenActivity,
+                                ProScreenActivity::class.java
+                            )
+                        )
+                    }
+                }
+            )
+        }
     }
 }

@@ -123,10 +123,6 @@ dependencies {
     // Optional -- UI testing with Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.core:core-ktx:1.6.0"
-//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // Optional -- UI testing with UI Automator
-    // androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-
 
     //GPS Toolbox libraries.
     implementation 'gov.nasa.worldwind.android:worldwind:0.8.0'
@@ -135,8 +131,7 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v9:0.7.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0'
-    implementation "com.mapbox.navigation:android:2.0.0"
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:6.0.0'
 
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
@@ -175,8 +170,3 @@ dependencies {
     implementation "com.github.tarek360:instacapture:2.0.1"
 
 }
-
-
-//repositories {
-//    mavenCentral()
-//}

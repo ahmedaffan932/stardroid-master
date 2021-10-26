@@ -97,7 +97,7 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
             }
         }), "Android")
 
-        webView.loadUrl("file:///android_asset/world/Map.html")
+        webView.loadUrl("file:///android_asset/world/${Misc.wholeWorld}.html")
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(

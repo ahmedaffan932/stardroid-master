@@ -63,7 +63,7 @@ class SoundMeterActivity : AppCompatActivity() {
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-        mRecorder.setOutputFile("/dev/null")
+        mRecorder.setOutputFile("${externalCacheDir?.absolutePath}/${System.currentTimeMillis()}.3gp")
         mRecorder.prepare()
         mRecorder.start()
 

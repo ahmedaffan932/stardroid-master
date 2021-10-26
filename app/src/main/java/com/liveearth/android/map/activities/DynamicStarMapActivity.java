@@ -92,7 +92,7 @@ import javax.inject.Provider;
  * The main map-rendering Activity.
  */
 @SuppressLint("LogNotTimber")
-public class DynamicStarMapActivity extends InjectableActivity
+public class  DynamicStarMapActivity extends InjectableActivity
     implements OnSharedPreferenceChangeListener, HasComponent<DynamicStarMapComponent> {
   private static final int TIME_DISPLAY_DELAY_MILLIS = 1000;
   private FullscreenControlsManager fullscreenControlsManager;
