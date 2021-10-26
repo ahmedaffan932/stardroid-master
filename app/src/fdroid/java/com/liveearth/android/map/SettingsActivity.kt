@@ -15,12 +15,23 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.liveearth.android.map.clasess.EmailUsDialogBox
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.clasess.RateUsDialog
+import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        tvUpgradeToPremium.setOnClickListener {
+            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
+                override fun onStart() {
+                    val intent = Intent(this@SettingsActivity, ProScreenActivity::class.java)
+                    intent.putExtra(Misc.data, Misc.data)
+                    startActivity(intent)
+                }
+            })
+        }
 
         llShareApp.setOnClickListener {
             val sharingIntent = Intent(Intent.ACTION_SEND)
@@ -154,5 +165,6 @@ class SettingsActivity : AppCompatActivity() {
             )
         }
     }
+
 
 }

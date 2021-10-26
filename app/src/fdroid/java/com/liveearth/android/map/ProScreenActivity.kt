@@ -55,23 +55,31 @@ class ProScreenActivity : AppCompatActivity() {
             }
         }
 
-        val timer = object : CountDownTimer(5000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                if (millisUntilFinished > 999)
-                    textContinueCounter.text = millisUntilFinished.toString()[0].toString()
-                else
-                    textContinueCounter.text = "0"
-            }
+        if(intent.getStringExtra(Misc.data) == null) {
+            val timer = object : CountDownTimer(5000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    if (millisUntilFinished > 999)
+                        textContinueCounter.text = millisUntilFinished.toString()[0].toString()
+                    else
+                        textContinueCounter.text = "0"
+                }
 
-            override fun onFinish() {
-                textContinueCounter.text = ""
+                override fun onFinish() {
+                    textContinueCounter.text = ""
 
-                btnContinue.setOnClickListener {
-                    startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+                    btnContinue.setOnClickListener {
+                        startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+                    }
                 }
             }
+            timer.start()
+        }else{
+            textContinueCounter.text = ""
+
+            btnContinue.setOnClickListener {
+                startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+            }
         }
-        timer.start()
 
 
         billingClient = BillingClient.newBuilder(this)
@@ -124,6 +132,13 @@ class ProScreenActivity : AppCompatActivity() {
             e.printStackTrace()
             Toast.makeText(this, "Not available yet.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        if (intent.getStringExtra(Misc.data) != null){
+            super.onBackPressed()
+        }
+
     }
 
 }

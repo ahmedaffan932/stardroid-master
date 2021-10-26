@@ -63,6 +63,7 @@ class Misc {
         var isCompassIntEnabled: Boolean = false
         var isNoteCamIntEnabled: Boolean = false
         var isAltitudeIntEnabled: Boolean = false
+        var isProScreenIntEnabled: Boolean = false
         var isLiveEarthIntEnabled: Boolean = false
         var isViewWorldIntEnabled: Boolean = false
         var isStartGameIntEnabled: Boolean = false
