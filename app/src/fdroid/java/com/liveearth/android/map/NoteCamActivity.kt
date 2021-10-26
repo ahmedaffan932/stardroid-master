@@ -119,7 +119,6 @@ class NoteCamActivity : BaseActivity() {
             textViewNoteCam.text = "GPS Map Cam"
 
             btnCapture.setOnClickListener {
-
                 val file = File(
                     externalMediaDirs.firstOrNull(),
                     ".GpsToolbox - ${System.currentTimeMillis()}.jpg"

@@ -26,6 +26,11 @@ import java.util.*
 
 class Misc {
     companion object {
+
+        const val appUrl: String =
+            "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
+
+
         const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
@@ -54,6 +59,7 @@ class Misc {
         var isGameIntEnabled: Boolean = false
         var isSkyMapIntEnabled: Boolean = false
         var isSplashIntEnabled: Boolean = false
+        var isSettingIntEnabled: Boolean = false
         var isCompassIntEnabled: Boolean = false
         var isNoteCamIntEnabled: Boolean = false
         var isAltitudeIntEnabled: Boolean = false

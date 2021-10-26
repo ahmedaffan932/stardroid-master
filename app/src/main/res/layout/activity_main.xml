@@ -36,14 +36,27 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/extra_padding"
+                    android:elevation="@dimen/fab_padding"
+                    android:text="@string/live_earth_map"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/fab_padding"
+                    android:layout_margin="@dimen/fab_padding"
+                    android:background="@drawable/bg_nothing"
+                    android:elevation="@dimen/fab_padding"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold"
-                    android:elevation="@dimen/fab_padding"
-                    android:textColor="@color/white"
-                    android:layout_margin="@dimen/extra_padding"
-                    android:text="@string/live_earth_map" />
+                    app:srcCompat="@drawable/ic_menu"
+                    tools:layout_editor_absoluteY="15dp" />
 
                 <LinearLayout
                     android:id="@+id/llSearchView"
@@ -52,12 +65,12 @@
                     android:layout_marginHorizontal="@dimen/extra_padding"
                     android:layout_marginTop="@dimen/fab_padding"
                     android:background="@drawable/bg_gradient_pink_rounded"
-                    android:gravity="center"
                     android:backgroundTint="@color/translucent_black"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:visibility="gone"
                     android:paddingTop="@dimen/padding"
                     android:paddingBottom="@dimen/fab_padding"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@id/textView12"
                     tools:layout_editor_absoluteX="32dp">
 

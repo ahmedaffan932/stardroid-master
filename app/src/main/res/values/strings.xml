@@ -1087,6 +1087,17 @@
     <string name="unlock">Unlock</string>
     <string name="continue_with_ads">Continue with ads</string>
     <string name="_5">5</string>
+    <string name="upgrade_to_pro">Upgrade to Pro</string>
+    <string name="share_app">Share App</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_us">Rate us</string>
+    <string name="settings">Settings</string>
+    <string name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
+    <string name="enter_topic_here">Enter topic here</string>
+    <string name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
+    <string name="publish_feedback">Publish Feedback</string>
+    <string name="write_your_suggestion">Write your suggestion</string>
+    <string name="did_you_enjoy_the_app">Did you enfoy the App ?</string>
 
 
 </resources>

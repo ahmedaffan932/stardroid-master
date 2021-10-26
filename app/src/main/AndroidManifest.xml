@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.liveearth.android.map"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:installLocation="auto"
-          android:vmSafeMode="false">
+    android:installLocation="auto"
+    android:vmSafeMode="false">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- For Google Analytics -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -26,99 +28,98 @@
 
     <uses-feature
         android:name="android.hardware.location.gps"
-        android:required="false"/>
+        android:required="false" />
     <!--
          Sensor requirements.  Making required=false for now - we do want to support
          these users as best we can.
     -->
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.sensor.compass"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.faketouch"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.faketouch.multitouch.distinct"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen"
-        android:required="false"/>
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.touchscreen.multitouch.distinct"
-        android:required="false"/>
+        android:required="false" />
 
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true"/>
+        android:xlargeScreens="true" />
 
     <application
         android:name="com.liveearth.android.map.StardroidApplication"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round">
         <activity
             android:name="com.liveearth.android.map.activities.SplashScreenActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="nosensor"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:exported="true">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
         <activity
             android:name="com.liveearth.android.map.activities.DynamicStarMapActivity"
             android:configChanges="keyboardHidden|orientation"
+            android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="nosensor"
-            android:theme="@style/FullscreenTheme"
-            android:exported="true">
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+                android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name="com.liveearth.android.map.activities.EditSettingsActivity"/>
-        <activity
-            android:name="com.liveearth.android.map.activities.ImageGalleryActivity"/>
+        <activity android:name="com.liveearth.android.map.activities.EditSettingsActivity" />
+        <activity android:name="com.liveearth.android.map.activities.ImageGalleryActivity" />
         <activity
             android:name="com.liveearth.android.map.activities.ImageDisplayActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.liveearth.android.map.activities.DiagnosticActivity"
-            android:label="@string/title_activity_diagnostic">
-        </activity>
+            android:label="@string/title_activity_diagnostic" />
         <!-- Provides search suggestions. -->
         <provider
             android:name="com.liveearth.android.map.search.SearchTermsProvider"
             android:authorities="com.google.android.stardroid.searchterms"
             android:exported="false"
-            android:syncable="false"/>
+            android:syncable="false" />
 
-        <activity android:name="com.liveearth.android.map.activities.CompassCalibrationActivity"
-                  android:launchMode="singleTop">
-        </activity>
+        <activity
+            android:name="com.liveearth.android.map.activities.CompassCalibrationActivity"
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".SpeedometerActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name="com.liveearth.android.map.AltitudeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="com.liveearth.android.map.AltitudeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".CompassActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:foregroundServiceType="location" />
+            android:foregroundServiceType="location"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
@@ -129,35 +130,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QRGeneratedActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".QRGeneratedActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <activity android:name=".QRActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".AmChartsActivity"
+        <activity
+            android:name=".QRActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".AmChartsActivity"
             android:fitsSystemWindows="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".LiveEarthActivity"
+            android:exported="true"
             android:foregroundServiceType="location"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:exported="true">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
 
         </activity>
-        <activity android:name=".NoteCamActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".GameGlobeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".NoteCamActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".GameGlobeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity
             android:name=".WorldQuizActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SkyMapActivity"
             android:exported="true"
@@ -167,34 +173,38 @@
         <activity
             android:name=".WorldQuizCountriesActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizSelectContinentActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizScreenOneActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WordQuizModeSelectorActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizCompletedActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
             android:name=".ProScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
             android:name=".SoundMeterActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity
+            android:name="com.liveearth.android.map.SettingsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
     </application>
 

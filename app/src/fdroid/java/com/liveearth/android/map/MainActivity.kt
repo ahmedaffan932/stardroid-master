@@ -54,6 +54,14 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
+        btnMenu.setOnClickListener {
+            Misc.startActivity(this, Misc.isSettingIntEnabled, object : StartActivityCallBack{
+                override fun onStart() {
+                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                }
+            })
+        }
+
         llSoundMeter.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {

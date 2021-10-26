@@ -35,12 +35,12 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
             start()
         }
 
-        textView.setOnClickListener {
-//            start()
-            val i = Intent(this, MainActivity::class.java)
-            i.putExtra(Misc.data, Misc.data)
-            startActivity(i)
-        }
+//        textView.setOnClickListener {
+////            start()
+//            val i = Intent(this, MainActivity::class.java)
+//            i.putExtra(Misc.data, Misc.data)
+//            startActivity(i)
+//        }
 
     }
 
