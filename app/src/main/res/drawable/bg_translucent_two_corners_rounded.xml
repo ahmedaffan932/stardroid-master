@@ -3,7 +3,7 @@
     <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:topRightRadius="@dimen/fab_padding" android:bottomLeftRadius="@dimen/fab_padding"/>
-            <solid android:color="#55ffffff" />
+            <solid android:color="#55000000" />
         </shape>
     </item>
 </layer-list>

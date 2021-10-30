@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.print.PrintAttributes
 import android.print.PrintJob
 import android.print.PrintManager
@@ -32,6 +33,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventList
 open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     lateinit var adapter: CountryAdapter
+    var isCountrySelected = false
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "ObsoleteSdkInt", "LogNotTimber")
@@ -109,8 +111,14 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 Log.d("TAG", error.description.toString())
             }
 
+            override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
+                // TODO Auto-generated method stub
+                view.loadUrl(url!!)
+                return true
+            }
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                Log.d(Misc.logKey, "Page loaded.")
                 llPBViewWorld.visibility = View.GONE
             }
         }
@@ -128,8 +136,20 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
+        if (isCountrySelected) {
+            webView.loadUrl("javascript:goToHome();")
+            isCountrySelected = false
+            val a: Animation =
+                AnimationUtils.loadAnimation(
+                    this@AmChartsActivity,
+                    R.anim.slide_from_right_to_left
+                )
+            a.duration = 300
+            a.interpolator = OvershootInterpolator()
+            clCountryInfo.startAnimation(a)
+            Handler().postDelayed({
+                clCountryInfo.visibility = View.GONE
+            }, 300)
         } else {
             super.onBackPressed()
         }
@@ -172,11 +192,13 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
         return true
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "LogNotTimber")
     private fun setCountryData(country: Country) {
 
-        runOnUiThread {
+        Log.d(Misc.logKey, "Country selected.")
+        isCountrySelected = true
 
+        runOnUiThread {
             flagCountryInfo.setImageResource(World.getFlagOf(country.alpha2))
             countryNameInfo.text = country.name
             countryCapitalInfo.text = "Capital: ${country.capital}"
@@ -194,6 +216,7 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
         a.duration = 300
         a.interpolator = OvershootInterpolator()
         clCountryInfo.startAnimation(a)
-
     }
+
+
 }

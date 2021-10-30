@@ -1015,7 +1015,7 @@
     <string name="start">Start</string>
     <string name="photo_settings">Photo Settings</string>
     <string name="photo_note">Photo Note:</string>
-    <string name="note">Note</string>
+    <string name="note">Note: </string>
     <string name="save">Save</string>
     <string name="location">Location</string>
     <string name="w">W</string>

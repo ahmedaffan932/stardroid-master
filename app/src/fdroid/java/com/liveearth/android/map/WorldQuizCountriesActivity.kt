@@ -3,9 +3,7 @@ package com.liveearth.android.map
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
+import android.os.*
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -47,8 +45,6 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
         webView.setBackgroundColor(getColor(R.color.background_color))
         FirebaseApp.initializeApp(this)
 
-
-
         btnConfirm.setOnClickListener {
             if (!isCompleted) {
                 getResult()
@@ -70,6 +66,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 blockView.visibility = View.GONE
                 isCompleted = false
             }
+            isCountrySelected = false
         }
 
         blockView.setOnClickListener {
@@ -200,7 +197,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ServiceCast")
     fun getResult() {
         if (selectedCountry == arrCountries[currentLevel]) {
             textResult.text = "Correct !"
@@ -209,14 +206,35 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 textResult.setTextColor(getColor(R.color.green))
             }
             numberOfCorrectAnswers++
+            animResult.visibility = View.VISIBLE
+            animResult.setAnimation(R.raw.ok_anim)
+            animResult.playAnimation()
+            Handler().postDelayed({
+                animResult.visibility = View.GONE
+            }, 1500)
         } else {
             textResult.text = "Wrong !"
             textResult.visibility = View.VISIBLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 textResult.setTextColor(getColor(R.color.red))
             }
+            animResult.visibility = View.VISIBLE
             textCorrectCountry.text = "You selected ${selectedCountry?.name}"
             textCorrectCountry.visibility = View.VISIBLE
+            val v: Vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+            // Vibrate for 500 milliseconds
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                //deprecated in API 26
+                v.vibrate(500)
+            }
+            animResult.setAnimation(R.raw.not_ok_anim)
+            animResult.playAnimation()
+            Handler().postDelayed({
+                animResult.visibility = View.GONE
+            }, 1500)
+
         }
         if (Misc.gameMode == Misc.capitals) {
             findCountry.text =
@@ -312,6 +330,15 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             e.printStackTrace()
             "Unable to fetch value, please check your internet."
         }
+    }
+
+    override fun onBackPressed() {
+        if (isCountrySelected) {
+            btnConfirm.visibility = View.INVISIBLE
+            webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
+            isCountrySelected = false
+        } else
+            super.onBackPressed()
     }
 
 }

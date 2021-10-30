@@ -179,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/fab_padding"
             android:text="@string/find"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -241,5 +241,18 @@
             android:text="@string/loading"
             android:textColor="@color/white" />
     </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_padding"
+        android:scaleType="centerCrop"
+        android:elevation="@dimen/extra_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_rawRes="@raw/loading_square" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

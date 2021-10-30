@@ -1,6 +1,8 @@
 package com.liveearth.android.map
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -10,8 +12,11 @@ import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -27,8 +32,11 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.activity_am_chatrs.*
 import kotlinx.android.synthetic.main.activity_note_cam.*
 import kotlinx.android.synthetic.main.note_cam_bottom_sheet.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.io.File
 
 class NoteCamActivity : BaseActivity() {
@@ -48,48 +56,67 @@ class NoteCamActivity : BaseActivity() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetNoteCam))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        btnSavePhotoNote.setOnClickListener {
-            if (isAddNote) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                tvNoteNoteCam.text = "Note: ${etPhotoNote.text}"
 
-            } else {
-                if (etPhotoNote.text.toString() == "") {
-                    Toast.makeText(
-                        this@NoteCamActivity,
-                        "Please enter some note.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        KeyboardVisibilityEvent.setEventListener(this, object : KeyboardVisibilityEventListener {
+            override fun onVisibilityChanged(isOpen: Boolean) {
+                if (isOpen) {
+                    btnCapture.visibility = View.INVISIBLE
                 } else {
-                    tvNoteNoteCam.text = "Note: ${etPhotoNote.text}"
-//                    tvNoteNoteCam.visibility = View.VISIBLE
-
-                    Handler().postDelayed({
-                        val bitmap = Bitmap.createBitmap(
-                            clPreviewImageView.width,
-                            clPreviewImageView.height,
-                            Bitmap.Config.ARGB_8888
-                        )
-                        val canvas = Canvas(bitmap)
-                        clPreviewImageView.draw(canvas)
-
-                        val tempUri =
-                            Misc.saveImageToExternal(
-                                this@NoteCamActivity,
-                                bitmap,
-                                null
-                            )
-                        Misc.setLatestUri(tempUri.toString(), this@NoteCamActivity)
-
-                        getImageForCollection()
-
-                        bottomSheetBehavior.state =
-                            BottomSheetBehavior.STATE_COLLAPSED
-                    }, 10)
+                    btnCapture.visibility = View.VISIBLE
                 }
+            }
+        })
+
+        btnSavePhotoNote.setOnClickListener {
+            hideSoftKeyboard(this)
+            if (tvNoteNoteCam.text.toString() == "") {
+                Toast.makeText(
+                    this@NoteCamActivity,
+                    "Please enter some note.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Handler().postDelayed({
+                    val bitmap = Bitmap.createBitmap(
+                        clPreviewImageView.width,
+                        clPreviewImageView.height,
+                        Bitmap.Config.ARGB_8888
+                    )
+                    val canvas = Canvas(bitmap)
+                    clPreviewImageView.draw(canvas)
+
+                    val tempUri =
+                        Misc.saveImageToExternal(
+                            this@NoteCamActivity,
+                            bitmap,
+                            null
+                        )
+                    Misc.setLatestUri(tempUri.toString(), this@NoteCamActivity)
+
+                    getImageForCollection()
+
+                    bottomSheetBehavior.state =
+                        BottomSheetBehavior.STATE_COLLAPSED
+                }, 10)
             }
         }
 
+
+        etPhotoNote.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(
+                s: CharSequence?, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                etNoteNoteCam.text = etPhotoNote.text
+            }
+        })
 
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -163,10 +190,10 @@ class NoteCamActivity : BaseActivity() {
         } else {
             tvNoteNoteCam.visibility = View.VISIBLE
             clNote.setOnClickListener {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                btnSavePhotoNote.text = "Add"
-                textViewSavePhoto.text = "Add Note"
-                isAddNote = true
+                etNoteNoteCam.requestFocus()
+                val imm: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(etNoteNoteCam, InputMethodManager.SHOW_IMPLICIT)
             }
             btnCapture.setOnClickListener {
                 val file = File(
@@ -187,17 +214,15 @@ class NoteCamActivity : BaseActivity() {
                             previewImageNoteCam.setImageURI(uri)
                             previewImageNoteCam.visibility = View.VISIBLE
                             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                            etPhotoNote.text = etNoteNoteCam.text
                             btnSavePhotoNote.text = "Save"
                             textViewSavePhoto.text = "Save Photo"
 
-                            isAddNote = false
                         }
                     }
                 )
             }
-
         }
-
 
         btnCancel.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -210,11 +235,15 @@ class NoteCamActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.backActivity(this, Misc.isNoteCamOnBackIntEnabled, object : ActivityOnBackPress {
-            override fun onBackPress() {
-                finish()
-            }
-        })
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            Misc.backActivity(this, Misc.isNoteCamOnBackIntEnabled, object : ActivityOnBackPress {
+                override fun onBackPress() {
+                    finish()
+                }
+            })
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -317,5 +346,17 @@ class NoteCamActivity : BaseActivity() {
             ContextCompat.getMainExecutor(this)
         )
 
+    }
+
+    fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager = activity.getSystemService(
+            Activity.INPUT_METHOD_SERVICE
+        ) as InputMethodManager
+        if (inputMethodManager.isAcceptingText) {
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken,
+                0
+            )
+        }
     }
 }

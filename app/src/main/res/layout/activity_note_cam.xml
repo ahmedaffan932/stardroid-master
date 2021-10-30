@@ -140,17 +140,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvAccuracyNoteCam" />
 
-
                 <TextView
                     android:id="@+id/tvNoteNoteCam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/note"
+                    android:paddingVertical="@dimen/less_padding"
+                    android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam" />
 
+                <EditText
+                    android:id="@+id/etNoteNoteCam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textCursorDrawable="@drawable/cursor_pink"
+                    android:background="@color/nothing"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam"
+                    app:layout_constraintStart_toEndOf="@id/tvNoteNoteCam"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
