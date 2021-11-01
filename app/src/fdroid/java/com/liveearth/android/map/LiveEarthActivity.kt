@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.directions.v5.DirectionsCriteria
@@ -69,8 +70,7 @@ import java.io.IOException
 import java.util.*
 
 @SuppressLint("LogNotTimber")
-class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCallback, MapboxMap.OnMapClickListener
-{
+class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback, MapboxMap.OnMapClickListener {
     private val REQUEST_CODE_AUTOCOMPLETE = 1
     private val speechRequestCode = 0
     private var buildingPlugin: BuildingPlugin? = null
@@ -103,6 +103,9 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+
+        Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
+        Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
         isBtnGenerateVisible = Misc.hideShowView(btnGenerateQR, this, isBtnGenerateVisible)
 
         btnShareLocation.setOnClickListener {
@@ -117,12 +120,15 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         }
 
         btnGetDirection.setOnClickListener {
-            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
+            val locationComponent = mapboxMap.locationComponent
+            val lastKnownLocation = locationComponent.lastKnownLocation
+
+//            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
             currentLocation.latitude = lastKnownLocation!!.latitude
             currentLocation.longitude = lastKnownLocation.longitude
 
-            val origin = Point.fromLngLat(point.longitude, point.latitude)
-            val destination = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
+            val destination = Point.fromLngLat(point.longitude, point.latitude)
+            val origin = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
 
             getRoute(origin, destination)
         }
@@ -130,10 +136,10 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
         btnZoomIn.setOnClickListener {
             val position = CameraPosition.Builder()
-                .target(mapboxMap.cameraPosition.target)
-                .zoom(mapboxMap.cameraPosition.zoom + 1)
-                .tilt(mapboxMap.cameraPosition.tilt)
-                .build()
+                    .target(mapboxMap.cameraPosition.target)
+                    .zoom(mapboxMap.cameraPosition.zoom + 1)
+                    .tilt(mapboxMap.cameraPosition.tilt)
+                    .build()
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 100)
         }
 
@@ -143,10 +149,10 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
         btnZoomOut.setOnClickListener {
             val position = CameraPosition.Builder()
-                .target(mapboxMap.cameraPosition.target)
-                .zoom(mapboxMap.cameraPosition.zoom - 1)
-                .tilt(mapboxMap.cameraPosition.tilt)
-                .build()
+                    .target(mapboxMap.cameraPosition.target)
+                    .zoom(mapboxMap.cameraPosition.zoom - 1)
+                    .tilt(mapboxMap.cameraPosition.tilt)
+                    .build()
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 100)
         }
 
@@ -180,18 +186,18 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         }
 
         btnTraffic.setOnClickListener {
-            if(isTraficEnabled){
+            if (isTraficEnabled) {
                 setMapBoxStyle(lastStyle, false)
-            }else{
+            } else {
                 setMapBoxStyle(Style.TRAFFIC_DAY, false)
             }
             isTraficEnabled = !isTraficEnabled
         }
 
         btnThreeDView.setOnClickListener {
-            if(isThreeDViewEnabled){
+            if (isThreeDViewEnabled) {
                 setMapBoxStyle(lastStyle, false)
-            }else {
+            } else {
                 setMapBoxStyle(Style.MAPBOX_STREETS, true)
             }
         }
@@ -221,20 +227,20 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     private fun initDroppedMarker(loadedMapStyle: Style) {
         // Add the marker image to map
         loadedMapStyle.addImage(
-            "dropped-icon-image",
-            resources.getDrawable(R.drawable.ic_pin_selected)
+                "dropped-icon-image",
+                resources.getDrawable(R.drawable.ic_pin_selected)
         )
         loadedMapStyle.addSource(GeoJsonSource("dropped-marker-source-id"))
         loadedMapStyle.addLayer(
-            SymbolLayer(
-                DROPPED_MARKER_LAYER_ID,
-                "dropped-marker-source-id"
-            ).withProperties(
-                PropertyFactory.iconImage("dropped-icon-image"),
-                PropertyFactory.visibility(Property.NONE),
-                PropertyFactory.iconAllowOverlap(true),
-                PropertyFactory.iconIgnorePlacement(true)
-            )
+                SymbolLayer(
+                        DROPPED_MARKER_LAYER_ID,
+                        "dropped-marker-source-id"
+                ).withProperties(
+                        PropertyFactory.iconImage("dropped-icon-image"),
+                        PropertyFactory.visibility(Property.NONE),
+                        PropertyFactory.iconAllowOverlap(true),
+                        PropertyFactory.iconIgnorePlacement(true)
+                )
         )
     }
 
@@ -275,9 +281,9 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -285,7 +291,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
     override fun onExplanationNeeded(permissionsToExplain: List<String>) {
         Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
-            .show()
+                .show()
     }
 
     override fun onPermissionResult(granted: Boolean) {
@@ -294,7 +300,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
             style?.let { enableLocationPlugin(it) }
         } else {
             Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG)
-                .show()
+                    .show()
             finish()
         }
     }
@@ -302,14 +308,14 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     private fun reverseGeocode(point: Point) {
         try {
             val client: MapboxGeocoding = MapboxGeocoding.builder()
-                .accessToken(getString(R.string.mapbox_access_token))
-                .query(Point.fromLngLat(point.longitude(), point.latitude()))
-                .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
-                .build()
+                    .accessToken(getString(R.string.mapbox_access_token))
+                    .query(Point.fromLngLat(point.longitude(), point.latitude()))
+                    .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
+                    .build()
             client.enqueueCall(object : Callback<GeocodingResponse?> {
                 override fun onResponse(
-                    call: Call<GeocodingResponse?>?,
-                    response: Response<GeocodingResponse?>
+                        call: Call<GeocodingResponse?>?,
+                        response: Response<GeocodingResponse?>
                 ) {
                     if (response.body() != null) {
                         val results: List<CarmenFeature> = response.body()!!.features()
@@ -320,19 +326,19 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
                             mapboxMap.getStyle { style ->
                                 if (style.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
                                     Toast.makeText(
-                                        this@LiveEarthActivity,
-                                        java.lang.String.format(
-                                            getString(R.string.location_picker_place_name_result),
-                                            feature.placeName()
-                                        ), Toast.LENGTH_SHORT
+                                            this@LiveEarthActivity,
+                                            java.lang.String.format(
+                                                    getString(R.string.location_picker_place_name_result),
+                                                    feature.placeName()
+                                            ), Toast.LENGTH_SHORT
                                     ).show()
                                 }
                             }
                         } else {
                             Toast.makeText(
-                                this@LiveEarthActivity,
-                                getString(R.string.location_picker_dropped_marker_snippet_no_results),
-                                Toast.LENGTH_SHORT
+                                    this@LiveEarthActivity,
+                                    getString(R.string.location_picker_dropped_marker_snippet_no_results),
+                                    Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
@@ -354,17 +360,17 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
             locationComponent = mapboxMap.locationComponent
             locationComponent.activateLocationComponent(
-                LocationComponentActivationOptions.builder(
-                    this, loadedMapStyle
-                ).build()
+                    LocationComponentActivationOptions.builder(
+                            this, loadedMapStyle
+                    ).build()
             )
             if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
+                            this,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
             ) {
             }
             locationComponent.isLocationComponentEnabled = true
@@ -393,11 +399,11 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
                 mapboxMap.getStyle { style ->
                     if (style.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
                         Toast.makeText(
-                            this@LiveEarthActivity,
-                            java.lang.String.format(
-                                getString(R.string.location_picker_place_name_result),
-                                addresses[0].getAddressLine(0)
-                            ), Toast.LENGTH_SHORT
+                                this@LiveEarthActivity,
+                                java.lang.String.format(
+                                        getString(R.string.location_picker_place_name_result),
+                                        addresses[0].getAddressLine(0)
+                                ), Toast.LENGTH_SHORT
                         ).show()
                     }
                     Log.d(Misc.logKey, addresses[0].getAddressLine(0))
@@ -413,33 +419,33 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
     private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
         mapboxMap.setStyle(
-            styleName
+                styleName
         ) { style ->
             mapBoxStyle = style
-            if(styleName != Style.TRAFFIC_DAY && isThreeDView){
+            if (styleName != Style.TRAFFIC_DAY && isThreeDView) {
                 lastStyle = styleName
             }
-            if(isThreeDView) {
+            if (isThreeDView) {
                 buildingPlugin?.setVisibility(true)
                 mapboxMap.animateCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition.Builder()
-                            .target(mapboxMap.cameraPosition.target)
-                            .zoom(17.0)
-                            .tilt(60.0)
-                            .build()
-                    ), 4000
+                        CameraUpdateFactory.newCameraPosition(
+                                CameraPosition.Builder()
+                                        .target(mapboxMap.cameraPosition.target)
+                                        .zoom(17.0)
+                                        .tilt(60.0)
+                                        .build()
+                        ), 4000
                 )
                 isThreeDViewEnabled = true
-            }else{
+            } else {
                 mapboxMap.animateCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition.Builder()
-                            .target(mapboxMap.cameraPosition.target)
-                            .zoom(mapboxMap.cameraPosition.zoom)
-                            .tilt(0.0)
-                            .build()
-                    ), 4000
+                        CameraUpdateFactory.newCameraPosition(
+                                CameraPosition.Builder()
+                                        .target(mapboxMap.cameraPosition.target)
+                                        .zoom(mapboxMap.cameraPosition.zoom)
+                                        .tilt(0.0)
+                                        .build()
+                        ), 4000
                 )
                 buildingPlugin?.setVisibility(false)
                 isThreeDViewEnabled = false
@@ -461,8 +467,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
             hoveringMarker = ImageView(this@LiveEarthActivity)
             hoveringMarker.setImageResource(R.drawable.ic_pin)
             val params = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
             )
             hoveringMarker.layoutParams = params
 //            mapView.addView(hoveringMarker)
@@ -476,6 +482,10 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         setMarker(point)
         animateCamera(point, 14.0)
         getAddress(point)
+        if (isRouteAdded) {
+            navMapRoute.removeRoute()
+            isRouteAdded = false
+        }
         this.point = point
         return true
     }
@@ -485,16 +495,18 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
         if (mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
             val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
             source?.setGeoJson(
-                Point.fromLngLat(
-                    point.longitude,
-                    point.latitude
-                )
+                    Point.fromLngLat(
+                            point.longitude,
+                            point.latitude
+                    )
             )
             droppedMarkerLayer = mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID)!!
             droppedMarkerLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE))
             latLng = "geo:${point.latitude},${point.longitude},100"
 
 
+            Misc.showView(btnGetDirection, this, false)
+//            Misc.showView(btnStartNavigation, this, false)
             isBtnGenerateVisible = Misc.showView(btnGenerateQR, this, isBtnGenerateVisible)
         }
     }
@@ -502,23 +514,24 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
     private fun buildAlertMessageNoGps() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-            .setCancelable(false)
-            .setPositiveButton(
-                "Yes"
-            ) { dialog, id -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
-            .setNegativeButton(
-                "No"
-            ) { dialog, id -> dialog.cancel() }
+                .setCancelable(false)
+                .setPositiveButton(
+                        "Yes"
+                ) { dialog, id -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .setNegativeButton(
+                        "No"
+                ) { dialog, id -> dialog.cancel() }
         val alert: AlertDialog = builder.create()
         alert.show()
     }
 
     override fun onBackPressed() {
-
-        if(isRouteAdded){
+        if (isRouteAdded) {
             navMapRoute.removeRoute()
+            Misc.hideShowView(btnGetDirection, this, true)
+            Misc.hideShowView(btnStartNavigation, this, true)
             isRouteAdded = false
-        }else {
+        } else {
             Misc.backActivity(this, Misc.isLiveEarthOnBackIntEnabled, object : ActivityOnBackPress {
                 override fun onBackPress() {
                     finish()
@@ -529,19 +542,21 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
     private fun initSearchFab() {
         svLocation.setOnClickListener {
+
+//            startActivity(Intent(this, MapboxSearchActivity::class.java))
             val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
+                    .accessToken(
+                            (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
+                                    R.string.mapbox_access_token
+                            ))!!
+                    )
+                    .placeOptions(
+                            PlaceOptions.builder()
+                                    .backgroundColor(Color.parseColor("#EEEEEE"))
+                                    .limit(10)
+                                    .build(PlaceOptions.MODE_CARDS)
+                    )
+                    .build(this)
             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
         }
     }
@@ -561,35 +576,35 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
         if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
             val spokenText: String? =
-                data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
-                    results?.get(0)
-                }
+                    data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
+                        results?.get(0)
+                    }
 
             if (spokenText != null) {
                 val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
-                    .query(spokenText)
-                    .accessToken(getString(R.string.mapbox_access_token))
-                    .build()
+                        .query(spokenText)
+                        .accessToken(getString(R.string.mapbox_access_token))
+                        .build()
 
                 geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
                     @SuppressLint("LogNotTimber")
                     override fun onResponse(
-                        call: Call<GeocodingResponse>,
-                        response: Response<GeocodingResponse>
+                            call: Call<GeocodingResponse>,
+                            response: Response<GeocodingResponse>
                     ) {
-                            if(response.isSuccessful){
-                                val t =  response.body()?.features()?.get(0)?.geometry()
-                                val arr = t.toString().split("[", "]")
-                                val p = arr[1].split(",")
-                                point.latitude = p[1].toDouble()
-                                point.longitude = p[0].toDouble()
-                                setMarker(point)
-                                animateCamera(point, 10.0)
-                                for(item in arr)
-                                Log.d(Misc.logKey,item)
-                            }else{
-                                Toast.makeText(this@LiveEarthActivity, "Place not found.", Toast.LENGTH_SHORT).show()
-                            }
+                        if (response.isSuccessful) {
+                            val t = response.body()?.features()?.get(0)?.geometry()
+                            val arr = t.toString().split("[", "]")
+                            val p = arr[1].split(",")
+                            point.latitude = p[1].toDouble()
+                            point.longitude = p[0].toDouble()
+                            setMarker(point)
+                            animateCamera(point, 10.0)
+                            for (item in arr)
+                                Log.d(Misc.logKey, item)
+                        } else {
+                            Toast.makeText(this@LiveEarthActivity, "Place not found.", Toast.LENGTH_SHORT).show()
+                        }
 
                     }
 
@@ -604,17 +619,17 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
 
     private fun animateCamera(p: LatLng, zoom: Double) {
         mapboxMap.animateCamera(
-            CameraUpdateFactory.newCameraPosition(
-                CameraPosition.Builder()
-                    .target(
-                        LatLng(
-                            p.latitude,
-                            p.longitude
-                        )
-                    )
-                    .zoom(zoom)
-                    .build()
-            ), 3000
+                CameraUpdateFactory.newCameraPosition(
+                        CameraPosition.Builder()
+                                .target(
+                                        LatLng(
+                                                p.latitude,
+                                                p.longitude
+                                        )
+                                )
+                                .zoom(zoom)
+                                .build()
+                ), 3000
         )
 
     }
@@ -625,94 +640,71 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener,OnMapReadyCal
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.EXTRA_LANGUAGE)
         }
         intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE,
-            "en"
+                RecognizerIntent.EXTRA_LANGUAGE,
+                "en"
         )
         startActivityForResult(intent, speechRequestCode)
     }
 
     private fun getRoute(origin: Point, destination: Point) {
         val client: MapboxDirections = MapboxDirections.builder()
-            .origin(origin)
-            .destination(destination)
-            .accessToken(getString(R.string.mapbox_access_token))
-            .overview(DirectionsCriteria.OVERVIEW_FULL)
-            .profile(DirectionsCriteria.PROFILE_DRIVING)
-            .steps(true)
-            .voiceInstructions(true)
-            .bannerInstructions(true)
-            .build()
+                .origin(origin)
+                .destination(destination)
+                .accessToken(getString(R.string.mapbox_access_token))
+                .overview(DirectionsCriteria.OVERVIEW_FULL)
+                .profile(DirectionsCriteria.PROFILE_DRIVING)
+                .steps(true)
+                .voiceInstructions(true)
+                .bannerInstructions(true)
+                .build()
 
 
         client.enqueueCall(object : Callback<DirectionsResponse> {
             override fun onResponse(call: Call<DirectionsResponse>, response: Response<DirectionsResponse>) {
 
                 if (response.body() == null) {
-                    Log.e(Misc.logKey,"No routes found, make sure you set the right user and access token.")
+                    Log.e(Misc.logKey, "No routes found, make sure you set the right user and access token.")
                     return
                 } else if (response.body()!!.routes().size < 1) {
-                    Log.e(Misc.logKey,"No routes found")
+                    Log.e(Misc.logKey, "No routes found")
                     return
                 }
 
                 val currentRoute = response.body()!!.routes()[0]
-    //                Log.d(Misc.logKey, currentRoute.toString())
+                //                Log.d(Misc.logKey, currentRoute.toString())
                 Log.d(Misc.logKey, "Here I am.")
 
-                if(this@LiveEarthActivity::navMapRoute.isInitialized){
+                if (this@LiveEarthActivity::navMapRoute.isInitialized) {
                     navMapRoute.removeRoute()
                     isRouteAdded = false
-                }else {
+                } else {
                     navMapRoute = NavigationMapRoute(
-                        null,
-                        mapView,
-                        mapboxMap,
-                        R.style.NavigationLocationLayerStyle
+                            null,
+                            mapView,
+                            mapboxMap,
+                            R.style.NavigationLocationLayerStyle
                     )
                 }
 
                 navMapRoute.addRoute(currentRoute)
+
+                Misc.route = currentRoute
+                Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
+                btnStartNavigation.setOnClickListener {
+                    Misc.startActivity(this@LiveEarthActivity, Misc.isNavigationIntEnabled, object : StartActivityCallBack {
+                        override fun onStart() {
+                            startActivity(Intent(this@LiveEarthActivity, NavigationActivity::class.java))
+                        }
+                    })
+                }
                 isRouteAdded = true
 
             }
 
             override fun onFailure(call: Call<DirectionsResponse>, throwable: Throwable) {
-
-                Log.e(Misc.logKey,"Error: " + throwable.message)
+                Log.e(Misc.logKey, "Error: " + throwable.message)
 
             }
         })
-
-//        NavigationRoute.builder(this)
-//            .accessToken(getString(R.string.mapbox_access_token))
-//            .origin(origin)
-//            .destination(destination)
-//            .build()
-//            .getRoute(object : Callback<DirectionsResponse> {
-//                @SuppressLint("LogNotTimber")
-//                override fun onResponse(
-//                    call: Call<DirectionsResponse>,
-//                    response: Response<DirectionsResponse>
-//                ) {
-//                    if (response.body() == null) {
-//                        Log.e(Misc.logKey, "No routes found")
-//                        return
-//                    } else if (response.body()!!.routes().size == 0) {
-//                        Log.e(Misc.logKey, "Routes List = 0")
-//                        return
-//                    }
-//
-//                    val currentRoute = response.body()!!.routes().get(0)
-//                    val navMapRoute = NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationLocationLayerStyle)
-//                    navMapRoute.addRoute(currentRoute)
-//                }
-//
-//                @SuppressLint("LogNotTimber")
-//                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
-//                    Log.d(Misc.logKey, call.toString())
-//                }
-//
-//            })
-
     }
 }

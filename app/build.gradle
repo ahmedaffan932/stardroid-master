@@ -45,7 +45,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
 //            if (file('no-checkin.properties').exists()) {
 //                signingConfig signingConfigs.release
@@ -137,8 +137,6 @@ dependencies {
     implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'){
         transitive=true
     }
-//    implementation "com.mapbox.navigation:android:2.0.0"
-
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
     implementation 'com.google.zxing:core:3.3.2'
@@ -174,5 +172,7 @@ dependencies {
     implementation "com.android.billingclient:billing-ktx:$billing_version"
 
     implementation "com.github.tarek360:instacapture:2.0.1"
+    implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-beta.21"
+
 
 }

@@ -19,6 +19,7 @@ import com.liveearth.android.map.R
 import com.liveearth.android.map.interfaces.ActivityOnBackPress
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.mapbox.api.directions.v5.models.DirectionsRoute
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,8 +30,6 @@ class Misc {
 
         const val appUrl: String =
             "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
-
-
         const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
@@ -68,6 +67,7 @@ class Misc {
         var isViewWorldIntEnabled: Boolean = false
         var isStartGameIntEnabled: Boolean = false
         var isSoundMeterIntEnabled: Boolean = false
+        var isNavigationIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
         var isQuizCountriesIntEnabled: Boolean = false
@@ -76,6 +76,8 @@ class Misc {
         var isQuizCompeletedIntEnabled: Boolean = false
         var isLiveEarthOnBackIntEnabled: Boolean = false
         var isGenerateQrOnBackIntEnabled: Boolean = false
+
+        var route: DirectionsRoute? = null
 
         var inAppKey = if (BuildConfig.DEBUG) {
             "android.test.purchased"

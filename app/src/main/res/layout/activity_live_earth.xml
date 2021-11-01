@@ -182,6 +182,35 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnStartNavigation"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bg_gradient_pink_rounded"
+        android:layout_marginBottom="@dimen/fab_padding"
+        android:backgroundTint="@color/blue"
+        android:elevation="@dimen/extra_padding"
+        android:visibility="gone"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintBottom_toTopOf="@id/cl">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/nothing"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            mapbox:layout_constraintTop_toTopOf="parent"
+            mapbox:layout_constraintBottom_toBottomOf="parent"
+            mapbox:layout_constraintEnd_toEndOf="parent"
+            mapbox:layout_constraintStart_toStartOf="parent"
+            android:text="@string/start_navigation" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

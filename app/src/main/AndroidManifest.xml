@@ -210,6 +210,16 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
+        <activity
+            android:name="com.liveearth.android.map.NavigationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity
+            android:name="com.liveearth.android.map.MapboxSearchActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
     </application>
 
 
