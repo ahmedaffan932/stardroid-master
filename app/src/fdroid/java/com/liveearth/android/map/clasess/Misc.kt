@@ -2,21 +2,29 @@ package com.liveearth.android.map.clasess
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.*
 import android.graphics.Bitmap
 import android.location.Location
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qrcodescanner.activities.sdk29AndUp
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.liveearth.android.map.BuildConfig
 import com.liveearth.android.map.R
-import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.api.directions.v5.models.DirectionsRoute
@@ -26,10 +34,11 @@ import java.util.*
 
 
 class Misc {
+    @SuppressLint("LogNotTimber")
     companion object {
 
         const val appUrl: String =
-            "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
+                "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
         const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
@@ -42,6 +51,11 @@ class Misc {
         var levels: String = "levels"
         var startingTime: Long = 0
         const val data: String = "data"
+
+        var mInterstitialAd: InterstitialAd? = null
+
+        var intFailedCount = 0
+        var nativeFailedCount = 0
 
         const val logKey: String = "logKey"
         private const val purchasedStatus: String = "purchasedStatus"
@@ -61,21 +75,44 @@ class Misc {
         var isSettingIntEnabled: Boolean = false
         var isCompassIntEnabled: Boolean = false
         var isNoteCamIntEnabled: Boolean = false
+        var isGameBackIntEnabled: Boolean = false
         var isAltitudeIntEnabled: Boolean = false
         var isProScreenIntEnabled: Boolean = false
         var isLiveEarthIntEnabled: Boolean = false
         var isViewWorldIntEnabled: Boolean = false
         var isStartGameIntEnabled: Boolean = false
         var isSoundMeterIntEnabled: Boolean = false
+        var isGenerateQRIntEnabled: Boolean = false
         var isNavigationIntEnabled: Boolean = false
         var isGPSMapCamsIntEnabled: Boolean = false
+        var isSkyMapBackIntEnabled: Boolean = false
+        var isSettingBackIntEnabled: Boolean = false
+        var isCompassBackIntEnabled: Boolean = false
         var isSpeedometerIntEnabled: Boolean = false
+        var isPlayGameBackIntEnabled: Boolean = false
+        var isAltitudeBackIntEnabled: Boolean = false
+        var isQuizCompleteIntEnabled: Boolean = false
+        var isQuizScreenOneIntEnabled: Boolean = false
         var isQuizCountriesIntEnabled: Boolean = false
+        var isProScreenBackIntEnabled: Boolean = false
+        var isViewWorldBackIntEnabled: Boolean = false
         var isNoteCamOnBackIntEnabled: Boolean = false
+        var isStartGameBackIntEnabled: Boolean = false
+        var isSoundMeterBackIntEnabled: Boolean = false
+        var isQuizSelectModeIntEnabled: Boolean = false
+        var isNavigationBackIntEnabled: Boolean = false
         var isQuizCurrenciesIntEnabled: Boolean = false
-        var isQuizCompeletedIntEnabled: Boolean = false
+        var isSearchLocationIntEnabled: Boolean = false
+        var isContinentSelectIntEnabled: Boolean = false
+        var isSpeedometerBackIntEnabled: Boolean = false
         var isLiveEarthOnBackIntEnabled: Boolean = false
+        var isQuizCompleteBackIntEnabled: Boolean = false
         var isGenerateQrOnBackIntEnabled: Boolean = false
+        var isQuizScreenOneBackIntEnabled: Boolean = false
+        var isMainFromProScreenIntEnabled: Boolean = false
+        var isContinentSelectBackIntEnabled: Boolean = false
+
+        var interstitialAdId = "ca-app-pub-3940256099942544/1033173712"
 
         var route: DirectionsRoute? = null
 
@@ -90,16 +127,25 @@ class Misc {
             isIntEnabled: Boolean,
             callBack: StartActivityCallBack?
         ) {
-            callBack?.onStart()
+            showInterstitial(activity,
+                    true,
+                    object : InterstitialCallBack {
+                        override fun onDismiss() {
+                            callBack?.onStart()
+                        }
+                    })
         }
 
-        fun backActivity(
+        fun onBackPress(
             activity: Activity,
             inIntEnabled: Boolean,
-            callBack: ActivityOnBackPress?
+            callBack: OnBackPressCallBack?
         ) {
-
-            callBack?.onBackPress()
+            showInterstitial(activity, true, object : InterstitialCallBack{
+                override fun onDismiss() {
+                    callBack?.onBackPress()
+                }
+            })
         }
 
         fun hideShowView(view: View, activity: Activity, isVisible: Boolean): Boolean {
@@ -237,6 +283,97 @@ class Misc {
             val sharedPreferences =
                 activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
             return sharedPreferences.getBoolean(purchasedStatus, false)
+        }
+
+        fun loadInterstitial(activity: Activity, id: String) {
+            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
+                            activity
+                    )
+            ) {
+                val adRequest = AdRequest.Builder().build()
+                InterstitialAd.load(
+                        activity,
+//                    test
+//                    "ca-app-pub-4113492848151023/5138055389",
+                        id,
+                        adRequest,
+                        object : InterstitialAdLoadCallback() {
+                            override fun onAdFailedToLoad(adError: LoadAdError) {
+                                Log.d(logKey, adError.message)
+                                val clipboard: ClipboardManager =
+                                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clip =
+                                        ClipData.newPlainText("Camera Translator", adError.message)
+                                clipboard.setPrimaryClip(clip)
+                                Log.e(logKey, adError.message)
+                                intFailedCount++
+                                mInterstitialAd = null
+                            }
+
+                            override fun onAdLoaded(p0: InterstitialAd) {
+                                mInterstitialAd = p0
+                                intFailedCount = 0
+                                Log.d(logKey, "Interstitial Ad loaded.")
+                            }
+                        })
+            }
+        }
+
+        fun showInterstitial(
+                activity: Activity,
+                isEnabled: Boolean,
+                callBack: InterstitialCallBack?
+        ) {
+            if (getPurchasedStatus(activity)) {
+                callBack?.onDismiss()
+                return
+            }
+            if (isEnabled) {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd?.show(activity)
+                } else {
+                    loadInterstitial(activity, interstitialAdId)
+                    callBack?.onDismiss()
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.")
+                    return
+                }
+
+                mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        callBack?.onDismiss()
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                        callBack?.onDismiss()
+                        loadInterstitial(activity, interstitialAdId)
+                    }
+
+                    override fun onAdShowedFullScreenContent() {
+                        Log.d(logKey, "Ad showed fullscreen content.")
+                        mInterstitialAd = null
+                        loadInterstitial(activity, interstitialAdId)
+                    }
+                }
+            } else {
+                callBack?.onDismiss()
+            }
+            if (!getPurchasedStatus(activity)) {
+                if (mInterstitialAd == null) {
+                    callBack?.onDismiss()
+                    loadInterstitial(activity, interstitialAdId)
+                }
+            }
+        }
+
+
+        fun checkInternetConnection(activity: Activity): Boolean {
+            //Check internet connection:
+            val connectivityManager: ConnectivityManager? =
+                    activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+
+            //Means that we are connected to a network (mobile or wi-fi)
+            return connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
+                    connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
         }
 
     }

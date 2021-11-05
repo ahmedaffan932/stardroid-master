@@ -310,7 +310,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             return
         } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-
         }
     }
 }

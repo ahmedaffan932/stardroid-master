@@ -16,7 +16,7 @@ import androidmads.library.qrgenearator.QRGEncoder
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
@@ -104,7 +104,7 @@ class QRGeneratedActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.backActivity(this, Misc.isGenerateQrOnBackIntEnabled, object : ActivityOnBackPress {
+        Misc.onBackPress(this, Misc.isGenerateQrOnBackIntEnabled, object : OnBackPressCallBack {
             override fun onBackPress() {
                 finish()
             }

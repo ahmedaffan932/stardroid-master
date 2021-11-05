@@ -2,9 +2,9 @@ package com.liveearth.android.map
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions
 import com.mapbox.services.android.navigation.ui.v5.OnNavigationReadyCallback
@@ -101,6 +101,11 @@ class NavigationActivity : AppCompatActivity(), OnNavigationReadyCallback, Navig
         if (navigationView != null) {
             navigationView.stopNavigation()
         }
-        finish()
+        Misc.onBackPress(this, Misc.isNavigationBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
+//        finish()
     }
 }

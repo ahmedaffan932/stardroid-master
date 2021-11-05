@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.blongho.country_data.World
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 
 import kotlinx.android.synthetic.fdroid.activity_word_quiz_mode_selector.*
@@ -66,6 +67,14 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
             override fun onStart() {
                 startActivity(intent)
+            }
+        })
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isContinentSelectBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
             }
         })
     }

@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
@@ -26,6 +25,8 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.geocoding.v5.MapboxGeocoding
@@ -253,7 +254,11 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
                         .build(PlaceOptions.MODE_CARDS)
                 )
                 .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
+            Misc.startActivity(this, Misc.isSearchLocationIntEnabled, object :StartActivityCallBack{
+                override fun onStart() {
+                    startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
+                }
+            })
         }
     }
 
@@ -429,6 +434,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         mapView.onPause()
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
@@ -442,6 +448,15 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack{
+            override fun onBackPress() {
+                finish()
+            }
+        })
+//        super.onBackPressed()
     }
 
 }

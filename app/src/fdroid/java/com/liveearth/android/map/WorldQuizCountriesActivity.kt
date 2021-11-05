@@ -18,6 +18,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.CountryListInterface
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.liveearth.android.map.interfaces.WebAppInterface
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
@@ -180,7 +181,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Misc.startActivity(
                 this,
-                Misc.isQuizCompeletedIntEnabled,
+                Misc.isQuizCompleteIntEnabled,
                 object : StartActivityCallBack {
                     override fun onStart() {
                         finish()
@@ -337,8 +338,14 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             btnConfirm.visibility = View.INVISIBLE
             webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
             isCountrySelected = false
-        } else
-            super.onBackPressed()
+        } else{
+            Misc.onBackPress(this, Misc.isPlayGameBackIntEnabled, object : OnBackPressCallBack {
+                override fun onBackPress() {
+                    finish()
+                }
+            })
+        }
+//            super.onBackPressed()
     }
 
 }

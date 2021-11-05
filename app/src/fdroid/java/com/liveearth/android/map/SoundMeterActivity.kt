@@ -13,6 +13,8 @@ import android.text.style.ImageSpan
 import android.util.Log
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
 class SoundMeterActivity : AppCompatActivity() {
@@ -101,4 +103,11 @@ class SoundMeterActivity : AppCompatActivity() {
         handler.removeCallbacks(runSoundMeter)
     }
 
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isSoundMeterBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
+    }
 }

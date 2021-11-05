@@ -9,6 +9,8 @@ import android.util.Log
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.*
 import kotlinx.coroutines.*
 
@@ -67,7 +69,11 @@ class ProScreenActivity : AppCompatActivity() {
                     textContinueCounter.text = ""
 
                     btnContinue.setOnClickListener {
-                        startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+                        Misc.startActivity(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : StartActivityCallBack{
+                            override fun onStart() {
+                                startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+                            }
+                        })
                     }
                 }
             }
@@ -135,7 +141,12 @@ class ProScreenActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null){
-            super.onBackPressed()
+            Misc.onBackPress(this, Misc.isProScreenBackIntEnabled, object : OnBackPressCallBack {
+                override fun onBackPress() {
+                    finish()
+                }
+            })
+//            super.onBackPressed()
         }
 
     }

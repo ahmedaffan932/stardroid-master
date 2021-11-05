@@ -19,12 +19,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.blongho.country_data.Country
 import com.liveearth.android.map.clasess.Misc
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -349,5 +349,12 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         alert.show()
     }
 
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isCompassBackIntEnabled, object : OnBackPressCallBack{
+            override fun onBackPress() {
+                finish()
+            }
+        })
+    }
 
 }

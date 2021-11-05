@@ -13,6 +13,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.main.activity_speedometer.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToLong
@@ -111,6 +112,14 @@ class SpeedometerActivity : AppCompatActivity() {
                 handler.postDelayed(this, 1000)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isSpeedometerBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
     }
 
 }

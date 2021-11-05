@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_screen_one.*
@@ -56,6 +57,13 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
                     }
                 })
         }
+    }
 
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isQuizScreenOneBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
     }
 }

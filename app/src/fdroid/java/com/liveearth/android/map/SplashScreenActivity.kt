@@ -16,6 +16,7 @@ import com.google.firebase.FirebaseApp
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.main.activity_splash_screen.*
+import com.google.android.gms.ads.MobileAds
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : BaseActivity(), PermissionsListener {
@@ -31,16 +32,13 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         World.init(this)
         FirebaseApp.initializeApp(applicationContext)
 
+        MobileAds.initialize(this) {}
+
         btnStart.setOnClickListener {
             start()
         }
 
-//        textView.setOnClickListener {
-////            start()
-//            val i = Intent(this, MainActivity::class.java)
-//            i.putExtra(Misc.data, Misc.data)
-//            startActivity(i)
-//        }
+        Misc.loadInterstitial(this, Misc.interstitialAdId)
 
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_completed.*
 
@@ -24,5 +25,13 @@ class WorldQuizCompletedActivity : AppCompatActivity() {
         btnback.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isQuizCompleteBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
     }
 }

@@ -26,7 +26,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -238,7 +238,7 @@ class NoteCamActivity : BaseActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
-            Misc.backActivity(this, Misc.isNoteCamOnBackIntEnabled, object : ActivityOnBackPress {
+            Misc.onBackPress(this, Misc.isNoteCamOnBackIntEnabled, object : OnBackPressCallBack {
                 override fun onBackPress() {
                     finish()
                 }

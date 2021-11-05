@@ -1,5 +1,5 @@
 package com.liveearth.android.map.interfaces
 
-interface ActivityOnBackPress {
+interface OnBackPressCallBack {
     fun onBackPress()
 }

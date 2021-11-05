@@ -21,10 +21,10 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
-import com.liveearth.android.map.R
 import com.liveearth.android.map.adapters.CountryAdapter
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.CountryListInterface
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.WebAppInterface
 import kotlinx.android.synthetic.main.activity_am_chatrs.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
@@ -151,7 +151,11 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 clCountryInfo.visibility = View.GONE
             }, 300)
         } else {
-            super.onBackPressed()
+            Misc.onBackPress(this, Misc.isViewWorldBackIntEnabled, object : OnBackPressCallBack{
+                override fun onBackPress() {
+                    finish()
+                }
+            })
         }
     }
 

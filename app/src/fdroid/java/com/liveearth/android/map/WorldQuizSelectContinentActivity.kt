@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_select_continet.*
@@ -19,7 +20,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
 
         val intent = Intent(this@WorldQuizSelectContinentActivity, WordQuizModeSelectorActivity::class.java)
         clWholeWorld.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.wholeWorld
                     startActivity(intent)
@@ -28,7 +29,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAsia.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.asia
                     startActivity(intent)
@@ -37,7 +38,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clEurope.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.europe
                     startActivity(intent)
@@ -46,7 +47,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAfrica.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.africa
                     startActivity(intent)
@@ -55,7 +56,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAmerica.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.america
                     startActivity(intent)
@@ -63,12 +64,20 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
             })
         }
         clOceania.setOnClickListener {
-            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
+            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     Misc.gameContinent = Misc.oceania
                     startActivity(intent)
                 }
             })
         }
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isQuizSelectModeIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
     }
 }

@@ -24,7 +24,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -35,10 +35,7 @@ import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.MapboxGeocoding
 import com.mapbox.api.geocoding.v5.models.CarmenFeature
 import com.mapbox.api.geocoding.v5.models.GeocodingResponse
-import com.mapbox.core.constants.Constants.PRECISION_6
 import com.mapbox.core.exceptions.ServicesException
-import com.mapbox.geojson.Feature
-import com.mapbox.geojson.LineString
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
@@ -61,7 +58,6 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
-import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import kotlinx.android.synthetic.main.activity_live_earth.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -160,7 +156,11 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val intent = Intent(this, QRGeneratedActivity::class.java)
             Log.d(Misc.logKey, latLng)
             intent.putExtra(Misc.data, latLng)
-            startActivity(intent)
+            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack{
+                override fun onStart() {
+                    startActivity(intent)
+                }
+            })
         }
 
         btnGetCurrentLocation.setOnClickListener {
@@ -532,7 +532,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             Misc.hideShowView(btnStartNavigation, this, true)
             isRouteAdded = false
         } else {
-            Misc.backActivity(this, Misc.isLiveEarthOnBackIntEnabled, object : ActivityOnBackPress {
+            Misc.onBackPress(this, Misc.isLiveEarthOnBackIntEnabled, object : OnBackPressCallBack {
                 override fun onBackPress() {
                     finish()
                 }

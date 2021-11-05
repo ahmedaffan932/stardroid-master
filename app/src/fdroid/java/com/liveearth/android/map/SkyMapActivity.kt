@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.liveearth.android.map.activities.DynamicStarMapActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_sky_map.*
 
@@ -59,6 +60,14 @@ class SkyMapActivity : AppCompatActivity() {
         Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
             override fun onStart() {
                 startActivity(intent)
+            }
+        })
+    }
+
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isSkyMapBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
             }
         })
     }

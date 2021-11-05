@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.liveearth.android.map.clasess.EmailUsDialogBox
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.clasess.RateUsDialog
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_settings.*
 
@@ -166,5 +167,12 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        Misc.onBackPress(this, Misc.isSettingBackIntEnabled, object : OnBackPressCallBack {
+            override fun onBackPress() {
+                finish()
+            }
+        })
+    }
 
 }
