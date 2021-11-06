@@ -3,6 +3,7 @@ package com.liveearth.android.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -691,11 +692,26 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 Misc.route = currentRoute
                 Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                 btnStartNavigation.setOnClickListener {
-                    Misc.startActivity(this@LiveEarthActivity, Misc.isNavigationIntEnabled, object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(Intent(this@LiveEarthActivity, NavigationActivity::class.java))
-                        }
-                    })
+                    if(Misc.manageNavigationLimit(this@LiveEarthActivity)) {
+                        Misc.startActivity(this@LiveEarthActivity, Misc.isNavigationIntEnabled, object : StartActivityCallBack {
+                            override fun onStart() {
+                                startActivity(Intent(this@LiveEarthActivity, NavigationActivity::class.java))
+                            }
+                        })
+                    }else{
+                        AlertDialog.Builder(this@LiveEarthActivity)
+                                .setTitle("Upgrade to pro.")
+                                .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
+                                .setPositiveButton("Yes") { dialog, which ->
+                                    dialog.dismiss()
+                                    val intent = Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
+                                    intent.putExtra(Misc.data, Misc.data)
+                                    startActivity(intent)
+                                }
+                                .setNegativeButton("May be later.", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show()
+                    }
                 }
                 isRouteAdded = true
 

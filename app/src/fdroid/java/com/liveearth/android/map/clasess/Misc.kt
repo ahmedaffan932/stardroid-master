@@ -41,6 +41,7 @@ class Misc {
         var gameContinent: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
+        var navigationLimit = 4
         const val data: String = "data"
 
         const val logKey: String = "logKey"
@@ -237,6 +238,24 @@ class Misc {
             val sharedPreferences =
                 activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
             return sharedPreferences.getBoolean(purchasedStatus, false)
+        }
+
+        fun getNavigationCount(activity: Activity?): Int {
+            val sharedPreferences =
+                activity!!.getSharedPreferences("navLimit", Context.MODE_PRIVATE)
+            return sharedPreferences.getInt("navLimit", 0)
+        }
+
+        fun manageNavigationLimit(activity: Activity): Boolean{
+            val sharedPreferences = activity.getSharedPreferences(
+                    "navLimit",
+                    AppCompatActivity.MODE_PRIVATE
+            )
+            val editor = sharedPreferences.edit()
+            editor.putInt("navLimit", getNavigationCount(activity) + 1)
+            editor.apply()
+
+            return getNavigationCount(activity) < navigationLimit
         }
 
     }
