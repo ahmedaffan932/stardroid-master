@@ -167,6 +167,8 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
 
+    implementation project(':nativetemplates')
+
     implementation 'com.google.firebase:firebase-core:9.6.1'
 
     def billing_version = "4.0.0"

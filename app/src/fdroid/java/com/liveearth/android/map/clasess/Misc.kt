@@ -4,29 +4,27 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.*
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.example.qrcodescanner.activities.sdk29AndUp
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.liveearth.android.map.BuildConfig
 import com.liveearth.android.map.R
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.InterstitialCallBack
-import com.liveearth.android.map.interfaces.OnImageSaveCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.liveearth.android.map.interfaces.*
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -53,6 +51,7 @@ class Misc {
         const val data: String = "data"
 
         var mInterstitialAd: InterstitialAd? = null
+        var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
 
         var intFailedCount = 0
         var nativeFailedCount = 0
@@ -67,6 +66,8 @@ class Misc {
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
         var location: Location? = null
+
+        var isSplashNativeEnabled: Boolean = false
 
 
         var isGameIntEnabled: Boolean = false
@@ -112,6 +113,7 @@ class Misc {
         var isMainFromProScreenIntEnabled: Boolean = false
         var isContinentSelectBackIntEnabled: Boolean = false
 
+        var nativeAdId = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdId = "ca-app-pub-3940256099942544/1033173712"
 
         var route: DirectionsRoute? = null
@@ -123,9 +125,9 @@ class Misc {
         }
 
         fun startActivity(
-            activity: Activity,
-            isIntEnabled: Boolean,
-            callBack: StartActivityCallBack?
+                activity: Activity,
+                isIntEnabled: Boolean,
+                callBack: StartActivityCallBack?
         ) {
             showInterstitial(activity,
                     true,
@@ -137,11 +139,11 @@ class Misc {
         }
 
         fun onBackPress(
-            activity: Activity,
-            inIntEnabled: Boolean,
-            callBack: OnBackPressCallBack?
+                activity: Activity,
+                inIntEnabled: Boolean,
+                callBack: OnBackPressCallBack?
         ) {
-            showInterstitial(activity, true, object : InterstitialCallBack{
+            showInterstitial(activity, true, object : InterstitialCallBack {
                 override fun onDismiss() {
                     callBack?.onBackPress()
                 }
@@ -178,29 +180,29 @@ class Misc {
 
         fun zoomInView(view: View, activity: Activity, duration: Int) {
             val a: Animation =
-                AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
+                    AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
             a.duration = duration.toLong()
             view.startAnimation(a)
         }
 
         fun zoomOutView(view: View, activity: Activity, duration: Int) {
             val a: Animation =
-                AnimationUtils.loadAnimation(activity, R.anim.zoom_out)
+                    AnimationUtils.loadAnimation(activity, R.anim.zoom_out)
             a.duration = duration.toLong()
             view.startAnimation(a)
         }
 
         fun getFlash(activity: Activity): Boolean {
             val sharedPreferences: SharedPreferences =
-                activity.getSharedPreferences(flash, AppCompatActivity.MODE_PRIVATE)
+                    activity.getSharedPreferences(flash, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getBoolean(flash, false)
         }
 
 
         fun setCameraFace(activity: Activity, boolean: Boolean) {
             val sharedPreferences = activity.getSharedPreferences(
-                cameraFace,
-                AppCompatActivity.MODE_PRIVATE
+                    cameraFace,
+                    AppCompatActivity.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             editor.putBoolean(cameraFace, boolean)
@@ -209,7 +211,7 @@ class Misc {
 
         fun getCameraFace(activity: Activity): Boolean {
             val sharedPreferences: SharedPreferences =
-                activity.getSharedPreferences(cameraFace, AppCompatActivity.MODE_PRIVATE)
+                    activity.getSharedPreferences(cameraFace, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getBoolean(cameraFace, true)
         }
 
@@ -224,9 +226,9 @@ class Misc {
         }
 
         fun saveImageToExternal(
-            activity: Activity,
-            bitmap: Bitmap,
-            onImageSaveCallBack: OnImageSaveCallBack?
+                activity: Activity,
+                bitmap: Bitmap,
+                onImageSaveCallBack: OnImageSaveCallBack?
         ): Uri? {
             val imageCollection = sdk29AndUp {
                 MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
@@ -257,13 +259,13 @@ class Misc {
 
         fun getLastSavedUri(activity: Activity): String {
             val sharedPreferences: SharedPreferences =
-                activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
+                    activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getString(lastUri, "o").toString()
         }
 
         fun setLatestUri(uri: String, activity: Activity) {
             val sharedPreferences =
-                activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
+                    activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.putString(lastUri, uri)
             editor.apply()
@@ -271,8 +273,8 @@ class Misc {
 
         fun setPurchasedStatus(activity: Activity, boolean: Boolean) {
             val sharedPreferences = activity.getSharedPreferences(
-                purchasedStatus,
-                AppCompatActivity.MODE_PRIVATE
+                    purchasedStatus,
+                    AppCompatActivity.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             editor.putBoolean(purchasedStatus, boolean)
@@ -281,7 +283,7 @@ class Misc {
 
         fun getPurchasedStatus(activity: Activity?): Boolean {
             val sharedPreferences =
-                activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
+                    activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
             return sharedPreferences.getBoolean(purchasedStatus, false)
         }
 
@@ -365,6 +367,79 @@ class Misc {
             }
         }
 
+        fun loadNativeAd(
+                activity: Activity,
+                id: String,
+                callBack: NativeAdCallBack?
+        ) {
+            mNativeAd = null
+            if (!getPurchasedStatus(activity) && nativeFailedCount < 3 && checkInternetConnection(activity)) {
+                val adLoader: AdLoader =
+                        AdLoader.Builder(activity, /* "ca-app-pub-3940256099942544/2247696110" */ id)
+                                .forNativeAd { nativeAd ->
+//                                    val typedValue = TypedValue()
+//                                    activity.theme.resolveAttribute(
+//                                            com.google.android.gms.ads.R.attr.colorPrimary,
+//                                            typedValue,
+//                                            true
+//                                    )
+//                                    val color = typedValue.data
+//                                    colorPrimary = color
+                                    Log.d(logKey, "Native Ad Loaded")
+
+                                    nativeFailedCount = 0
+
+                                    mNativeAd = nativeAd
+                                    callBack?.onLoad()
+                                    if (activity.isDestroyed) {
+                                        nativeAd.destroy()
+                                    }
+
+                                }.withAdListener(object : AdListener() {
+                                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                                        val clipboard: ClipboardManager =
+                                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                        val clip =
+                                                ClipData.newPlainText("Camera Translator", adError.message)
+                                        clipboard.setPrimaryClip(clip)
+                                        nativeFailedCount++
+                                        loadNativeAd(activity, nativeAdId, null)
+                                        Log.e(logKey, adError.message)
+                                    }
+                                })
+                                .build()
+                adLoader.loadAd(AdRequest.Builder().build())
+            }
+        }
+
+        fun showNativeAd(
+                activity: Activity,
+                nativeAdTemplateView: TemplateView,
+                isEnabled: Boolean,
+                callBack: NativeAdCallBack?
+        ) {
+            if (!getPurchasedStatus(activity))
+                if (mNativeAd != null) {
+                    if (true) {
+                        val styles =
+                                NativeTemplateStyle.Builder()
+                                        .withMainBackgroundColor(ColorDrawable())
+                                        .build()
+                        nativeAdTemplateView.setStyles(styles)
+                        nativeAdTemplateView.setNativeAd(mNativeAd)
+
+                        if (mNativeAd?.mediaContent?.hasVideoContent() == true) {
+                            mNativeAd?.mediaContent?.videoController?.play()
+                        }
+
+                        callBack?.onLoad()
+                        Log.d(logKey, "Native Ad displayed.")
+                        loadNativeAd(activity, nativeAdId, null)
+                    }
+                } else {
+                    loadNativeAd(activity, nativeAdId, null)
+                }
+        }
 
         fun checkInternetConnection(activity: Activity): Boolean {
             //Check internet connection:
@@ -375,7 +450,6 @@ class Misc {
             return connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
                     connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
         }
-
     }
 
 }
