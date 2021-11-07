@@ -33,7 +33,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 30
         versionCode 1
-        versionName "1.5.1"
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -42,6 +42,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        build{
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
         }
     }
 }
