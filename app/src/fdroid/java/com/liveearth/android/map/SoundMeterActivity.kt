@@ -2,6 +2,7 @@ package com.liveearth.android.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.os.Build
@@ -12,7 +13,9 @@ import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
+import com.liveearth.android.map.clasess.Misc
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
 class SoundMeterActivity : AppCompatActivity() {
@@ -29,12 +32,19 @@ class SoundMeterActivity : AppCompatActivity() {
         }
 
         btnInfo.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Example:\n20 dB-Whisper\n40 dB-Quite library\n60 dB-Conversation\n80 dB-Loud Music\n100 dB-Motorcycle\n120 dB-Threshold of pain",
-                Toast.LENGTH_LONG
-            ).show()
-
+            AlertDialog.Builder(this)
+                    .setTitle("Example:")
+                    .setMessage("20 dB-Whisper\n" +
+                            "40 dB-Quite library\n" +
+                            "60 dB-Conversation\n" +
+                            "80 dB-Loud Music\n" +
+                            "100 dB-Motorcycle\n" +
+                            "120 dB-Threshold of pain")
+                    .setPositiveButton("Ok") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .show()
         }
 
         btnReset.setOnClickListener {

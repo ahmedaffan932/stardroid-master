@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.liveearth.android.map.clasess.EmailUsDialogBox
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.clasess.RateUsDialog
@@ -144,6 +146,20 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun rateUs() {
+
+//        val manager = ReviewManagerFactory.create(this)
+//        val request = manager.requestReviewFlow()
+//        request.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                // We got the ReviewInfo object
+//                val reviewInfo = task.result
+//            } else {
+//                // There was some problem, log or handle the error code.
+//                val reviewErrorCode = task.exception
+//                Log.e(Misc.logKey, task.exception.toString())
+//            }
+//        }
+
         val p = "com.guru.translate.translator.translation.learn.language"
         val uri: Uri = Uri.parse("market://details?id=$p")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
