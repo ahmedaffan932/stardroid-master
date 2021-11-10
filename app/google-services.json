@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "241678676235",
-    "project_id": "gpstoolbox-410a6",
-    "storage_bucket": "gpstoolbox-410a6.appspot.com"
+    "project_number": "102662691113",
+    "project_id": "automated-style-304613",
+    "storage_bucket": "automated-style-304613.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:241678676235:android:450a444c7b79fbaa77f20e",
+        "mobilesdk_app_id": "1:102662691113:android:c2ef404f2b48ffa9367f38",
         "android_client_info": {
-          "package_name": "com.example.gpstoolbox"
+          "package_name": "com.liveearth.android.map"
         }
       },
       "oauth_client": [
         {
-          "client_id": "241678676235-kqotqvpmcc3n3mqj9l45fmj5tq5o1fhk.apps.googleusercontent.com",
+          "client_id": "102662691113-ceaprtqt3v5gd4l0gu223295k9rosd8i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuDJFqqsZKslGsVM3_aItUFH5k-8VxeYo"
+          "current_key": "AIzaSyAJHtANmNpm87aNW8jq9PiOeHY9_2Fw-y4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "241678676235-kqotqvpmcc3n3mqj9l45fmj5tq5o1fhk.apps.googleusercontent.com",
+              "client_id": "102662691113-ceaprtqt3v5gd4l0gu223295k9rosd8i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
