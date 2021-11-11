@@ -28,27 +28,10 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
 
-//    signingConfigs {
-//        release {
-//            if (project.file('no-checkin.properties').exists()) {
-//                Properties properties = new Properties()
-//                // Sky Map devs should create this file with the signing passwords
-//                properties.load(project.file('no-checkin.properties').newDataInputStream())
-//                storeFile file("stardroid-release-key.keystore")
-//                storePassword properties.getProperty('store-pwd')
-//                keyPassword properties.getProperty('key-pwd')
-//                keyAlias "stardroid"
-//            }
-//        }
-//    }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
-//            if (file('no-checkin.properties').exists()) {
-//                signingConfig signingConfigs.release
-//            }
         }
         build{
             minifyEnabled false
@@ -56,34 +39,35 @@ android {
         }
     }
 
-//    lintOptions {
-//        // Lint complains because of missing translations.
-//        // (Missing translations now removed)
-//        abortOnError false
-//    }
+    lintOptions {
+        // Lint complains because of missing translations.
+        // (Missing translations now removed)
+        abortOnError false
+    }
 
     // This enables long timeouts required on slow environments, e.g. Travis
-//    adbOptions {
-//        timeOutInMs 10 * 60 * 1000  // 10 minutes
-//        installOptions "-d", "-t"
-//    }
+    adbOptions {
+        timeOutInMs 10 * 60 * 1000  // 10 minutes
+        installOptions "-d", "-t"
+    }
     
-//    testOptions {
-//        animationsDisabled = true
-//    }
+    testOptions {
+        animationsDisabled = true
+    }
 
-//    flavorDimensions "default"
-//    productFlavors {
-//        // includes gms Google services
-//        gms {
-//            resValue "string", "analytics_enabled", "true"
-//        }
-//
-//        // uses only open source software
-//        fdroid {
-//            resValue "string", "analytics_enabled", "false"
-//        }
-//    }
+    flavorDimensions "default"
+
+    productFlavors {
+        // includes gms Google services
+        gms {
+            resValue "string", "analytics_enabled", "true"
+        }
+
+        // uses only open source software
+        fdroid {
+            resValue "string", "analytics_enabled", "false"
+        }
+    }
 }
 
 dependencies {
@@ -177,6 +161,4 @@ dependencies {
 
     implementation "com.github.tarek360:instacapture:2.0.1"
     implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-beta.21"
-
-
 }

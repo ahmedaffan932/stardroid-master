@@ -98,17 +98,11 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 runOnUiThread {
                     selectCountry(country)
                 }
-//                setCountryData(country)
             }
         }), "Android")
 
 
-//        Misc.wholeWorld
         webView.loadUrl("file:///android_asset/world/${Misc.gameContinent}.html")
-
-//        GlobalScope.launch {
-//            getMapDotHtml(Misc.gameContinent)
-//        }
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
@@ -285,7 +279,6 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 val tempCountry = arr[i]
                 if (tempCountry.alpha2 != "xx") {
                     arrCountries.add(tempCountry)
-//                    arr.drop(i)
                     i++
                 } else {
                     i++
@@ -315,7 +308,6 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             val storage: FirebaseStorage =
                 FirebaseStorage.getInstance()
 
-
             val islandRef = storage.reference.child("/$mapName.html")
             val fiftyKBs: Long = 1024 * 50
             Log.d("Getting Language", "Getting value from FB")
@@ -324,7 +316,6 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
 
             webView.loadData(valueString, "text/html", "UTF-8")
             Log.d(Misc.logKey, valueString)
-//            valueString.let { webView.loadUrl(it) }
             valueString
         } catch (e: Exception) {
             e.printStackTrace()
@@ -337,7 +328,20 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             btnConfirm.visibility = View.INVISIBLE
             webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
             isCountrySelected = false
-        } else
+        }else if(isCompleted){
+            webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
+            currentLevel++
+            getCurrentLevel()
+            btnConfirmText.text = "Confirm"
+            btnConfirm.visibility = View.INVISIBLE
+            textResult.visibility = View.INVISIBLE
+            textCorrectCountry.visibility = View.INVISIBLE
+            hideCountryInfo()
+            blockView.visibility = View.GONE
+            isCompleted = false
+            isCountrySelected = false
+        }
+        else
             super.onBackPressed()
     }
 
