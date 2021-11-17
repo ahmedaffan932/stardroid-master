@@ -480,9 +480,15 @@
 
     <string  name="spacer" translatable="false">Spacer</string>
 
-    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>
+<!--    Debug-->
+<!--    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>-->
+
+<!--    Release-->
+    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWQtY29tMTIzIiwiYSI6ImNrdzF4OGp1YzBkeGUycG8zem1tZHZqc3AifQ.nn_mktcrRZ1Ao--bl45p5A"</string>
+
     <string name="game_globe" translatable="false">Game Globe</string>
     <string translatable="false" name="live_earth">Live Earth</string>
+    <string translatable="false" name="app_name">Live Earth Map</string>
     <string translatable="false" name="cams">Cams</string>
     <string translatable="false" name="am_maps">AM Maps</string>
     <string translatable="false" name="explore">Explore</string>
@@ -1098,6 +1104,11 @@
     <string translatable="false" name="write_your_suggestion">Write your suggestion</string>
     <string translatable="false" name="did_you_enjoy_the_app">Did you enfoy the App ?</string>
     <string translatable="false" name="start_navigation">Start Navigation</string>
-<!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->
+    <string name="traffic">Traffic</string>
+    <string name="_3d">3D</string>
+    <string name="qr">QR</string>
+    <string name="direction">Direction</string>
+    <string name="todo">TODO</string>
+    <!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->
 
 </resources>

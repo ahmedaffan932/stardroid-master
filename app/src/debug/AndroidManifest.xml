@@ -10,6 +10,7 @@
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- For Google Analytics -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -55,7 +56,9 @@
 
     <application
         android:name=".StardroidApplication"
-        android:label="@string/app_name">
+        android:icon="@drawable/live_earth_map_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/live_earth_map_logo">
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
@@ -90,8 +93,7 @@
         <activity
             android:name=".activities.DiagnosticActivity"
             android:label="@string/title_activity_diagnostic" />
-
-<!-- Provides search suggestions. -->
+        <!-- Provides search suggestions. -->
 <!--        <provider-->
 <!--            android:name=".search.SearchTermsProvider"-->
 <!--            android:authorities="com.google.android.stardroid.searchterms"-->

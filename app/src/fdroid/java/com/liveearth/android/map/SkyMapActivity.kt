@@ -3,6 +3,7 @@ package com.liveearth.android.map
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.liveearth.android.map.activities.DynamicStarMapActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.StartActivityCallBack
@@ -12,6 +13,8 @@ class SkyMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sky_map)
+
+        Toast.makeText(this, "Thanks to Stardroid Google.",Toast.LENGTH_SHORT).show()
 
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")

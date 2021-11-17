@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "35976506901",
+    "project_id": "earth-map-live-9f78e",
+    "storage_bucket": "earth-map-live-9f78e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35976506901:android:fa27955a410da22467281c",
+        "android_client_info": {
+          "package_name": "com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35976506901-dpf3m0bumvaod85e9tg6shcsvn12k1tl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDncipmWGcvRenUH9XsHHljNk9i3FAwyQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35976506901-dpf3m0bumvaod85e9tg6shcsvn12k1tl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

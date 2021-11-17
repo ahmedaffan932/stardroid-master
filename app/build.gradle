@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.liveearth.android.map"
+        applicationId "com"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
@@ -30,18 +29,52 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            //noinspection GradlePath
+            applicationIdSuffix "liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            productFlavors {
+                // includes gms Google services
+                gms {
+                    //noinspection GradlePath
+                    applicationIdSuffix "liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+                    resValue "string", "analytics_enabled", "true"
+                }
+
+                // uses only open source software
+                fdroid {
+                    //noinspection GradlePath
+                    applicationIdSuffix "liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+                    resValue "string", "analytics_enabled", "false"
+                }
+            }
+
         }
         build{
-            minifyEnabled false
+            //noinspection GradlePath
+            applicationIdSuffix "liveearth.android.map"
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            productFlavors {
+                // includes gms Google services
+                gms {
+                    //noinspection GradlePath
+                    applicationIdSuffix "liveearth.android.map"
+                    resValue "string", "analytics_enabled", "true"
+                }
+
+                // uses only open source software
+                fdroid {
+                    //noinspection GradlePath
+                    applicationIdSuffix "liveearth.android.map"
+                    resValue "string", "analytics_enabled", "false"
+                }
+            }
+
         }
     }
 
     lintOptions {
-        // Lint complains because of missing translations.
-        // (Missing translations now removed)
         abortOnError false
     }
 
@@ -57,17 +90,6 @@ android {
 
     flavorDimensions "default"
 
-    productFlavors {
-        // includes gms Google services
-        gms {
-            resValue "string", "analytics_enabled", "true"
-        }
-
-        // uses only open source software
-        fdroid {
-            resValue "string", "analytics_enabled", "false"
-        }
-    }
 }
 
 dependencies {
@@ -86,6 +108,7 @@ dependencies {
     implementation project(path: ':country_data')
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     implementation 'com.google.android.play:core-ktx:1.8.1'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
 
     implementation 'com.google.protobuf:protobuf-java:3.15.2'
@@ -154,7 +177,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
 
-    implementation 'com.google.firebase:firebase-core:9.6.1'
+    implementation 'com.google.firebase:firebase-core:20.0.0'
 
     def billing_version = "4.0.0"
     implementation "com.android.billingclient:billing-ktx:$billing_version"

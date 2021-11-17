@@ -12,6 +12,7 @@ import com.blongho.country_data.World
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -30,6 +31,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         permissionsManager = PermissionsManager(this)
         World.init(this)
         FirebaseApp.initializeApp(applicationContext)
+//        FirebaseMessaging.getInstance().subscribeToTopic("com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app")
 
         btnStart.setOnClickListener {
             start()

@@ -207,16 +207,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llTermsAndConditions"
+                android:id="@+id/llMoreApps"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
                 android:layout_marginTop="@dimen/padding"
-                android:background="@drawable/bg_top_right_corner"
-                android:elevation="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/extra_padding"
+                android:background="@drawable/bg_top_right_corner"
+                android:layout_marginHorizontal="@dimen/extra_padding"
                 android:paddingVertical="@dimen/fab_padding">
 
                 <ImageView
@@ -230,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/terms_and_condition"
+                    android:text="More Applications"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
