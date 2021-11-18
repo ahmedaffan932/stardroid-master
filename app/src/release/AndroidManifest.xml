@@ -10,6 +10,7 @@
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- For Google Analytics -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -55,7 +56,9 @@
 
     <application
         android:name=".StardroidApplication"
-        android:label="@string/app_name">
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round">
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
@@ -90,8 +93,7 @@
         <activity
             android:name=".activities.DiagnosticActivity"
             android:label="@string/title_activity_diagnostic" />
-
-<!-- Provides search suggestions. -->
+        <!-- Provides search suggestions. -->
 <!--        <provider-->
 <!--            android:name=".search.SearchTermsProvider"-->
 <!--            android:authorities="com.google.android.stardroid.searchterms"-->
@@ -211,14 +213,9 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity
             android:name="com.liveearth.android.map.WorldQuizFlagActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
-
 </manifest>

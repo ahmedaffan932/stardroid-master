@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translation_description="Application Title">Sky Map</string>
     <string name="menu_settings">Configuración</string>
     <string name="menu_search">Buscar</string>
     <string name="cancel">Cancelar</string>

@@ -74,7 +74,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
     private var address = ""
     private var isFirstTime = true
-    private var isAddressEmpty = true
     private var isBtnGenerateVisible = true
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
@@ -83,7 +82,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var hoveringMarker: ImageView
     private lateinit var droppedMarkerLayer: Layer
-    private var isTraficEnabled = false
+    private var isTrafficEnabled = false
     private var latLng: String = ""
     private var point = LatLng()
     private var currentLocation = LatLng()
@@ -98,7 +97,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-
 
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
@@ -186,12 +184,12 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         }
 
         btnTraffic.setOnClickListener {
-            if (isTraficEnabled) {
+            if (isTrafficEnabled) {
                 setMapBoxStyle(lastStyle, false)
             } else {
                 setMapBoxStyle(Style.TRAFFIC_DAY, false)
             }
-            isTraficEnabled = !isTraficEnabled
+            isTrafficEnabled = !isTrafficEnabled
         }
 
         btnThreeDView.setOnClickListener {
@@ -397,15 +395,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
             if (!(addresses == null || addresses.isEmpty())) {
                 mapboxMap.getStyle { style ->
-                    if (style.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
-                        Toast.makeText(
-                                this@LiveEarthActivity,
-                                java.lang.String.format(
-                                        getString(R.string.location_picker_place_name_result),
-                                        addresses[0].getAddressLine(0)
-                                ), Toast.LENGTH_SHORT
-                        ).show()
-                    }
                     Log.d(Misc.logKey, addresses[0].getAddressLine(0))
                     address = addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
                 }
@@ -471,9 +460,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                     ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
             )
             hoveringMarker.layoutParams = params
-//            mapView.addView(hoveringMarker)
-
-//            Initialize, but don't show, a SymbolLayer for the marker icon which will represent a selected location.
             initDroppedMarker(style)
         }
     }
@@ -506,7 +492,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
 
             Misc.showView(btnGetDirection, this, false)
-//            Misc.showView(btnStartNavigation, this, false)
             isBtnGenerateVisible = Misc.showView(btnGenerateQR, this, isBtnGenerateVisible)
         }
     }
@@ -691,11 +676,26 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 Misc.route = currentRoute
                 Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                 btnStartNavigation.setOnClickListener {
-                    Misc.startActivity(this@LiveEarthActivity, Misc.isNavigationIntEnabled, object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(Intent(this@LiveEarthActivity, NavigationActivity::class.java))
-                        }
-                    })
+                    if(Misc.manageNavigationLimit(this@LiveEarthActivity)) {
+                        Misc.startActivity(this@LiveEarthActivity, Misc.isNavigationIntEnabled, object : StartActivityCallBack {
+                            override fun onStart() {
+                                startActivity(Intent(this@LiveEarthActivity, NavigationActivity::class.java))
+                            }
+                        })
+                    }else{
+                        AlertDialog.Builder(this@LiveEarthActivity)
+                                .setTitle("Upgrade to pro.")
+                                .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
+                                .setPositiveButton("Yes") { dialog, _ ->
+                                    dialog.dismiss()
+                                    val intent = Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
+                                    intent.putExtra(Misc.data, Misc.data)
+                                    startActivity(intent)
+                                }
+                                .setNegativeButton("May be later.", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show()
+                    }
                 }
                 isRouteAdded = true
 

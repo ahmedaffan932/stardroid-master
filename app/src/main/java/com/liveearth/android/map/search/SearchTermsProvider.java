@@ -49,8 +49,8 @@ public class SearchTermsProvider extends ContentProvider {
   }
 
   private static final String TAG = MiscUtil.getTag(SearchTermsProvider.class);
-  public static String AUTHORITY = "com.google.android.stardroid.searchterms";
-  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
+//  public static String AUTHORITY = "com.google.android.stardroid.searchterms";
+//  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
   private static final int SEARCH_SUGGEST = 0;
   private static final UriMatcher uriMatcher = buildUriMatcher();
   @Inject
@@ -69,8 +69,8 @@ public class SearchTermsProvider extends ContentProvider {
    */
   private static UriMatcher buildUriMatcher() {
     UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-    matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, SEARCH_SUGGEST);
-    matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH_SUGGEST);
+//    matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, SEARCH_SUGGEST);
+//    matcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH_SUGGEST);
     return matcher;
   }
 

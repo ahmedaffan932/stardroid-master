@@ -82,7 +82,7 @@ class ProScreenActivity : AppCompatActivity() {
             textContinueCounter.text = ""
 
             btnContinue.setOnClickListener {
-                startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
+                onBackPressed()
             }
         }
 

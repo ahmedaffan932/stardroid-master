@@ -47,16 +47,16 @@ class SettingsActivity : AppCompatActivity() {
         llPrivacyPolicy.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://google.com")
+                Uri.parse("https://sites.google.com/view/liveearthmapxtreamapps/home")
             )
             startActivity(intent)
         }
 
 
-        llTermsAndConditions.setOnClickListener {
+        llMoreApps.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://google.com")
+                Uri.parse("https://play.google.com/store/apps/developer?id=Xtream+Apps+Solutions")
             )
             startActivity(intent)
         }
@@ -81,7 +81,7 @@ class SettingsActivity : AppCompatActivity() {
                     val sub = objEmailUsDialog.findViewById<TextView>(R.id.etTopic).text.toString()
                     val i = Intent(Intent.ACTION_SEND)
                     i.type = "message/rfc822"
-                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("elitetranslatorapps@gmail.com"))
+                    i.putExtra(Intent.EXTRA_EMAIL, arrayOf("xtreamappssolutions@gmail.com"))
                     i.putExtra(
                         Intent.EXTRA_TEXT,
                         objEmailUsDialog.findViewById<EditText>(R.id.etFeedbackBody).text
@@ -145,11 +145,23 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun rateUs() {
-        val p = "com.guru.translate.translator.translation.learn.language"
+
+//        val manager = ReviewManagerFactory.create(this)
+//        val request = manager.requestReviewFlow()
+//        request.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                // We got the ReviewInfo object
+//                val reviewInfo = task.result
+//            } else {
+//                // There was some problem, log or handle the error code.
+//                val reviewErrorCode = task.exception
+//                Log.e(Misc.logKey, task.exception.toString())
+//            }
+//        }
+
+        val p = "com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         val uri: Uri = Uri.parse("market://details?id=$p")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-        // To count with Play market backstack, After pressing back button,
-        // to taken back to our application, we need to add following flags to intent.
         goToMarket.addFlags(
             Intent.FLAG_ACTIVITY_NO_HISTORY or
                     Intent.FLAG_ACTIVITY_NEW_DOCUMENT or

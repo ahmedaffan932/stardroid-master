@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorldQuizCountriesActivity">
+    android:background="@drawable/bg_map_texture"
+    tools:context=".WorldQuizFlagActivity">
 
     <View
         android:id="@+id/blockView"
@@ -15,21 +16,6 @@
         android:elevation="@dimen/padding"
         android:focusable="true"
         android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/textResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:visibility="invisible"
-        android:text="@string/correct"
-        android:textSize="@dimen/_24sdp"
-        android:elevation="@dimen/padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="@dimen/extra_padding"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textLevel"
@@ -44,31 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textCorrectCountry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding"
-        android:elevation="@dimen/padding"
-        android:text="@string/correct"
-        android:textColor="@color/red"
-        android:textSize="@dimen/_24sdp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textResult" />
-
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clCountryInfo"
@@ -77,9 +38,9 @@
         android:background="@color/translucent_black"
         android:padding="@dimen/padding"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/flagCountryInfo"
@@ -171,9 +132,9 @@
         android:layout_marginBottom="@dimen/padding"
         android:background="@drawable/bg_translucent_two_corners_rounded"
         android:elevation="@dimen/extra_padding"
-        app:layout_constraintBottom_toTopOf="@+id/btnConfirm"
-        app:layout_constraintEnd_toEndOf="@+id/btnConfirm"
-        app:layout_constraintStart_toStartOf="@+id/btnConfirm">
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="@+id/btnNext"
+        app:layout_constraintStart_toStartOf="@+id/btnNext">
 
         <TextView
             android:id="@+id/findCountry"
@@ -191,14 +152,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnConfirm"
+        android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/extra_padding"
         android:background="@drawable/bg_gradient_pink_rounded"
         android:elevation="@dimen/extra_padding"
         android:paddingHorizontal="@dimen/extra_padding"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -209,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_padding"
             android:paddingHorizontal="@dimen/extra_padding"
-            android:text="@string/confirm"
+            android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="@dimen/fab_padding"
             android:textStyle="bold|italic"
@@ -219,30 +180,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpUsage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llPBGame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="@dimen/fab_padding"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/white" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/loading"
-            android:textColor="@color/white" />
-    </LinearLayout>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animResult"
@@ -256,5 +193,68 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:lottie_rawRes="@raw/loading_square" />
+
+    <TextView
+        android:id="@+id/flagAnswerOne"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textLevel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textColor="@color/pink"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/flagAnswerTwo"
+        android:layout_margin="@dimen/extra_padding"
+        android:paddingVertical="@dimen/fab_padding"
+        android:background="@drawable/bg_translucent_less_rounded"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/flagAnswerThree"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_padding"
+        android:background="@drawable/bg_translucent_less_rounded"
+        android:gravity="center"
+        android:paddingVertical="@dimen/fab_padding"
+        android:text="TextView"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/flagAnswerOne"
+        app:layout_constraintStart_toStartOf="@+id/flagAnswerOne"
+        app:layout_constraintTop_toBottomOf="@+id/flagAnswerOne" />
+    <TextView
+        android:id="@+id/flagAnswerFour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/extra_padding"
+        android:background="@drawable/bg_translucent_less_rounded"
+        android:gravity="center"
+        android:paddingVertical="@dimen/fab_padding"
+        android:text="TextView"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/flagAnswerTwo"
+        app:layout_constraintStart_toStartOf="@+id/flagAnswerTwo"
+        app:layout_constraintTop_toBottomOf="@+id/flagAnswerTwo" />
+
+    <TextView
+        android:id="@+id/flagAnswerTwo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_padding"
+        android:background="@drawable/bg_translucent_less_rounded"
+        android:gravity="center"
+        android:textColor="@color/pink"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingVertical="@dimen/fab_padding"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flagAnswerOne"
+        app:layout_constraintTop_toBottomOf="@id/textLevel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

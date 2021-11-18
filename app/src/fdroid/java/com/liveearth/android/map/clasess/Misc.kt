@@ -36,7 +36,7 @@ class Misc {
     companion object {
 
         const val appUrl: String =
-                "https://play.google.com/store/apps/details?id=com.guru.translate.translator.translation.learn.language"
+            "https://play.google.com/store/apps/details?id=com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
@@ -48,6 +48,7 @@ class Misc {
         var gameContinent: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
+        var navigationLimit = 4
         const val data: String = "data"
 
         var mInterstitialAd: InterstitialAd? = null
@@ -121,7 +122,7 @@ class Misc {
         var inAppKey = if (BuildConfig.DEBUG) {
             "android.test.purchased"
         } else {
-            ""
+            "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAujKAuRSsOBeupTizEzEJprzT8ZBba12bbHN9bS4Fz3S8rmfRLC1VZ0MBb56tkq2JmuqAp1bmMRu2yYJGLCck5ZxV67QthUhYpWLccmEP89cdz6HgUtQvsihRAsO29JUOnaL/Zc+quFvf13+dHR/8tN4ySIFcQ6w29NxACbHdlUfngdEbaxrP/z8dk6bFkbGmNabH4DqDv3+gURWZuaT4OnK86dVLJRzoiGcG6wJJY4nxhj6gCh78O9rGbQkJi+hY4kQ+OMM0evOqTNVn4fSahFAGJmDya5nr57i9xREslI3JT7Y+vzNXDvJmNuqyLvAEzYZvUt/hdKzyy4MearU08QIDAQAB"
         }
 
         fun startActivity(
@@ -450,6 +451,24 @@ class Misc {
             return connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
                     connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
         }
+        fun getNavigationCount(activity: Activity?): Int {
+            val sharedPreferences =
+                activity!!.getSharedPreferences("navLimit", Context.MODE_PRIVATE)
+            return sharedPreferences.getInt("navLimit", 0)
+        }
+
+        fun manageNavigationLimit(activity: Activity): Boolean{
+            val sharedPreferences = activity.getSharedPreferences(
+                    "navLimit",
+                    AppCompatActivity.MODE_PRIVATE
+            )
+            val editor = sharedPreferences.edit()
+            editor.putInt("navLimit", getNavigationCount(activity) + 1)
+            editor.apply()
+
+            return getNavigationCount(activity) < navigationLimit
+        }
+
     }
 
 }

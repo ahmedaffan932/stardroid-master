@@ -50,14 +50,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnContinue"
-        android:layout_width="@dimen/_170sdp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_30sdp"
         android:background="@drawable/bg_gradient_pink_rounded"
         android:layout_marginBottom="@dimen/fab_padding"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/extra_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/btnUnlock"
+        app:layout_constraintEnd_toEndOf="@id/btnUnlock"
         app:layout_constraintBottom_toTopOf="@id/btnUnlock">
 
         <TextView
