@@ -213,7 +213,9 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
+        <activity
+            android:name="com.liveearth.android.map.WorldQuizFlagActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
-
-
 </manifest>

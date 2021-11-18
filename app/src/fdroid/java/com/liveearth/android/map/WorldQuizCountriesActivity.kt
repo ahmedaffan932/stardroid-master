@@ -23,7 +23,6 @@ import com.liveearth.android.map.interfaces.WebAppInterface
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
 import kotlinx.coroutines.tasks.await
 
-
 class WorldQuizCountriesActivity : AppCompatActivity() {
     var currentLevel = 0
     var levels = 0

@@ -1109,6 +1109,7 @@
     <string name="qr">QR</string>
     <string name="direction">Direction</string>
     <string name="todo">TODO</string>
+    <string name="next">Next</string>
     <!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->
 
 </resources>

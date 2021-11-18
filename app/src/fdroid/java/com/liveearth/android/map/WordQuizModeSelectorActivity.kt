@@ -61,12 +61,22 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
     }
 
     private fun startGame(levels: Int) {
-        val intent = Intent(this, WorldQuizCountriesActivity::class.java)
-        intent.putExtra(Misc.data, levels)
-        Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
-            override fun onStart() {
-                startActivity(intent)
-            }
-        })
+        if (Misc.gameMode == Misc.flags){
+            val intent = Intent(this, WorldQuizFlagActivity::class.java)
+            intent.putExtra(Misc.data, levels)
+            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    startActivity(intent)
+                }
+            })
+        }else{
+            val intent = Intent(this, WorldQuizCountriesActivity::class.java)
+            intent.putExtra(Misc.data, levels)
+            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
+                override fun onStart() {
+                    startActivity(intent)
+                }
+            })
+        }
     }
 }
