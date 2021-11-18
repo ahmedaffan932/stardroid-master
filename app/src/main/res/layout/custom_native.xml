@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="MissingDefaultResource">
+
   <com.google.android.gms.ads.nativead.NativeAdView
       android:layout_height="match_parent"
       android:layout_width="match_parent"
@@ -72,8 +73,8 @@
       <com.google.android.gms.ads.nativead.MediaView
           android:id="@+id/media_view"
           android:layout_margin="@dimen/gnt_no_size"
-          android:layout_width="match_parent"
           android:layout_height="0dp"
+          android:layout_width="match_parent"
           android:layout_marginTop="@dimen/gnt_no_margin"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

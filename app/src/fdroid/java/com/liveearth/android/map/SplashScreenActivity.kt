@@ -42,48 +42,54 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         }
 
         Handler().postDelayed({
-            if (btnStart.visibility != View.VISIBLE)
+            if (btnStart.visibility != View.VISIBLE) {
                 Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
+                Misc.zoomOutView(
+                    animLoading,
+                    this@SplashScreenActivity,
+                    300
+                )
+            }
         }, 3000)
 
         Misc.loadInterstitial(this, Misc.interstitialAdId)
 
         Misc.loadNativeAd(
-                this,
-                Misc.nativeAdId,
-                object : NativeAdCallBack {
-                    override fun onLoad() {
-                        Misc.showNativeAd(
-                                this@SplashScreenActivity,
-                                nativeAdViewSplash,
-                                Misc.isSplashNativeEnabled,
-                                object : NativeAdCallBack {
-                                    override fun onLoad() {
-                                        nativeAdViewSplash.visibility = View.VISIBLE
-                                        Misc.zoomInView(
-                                                nativeAdViewSplash,
-                                                this@SplashScreenActivity,
-                                                300
-                                        )
-                                        Misc.zoomOutView(
-                                                animLoading,
-                                                this@SplashScreenActivity,
-                                                300
-                                        )
-                                        Misc.showView(btnStart, this@SplashScreenActivity, false)
-                                    }
-                                }
-                        )
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@SplashScreenActivity,
+                        nativeAdViewSplash,
+                        Misc.isSplashNativeEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAdViewSplash.visibility = View.VISIBLE
+                                Misc.zoomInView(
+                                    nativeAdViewSplash,
+                                    this@SplashScreenActivity,
+                                    300
+                                )
+                                Misc.zoomOutView(
+                                    animLoading,
+                                    this@SplashScreenActivity,
+                                    300
+                                )
+                                Misc.showView(btnStart, this@SplashScreenActivity, false)
+                            }
+                        }
+                    )
 //                        showStartButton()
-                    }
                 }
+            }
         )
 
     }
 
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
         Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
-                .show()
+            .show()
     }
 
     override fun onPermissionResult(granted: Boolean) {
@@ -109,9 +115,9 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
 //    }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -130,8 +136,8 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
     fun getStoragePermission() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    storageReadPermissionRequest
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                storageReadPermissionRequest
             )
         } else {
             startActivity()
@@ -155,18 +161,18 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             Misc.startActivity(
-                    this,
-                    Misc.isSplashIntEnabled,
-                    object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(
-                                    Intent(
-                                            this@SplashScreenActivity,
-                                            ProScreenActivity::class.java
-                                    )
+                this,
+                Misc.isSplashIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        startActivity(
+                            Intent(
+                                this@SplashScreenActivity,
+                                ProScreenActivity::class.java
                             )
-                        }
+                        )
                     }
+                }
             )
         }
     }
