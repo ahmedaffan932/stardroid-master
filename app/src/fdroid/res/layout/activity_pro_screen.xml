@@ -8,6 +8,18 @@
     tools:context=".ProScreenActivity">
 
 
+    <ImageView
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/fab_padding"
+        android:background="@drawable/bg_nothing"
+        app:srcCompat="@drawable/ic_baseline_cancel_24"
+        app:tint="@color/pink" />
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
@@ -48,44 +60,44 @@
         android:text="@string/if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnContinue"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_30sdp"
-        android:background="@drawable/bg_gradient_pink_rounded"
-        android:layout_marginBottom="@dimen/fab_padding"
-        android:backgroundTint="@color/blue"
-        android:elevation="@dimen/extra_padding"
-        app:layout_constraintStart_toStartOf="@id/btnUnlock"
-        app:layout_constraintEnd_toEndOf="@id/btnUnlock"
-        app:layout_constraintBottom_toTopOf="@id/btnUnlock">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/btnContinue"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="@dimen/_30sdp"-->
+<!--        android:background="@drawable/bg_gradient_pink_rounded"-->
+<!--        android:layout_marginBottom="@dimen/fab_padding"-->
+<!--        android:backgroundTint="@color/blue"-->
+<!--        android:elevation="@dimen/extra_padding"-->
+<!--        app:layout_constraintStart_toStartOf="@id/btnUnlock"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/btnUnlock"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/btnUnlock">-->
 
-        <TextView
-            android:id="@+id/textContinueCounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/pink"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/fab_padding"
-            android:text="@string/_5" />
+<!--        <TextView-->
+<!--            android:id="@+id/textContinueCounter"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/pink"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginStart="@dimen/fab_padding"-->
+<!--            android:text="@string/_5" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@color/nothing"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/continue_with_ads" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:background="@color/nothing"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:text="@string/continue_with_ads" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnUnlock"
@@ -127,6 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:layout_marginEnd="@dimen/padding"
             android:text="@string/terms_and_condition" />
 
@@ -134,10 +147,11 @@
             android:id="@+id/view2"
             android:layout_width="1dp"
             android:background="@color/white"
+            android:visibility="gone"
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/privacyPolicy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding"

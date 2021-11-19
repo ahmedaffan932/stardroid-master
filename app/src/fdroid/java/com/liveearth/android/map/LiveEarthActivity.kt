@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
@@ -25,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.ActivityOnBackPress
+import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -58,7 +60,20 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.tarek360.instacapture.Instacapture
+import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
+import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_live_earth.*
+import kotlinx.android.synthetic.main.activity_live_earth.btnGetCurrentLocation
+import kotlinx.android.synthetic.main.activity_live_earth.btnScreenShot
+import kotlinx.android.synthetic.main.activity_live_earth.btnSpeakSearchLocation
+import kotlinx.android.synthetic.main.activity_live_earth.btnZoomIn
+import kotlinx.android.synthetic.main.activity_live_earth.btnZoomOut
+import kotlinx.android.synthetic.main.activity_live_earth.llDefault
+import kotlinx.android.synthetic.main.activity_live_earth.llHybrid
+import kotlinx.android.synthetic.main.activity_live_earth.llSatellite
+import kotlinx.android.synthetic.main.activity_live_earth.llTerrain
+import kotlinx.android.synthetic.main.activity_live_earth.svLocation
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -209,12 +224,39 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         llHybrid.setOnClickListener {
             setMapBoxStyle(Style.DARK, false)
         }
+
+        btnScreenShot.setOnClickListener {
+
+            Instacapture.capture(this, object : SimpleScreenCapturingListener() {
+                override fun onCaptureComplete(bitmap: Bitmap) {
+
+                    Misc.saveImageToExternal(this@LiveEarthActivity, bitmap, object :
+                        OnImageSaveCallBack {
+                        override fun onImageSaved() {
+                            Toast.makeText(this@LiveEarthActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+
+                }
+            })
+
+//            val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
+//            val canvas = Canvas(bitmap)
+//            clForSSAltitude.draw(canvas)
+//
+//            Misc.saveImageToExternal(this, bitmap, object : OnImageSaveCallBack {
+//                override fun onImageSaved() {
+//                    Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+        }
+
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
         this@LiveEarthActivity.mapboxMap = mapboxMap
 //        mapboxMap.setStyle(Style.SATELLITE)
-        setMapBoxStyle(Style.OUTDOORS, false)
+        setMapBoxStyle(Style.SATELLITE, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -241,6 +283,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     public override fun onResume() {
         super.onResume()
         mapView.onResume()
+        btnStartNavigation.visibility = View.GONE
     }
 
     override fun onStart() {
@@ -703,4 +746,5 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             }
         })
     }
+
 }

@@ -14,6 +14,8 @@
 
 package com.google.android.stardroid.util;
 
+import com.liveearth.android.map.util.TimeUtil;
+
 import junit.framework.TestCase;
 
 import java.util.GregorianCalendar;

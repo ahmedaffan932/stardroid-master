@@ -27,7 +27,6 @@ import java.util.*
 
 class Misc {
     companion object {
-
         const val appUrl: String =
             "https://play.google.com/store/apps/details?id=com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         const val currencies: String = "currencies"
@@ -41,7 +40,7 @@ class Misc {
         var gameContinent: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
-        var navigationLimit = 4
+        var navigationLimit = 2
         const val data: String = "data"
 
         const val logKey: String = "logKey"

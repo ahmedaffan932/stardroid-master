@@ -54,6 +54,16 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
+        btnPro.setOnClickListener {
+            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
+                override fun onStart() {
+                    val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
+                    intent.putExtra(Misc.data, Misc.data)
+                    startActivity(intent)
+                }
+            })
+        }
+
         btnMenu.setOnClickListener {
             Misc.startActivity(this, Misc.isSettingIntEnabled, object : StartActivityCallBack{
                 override fun onStart() {

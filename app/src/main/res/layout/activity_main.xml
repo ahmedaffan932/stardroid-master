@@ -41,21 +41,35 @@
                     android:text="@string/live_earth_map"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_18sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/btnMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/fab_padding"
+                    android:layout_marginTop="@dimen/fab_padding"
+                    android:background="@drawable/bg_nothing"
+                    android:elevation="@dimen/fab_padding"
+                    app:srcCompat="@drawable/ic_settings"
+                    app:layout_constraintEnd_toStartOf="@+id/btnPro"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteY="15dp"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/btnPro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/fab_padding"
                     android:layout_margin="@dimen/fab_padding"
                     android:background="@drawable/bg_nothing"
                     android:elevation="@dimen/fab_padding"
+                    app:srcCompat="@drawable/ic_diamond"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/ic_menu"
                     tools:layout_editor_absoluteY="15dp" />
 
                 <LinearLayout

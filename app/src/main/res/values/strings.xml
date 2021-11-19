@@ -1109,6 +1109,8 @@
     <string name="qr">QR</string>
     <string name="direction">Direction</string>
     <string name="todo">TODO</string>
+    <string name="street">Street</string>
+    <string name="click_here_to_explore">Click here to explore</string>
     <!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->
 
 </resources>

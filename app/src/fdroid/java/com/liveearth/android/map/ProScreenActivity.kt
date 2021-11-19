@@ -2,10 +2,12 @@ package com.liveearth.android.map
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.liveearth.android.map.clasess.Misc
@@ -54,18 +56,26 @@ class ProScreenActivity : AppCompatActivity() {
             }
         }
 
+        privacyPolicy.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://sites.google.com/view/liveearthmapxtreamapps/home")
+            )
+            startActivity(intent)
+        }
         if(intent.getStringExtra(Misc.data) == null) {
-            val timer = object : CountDownTimer(5000, 1000) {
+            val timer = object : CountDownTimer(3000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    if (millisUntilFinished > 999)
-                        textContinueCounter.text = millisUntilFinished.toString()[0].toString()
-                    else
-                        textContinueCounter.text = "0"
+//                    if (millisUntilFinished > 999)
+//                        textContinueCounter.text = millisUntilFinished.toString()[0].toString()
+//                    else
+//                        textContinueCounter.text = "0"
                 }
 
                 override fun onFinish() {
-                    textContinueCounter.text = ""
+//                    textContinueCounter.text = ""
 
+                    btnContinue.visibility = View.VISIBLE
                     btnContinue.setOnClickListener {
                         startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
                     }
@@ -73,7 +83,8 @@ class ProScreenActivity : AppCompatActivity() {
             }
             timer.start()
         }else{
-            textContinueCounter.text = ""
+//            textContinueCounter.text = ""
+            btnContinue.visibility = View.VISIBLE
 
             btnContinue.setOnClickListener {
                 onBackPressed()

@@ -26,7 +26,6 @@ class QRGeneratedActivity : AppCompatActivity() {
     private val storageReadPermissionRequest = 101
     private lateinit var qrBitmap: Bitmap
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrgenrated)
