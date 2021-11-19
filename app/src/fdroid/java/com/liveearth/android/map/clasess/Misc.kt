@@ -50,7 +50,6 @@ class Misc {
         var startingTime: Long = 0
         var navigationLimit = 4
         const val data: String = "data"
-
         var mInterstitialAd: InterstitialAd? = null
         var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
 
@@ -62,57 +61,58 @@ class Misc {
 
         const val flags: String = "flags"
         const val capitals: String = "capitals"
+
         const val countries: String = "countries"
         private const val flash: String = "flash"
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
         var location: Location? = null
-
-        var isSplashNativeEnabled: Boolean = false
-
-
         var isGameIntEnabled: Boolean = false
-        var isSkyMapIntEnabled: Boolean = false
-        var isSplashIntEnabled: Boolean = false
-        var isSettingIntEnabled: Boolean = false
-        var isCompassIntEnabled: Boolean = false
-        var isNoteCamIntEnabled: Boolean = false
-        var isGameBackIntEnabled: Boolean = false
-        var isAltitudeIntEnabled: Boolean = false
-        var isProScreenIntEnabled: Boolean = false
-        var isLiveEarthIntEnabled: Boolean = false
-        var isViewWorldIntEnabled: Boolean = false
-        var isStartGameIntEnabled: Boolean = false
-        var isSoundMeterIntEnabled: Boolean = false
-        var isGenerateQRIntEnabled: Boolean = false
-        var isNavigationIntEnabled: Boolean = false
-        var isGPSMapCamsIntEnabled: Boolean = false
-        var isSkyMapBackIntEnabled: Boolean = false
-        var isSettingBackIntEnabled: Boolean = false
-        var isCompassBackIntEnabled: Boolean = false
-        var isSpeedometerIntEnabled: Boolean = false
-        var isPlayGameBackIntEnabled: Boolean = false
-        var isAltitudeBackIntEnabled: Boolean = false
-        var isQuizCompleteIntEnabled: Boolean = false
-        var isQuizScreenOneIntEnabled: Boolean = false
-        var isQuizCountriesIntEnabled: Boolean = false
-        var isProScreenBackIntEnabled: Boolean = false
-        var isViewWorldBackIntEnabled: Boolean = false
-        var isNoteCamOnBackIntEnabled: Boolean = false
-        var isStartGameBackIntEnabled: Boolean = false
-        var isSoundMeterBackIntEnabled: Boolean = false
-        var isQuizSelectModeIntEnabled: Boolean = false
-        var isNavigationBackIntEnabled: Boolean = false
-        var isQuizCurrenciesIntEnabled: Boolean = false
-        var isSearchLocationIntEnabled: Boolean = false
-        var isContinentSelectIntEnabled: Boolean = false
-        var isSpeedometerBackIntEnabled: Boolean = false
-        var isLiveEarthOnBackIntEnabled: Boolean = false
-        var isQuizCompleteBackIntEnabled: Boolean = false
-        var isGenerateQrOnBackIntEnabled: Boolean = false
-        var isQuizScreenOneBackIntEnabled: Boolean = false
-        var isMainFromProScreenIntEnabled: Boolean = false
-        var isContinentSelectBackIntEnabled: Boolean = false
+        var isSkyMapIntEnabled: Boolean = true
+
+        var isSplashIntEnabled: Boolean = true
+        var isSettingIntEnabled: Boolean = true
+        var isCompassIntEnabled: Boolean = true
+        var isNoteCamIntEnabled: Boolean = true
+        var isGameBackIntEnabled: Boolean = true
+        var isAltitudeIntEnabled: Boolean = true
+        var isProScreenIntEnabled: Boolean = true
+        var isLiveEarthIntEnabled: Boolean = true
+        var isViewWorldIntEnabled: Boolean = true
+        var isStartGameIntEnabled: Boolean = true
+        var isSplashNativeEnabled: Boolean = true
+        var isSoundMeterIntEnabled: Boolean = true
+        var isGenerateQRIntEnabled: Boolean = true
+        var isNavigationIntEnabled: Boolean = true
+        var isGPSMapCamsIntEnabled: Boolean = true
+        var isSkyMapBackIntEnabled: Boolean = true
+        var isSettingBackIntEnabled: Boolean = true
+        var isCompassBackIntEnabled: Boolean = true
+        var isSpeedometerIntEnabled: Boolean = true
+        var isPlayGameBackIntEnabled: Boolean = true
+        var isAltitudeBackIntEnabled: Boolean = true
+        var isQuizCompleteIntEnabled: Boolean = true
+        var isQuizCompletedIntEnabled: Boolean = true
+        var isQuizScreenOneIntEnabled: Boolean = true
+        var isQuizCountriesIntEnabled: Boolean = true
+        var isProScreenBackIntEnabled: Boolean = true
+        var isViewWorldBackIntEnabled: Boolean = true
+        var isNoteCamOnBackIntEnabled: Boolean = true
+        var isStartGameBackIntEnabled: Boolean = true
+        var isSoundMeterBackIntEnabled: Boolean = true
+        var isQuizSelectModeIntEnabled: Boolean = true
+        var isNavigationBackIntEnabled: Boolean = true
+        var isQuizCurrenciesIntEnabled: Boolean = true
+        var isSearchLocationIntEnabled: Boolean = true
+        var isContinentSelectIntEnabled: Boolean = true
+        var isSpeedometerBackIntEnabled: Boolean = true
+        var isLiveEarthOnBackIntEnabled: Boolean = true
+        var isQuizCompleteBackIntEnabled: Boolean = true
+        var isGenerateQrOnBackIntEnabled: Boolean = true
+        var isQuizScreenOneBackIntEnabled: Boolean = true
+        var isMainFromProScreenIntEnabled: Boolean = true
+        var isGenerateQrOnBackNativeEnabled: Boolean = true
+        var isContinentSelectBackIntEnabled: Boolean = true
 
         var nativeAdId = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdId = "ca-app-pub-3940256099942544/1033173712"
@@ -421,7 +421,7 @@ class Misc {
         ) {
             if (!getPurchasedStatus(activity))
                 if (mNativeAd != null) {
-                    if (true) {
+                    if (isEnabled) {
                         val styles =
                                 NativeTemplateStyle.Builder()
                                         .withMainBackgroundColor(ColorDrawable())

@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.OvershootInterpolator
 import android.webkit.*
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -100,7 +99,7 @@ class WorldQuizFlagActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Misc.startActivity(
                 this,
-                Misc.isQuizCompeletedIntEnabled,
+                Misc.isQuizCompletedIntEnabled,
                 object : StartActivityCallBack {
                     override fun onStart() {
                         finish()

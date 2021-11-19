@@ -85,10 +85,10 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this, getString(com.liveearth.android.map.R.string.mapbox_access_token))
+        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_altitude)
 
-        mapView = findViewById(com.liveearth.android.map.R.id.mapView)
+        mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
@@ -244,7 +244,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             val intent = PlaceAutocomplete.IntentBuilder()
                 .accessToken(
                     (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        com.liveearth.android.map.R.string.mapbox_access_token
+                        R.string.mapbox_access_token
                     ))!!
                 )
                 .placeOptions(
@@ -353,7 +353,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             if (spokenText != null) {
                 val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
                     .query(spokenText)
-                    .accessToken(getString(com.liveearth.android.map.R.string.mapbox_access_token))
+                    .accessToken(getString(R.string.mapbox_access_token))
                     .build()
 
                 geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
@@ -19,13 +20,12 @@ import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
-
 
 class QRGeneratedActivity : AppCompatActivity() {
     private val storageReadPermissionRequest = 101
     private lateinit var qrBitmap: Bitmap
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,5 +109,19 @@ class QRGeneratedActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Misc.showNativeAd(
+            this,
+            nativeAdViewQRGenerated,
+            Misc.isGenerateQrOnBackNativeEnabled,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    nativeAdViewQRGenerated.visibility = View.VISIBLE
+                }
+            }
+        )
     }
 }

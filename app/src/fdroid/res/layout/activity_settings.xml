@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/blue"
     tools:context=".SettingsActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -42,10 +43,10 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:scrollbars="none"
+        android:clipToPadding="false"
         android:paddingBottom="@dimen/fab_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/nativeAdViewSetting"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <LinearLayout
@@ -230,7 +231,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="More Applications"
+                    android:text="@string/more_applications"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:drawableEndCompat="@drawable/ic_baseline_navigate_next_24"
@@ -238,10 +239,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
             </LinearLayout>
-
-
         </LinearLayout>
-
     </ScrollView>
 
+
+    <com.google.android.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAdViewSetting"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/nothing"
+        android:layout_margin="@dimen/padding"
+        android:visibility="visible"
+        android:minHeight="400dp"
+        app:gnt_template_type="@layout/custom_native"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

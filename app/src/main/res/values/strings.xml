@@ -481,10 +481,10 @@
     <string  name="spacer" translatable="false">Spacer</string>
 
 <!--    Debug-->
-<!--    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>-->
+    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>
 
 <!--    Release-->
-    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWQtY29tMTIzIiwiYSI6ImNrdzF4OGp1YzBkeGUycG8zem1tZHZqc3AifQ.nn_mktcrRZ1Ao--bl45p5A"</string>
+<!--    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWQtY29tMTIzIiwiYSI6ImNrdzF4OGp1YzBkeGUycG8zem1tZHZqc3AifQ.nn_mktcrRZ1Ao&#45;&#45;bl45p5A"</string>-->
 
     <string name="game_globe" translatable="false">Game Globe</string>
     <string translatable="false" name="live_earth">Live Earth</string>
@@ -1105,109 +1105,13 @@
     <string name="did_you_enjoy_the_app">Did you enfoy the App ?</string>
     <string name="start_navigation">Start Navigation</string>
     <string name="ad">Ad</string>
-    <string translatable="false" name="tap_on_building_to_highlight">Tap on a building to highlight it</string>
-    <string translatable="false" name="satellite">Satellite</string>
-    <string translatable="false" name="default_string">Default</string>
-    <string translatable="false" name="terrain">Terrain</string>
-    <string translatable="false" name="hybrid">Hybrid</string>
-    <string translatable="false" name="location_qr">Location QR</string>
-    <string translatable="false" name="collection">Collection</string>
-    <string translatable="false" name="elevation">Elevation</string>
-    <string translatable="false" name="accuracy">Accuracy</string>
-    <string translatable="false" name="time">Time</string>
-    <string translatable="false" name="start">Start</string>
-    <string translatable="false" name="photo_settings">Photo Settings</string>
-    <string translatable="false" name="photo_note">Photo Note:</string>
-    <string translatable="false" name="note">Note: </string>
-    <string translatable="false" name="save">Save</string>
-    <string translatable="false" name="location">Location</string>
-    <string translatable="false" name="w">W</string>
-    <string translatable="false" name="altitude">Altitude</string>
-    <string translatable="false" name="current_altitude">Current Altitude</string>
-    <string translatable="false" name="yes">Yes</string>
-    <string translatable="false" name="no">No</string>
-    <string translatable="false" name="_000">000</string>
-    <string translatable="false" name="_0">0</string>
-    <string translatable="false" name="max_speed">Max Speed</string>
-    <string translatable="false" name="avg_speed">Avg Speed</string>
-    <string translatable="false" name="distance">Distance</string>
-    <string translatable="false" name="current_speed">Current Speed</string>
-    <string translatable="false" name="speedometer">Speedometer</string>
-    <string translatable="false" name="sky_map">Sky Map</string>
-    <string translatable="false" name="_10">10.</string>
-    <string translatable="false" name="pakistan">Pakistan</string>
-    <string translatable="false" name="population">Population:</string>
-    <string translatable="false" name="area">Area</string>
-    <string translatable="false" name="currency">Currency:</string>
-    <string translatable="false" name="country_list">Country List</string>
-    <string translatable="false" name="select_mode">Select Mode</string>
-    <string translatable="false" name="countries">Countries</string>
-    <string translatable="false" name="asia">Asia</string>
-    <string translatable="false" name="europe">Europe</string>
-    <string translatable="false" name="africa">Africa</string>
-    <string translatable="false" name="america">America</string>
-    <string translatable="false" name="oceania">Oceania</string>
-    <string translatable="false" name="world">World</string>
-    <string translatable="false" name="confirm">Confirm</string>
-    <string translatable="false" name="find">Find:</string>
-    <string translatable="false" name="correct">Correct !</string>
-    <string translatable="false" name="_0_30">0 / 30</string>
-    <string translatable="false" name="easy">Easy</string>
-    <string translatable="false" name="medium">Medium</string>
-    <string translatable="false" name="hard">Hard</string>
-    <string translatable="false" name="pro_player">Pro Player</string>
-    <string translatable="false" name="_0_70">0 / 70</string>
-    <string translatable="false" name="_0_236">0 / 236</string>
-    <string translatable="false" name="quiz_result">Quiz Result</string>
-    <string translatable="false" name="total_levels">Total Levels:</string>
-    <string translatable="false" name="correct_answers">Correct Answers</string>
-    <string translatable="false" name="false_answers">False Answers:</string>
-    <string translatable="false" name="back">Back</string>
-    <string translatable="false" name="quit">Quit ?</string>
-    <string translatable="false" name="do_you_really_want_to_quit">Do you really want to quit ?</string>
-    <string translatable="false" name="capitals">Capitals</string>
-    <string translatable="false" name="flags" >Flags</string>
-    <string translatable="false" name="continents">Continents</string>
-    <string translatable="false" name="difficulty_level">Difficulty Level</string>
-    <string translatable="false" name="km_h">KM/H</string>
-    <string translatable="false" name="km">KM</string>
-    <string translatable="false" name="add_note">Add Note</string>
-    <string translatable="false" name="loading">Loading..</string>
-    <string translatable="false" name="live_earth_map">Live Earth Map</string>
-    <string translatable="false" name="noise_detector">Noise Detector</string>
-    <string translatable="false" name="view_world">View World</string>
-    <string translatable="false" name="close">Close</string>
-    <string translatable="false" name="min">Min</string>
-    <string translatable="false" name="avg">Avg</string>
-    <string translatable="false" name="info">Info</string>
-    <string translatable="false" name="reset">Reset</string>
-    <string translatable="false" name="max">Max</string>
-    <string translatable="false" name="currencies">Currencies</string>
-    <string translatable="false" name="unlock_to_n_pro_features">Unlock to \nPro Features</string>
-    <string translatable="false" name="if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos">If you unlock you will access to: \n \n Ads free App \n Unlock All games features \n Capture unlimited photos.</string>
-    <string translatable="false" name="terms_and_condition">Terms &amp; Condition</string>
-    <string translatable="false" name="privacy_policy">Privacy Policy</string>
-    <string translatable="false" name="unlock">Unlock</string>
-    <string translatable="false" name="continue_with_ads">Continue with ads</string>
-    <string translatable="false" name="_5">5</string>
-    <string translatable="false" name="upgrade_to_pro">Upgrade to Pro</string>
-    <string translatable="false" name="share_app">Share App</string>
-    <string translatable="false" name="feedback">Feedback</string>
-    <string translatable="false" name="rate_us">Rate us</string>
-    <string translatable="false" name="settings">Settings</string>
-    <string translatable="false" name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
-    <string translatable="false" name="enter_topic_here">Enter topic here</string>
-    <string translatable="false" name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
-    <string translatable="false" name="publish_feedback">Publish Feedback</string>
-    <string translatable="false" name="write_your_suggestion">Write your suggestion</string>
-    <string translatable="false" name="did_you_enjoy_the_app">Did you enfoy the App ?</string>
-    <string translatable="false" name="start_navigation">Start Navigation</string>
     <string name="traffic">Traffic</string>
     <string name="_3d">3D</string>
     <string name="qr">QR</string>
     <string name="direction">Direction</string>
     <string name="todo">TODO</string>
     <string name="next">Next</string>
+    <string name="more_applications">More Applications</string>
     <!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->
 
 </resources>

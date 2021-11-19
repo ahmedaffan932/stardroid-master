@@ -328,15 +328,7 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             btnConfirm.visibility = View.INVISIBLE
             webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
             isCountrySelected = false
-        } else{
-            Misc.onBackPress(this, Misc.isPlayGameBackIntEnabled, object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
-        }
-//            super.onBackPressed()
-        }else if(isCompleted){
+        } else if(isCompleted){
             webView.loadUrl("javascript:zoomOutByCountryId('${arrCountries[currentLevel].alpha2}');")
             currentLevel++
             getCurrentLevel()
@@ -348,9 +340,14 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             blockView.visibility = View.GONE
             isCompleted = false
             isCountrySelected = false
+        }else{
+            Misc.onBackPress(this, Misc.isPlayGameBackIntEnabled, object : OnBackPressCallBack {
+                override fun onBackPress() {
+                    finish()
+                }
+            })
+//            super.onBackPressed()
         }
-        else
-            super.onBackPressed()
     }
 
 }

@@ -1,21 +1,12 @@
 package com.liveearth.android.map
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.MediaRecorder
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.SpannableStringBuilder
-import android.text.style.ImageSpan
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
-import com.liveearth.android.map.clasess.Misc
+import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*

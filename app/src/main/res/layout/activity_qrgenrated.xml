@@ -77,4 +77,17 @@
         android:src="@drawable/ic_save_file"
         app:tint="@color/white" />
 
+
+    <com.google.android.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAdViewQRGenerated"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/nothing"
+        android:layout_margin="@dimen/padding"
+        android:visibility="visible"
+        app:gnt_template_type="@layout/custom_native"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveQRCode" />
 </androidx.constraintlayout.widget.ConstraintLayout>
