@@ -43,17 +43,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        svLocation.setOnClickListener {
-            Misc.startActivity(this, Misc.isLiveEarthIntEnabled, object :
-                StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, LiveEarthActivity::class.java)
-                    intent.putExtra(Misc.data, Misc.data)
-                    startActivity(intent)
-                }
-            })
-        }
-
         btnPro.setOnClickListener {
             Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
                 override fun onStart() {

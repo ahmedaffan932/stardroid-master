@@ -488,7 +488,7 @@
 
     <string name="game_globe" translatable="false">Game Globe</string>
     <string translatable="false" name="live_earth">Live Earth</string>
-    <string translatable="false" name="app_name">Live Earth Map</string>
+    <string translatable="false" name="app_name">Live satellite View</string>
     <string translatable="false" name="cams">Cams</string>
     <string translatable="false" name="am_maps">AM Maps</string>
     <string translatable="false" name="explore">Explore</string>

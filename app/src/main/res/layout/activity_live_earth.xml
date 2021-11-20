@@ -46,17 +46,21 @@
             mapbox:layout_constraintStart_toEndOf="@id/btnBackLiveEarthMap"
             mapbox:layout_constraintTop_toTopOf="@id/btnBackLiveEarthMap" />
 
-        <TextView
+        <AutoCompleteTextView
             android:id="@+id/svLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_search"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:completionThreshold="1"
             android:gravity="center_vertical"
             android:textSize="18sp"
+            android:paddingVertical="@dimen/fab_padding"
             android:paddingStart="@dimen/padding"
             android:drawablePadding="@dimen/fab_padding"
             android:drawableStart="@drawable/ic_search"
-            android:text="@string/click_here_to_explore"
+            android:hint="@string/click_here_to_explore"
             android:layout_marginTop="@dimen/extra_padding"
             android:layout_marginHorizontal="@dimen/extra_padding"
             mapbox:layout_constraintTop_toBottomOf="@+id/textView4"
@@ -106,18 +110,18 @@
             android:backgroundTint="@color/blue"
             android:padding="@dimen/less_padding"
             android:scaleType="fitCenter"
-            mapbox:layout_constraintBottom_toTopOf="@+id/textView14"
+            mapbox:layout_constraintBottom_toTopOf="@+id/textDirection"
             mapbox:layout_constraintEnd_toEndOf="@+id/btnGenerateQR"
             mapbox:layout_constraintStart_toStartOf="@+id/btnGenerateQR"
             mapbox:srcCompat="@drawable/ic_baseline_directions_24" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/textDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding"
             android:text="@string/direction"
-            android:textColor="@color/pink" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
@@ -136,20 +140,19 @@
         <ImageView
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
-            android:background="@drawable/ripple_rounded"
             android:scaleType="fitCenter"
-            mapbox:layout_constraintBottom_toTopOf="@+id/textView15"
+            mapbox:layout_constraintBottom_toTopOf="@+id/textQR"
             mapbox:layout_constraintEnd_toEndOf="@+id/btnThreeDView"
             mapbox:layout_constraintStart_toStartOf="@+id/btnThreeDView"
             mapbox:srcCompat="@drawable/ic_generate_qr" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/textQR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding"
             android:text="@string/qr"
-            android:textColor="@color/pink" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -168,17 +171,16 @@
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
             android:layout_marginBottom="@dimen/less_padding"
-            android:background="@drawable/ripple_rounded"
             android:scaleType="fitCenter"
             mapbox:srcCompat="@drawable/ic_map_traffic" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textTraffic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding"
             android:text="@string/traffic"
-            android:textColor="@color/pink" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -196,17 +198,18 @@
         android:layout_width="@dimen/large_icon_size"
         android:layout_height="@dimen/large_icon_size"
         android:layout_marginBottom="@dimen/less_padding"
-        android:background="@drawable/ripple_rounded"
         android:scaleType="fitCenter"
         mapbox:srcCompat="@drawable/ic_current_location" />
 
     <TextView
+        android:id="@+id/textLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding"
         android:text="@string/location"
-        android:textColor="@color/pink" />
+        android:layout_marginBottom="@dimen/padding"
+        android:textColor="@color/white" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/btnThreeDView"
         android:layout_width="0dp"
@@ -223,19 +226,18 @@
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
             android:layout_marginBottom="@dimen/padding"
-            android:background="@drawable/ripple_rounded"
             android:scaleType="fitCenter"
-            mapbox:layout_constraintBottom_toTopOf="@id/textView16"
+            mapbox:layout_constraintBottom_toTopOf="@id/text3d"
             mapbox:layout_constraintEnd_toEndOf="parent"
             mapbox:srcCompat="@drawable/ic_three_d_view" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/text3d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding"
             android:text="@string/_3d"
-            android:textColor="@color/pink" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 
@@ -344,6 +346,7 @@
                 mapbox:srcCompat="@drawable/ic_map_default" />
 
             <TextView
+                android:id="@+id/textStreet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/street"
@@ -371,6 +374,7 @@
                 mapbox:srcCompat="@drawable/ic_satellite" />
 
             <TextView
+                android:id="@+id/textSatellite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/satellite"
@@ -399,6 +403,7 @@
                 mapbox:srcCompat="@drawable/ic_terrain" />
 
             <TextView
+                android:id="@+id/textTerrain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/terrain"
@@ -428,6 +433,7 @@
                 mapbox:tint="@color/white" />
 
             <TextView
+                android:id="@+id/textHybrid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hybrid"

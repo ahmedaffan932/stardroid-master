@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/extra_padding"
                     android:elevation="@dimen/fab_padding"
-                    android:text="@string/live_earth_map"
+                    android:text="@string/app_name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_18sdp"
                     app:layout_constraintTop_toTopOf="parent"
@@ -105,16 +105,6 @@
                         android:layout_marginHorizontal="@dimen/extra_padding"
                         android:text="@string/lorem_ispum_dollar_ist"
                         android:textColor="@color/white" />
-
-                    <SearchView
-                        android:id="@+id/svLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/extra_padding"
-                        android:background="@drawable/bg_search"
-                        android:queryHint="Click here to explore"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4"
-                        tools:layout_editor_absoluteX="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
