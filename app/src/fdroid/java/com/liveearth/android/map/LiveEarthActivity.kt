@@ -143,10 +143,10 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val lastKnownLocation = locationComponent.lastKnownLocation
 
 //            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
-            if(lastKnownLocation != null) {
+            if (lastKnownLocation != null) {
                 currentLocation.latitude = lastKnownLocation!!.latitude
                 currentLocation.longitude = lastKnownLocation.longitude
-            }else{
+            } else {
                 buildAlertMessageNoGps()
             }
 
@@ -227,8 +227,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 //                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
 //                }
 //            } else {
-                setMapBoxStyle(Style.TRAFFIC_DAY, false)
-                textTraffic.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            setMapBoxStyle(Style.TRAFFIC_DAY, false)
+            textTraffic.setTextColor(ContextCompat.getColor(this, R.color.pink))
 //            }
 //            isTrafficEnabled = !isTrafficEnabled
         }
@@ -250,8 +250,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 //                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
 //                }
 //            } else {
-                setMapBoxStyle(Style.MAPBOX_STREETS, true)
-                text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            setMapBoxStyle(Style.MAPBOX_STREETS, true)
+            text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
 //            }
         }
 
@@ -834,6 +834,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 //                getSearchedPlace(svLocation.text.toString())
+                hideSoftKeyboard(this)
+                svLocation.clearFocus()
 
                 val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
                     .query(svLocation.text.toString())
@@ -875,7 +877,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                     }
 
                 })
-                hideSoftKeyboard(this)
                 handled = true
             }
             handled
