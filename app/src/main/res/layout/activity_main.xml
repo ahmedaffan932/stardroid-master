@@ -73,7 +73,6 @@
                     tools:layout_editor_absoluteY="15dp" />
 
                 <LinearLayout
-                    android:id="@+id/llSearchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/extra_padding"
@@ -89,7 +88,6 @@
                     tools:layout_editor_absoluteX="32dp">
 
                     <TextView
-                        android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/extra_padding"
@@ -127,7 +125,6 @@
                         app:srcCompat="@drawable/lem" />
 
                     <TextView
-                        android:id="@+id/textView3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/extra_padding"

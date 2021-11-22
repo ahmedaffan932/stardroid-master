@@ -3,6 +3,7 @@ package com.liveearth.android.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -834,7 +835,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
 //                getSearchedPlace(svLocation.text.toString())
-                hideSoftKeyboard(this)
+                hideSoftKeyboard()
                 svLocation.clearFocus()
 
                 val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
@@ -895,6 +896,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             .query(svLocation.text.toString())
             .accessToken(getString(R.string.mapbox_access_token))
             .build()
+        hideSoftKeyboard()
 
         geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
             @SuppressLint("LogNotTimber")
@@ -934,15 +936,11 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
 
-    fun hideSoftKeyboard(activity: Activity) {
-        val inputMethodManager = activity.getSystemService(
-            Activity.INPUT_METHOD_SERVICE
-        ) as InputMethodManager
-        if (inputMethodManager.isAcceptingText) {
-            inputMethodManager.hideSoftInputFromWindow(
-                activity.currentFocus!!.windowToken,
-                0
-            )
+    fun hideSoftKeyboard() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }

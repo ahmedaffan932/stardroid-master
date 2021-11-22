@@ -66,8 +66,7 @@
 
  <!-- Bottom bar with play controls and play status message. -->
  <LinearLayout
-    android:id="@+id/time_player_controls_bar"
-    android:orientation="horizontal"
+     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:background="@drawable/time_travel_bar"
     android:layout_alignParentBottom="true"

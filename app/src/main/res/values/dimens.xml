@@ -5,9 +5,6 @@
     stardroid package.
   -->
 <resources>
-    <dimen name="menu_text_size">10pt</dimen>
-    <color name="menu_gray">#ff888888</color>
-    <dimen name="text_margin">16dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -25,5 +22,4 @@
     <dimen name="text_size_large">50sp</dimen>
     <dimen name="large_icon_size">40sp</dimen>
     <dimen name="digital_speed_size">150sp</dimen>
-    <dimen name="border_width">1dp</dimen>
 </resources>
