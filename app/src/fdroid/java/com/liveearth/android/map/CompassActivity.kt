@@ -41,8 +41,6 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
 import edu.arbelkilani.compass.CompassListener
 import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_compass.*
@@ -57,14 +55,8 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private lateinit var mapView: MapView
     private lateinit var mapBoxStyle: Style
     private lateinit var mapboxMap: MapboxMap
-    private val REQUEST_CODE_AUTOCOMPLETE = 1
     private lateinit var locationCallback: LocationCallback
     var isCurrentLocation = true
-
-
-    companion object {
-        private const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,30 +139,10 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
 
             mapboxMap.addOnMapClickListener(this)
-
-            initSearchFab()
         }
     }
 
 
-    private fun initSearchFab() {
-        btnSearchLocationCompass.setOnClickListener {
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-        }
-    }
 
     private fun enableLocationPlugin(loadedMapStyle: Style): Location? {
         var locationComponent: LocationComponent? = null
@@ -263,21 +235,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-            isCurrentLocation = false
-
-            val selectedCarmenFeature = PlaceAutocomplete.getPlace(data)
-
-            point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
-            point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 14.0)
-            getAddress(point)
-        }
-    }
-
-
     @SuppressLint("MissingPermission")
     public override fun onResume() {
         super.onResume()
@@ -320,8 +277,8 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {

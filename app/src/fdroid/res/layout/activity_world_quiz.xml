@@ -18,7 +18,7 @@
         android:padding="@dimen/fab_padding"
         app:layout_constraintBottom_toBottomOf="@+id/textStart"
         app:layout_constraintStart_toEndOf="@+id/btnPlayGame"
-        app:srcCompat="@drawable/mapbox_ic_clear"
+        app:srcCompat="@drawable/ic_baseline_close_24"
         app:tint="@color/white" />
 
     <ImageView

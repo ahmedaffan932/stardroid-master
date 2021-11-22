@@ -42,8 +42,6 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
 import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
@@ -102,16 +100,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
 
                 }
             })
-
-//            val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
-//            val canvas = Canvas(bitmap)
-//            clForSSAltitude.draw(canvas)
-//
-//            Misc.saveImageToExternal(this, bitmap, object : OnImageSaveCallBack {
-//                override fun onImageSaved() {
-//                    Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
-//                }
-//            })
         }
 
         btnZoomIn.setOnClickListener {
@@ -202,56 +190,11 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             styleName
         ) { style ->
             mapBoxStyle = style
-//            mapboxMap.animateCamera(
-//                CameraUpdateFactory.newCameraPosition(
-//                    CameraPosition.Builder()
-//                        .target(mapboxMap.cameraPosition.target)
-//                        .zoom(mapboxMap.cameraPosition.zoom)
-//                        .tilt(0.0)
-//                        .build()
-//                ), 4000
-//            )
-
-//            mapboxMap.addOnMapClickListener(this)
-            initSearchFab();
-
-//            if (isFirstTime) {
                 enableLocationPlugin(style)
                 val manager = getSystemService(LOCATION_SERVICE) as LocationManager
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
                 }
-//                isFirstTime = false
-//            }
-
-
-//            hoveringMarker = ImageView(this)
-//            hoveringMarker.setImageResource(R.drawable.ic_pin)
-//            val params = FrameLayout.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
-//            )
-//            hoveringMarker.layoutParams = params
-//            initDroppedMarker(style)
-        }
-    }
-
-    private fun initSearchFab() {
-        svLocation.setOnClickListener {
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        com.liveearth.android.map.R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
         }
     }
 
@@ -323,19 +266,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-            isCurrentLocation = false
-
-            val selectedCarmenFeature = PlaceAutocomplete.getPlace(data)
-
-            point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
-            point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 14.0)
-
-            tvAltitude.text = (selectedCarmenFeature.geometry() as Point?)!!.altitude().toString()
-            tvLatLngAltitude.text = "Latitude:${point.latitude}, Longitude: ${point.longitude}"
-        }
-
 
         if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
             val spokenText: String? =

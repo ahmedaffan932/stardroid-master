@@ -138,16 +138,9 @@ dependencies {
     //GPS Toolbox libraries.
     implementation 'gov.nasa.worldwind.android:worldwind:0.8.0'
 
-    implementation 'com.mapbox.maps:android:10.0.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
+    implementation 'com.mapbox.maps:android:10.1.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v9:0.7.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0'
-
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.42.6'
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'){
-        transitive=true
-    }
+    implementation "com.mapbox.navigation:android:2.0.2"
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
     implementation 'com.google.zxing:core:3.3.2'
@@ -183,7 +176,6 @@ dependencies {
     implementation "com.android.billingclient:billing-ktx:$billing_version"
 
     implementation "com.github.tarek360:instacapture:2.0.1"
-    implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-beta.21"
 
     implementation 'com.android.volley:volley:1.2.1'
 

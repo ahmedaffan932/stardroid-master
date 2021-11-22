@@ -33,12 +33,10 @@ import com.android.volley.toolbox.Volley
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.ActivityOnBackPress
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
-import com.mapbox.api.directions.v5.DirectionsCriteria
-import com.mapbox.api.directions.v5.MapboxDirections
-import com.mapbox.api.directions.v5.models.DirectionsResponse
+import com.mapbox.api.directions.v5.models.DirectionsRoute
+import com.mapbox.api.directions.v5.models.RouteOptions
 import com.mapbox.api.geocoding.v5.MapboxGeocoding
 import com.mapbox.api.geocoding.v5.models.GeocodingResponse
 import com.mapbox.geojson.Point
@@ -55,14 +53,21 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.mapbox.navigation.base.extensions.applyDefaultNavigationOptions
+import com.mapbox.navigation.base.options.NavigationOptions
+import com.mapbox.navigation.base.route.RouterCallback
+import com.mapbox.navigation.base.route.RouterFailure
+import com.mapbox.navigation.base.route.RouterOrigin
+import com.mapbox.navigation.core.MapboxNavigation
+import com.mapbox.navigation.ui.maps.route.line.api.MapboxRouteLineApi
+import com.mapbox.navigation.ui.maps.route.line.api.MapboxRouteLineView
+import com.mapbox.navigation.ui.maps.route.line.model.MapboxRouteLineOptions
+import com.mapbox.navigation.ui.maps.route.line.model.RouteLine
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
@@ -93,7 +98,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private val places = ArrayList<String>()
     var placesArray = JSONArray()
 
-    private val REQUEST_CODE_AUTOCOMPLETE = 1
     private val speechRequestCode = 0
     private var buildingPlugin: BuildingPlugin? = null
     private var isThreeDViewEnabled = false
@@ -104,15 +108,13 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
     private lateinit var mapBoxStyle: Style
-    private var lastStyle: String = Style.SATELLITE
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var hoveringMarker: ImageView
     private lateinit var droppedMarkerLayer: Layer
-    private var isTrafficEnabled = false
     private var latLng: String = ""
     private var point = LatLng()
     private var currentLocation = LatLng()
-    private lateinit var navMapRoute: NavigationMapRoute
+    private lateinit var navMapRoute: MapboxNavigation
     private var isRouteAdded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -143,9 +145,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val locationComponent = mapboxMap.locationComponent
             val lastKnownLocation = locationComponent.lastKnownLocation
 
-//            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
             if (lastKnownLocation != null) {
-                currentLocation.latitude = lastKnownLocation!!.latitude
+                currentLocation.latitude = lastKnownLocation.latitude
                 currentLocation.longitude = lastKnownLocation.longitude
             } else {
                 buildAlertMessageNoGps()
@@ -213,47 +214,14 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
         btnTraffic.setOnClickListener {
             setBtnTextWhiteColor()
-//            if (isTrafficEnabled) {
-//                setMapBoxStyle(lastStyle, false)
-//                if (lastStyle == Style.SATELLITE) {
-//                    textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.OUTDOORS) {
-//                    textStreet.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.SATELLITE_STREETS) {
-//                    textTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.DARK) {
-//                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//            } else {
             setMapBoxStyle(Style.TRAFFIC_DAY, false)
             textTraffic.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//            }
-//            isTrafficEnabled = !isTrafficEnabled
         }
 
         btnThreeDView.setOnClickListener {
             setBtnTextWhiteColor()
-//            if (isThreeDViewEnabled) {
-//                setMapBoxStyle(lastStyle, false)
-//                if (lastStyle == Style.SATELLITE) {
-//                    textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.OUTDOORS) {
-//                    textStreet.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.SATELLITE_STREETS) {
-//                    textTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.DARK) {
-//                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//            } else {
             setMapBoxStyle(Style.MAPBOX_STREETS, true)
             text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//            }
         }
 
         llDefault.setOnClickListener {
@@ -449,9 +417,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             styleName
         ) { style ->
             mapBoxStyle = style
-//            if (styleName != Style.TRAFFIC_DAY && isThreeDView) {
-//                lastStyle = styleName
-//            }
             if (isThreeDView) {
                 buildingPlugin?.setVisibility(true)
                 mapboxMap.animateCamera(
@@ -478,7 +443,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 isThreeDViewEnabled = false
             }
             mapboxMap.addOnMapClickListener(this)
-//            initSearchFab();
 
             if (isFirstTime) {
                 enableLocationPlugin(style)
@@ -507,7 +471,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         animateCamera(point, 14.0)
         getAddress(point)
         if (isRouteAdded) {
-            navMapRoute.removeRoute()
+//            navMapRoute.removeRoute()
             isRouteAdded = false
         }
         this.point = point
@@ -550,7 +514,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
     override fun onBackPressed() {
         if (isRouteAdded) {
-            navMapRoute.removeRoute()
+//            navMapRoute.removeRoute()
             Misc.hideShowView(btnGetDirection, this, true)
             Misc.hideShowView(btnStartNavigation, this, true)
             isRouteAdded = false
@@ -563,39 +527,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         }
     }
 
-    private fun initSearchFab() {
-        svLocation.setOnClickListener {
-
-//            startActivity(Intent(this, MapboxSearchActivity::class.java))
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-
-            val selectedCarmenFeature = PlaceAutocomplete.getPlace(data)
-
-            point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
-            point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 10.0)
-            setMarker(point)
-            getAddress(point)
-        }
 
         if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
             val spokenText: String? =
@@ -678,95 +611,144 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
     private fun getRoute(origin: Point, destination: Point) {
-        val client: MapboxDirections = MapboxDirections.builder()
-            .origin(origin)
-            .destination(destination)
+
+//        val client = MapboxDirections.builder()
+//            .origin(origin)
+//            .destination(destination)
+//            .accessToken(getString(R.string.mapbox_access_token))
+//            .overview(DirectionsCriteria.OVERVIEW_FULL)
+//            .profile(DirectionsCriteria.PROFILE_DRIVING)
+//            .steps(true)
+//            .voiceInstructions(true)
+//            .bannerInstructions(true)
+//            .build()
+
+        val navigationOptions = NavigationOptions.Builder(this)
             .accessToken(getString(R.string.mapbox_access_token))
-            .overview(DirectionsCriteria.OVERVIEW_FULL)
-            .profile(DirectionsCriteria.PROFILE_DRIVING)
-            .steps(true)
-            .voiceInstructions(true)
-            .bannerInstructions(true)
             .build()
-
-
-        client.enqueueCall(object : Callback<DirectionsResponse> {
-            override fun onResponse(
-                call: Call<DirectionsResponse>,
-                response: Response<DirectionsResponse>
-            ) {
-
-                if (response.body() == null) {
-                    Log.e(
-                        Misc.logKey,
-                        "No routes found, make sure you set the right user and access token."
-                    )
-                    return
-                } else if (response.body()!!.routes().size < 1) {
-                    Log.e(Misc.logKey, "No routes found")
-                    return
+//        val mapboxNavigation = MapboxNavigationProvider.create(navigationOptions)
+        navMapRoute = MapboxNavigation(navigationOptions)
+        navMapRoute.requestRoutes(
+            RouteOptions.builder()
+                .applyDefaultNavigationOptions()
+                .coordinatesList(listOf(origin, destination))
+                .build(),
+            object : RouterCallback {
+                override fun onCanceled(routeOptions: RouteOptions, routerOrigin: RouterOrigin) {
+                    TODO("Not yet implemented")
                 }
 
-                val currentRoute = response.body()!!.routes()[0]
-                //                Log.d(Misc.logKey, currentRoute.toString())
-                Log.d(Misc.logKey, "Here I am.")
-
-                if (this@LiveEarthActivity::navMapRoute.isInitialized) {
-                    navMapRoute.removeRoute()
-                    isRouteAdded = false
-                } else {
-                    navMapRoute = NavigationMapRoute(
-                        null,
-                        mapView,
-                        mapboxMap,
-                        R.style.NavigationLocationLayerStyle
-                    )
+                override fun onFailure(reasons: List<RouterFailure>, routeOptions: RouteOptions) {
+                    Toast.makeText(
+                        this@LiveEarthActivity,
+                        "Some error occurred in route generation.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    for (reason in reasons)
+                        Log.d(Misc.logKey, reason.message)
                 }
 
-                navMapRoute.addRoute(currentRoute)
+                override fun onRoutesReady(
+                    routes: List<DirectionsRoute>,
+                    routerOrigin: RouterOrigin
+                ) {
+                    val routeLineOptions = MapboxRouteLineOptions.Builder(this@LiveEarthActivity).build()
+                    val routeLineApi = MapboxRouteLineApi(routeLineOptions)
+                    val routeLineView = MapboxRouteLineView(routeLineOptions)
 
-                Misc.route = currentRoute
-                Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
-                btnStartNavigation.setOnClickListener {
-                    if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
-                        Misc.startActivity(
-                            this@LiveEarthActivity,
-                            Misc.isNavigationIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
-                                        Intent(
-                                            this@LiveEarthActivity,
-                                            NavigationActivity::class.java
-                                        )
-                                    )
-                                }
-                            })
-                    } else {
-                        AlertDialog.Builder(this@LiveEarthActivity)
-                            .setTitle("Upgrade to pro.")
-                            .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
-                            .setPositiveButton("Yes") { dialog, _ ->
-                                dialog.dismiss()
-                                val intent =
-                                    Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
-                                intent.putExtra(Misc.data, Misc.data)
-                                startActivity(intent)
-                            }
-                            .setNegativeButton("May be later.", null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show()
+                    val routeLines = routes.map { RouteLine(it, null) }
+                    routeLineApi.setRoutes(routeLines) { value ->
+                        val s = Style
+                        routeLineView.renderRouteDrawData(mapBoxStyle, value)
                     }
                 }
-                isRouteAdded = true
 
             }
+        )
 
-            override fun onFailure(call: Call<DirectionsResponse>, throwable: Throwable) {
-                Log.e(Misc.logKey, "Error: " + throwable.message)
-
-            }
-        })
+//        client.enqueueCall(object : Callback<DirectionsResponse> {
+//            override fun onResponse(
+//                call: Call<DirectionsResponse>,
+//                response: Response<DirectionsResponse>
+//            ) {
+//
+//                if (response.body() == null) {
+//                    Log.e(
+//                        Misc.logKey,
+//                        "No routes found, make sure you set the right user and access token."
+//                    )
+//                    return
+//                } else if (response.body()!!.routes().size < 1) {
+//                    Log.e(Misc.logKey, "No routes found")
+//                    return
+//                }
+//
+//                val currentRoute = response.body()!!.routes()[0]
+//                //                Log.d(Misc.logKey, currentRoute.toString())
+//                Log.d(Misc.logKey, "Here I am.")
+//
+//                if (this@LiveEarthActivity::navMapRoute.isInitialized) {
+////                    navMapRoute.removeRoute()
+//                    isRouteAdded = false
+//                } else {
+//
+//                    val navigationOptions = NavigationOptions.Builder(this@LiveEarthActivity)
+//                        .accessToken(getString(R.string.mapbox_access_token))
+//                        .build()
+//                    val mapboxNavigation = MapboxNavigationProvider.create(navigationOptions)
+//
+////                    navMapRoute = NavigationMapRoute(
+////                        null,
+////                        mapView,
+////                        mapboxMap,
+////                        R.style.NavigationLocationLayerStyle
+////                    )
+//                }
+//
+////                navMapRoute.addRoute(currentRoute)
+//
+//                Misc.route = currentRoute
+//                Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
+//                btnStartNavigation.setOnClickListener {
+//                    if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
+//                        Misc.startActivity(
+//                            this@LiveEarthActivity,
+//                            Misc.isNavigationIntEnabled,
+//                            object : StartActivityCallBack {
+//                                override fun onStart() {
+//                                    startActivity(
+//                                        Intent(
+//                                            this@LiveEarthActivity,
+//                                            NavigationActivity::class.java
+//                                        )
+//                                    )
+//                                }
+//                            })
+//                    } else {
+//                        AlertDialog.Builder(this@LiveEarthActivity)
+//                            .setTitle("Upgrade to pro.")
+//                            .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
+//                            .setPositiveButton("Yes") { dialog, _ ->
+//                                dialog.dismiss()
+//                                val intent =
+//                                    Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
+//                                intent.putExtra(Misc.data, Misc.data)
+//                                startActivity(intent)
+//                            }
+//                            .setNegativeButton("May be later.", null)
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .show()
+//                    }
+//                }
+//                isRouteAdded = true
+//
+//            }
+//
+//            override fun onFailure(call: Call<DirectionsResponse>, throwable: Throwable) {
+//                Log.e(Misc.logKey, "Error: " + throwable.message)
+//
+//            }
+//        })
     }
 
     private fun setBtnTextWhiteColor() {
