@@ -55,8 +55,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
@@ -90,30 +88,26 @@ import java.util.*
 @SuppressLint("LogNotTimber")
 class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
     MapboxMap.OnMapClickListener, AdapterView.OnItemClickListener {
-    private val places = ArrayList<String>()
-    var placesArray = JSONArray()
-
-    private val REQUEST_CODE_AUTOCOMPLETE = 1
-    private val speechRequestCode = 0
-    private var buildingPlugin: BuildingPlugin? = null
-    private var isThreeDViewEnabled = false
 
     private var address = ""
+    private var point = LatLng()
+    var placesArray = JSONArray()
     private var isFirstTime = true
-    private var isBtnGenerateVisible = true
+    private var latLng: String = ""
+    private var isRouteAdded = false
+    private val speechRequestCode = 0
     private lateinit var mapView: MapView
-    private lateinit var mapboxMap: MapboxMap
+    private var currentLocation = LatLng()
+    private var isThreeDViewEnabled = false
     private lateinit var mapBoxStyle: Style
-    private var lastStyle: String = Style.SATELLITE
-    private lateinit var permissionsManager: PermissionsManager
+    private var isBtnGenerateVisible = true
+    private val places = ArrayList<String>()
+    private lateinit var mapboxMap: MapboxMap
     private lateinit var hoveringMarker: ImageView
     private lateinit var droppedMarkerLayer: Layer
-    private var isTrafficEnabled = false
-    private var latLng: String = ""
-    private var point = LatLng()
-    private var currentLocation = LatLng()
+    private var buildingPlugin: BuildingPlugin? = null
     private lateinit var navMapRoute: NavigationMapRoute
-    private var isRouteAdded = false
+    private lateinit var permissionsManager: PermissionsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,9 +137,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val locationComponent = mapboxMap.locationComponent
             val lastKnownLocation = locationComponent.lastKnownLocation
 
-//            val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
             if (lastKnownLocation != null) {
-                currentLocation.latitude = lastKnownLocation!!.latitude
+                currentLocation.latitude = lastKnownLocation.latitude
                 currentLocation.longitude = lastKnownLocation.longitude
             } else {
                 buildAlertMessageNoGps()
@@ -153,7 +146,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
             val destination = Point.fromLngLat(point.longitude, point.latitude)
             val origin = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
-
             getRoute(origin, destination)
         }
 
@@ -562,41 +554,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             })
         }
     }
-
-    private fun initSearchFab() {
-        svLocation.setOnClickListener {
-
-//            startActivity(Intent(this, MapboxSearchActivity::class.java))
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-
-            val selectedCarmenFeature = PlaceAutocomplete.getPlace(data)
-
-            point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
-            point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 10.0)
-            setMarker(point)
-            getAddress(point)
-        }
-
         if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
             val spokenText: String? =
                 data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
@@ -782,8 +741,10 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
     private fun getSuggestedPlaces(place: String) {
-        val urlPriceList =
+        val urlPriceList = if(BuildConfig.DEBUG)
             "http://api.geonames.org/search?name_startsWith=$place&maxRows=10&username=ahmedaffan932"
+        else
+            "http://api.geonames.org/search?name_startsWith=$place&maxRows=10&username=xtreamappssolutions"
         val stringRequest: StringRequest =
             object : StringRequest(
                 Method.GET,
