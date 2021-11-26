@@ -2,8 +2,10 @@ package com.liveearth.android.map
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_world_quiz.*
@@ -43,5 +45,29 @@ class WorldQuizActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Misc.loadNativeAd(
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@WorldQuizActivity,
+                        nativeAd,
+                        Misc.isQuizActivitySplashEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAd.visibility = View.VISIBLE
+                            }
+                        }
+                    )
+//                        showStartButton()
+                }
+            }
+        )
     }
 }

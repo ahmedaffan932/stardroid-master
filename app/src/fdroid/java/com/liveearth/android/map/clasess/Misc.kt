@@ -51,25 +51,25 @@ class Misc {
         const val data: String = "data"
         var mInterstitialAd: InterstitialAd? = null
         var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
-
         var intFailedCount = 0
+
         var nativeFailedCount = 0
-
         const val logKey: String = "logKey"
+
         private const val purchasedStatus: String = "purchasedStatus"
-
         const val flags: String = "flags"
-        const val capitals: String = "capitals"
 
+        const val capitals: String = "capitals"
         const val countries: String = "countries"
+
         private const val flash: String = "flash"
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
         var location: Location? = null
         var isGameIntEnabled: Boolean = false
         var isSkyMapIntEnabled: Boolean = true
-
         var isSplashIntEnabled: Boolean = true
+
         var isSettingIntEnabled: Boolean = true
         var isCompassIntEnabled: Boolean = true
         var isNoteCamIntEnabled: Boolean = true
@@ -91,7 +91,7 @@ class Misc {
         var isPlayGameBackIntEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
         var isQuizCompleteIntEnabled: Boolean = true
-        var isQuizCompletedIntEnabled: Boolean = true
+        var isSoundMeterNativeEnabled: Boolean = true
         var isQuizScreenOneIntEnabled: Boolean = true
         var isQuizCountriesIntEnabled: Boolean = true
         var isProScreenBackIntEnabled: Boolean = true
@@ -102,14 +102,20 @@ class Misc {
         var isQuizSelectModeIntEnabled: Boolean = true
         var isNavigationBackIntEnabled: Boolean = true
         var isQuizCurrenciesIntEnabled: Boolean = true
+        var isSpeedometerNativeEnabled: Boolean = true
         var isSearchLocationIntEnabled: Boolean = true
         var isContinentSelectIntEnabled: Boolean = true
+        var isQuizCompleteNativeEnabled: Boolean = true
+        var isQuizActivitySplashEnabled: Boolean = true
         var isSpeedometerBackIntEnabled: Boolean = true
         var isLiveEarthOnBackIntEnabled: Boolean = true
         var isQuizCompleteBackIntEnabled: Boolean = true
+        var isQuizScreenOneNativeEnabled: Boolean = true
         var isGenerateQrOnBackIntEnabled: Boolean = true
         var isQuizScreenOneBackIntEnabled: Boolean = true
+        var isQuizSelectModeNativeEnabled: Boolean = true
         var isMainFromProScreenIntEnabled: Boolean = true
+        var isContinentSelectNativeEnabled: Boolean = true
         var isGenerateQrOnBackNativeEnabled: Boolean = true
         var isContinentSelectBackIntEnabled: Boolean = true
 
@@ -130,7 +136,7 @@ class Misc {
                 callBack: StartActivityCallBack?
         ) {
             showInterstitial(activity,
-                    true,
+                    isIntEnabled,
                     object : InterstitialCallBack {
                         override fun onDismiss() {
                             callBack?.onStart()
@@ -143,7 +149,7 @@ class Misc {
                 inIntEnabled: Boolean,
                 callBack: OnBackPressCallBack?
         ) {
-            showInterstitial(activity, true, object : InterstitialCallBack {
+            showInterstitial(activity, inIntEnabled, object : InterstitialCallBack {
                 override fun onDismiss() {
                     callBack?.onBackPress()
                 }

@@ -249,7 +249,7 @@
         android:layout_height="0dp"
         android:background="@color/nothing"
         android:layout_margin="@dimen/padding"
-        android:visibility="visible"
+        android:visibility="gone"
         android:minHeight="400dp"
         app:gnt_template_type="@layout/custom_native"
         app:layout_constraintBottom_toBottomOf="parent"

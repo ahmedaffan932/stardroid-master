@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.blongho.country_data.World
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 
@@ -21,6 +22,26 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_word_quiz_mode_selector)
+
+
+        Misc.loadNativeAd(
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@WordQuizModeSelectorActivity,
+                        nativeAd,
+                        Misc.isQuizSelectModeNativeEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAd.visibility = View.VISIBLE
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         World.init(this)
         val arr = World.getAllCountries()

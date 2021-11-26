@@ -88,7 +88,7 @@
         android:layout_height="0dp"
         android:background="@color/nothing"
         android:layout_margin="@dimen/padding"
-        android:visibility="visible"
+        android:visibility="gone"
         app:gnt_template_type="@layout/custom_native"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

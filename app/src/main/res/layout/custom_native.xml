@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:tools="http://schemas.android.com/tools"
+<merge
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:ignore="MissingDefaultResource">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
   <com.google.android.gms.ads.nativead.NativeAdView
-      android:layout_height="match_parent"
-      android:layout_width="match_parent"
       android:id="@+id/native_ad_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:background="@drawable/bg_border"
       tools:targetApi="n">
 
@@ -191,12 +191,11 @@
           android:layout_marginEnd="@dimen/gnt_default_margin"
           android:text="Ad"
           android:elevation="@dimen/padding"
-          android:textColor="@color/yellow"
+          android:textColor="@color/light_pink"
           android:textStyle="bold"
           android:textSize="@dimen/gnt_ad_indicator_text_size"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/media_view"
-          />
+          app:layout_constraintBottom_toTopOf="@id/media_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </com.google.android.gms.ads.nativead.NativeAdView>

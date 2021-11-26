@@ -32,7 +32,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.ActivityOnBackPress
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -62,6 +61,7 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
+import com.mapbox.services.android.navigation.v5.navigation.SdkVersionChecker
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
@@ -177,7 +177,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val intent = Intent(this, QRGeneratedActivity::class.java)
             Log.d(Misc.logKey, latLng)
             intent.putExtra(Misc.data, latLng)
-            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack{
+            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     startActivity(intent)
                 }
@@ -559,6 +559,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             })
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
@@ -690,36 +691,42 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 navMapRoute.addRoute(currentRoute)
 
                 Misc.route = currentRoute
-                Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
-                btnStartNavigation.setOnClickListener {
-                    if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
-                        Misc.startActivity(
-                            this@LiveEarthActivity,
-                            Misc.isNavigationIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
+                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
+                    Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
+                    btnStartNavigation.setOnClickListener {
+                        if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
+                            Misc.startActivity(
+                                this@LiveEarthActivity,
+                                Misc.isNavigationIntEnabled,
+                                object : StartActivityCallBack {
+                                    override fun onStart() {
+                                        startActivity(
+                                            Intent(
+                                                this@LiveEarthActivity,
+                                                NavigationActivity::class.java
+                                            )
+                                        )
+                                    }
+                                }
+                            )
+                        } else {
+                            AlertDialog.Builder(this@LiveEarthActivity)
+                                .setTitle("Upgrade to pro.")
+                                .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
+                                .setPositiveButton("Yes") { dialog, _ ->
+                                    dialog.dismiss()
+                                    val intent =
                                         Intent(
                                             this@LiveEarthActivity,
-                                            NavigationActivity::class.java
+                                            ProScreenActivity::class.java
                                         )
-                                    )
+                                    intent.putExtra(Misc.data, Misc.data)
+                                    startActivity(intent)
                                 }
-                            })
-                    } else {
-                        AlertDialog.Builder(this@LiveEarthActivity)
-                            .setTitle("Upgrade to pro.")
-                            .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
-                            .setPositiveButton("Yes") { dialog, _ ->
-                                dialog.dismiss()
-                                val intent =
-                                    Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
-                                intent.putExtra(Misc.data, Misc.data)
-                                startActivity(intent)
-                            }
-                            .setNegativeButton("May be later.", null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show()
+                                .setNegativeButton("May be later.", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show()
+                        }
                     }
                 }
                 isRouteAdded = true
@@ -746,7 +753,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
     private fun getSuggestedPlaces(place: String) {
-        val urlPriceList = if(BuildConfig.DEBUG)
+        val urlPriceList = if (BuildConfig.DEBUG)
             "http://api.geonames.org/search?name_startsWith=$place&maxRows=10&username=ahmedaffan932"
         else
             "http://api.geonames.org/search?name_startsWith=$place&maxRows=10&username=xtreamappssolutions"

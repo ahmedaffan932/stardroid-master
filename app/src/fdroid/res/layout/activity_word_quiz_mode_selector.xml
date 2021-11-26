@@ -118,21 +118,21 @@
         android:layout_marginTop="@dimen/fab_padding"
         android:background="@drawable/bg_top_left_corner"
         android:paddingVertical="@dimen/padding"
-        app:layout_constraintStart_toStartOf="@id/clEasy"
         app:layout_constraintEnd_toEndOf="@id/clEasy"
+        app:layout_constraintStart_toStartOf="@id/clEasy"
         app:layout_constraintTop_toBottomOf="@id/clEasy">
 
-    <TextView
+        <TextView
             android:id="@+id/textHard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/fab_padding"
+            android:text="0 / 150"
             android:textColor="@color/pink"
             android:textSize="@dimen/_24sdp"
-            android:paddingVertical="@dimen/fab_padding"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="0 / 150" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -186,5 +186,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.ads.nativetemplates.TemplateView
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding"
+        android:layout_marginTop="328dp"
+        android:background="@color/nothing"
+        android:elevation="@dimen/padding"
+        android:visibility="gone"
+        app:gnt_template_type="@layout/custom_native"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHard" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

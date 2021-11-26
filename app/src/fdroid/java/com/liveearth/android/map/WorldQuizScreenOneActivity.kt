@@ -3,7 +3,9 @@ package com.liveearth.android.map
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 
@@ -13,6 +15,26 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz_screen_one)
+
+
+        Misc.loadNativeAd(
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@WorldQuizScreenOneActivity,
+                        nativeAd,
+                        Misc.isQuizScreenOneNativeEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAd.visibility = View.VISIBLE
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         btnBackWorldQuizScreenOne.setOnClickListener {
             onBackPressed()

@@ -99,7 +99,7 @@ class WorldQuizFlagActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Misc.startActivity(
                 this,
-                Misc.isQuizCompletedIntEnabled,
+                Misc.isQuizCompleteIntEnabled,
                 object : StartActivityCallBack {
                     override fun onStart() {
                         finish()

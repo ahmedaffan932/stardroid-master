@@ -7,14 +7,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import com.liveearth.android.map.clasess.Misc
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_select_continet.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
+import kotlinx.android.synthetic.main.activity_speedometer.nativeAd
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToLong
 
@@ -30,6 +34,25 @@ class SpeedometerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
+
+        Misc.loadNativeAd(
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@SpeedometerActivity,
+                        nativeAd,
+                        Misc.isSpeedometerNativeEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAd.visibility = View.VISIBLE
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         btnBackSpeedometer.setOnClickListener {
             onBackPressed()

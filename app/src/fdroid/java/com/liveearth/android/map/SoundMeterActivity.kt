@@ -5,9 +5,11 @@ import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
@@ -19,6 +21,26 @@ class SoundMeterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sound_meter)
+
+
+        Misc.loadNativeAd(
+            this,
+            Misc.nativeAdId,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    Misc.showNativeAd(
+                        this@SoundMeterActivity,
+                        nativeAd,
+                        Misc.isSoundMeterNativeEnabled,
+                        object : NativeAdCallBack {
+                            override fun onLoad() {
+                                nativeAd.visibility = View.VISIBLE
+                            }
+                        }
+                    )
+                }
+            }
+        )
 
         btnBackSoundMeter.setOnClickListener {
             onBackPressed()
