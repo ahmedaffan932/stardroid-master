@@ -52,7 +52,6 @@
               android:textAppearance="?android:attr/textAppearanceMedium" />
 
           <TextView
-              android:id="@+id/search_prompt"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_below="@id/search_status_label"
@@ -194,7 +193,6 @@
             android:src="@drawable/arrowcircle"
             />
       <FrameLayout
-          android:id="@+id/manual_bar"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="bottom">

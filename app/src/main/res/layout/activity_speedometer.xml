@@ -147,7 +147,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textDDU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/fab_padding"
@@ -162,7 +161,6 @@
 
 
     <TextView
-        android:id="@+id/txtDistanceDigital"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -202,7 +200,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textDMSU"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/km_h"
@@ -267,7 +264,6 @@
 
 
     <LinearLayout
-        android:id="@+id/btnStartPauseDigital"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_gradient_pink"

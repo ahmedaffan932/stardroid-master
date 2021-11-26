@@ -2,7 +2,6 @@
     <string name="menu_settings" translatable="false">Settings</string>
     <string translatable="false" name="menu_search">Search</string>
     <string translatable="false" name="cancel">Cancel</string>
-    <string translatable="false" name="set" translation_description="Button label. Set the date to the given value">Set</string>
     <string translatable="false" name="go">Go!</string>
     <string translatable="false" name="location_prefs">Location Settings</string>
     <string translatable="false" name="force_gps_pref">Always use GPS</string>
@@ -25,9 +24,7 @@
     <string translatable="false" name="location_long_lat">Longitude:%1$s, Latitude:%2$s</string>
     <string translatable="false" name="location_place_found">Place found.  Setting latitude %1$f and longitude %2$f</string>
     <string translatable="false" name="use_magnetic_correction">Use magnetic correction</string>
-    <string translatable="false" name="use_magnetic_correction_hint">Use knowledge of your location to correct orientation from magnetic north to true north</string>
     <!-- This string is too long and currently unused -->
-    <string translatable="false" name="provider_prefs" translation_description="Dialog box title for a preferences dialog">Show...</string>
     <string translatable="false" name="show_stars_pref">Stars</string>
     <string translatable="false" name="show_constellations_pref">Constellations</string>
     <string translatable="false" name="show_messier_objects_pref" translation_description="The celestial objects catalogued by Charles Messier">Messier Objects</string>
@@ -38,7 +35,6 @@
     <string translatable="false" name="show_meteors_pref">Meteor Showers</string>
     <string translatable="false" name="show_satellite_layer_pref" translation_description="The layer for satellites">Satellites</string>
     <!-- Just in case we decide to have such a layer for the 4/24 launch -->
-    <string translatable="false" name="show_hubble_layer_pref">Hubble Images</string>
     <string translatable="false" name="sensor_prefs">Sensor Settings (experts)</string>
     <string translatable="false" name="sensor_speed" translation_description="Old, non gyro sensors only: How quickly the sensor should send us data">Sensor Speed</string>
     <string translatable="false" name="sensor_damping" translation_description="Old, non gyro sensors only: The amount of smoothing applied to the sensor outputs.">Damping</string>
@@ -49,11 +45,8 @@
     <string translatable="false" name="dialog_ok_button">OK</string>
     <string translatable="false" name="menu_help" translation_description="menu item to show \'Help\' box">Help</string>
     <string translatable="false" name="help_dialog_title">Help for Sky Map</string>
-    <string translatable="false" name="eula_dialog_title">End User License Agreement</string>
     <string translatable="false" name="set_manual">Switching to manual mode</string>
     <string translatable="false" name="set_auto">Switching to automatic mode</string>
-    <string translatable="false" name="menu_zoom_in">Zoom in</string>
-    <string translatable="false" name="menu_zoom_out">Zoom out</string>
     <string translatable="false" name="menu_toggle_dim">Toggle night mode</string>
     <string translatable="false" name="zenith">ZENITH</string>
     <string translatable="false" name="nadir">NADIR</string>
@@ -66,13 +59,7 @@
     <string translatable="false" name="no_search_title">No results</string>
     <string translatable="false" name="no_search_results_text">No results were found.</string>
     <string translatable="false" name="many_search_results_title">Did you mean?</string>
-    <string translatable="false" name="many_search_results_text">Please select one</string>
-    <string translatable="false" name="searching_for_text">Searching for %s...</string>
-    <string translatable="false" name="found_target_text">Found %s.</string>
-    <string translatable="false" name="other" translation_description="A preference category (ie preferences that don't belong in any other category)">Other</string>
-    <string translatable="false" name="planetary_images">Show Planet Images</string>
     <string translatable="false" name="menu_time">Time Travel</string>
-    <string translatable="false" name="time_travel_start_message">Traveling through time ...</string>
     <string translatable="false" name="time_travel_start_message_alt">Traveling through time to %s ...</string>
     <string translatable="false" name="time_travel_close_message">Back to the present ...</string>
     <!--  -->
@@ -100,20 +87,15 @@
     <string translatable="false" name="time_travel_week_speed_back" translation_description="Label showing rate of travel through time">Traveling &lt; @ 1 week/sec</string>
     <string translatable="false" name="use_sound_effects" translation_description="A preferences menu label">Enable sound</string>
 
-    <string translatable="false" name="enable_layer_toast">Enabling %s layer</string>
-    <string translatable="false" name="disable_layer_toast">Disabling %s layer</string>
     <string translatable="false" name="menu_gallery">Gallery</string>
     <string translatable="false" name="gallery_image_search_btn">Find in sky</string>
     <string translatable="false" name="gallery_image_back_btn">Back to gallery</string>
     <string translatable="false" name="hubble_image_gallery_title">Sky Map Gallery</string>
-    <string translatable="false" name="hubble_image">Hubble Image</string>
     <!--  TODO(johntaylor): currently unused -->
 
-    <string translatable="false" name="search_target_found_message" translation_description="displayed when a search target has been located">You found:</string>
     <string translatable="false" name="search_overlay_title" translation_description="title for search overlay">Point your phone toward the arrow</string>
     <string translatable="false" name="search_target_looking_message" translation_description="displayed when a search target is being searched for">Looking for:</string>
     <string translatable="false" name="sun_wont_set_message">The sun will not set during the next 24 hours at your current location.</string>
-    <string translatable="false" name="sun_wont_rise_message">The sun will not rise during the next 24 hours at your current location.</string>
 
     <string translatable="false" name="missing_label" translation_description="Used to indicate to the developer that they've added a resource with no translation.">MISSING_LBL</string>
 
@@ -121,7 +103,6 @@
     <string translatable="false" name="moon">Moon</string>
     <string translatable="false" name="mercury">Mercury</string>
     <string translatable="false" name="venus">Venus</string>
-    <string translatable="false" name="earth">Earth</string>
     <string translatable="false" name="mars">Mars</string>
     <string translatable="false" name="jupiter">Jupiter</string>
     <string translatable="false" name="saturn">Saturn</string>
@@ -141,264 +122,15 @@
     <string translatable="false" name="cats_eye_nebula" translation_description="hubble object">Cat\'s Eye Nebula</string>
     <string translatable="false" name="omega_centauri" translation_description="hubble object">Omega Centauri Globular Cluster</string>
     <string translatable="false" name="v838_mon" translation_description="hubble object">V838 Monocerotis</string>
-    <string translatable="false" name="sn1987a" translation_description="hubble object">Supernova 1987a</string>
     <string translatable="false" name="hubble_deep_field" translation_description="hubble object">Hubble Deep Field</string>
-    <string translatable="false" name="hdf" translation_description="hubble object">Hubble Deep Field</string>
-    <string translatable="false" name="rho_oph" translation_description="hubble object">Rho Ophiuchus</string>
     <string translatable="false" name="menu_tos">Terms of Service</string>
     <string translatable="false" name="menu_diagnostics">Diagnostics</string>
     <!-- TODO(johntaylor): the following might be deleted in favor of an icon -->
-    <string translatable="false" name="control_panel_btn" translation_description="Label for the control panel button">Control Panel</string>
 
     <string translatable="false" name="north_pole">NP</string>
     <string translatable="false" name="south_pole">SP</string>
 
-    <string translatable="false" name="andromeda" translation_description="Name of the Andromeda constellation">Andromeda</string>
-    <string translatable="false" name="aquarius" translation_description="Name of the Aquarius constellation">Aquarius</string>
-    <string translatable="false" name="aquila" translation_description="Name of the Aquila constellation">Aquila</string>
-    <string translatable="false" name="aries" translation_description="Name of the Aries constellation">Aries</string>
-    <string translatable="false" name="auriga" translation_description="Name of the Auriga constellation">Auriga</string>
-    <string translatable="false" name="bootes" translation_description="Name of the Bootes constellation">Bootes</string>
-    <string translatable="false" name="cancer" translation_description="Name of the Cancer constellation">Cancer</string>
-    <string translatable="false" name="canis_major" translation_description="Name of the Canis Major constellation">Canis Major</string>
-    <string translatable="false" name="capricornus" translation_description="Name of the Capricornus constellation">Capricornus</string>
-    <string translatable="false" name="carina" translation_description="Name of the Carina constellation">Carina</string>
-    <string translatable="false" name="cassiopeia" translation_description="Name of the Cassiopeia constellation">Cassiopeia</string>
-    <string translatable="false" name="centaurus" translation_description="Name of the Centaurus constellation">Centaurus</string>
-    <string translatable="false" name="cetus" translation_description="Name of the Cetus constellation">Cetus</string>
-    <string translatable="false" name="crux" translation_description="Name of the Crux constellation">Crux</string>
-    <string translatable="false" name="cygnus" translation_description="Name of the Cygnus constellation">Cygnus</string>
-    <string translatable="false" name="draco" translation_description="Name of the Draco constellation">Draco</string>
-    <string translatable="false" name="eridanus" translation_description="Name of the Eridanus constellation">Eridanus</string>
-    <string translatable="false" name="gemini" translation_description="Name of the Gemini constellation">Gemini</string>
-    <string translatable="false" name="grus" translation_description="Name of the Grus constellation">Grus</string>
-    <string translatable="false" name="hercules" translation_description="Name of the Hercules constellation">Hercules</string>
-    <string translatable="false" name="hydrus" translation_description="Name of the Hydrus constellation">Hydrus</string>
-    <string translatable="false" name="leo" translation_description="Name of the Leo constellation">Leo</string>
-    <string translatable="false" name="libra" translation_description="Name of the Libra constellation">Libra</string>
-    <string translatable="false" name="lupus" translation_description="Name of the Lupus constellation">Lupus</string>
-    <string translatable="false" name="lyra" translation_description="Name of the Lyra constellation">Lyra</string>
-    <string translatable="false" name="ophiuchus" translation_description="Name of the Ophiuchus constellation">Ophiuchus</string>
-    <string translatable="false" name="orion" translation_description="Name of the Orion constellation">Orion</string>
-    <string translatable="false" name="pavo" translation_description="Name of the Pavo constellation">Pavo</string>
-    <string translatable="false" name="pegasus" translation_description="Name of the Pegasus constellation">Pegasus</string>
-    <string translatable="false" name="perseus" translation_description="Name of the Perseus constellation">Perseus</string>
-    <string translatable="false" name="phoenix" translation_description="Name of the Phoenix constellation">Phoenix</string>
-    <string translatable="false" name="pisces" translation_description="Name of the Pisces constellation">Pisces</string>
-    <string translatable="false" name="piscis_austrinus" translation_description="Name of the Piscis Austrinus constellation">Piscis Austrinus</string>
-    <string translatable="false" name="puppis" translation_description="Name of the Puppis constellation">Puppis</string>
-    <string translatable="false" name="sagittarius" translation_description="Name of the Sagittarius constellation">Sagittarius</string>
-    <string translatable="false" name="scorpius" translation_description="Name of the Scorpius constellation">Scorpius</string>
-    <string translatable="false" name="taurus" translation_description="Name of the Taurus constellation">Taurus</string>
-    <string translatable="false" name="tucana" translation_description="Name of the Tucana constellation">Tucana</string>
-    <string translatable="false" name="ursa_major" translation_description="Name of the Ursa Major constellation">Ursa Major</string>
-    <string translatable="false" name="ursa_minor" translation_description="Name of the Ursa Minor constellation">Ursa Minor</string>
-    <string translatable="false" name="vela" translation_description="Name of the Vela constellation">Vela</string>
-    <string translatable="false" name="virgo" translation_description="Name of the Virgo constellation">Virgo</string>
-    <string translatable="false" name="capricorn" translation_description="Name of the Capricorn constellation">Capricorn</string>
-    <string translatable="false" name="southern_cross" translation_description="Name of the Southern Cross constellation">Southern Cross</string>
-    <string translatable="false" name="scorpio" translation_description="Name of the Scorpio constellation">Scorpio</string>
-    <string translatable="false" name="little_dipper" translation_description="Name of the Little Dipper constellation">Little Dipper</string>
-    <string translatable="false" name="little_bear" translation_description="Name of the Little Bear constellation">Little Bear</string>
-    <string translatable="false" name="big_dipper" translation_description="Name of the Big Dipper constellation">Big Dipper</string>
-    <string translatable="false" name="great_bear" translation_description="Name of the Great Bear constellation">Great Bear</string>
-    <string translatable="false" name="plough" translation_description="Name of the Plough constellation">Plough</string>
-
-    <string translatable="false" name="sirius" translation_description="Name of the Star Sirius">Sirius</string>
-    <string translatable="false" name="canopus" translation_description="Name of the Star Canopus">Canopus</string>
-    <string translatable="false" name="arcturus" translation_description="Name of the Star Arcturus">Arcturus</string>
-    <string translatable="false" name="rigel_kentaurus_a" translation_description="Name of the Star Rigel Kentaurus A">Rigel Kentaurus A</string>
-    <string translatable="false" name="rigil_kentaurus_a" translation_description="Name of the Star Rigil Kentaurus A">Rigil Kentaurus A</string>
-    <string translatable="false" name="vega" translation_description="Name of the Star Vega">Vega</string>
-    <string translatable="false" name="rigel" translation_description="Name of the Star Rigel">Rigel</string>
-    <string translatable="false" name="procyon" translation_description="Name of the Star Procyon">Procyon</string>
-    <string translatable="false" name="betelgeuse" translation_description="Name of the Star Betelgeuse">Betelgeuse</string>
-    <string translatable="false" name="achernar" translation_description="Name of the Star Achernar">Achernar</string>
-    <string translatable="false" name="hadar" translation_description="Name of the Star Hadar">Hadar</string>
-    <string translatable="false" name="capella" translation_description="Name of the Star Capella">Capella</string>
-    <string translatable="false" name="altair" translation_description="Name of the Star Altair">Altair</string>
-    <string translatable="false" name="acrux" translation_description="Name of the Star Acrux">Acrux</string>
-    <string translatable="false" name="aldebaran" translation_description="Name of the Star Aldebaran">Aldebaran</string>
-    <string translatable="false" name="spica" translation_description="Name of the Star Spica">Spica</string>
-    <string translatable="false" name="antares" translation_description="Name of the Star Antares">Antares</string>
-    <string translatable="false" name="pollux" translation_description="Name of the Star Pollux">Pollux</string>
-    <string translatable="false" name="fomalhaut" translation_description="Name of the Star Fomalhaut">Fomalhaut</string>
-    <string translatable="false" name="deneb" translation_description="Name of the Star Deneb">Deneb</string>
-    <string translatable="false" name="regulus" translation_description="Name of the Star Regulus">Regulus</string>
-    <string translatable="false" name="adhara" translation_description="Name of the Star Adhara">Adhara</string>
-    <string translatable="false" name="shaula" translation_description="Name of the Star Shaula">Shaula</string>
-    <string translatable="false" name="alnath" translation_description="Name of the Star Alnath">Alnath</string>
-    <string translatable="false" name="alnilam" translation_description="Name of the Star Alnilam">Alnilam</string>
-    <string translatable="false" name="alnair" translation_description="Name of the Star Alnair">Alnair</string>
-    <string translatable="false" name="alioth" translation_description="Name of the Star Alioth">Alioth</string>
-    <string translatable="false" name="mirphak" translation_description="Name of the Star Mirphak">Mirphak</string>
-    <string translatable="false" name="kaus_australis" translation_description="Name of the Star Kaus Australis">Kaus Australis</string>
-    <string translatable="false" name="dubhe" translation_description="Name of the Star Dubhe">Dubhe</string>
-    <string translatable="false" name="alkaid" translation_description="Name of the Star Alkaid">Alkaid</string>
-    <string translatable="false" name="alhena" translation_description="Name of the Star Alhena">Alhena</string>
-    <string translatable="false" name="castor" translation_description="Name of the Star Castor">Castor</string>
-    <string translatable="false" name="polaris" translation_description="Name of the Star Polaris">Polaris</string>
-    <string translatable="false" name="alphard" translation_description="Name of the Star Alphard">Alphard</string>
-    <string translatable="false" name="hamal" translation_description="Name of the Star Hamal">Hamal</string>
-    <string translatable="false" name="algieba" translation_description="Name of the Star Algieba">Algieba</string>
-    <string translatable="false" name="diphda" translation_description="Name of the Star Diphda">Diphda</string>
-    <string translatable="false" name="nunki" translation_description="Name of the Star Nunki">Nunki</string>
-    <string translatable="false" name="mirach" translation_description="Name of the Star Mirach">Mirach</string>
-    <string translatable="false" name="alpheratz" translation_description="Name of the Star Alpheratz">Alpheratz</string>
-    <string translatable="false" name="saiph" translation_description="Name of the Star Saiph">Saiph</string>
-    <string translatable="false" name="kochab" translation_description="Name of the Star Kochab">Kochab</string>
-    <string translatable="false" name="rasalhague" translation_description="Name of the Star Rasalhague">Rasalhague</string>
-    <string translatable="false" name="algol" translation_description="Name of the Star Algol">Algol</string>
-    <string translatable="false" name="denebola" translation_description="Name of the Star Denebola">Denebola</string>
-    <string translatable="false" name="alphekka" translation_description="Name of the Star Alphekka">Alphekka</string>
-    <string translatable="false" name="etamin" translation_description="Name of the Star Etamin">Etamin</string>
-    <string translatable="false" name="kaus" translation_description="Name of the Star Kaus">Kaus</string>
-    <string translatable="false" name="shedir" translation_description="Name of the Star Shedir">Shedir</string>
-    <string translatable="false" name="caph" translation_description="Name of the Star Caph">Caph</string>
-    <string translatable="false" name="izar" translation_description="Name of the Star Izar">Izar</string>
-    <string translatable="false" name="merak" translation_description="Name of the Star Merak">Merak</string>
-    <string translatable="false" name="enif" translation_description="Name of the Star Enif">Enif</string>
-    <string translatable="false" name="ankaa" translation_description="Name of the Star Ankaa">Ankaa</string>
-    <string translatable="false" name="phad" translation_description="Name of the Star Phad">Phad</string>
-    <string translatable="false" name="alderamin" translation_description="Name of the Star Alderamin">Alderamin</string>
-    <string translatable="false" name="scheat" translation_description="Name of the Star Scheat">Scheat</string>
-    <string translatable="false" name="markab" translation_description="Name of the Star Markab">Markab</string>
-    <string translatable="false" name="menkar" translation_description="Name of the Star Menkar">Menkar</string>
-    <string translatable="false" name="arneb" translation_description="Name of the Star Arneb">Arneb</string>
-    <string translatable="false" name="unukalhai" translation_description="Name of the Star Unukalhai">Unukalhai</string>
-    <string translatable="false" name="algenib" translation_description="Name of the Star Algenib">Algenib</string>
-    <string translatable="false" name="vindemiatrix" translation_description="Name of the Star Vindemiatrix">Vindemiatrix</string>
-    <string translatable="false" name="alcyone" translation_description="Name of the Star Alcyone">Alcyone</string>
-    <string translatable="false" name="dog_star" translation_description="Name of the Dog Star (Sirius)">Dog Star</string>
-    <string translatable="false" name="north_star" translation_description="Name of the North Star">North Star</string>
-    <string translatable="false" name="pole_star" translation_description="Name of the (North) Pole Star">Pole Star</string>
-    <string translatable="false" name="alpha_centauri" translation_description="Name of the star Alpha Centauri">Alpha Centauri</string>
-    <string translatable="false" name="rigil_kent" translation_description="Name of the star Rigil Kent">Rigil Kent</string>
-    <string translatable="false" name="e_lyrae" translation_description="Name of the star ε Lyrae">ε Lyrae</string>
-
-    <string translatable="false" name="m1" translation_description="Name of the Messier object M1">M1</string>
-    <string translatable="false" name="m2" translation_description="Name of the Messier object M2">M2</string>
-    <string translatable="false" name="m3" translation_description="Name of the Messier object M3">M3</string>
-    <string translatable="false" name="m4" translation_description="Name of the Messier object M4">M4</string>
-    <string translatable="false" name="m5" translation_description="Name of the Messier object M5">M5</string>
-    <string translatable="false" name="m6" translation_description="Name of the Messier object M6">M6</string>
-    <string translatable="false" name="m7" translation_description="Name of the Messier object M7">M7</string>
-    <string translatable="false" name="m8" translation_description="Name of the Messier object M8">M8</string>
-    <string translatable="false" name="m9" translation_description="Name of the Messier object M9">M9</string>
-    <string translatable="false" name="m10" translation_description="Name of the Messier object M10">M10</string>
-    <string translatable="false" name="m11" translation_description="Name of the Messier object M11">M11</string>
-    <string translatable="false" name="m12" translation_description="Name of the Messier object M12">M12</string>
-    <string translatable="false" name="m13" translation_description="Name of the Messier object M13">M13</string>
-    <string translatable="false" name="m14" translation_description="Name of the Messier object M14">M14</string>
-    <string translatable="false" name="m15" translation_description="Name of the Messier object M15">M15</string>
-    <string translatable="false" name="m16" translation_description="Name of the Messier object M16">M16</string>
-    <string translatable="false" name="m17" translation_description="Name of the Messier object M17">M17</string>
-    <string translatable="false" name="m18" translation_description="Name of the Messier object M18">M18</string>
-    <string translatable="false" name="m19" translation_description="Name of the Messier object M19">M19</string>
-    <string translatable="false" name="m20" translation_description="Name of the Messier object M20">M20</string>
-    <string translatable="false" name="m21" translation_description="Name of the Messier object M21">M21</string>
-    <string translatable="false" name="m22" translation_description="Name of the Messier object M22">M22</string>
-    <string translatable="false" name="m23" translation_description="Name of the Messier object M23">M23</string>
-    <string translatable="false" name="m24" translation_description="Name of the Messier object M24">M24</string>
-    <string translatable="false" name="m25" translation_description="Name of the Messier object M25">M25</string>
-    <string translatable="false" name="m26" translation_description="Name of the Messier object M26">M26</string>
-    <string translatable="false" name="m27" translation_description="Name of the Messier object M27">M27</string>
-    <string translatable="false" name="m28" translation_description="Name of the Messier object M28">M28</string>
-    <string translatable="false" name="m29" translation_description="Name of the Messier object M29">M29</string>
-    <string translatable="false" name="m30" translation_description="Name of the Messier object M30">M30</string>
-    <string translatable="false" name="m31" translation_description="Name of the Messier object M31">M31</string>
-    <string translatable="false" name="m32" translation_description="Name of the Messier object M32">M32</string>
-    <string translatable="false" name="m33" translation_description="Name of the Messier object M33">M33</string>
-    <string translatable="false" name="m34" translation_description="Name of the Messier object M34">M34</string>
-    <string translatable="false" name="m35" translation_description="Name of the Messier object M35">M35</string>
-    <string translatable="false" name="m36" translation_description="Name of the Messier object M36">M36</string>
-    <string translatable="false" name="m37" translation_description="Name of the Messier object M37">M37</string>
-    <string translatable="false" name="m38" translation_description="Name of the Messier object M38">M38</string>
-    <string translatable="false" name="m39" translation_description="Name of the Messier object M39">M39</string>
-    <string translatable="false" name="m40" translation_description="Name of the Messier object M40">M40</string>
-    <string translatable="false" name="m41" translation_description="Name of the Messier object M41">M41</string>
-    <string translatable="false" name="m42" translation_description="Name of the Messier object M42">M42</string>
-    <string translatable="false" name="m43" translation_description="Name of the Messier object M43">M43</string>
-    <string translatable="false" name="m44" translation_description="Name of the Messier object M44">M44</string>
-    <string translatable="false" name="m45" translation_description="Name of the Messier object M45">M45</string>
-    <string translatable="false" name="m46" translation_description="Name of the Messier object M46">M46</string>
-    <string translatable="false" name="m47" translation_description="Name of the Messier object M47">M47</string>
-    <string translatable="false" name="m48" translation_description="Name of the Messier object M48">M48</string>
-    <string translatable="false" name="m49" translation_description="Name of the Messier object M49">M49</string>
-    <string translatable="false" name="m50" translation_description="Name of the Messier object M50">M50</string>
-    <string translatable="false" name="m51" translation_description="Name of the Messier object M51">M51</string>
-    <string translatable="false" name="m52" translation_description="Name of the Messier object M52">M52</string>
-    <string translatable="false" name="m53" translation_description="Name of the Messier object M53">M53</string>
-    <string translatable="false" name="m54" translation_description="Name of the Messier object M54">M54</string>
-    <string translatable="false" name="m55" translation_description="Name of the Messier object M55">M55</string>
-    <string translatable="false" name="m56" translation_description="Name of the Messier object M56">M56</string>
-    <string translatable="false" name="m57" translation_description="Name of the Messier object M57">M57</string>
-    <string translatable="false" name="m58" translation_description="Name of the Messier object M58">M58</string>
-    <string translatable="false" name="m59" translation_description="Name of the Messier object M59">M59</string>
-    <string translatable="false" name="m60" translation_description="Name of the Messier object M60">M60</string>
-    <string translatable="false" name="m61" translation_description="Name of the Messier object M61">M61</string>
-    <string translatable="false" name="m62" translation_description="Name of the Messier object M62">M62</string>
-    <string translatable="false" name="m63" translation_description="Name of the Messier object M63">M63</string>
-    <string translatable="false" name="m64" translation_description="Name of the Messier object M64">M64</string>
-    <string translatable="false" name="m65" translation_description="Name of the Messier object M65">M65</string>
-    <string translatable="false" name="m66" translation_description="Name of the Messier object M66">M66</string>
-    <string translatable="false" name="m67" translation_description="Name of the Messier object M67">M67</string>
-    <string translatable="false" name="m68" translation_description="Name of the Messier object M68">M68</string>
-    <string translatable="false" name="m69" translation_description="Name of the Messier object M69">M69</string>
-    <string translatable="false" name="m70" translation_description="Name of the Messier object M70">M70</string>
-    <string translatable="false" name="m71" translation_description="Name of the Messier object M71">M71</string>
-    <string translatable="false" name="m72" translation_description="Name of the Messier object M72">M72</string>
-    <string translatable="false" name="m73" translation_description="Name of the Messier object M73">M73</string>
-    <string translatable="false" name="m74" translation_description="Name of the Messier object M74">M74</string>
-    <string translatable="false" name="m75" translation_description="Name of the Messier object M75">M75</string>
-    <string translatable="false" name="m76" translation_description="Name of the Messier object M76">M76</string>
-    <string translatable="false" name="m77" translation_description="Name of the Messier object M77">M77</string>
-    <string translatable="false" name="m78" translation_description="Name of the Messier object M78">M78</string>
-    <string translatable="false" name="m79" translation_description="Name of the Messier object M79">M79</string>
-    <string translatable="false" name="m80" translation_description="Name of the Messier object M80">M80</string>
-    <string translatable="false" name="m81" translation_description="Name of the Messier object M81">M81</string>
-    <string translatable="false" name="m82" translation_description="Name of the Messier object M82">M82</string>
-    <string translatable="false" name="m83" translation_description="Name of the Messier object M83">M83</string>
-    <string translatable="false" name="m84" translation_description="Name of the Messier object M84">M84</string>
-    <string translatable="false" name="m85" translation_description="Name of the Messier object M85">M85</string>
-    <string translatable="false" name="m86" translation_description="Name of the Messier object M86">M86</string>
-    <string translatable="false" name="m87" translation_description="Name of the Messier object M87">M87</string>
-    <string translatable="false" name="m88" translation_description="Name of the Messier object M88">M88</string>
-    <string translatable="false" name="m89" translation_description="Name of the Messier object M89">M89</string>
-    <string translatable="false" name="m90" translation_description="Name of the Messier object M90">M90</string>
-    <string translatable="false" name="m91" translation_description="Name of the Messier object M91">M91</string>
-    <string translatable="false" name="m92" translation_description="Name of the Messier object M92">M92</string>
-    <string translatable="false" name="m93" translation_description="Name of the Messier object M93">M93</string>
-    <string translatable="false" name="m94" translation_description="Name of the Messier object M94">M94</string>
-    <string translatable="false" name="m95" translation_description="Name of the Messier object M95">M95</string>
-    <string translatable="false" name="m96" translation_description="Name of the Messier object M96">M96</string>
-    <string translatable="false" name="m97" translation_description="Name of the Messier object M97">M97</string>
-    <string translatable="false" name="m98" translation_description="Name of the Messier object M98">M98</string>
-    <string translatable="false" name="m99" translation_description="Name of the Messier object M99">M99</string>
-    <string translatable="false" name="m100" translation_description="Name of the Messier object M100">M100</string>
-    <string translatable="false" name="m101" translation_description="Name of the Messier object M101">M101</string>
-    <string translatable="false" name="m102" translation_description="Name of the Messier object M102">M102</string>
-    <string translatable="false" name="m103" translation_description="Name of the Messier object M103">M103</string>
-    <string translatable="false" name="m104" translation_description="Name of the Messier object M104">M104</string>
-    <string translatable="false" name="m105" translation_description="Name of the Messier object M105">M105</string>
-    <string translatable="false" name="m106" translation_description="Name of the Messier object M106">M106</string>
-    <string translatable="false" name="m107" translation_description="Name of the Messier object M107">M107</string>
-    <string translatable="false" name="m108" translation_description="Name of the Messier object M108">M108</string>
-    <string translatable="false" name="m109" translation_description="Name of the Messier object M109">M109</string>
-    <string translatable="false" name="m110" translation_description="Name of the Messier object M110">M110</string>
-    <string translatable="false" name="ngc6543" translation_description="Name of the Messier object NGC6543">NGC6543</string>
-    <string translatable="false" name="ngc5139" translation_description="Name of the Messier object NGC5139">NGC5139</string>
-    <string translatable="false" name="butterfly_cluster" translation_description="Name of the Messier object Butterfly Cluster">Butterfly Cluster</string>
-    <string translatable="false" name="scorpions_tail" translation_description="Name of the Messier object Scorpion\'s Tail">Scorpion\'s Tail</string>
-    <string translatable="false" name="winnecke_4" translation_description="Name of the Messier object Winnecke 4">Winnecke 4</string>
-    <string translatable="false" name="beehive_cluster" translation_description="Name of the Messier object Beehive Cluster">Beehive Cluster</string>
-    <string translatable="false" name="praesepe" translation_description="Name of the Messier object Praesepe">Praesepe</string>
-    <string translatable="false" name="seven_sisters" translation_description="Name of the Messier object Seven Sisters">Seven Sisters</string>
     <string translatable="false" name="space_station" translation_description="Name of the Internation Space Station">International Space Station</string>
-    <string translatable="false" name="space_shuttle" translation_description="Name of the Space Shuttle">Space Shuttle</string>
-    <string translatable="false" name="kml_load_error">Failed to load KML file</string>
-    <string translatable="false" name="load_kml_dialog_title">Load KML</string>
-    <string translatable="false" name="load_kml_file">Load</string>
     <string translatable="false" name="enable_analytics">Send usage statistics</string>
     <string translatable="false" name="enable_analytics_desc">Make Sky Map better by sending anonymous data to Google Analytics</string>
     <string translatable="false" name="leonids" translation_description="Meteor Shower">Leonids</string>
@@ -430,7 +162,6 @@
     <string translatable="false" name="title_activity_diagnostic">Diagnostics</string>
     <string translatable="false" name="location_rationale_title">Why do we ask for your location?</string>
     <string translatable="false" name="location_rationale_text">The stars you can see depend on where on planet earth you are.  Without your location we cannot show you an accurate map.  If you do not want your phone to give us your location you can provide it manually in the settings.  You need only provide the nearest city.</string>
-    <string translatable="false" name="play_services_error">Warning: Google Play Services error - Automatic location might not work</string>
     <string translatable="false" name="sensor_absent">Absent</string>
     <string translatable="false" name="sensor_accuracy_unknown">Accuracy: Unknown</string>
     <string translatable="false" name="sensor_accuracy_unreliable">Accuracy: Unreliable</string>
@@ -486,18 +217,12 @@
 <!--    Release-->
 <!--    <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWQtY29tMTIzIiwiYSI6ImNrdzF4OGp1YzBkeGUycG8zem1tZHZqc3AifQ.nn_mktcrRZ1Ao&#45;&#45;bl45p5A"</string>-->
 
-    <string name="game_globe" translatable="false">Game Globe</string>
-    <string translatable="false" name="live_earth">Live Earth</string>
-    <string translatable="false" name="app_name">Live Earth Map</string>
-    <string translatable="false" name="cams">Cams</string>
-    <string translatable="false" name="am_maps">AM Maps</string>
+    <string translatable="false" name="app_name">Live satellite View</string>
     <string translatable="false" name="explore">Explore</string>
     <string translatable="false" name="lorem_ispum_dollar_ist">Lorem ispum dollar ist</string>
     <string translatable="false" name="world_quiz">World Quiz</string>
     <string translatable="false" name="gps_map_nmap">GPS Map \nCam</string>
     <string translatable="false" name="note_cam">Note Cam</string>
-    <string translatable="false" name="locaition_nqr">Locaition \nQR</string>
-    <string translatable="false" name="space_distance_nfinder">Space Distance Finder</string>
     <string translatable="false" name="compass">Compass</string>
 
 
@@ -506,34 +231,18 @@
 
 
     <!-- Spinner for color picker example-->
-    <string-array name="layer_spinner_array">
-        <item>Water</item>
-        <item>Building</item>
-    </string-array>
 
     <!--Default style names-->
-    <string translatable="false" name="menu_map_style_streets">Streets</string>
-    <string translatable="false" name="menu_map_style_dark">Dark</string>
-    <string translatable="false" name="menu_map_style_light">Light</string>
-    <string translatable="false" name="menu_map_style_outdoors">Outdoors</string>
-    <string translatable="false" name="menu_map_style_satellite">Satellite</string>
-    <string translatable="false" name="menu_map_style_satellite_streets">Satellite streets</string>
 
     <!--Move map instruction for toast-->
-    <string translatable="false" name="move_map_instruction">Move map to place\nmarker at desired location</string>
 
     <!--Zoom in and out map instruction for toast-->
-    <string translatable="false" name="zoom_map_in_and_out_instruction">Zoom in and out to see cluster numbers change</string>
 
     <!--Tap on feature box instruction-->
-    <string translatable="false" name="tap_on_feature_box_instruction">Tap on bounding box</string>
 
     <!--Fragment below textview in support fragment activity-->
-    <string translatable="false" name="fragment_in_card_below">Map fragment container in card below</string>
 
     <!--Offline manager button text-->
-    <string translatable="false" name="download_button_text">Download</string>
-    <string translatable="false" name="list_button_text">List</string>
 
     <!--Basic user location permission toasts-->
     <string translatable="false" name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
@@ -543,470 +252,275 @@
     <string translatable="false" name="location_component_fragment_text">User\'s current location on a map fragment</string>
 
     <!-- Location change listening -->
-    <string translatable="false" name="new_location">New lat: %1$s New longitude: %2$s</string>
 
     <!-- Settings dialog -->
-    <string translatable="false" name="settings_dialog_title">Settings</string>
-    <string translatable="false" name="settings_dialog_positive_button_text">Save</string>
-    <string translatable="false" name="settings_status_toast_settings_saved">Settings saved</string>
-    <string translatable="false" name="settings_dialog_negative_button_text">Cancel</string>
-    <string translatable="false" name="analytics_opt_out_textview">Opt out of analytics tracking</string>
-    <string translatable="false" name="login_or_signup_account_switch_text">Always show account login/creation screen</string>
-    <string translatable="false" name="log_out_of_account_button">Log out of Mapbox account</string>
-    <string translatable="false" name="log_out_toast_confirm">Successfully logged out</string>
 
     <!--Basic offline map-->
-    <string translatable="false" name="basic_offline_deleted_toast">Yosemite offline map deleted</string>
 
     <!--Marker strings for MarkerViewPluginActivity activity-->
 
     <!--Marker strings for DrawMarkerActivity activity-->
-    <string translatable="false" name="draw_marker_options_title">Hello World!</string>
-    <string translatable="false" name="draw_marker_options_snippet">Welcome to my marker.</string>
 
     <!--Marker strings for DirectionsActivity activity-->
-    <string translatable="false" name="directions_activity_toast_message">Route is %1$f meters long.</string>
 
     <!--Marker strings for DirectionsActivity activity-->
-    <string translatable="false" name="snaking_directions_activity_error">Direction route retrieval failed</string>
 
     <!--Strings for OfflineManager activity-->
-    <string translatable="false" name="dialog_title">Name new region</string>
-    <string translatable="false" name="dialog_message">Downloads the map region you currently are viewing</string>
-    <string translatable="false" name="dialog_positive_button">Download</string>
-    <string translatable="false" name="dialog_negative_button">Cancel</string>
-    <string translatable="false" name="dialog_toast">Region name cannot be empty.</string>
-    <string translatable="false" name="end_progress_success">Region downloaded successfully.</string>
-    <string translatable="false" name="toast_no_regions_yet">You have no regions yet.</string>
-    <string translatable="false" name="toast_region_deleted">Region deleted</string>
-    <string translatable="false" name="navigate_positive_button">Navigate to</string>
-    <string translatable="false" name="navigate_neutral_button_title">Delete</string>
-    <string translatable="false" name="navigate_negative_button_title">Cancel</string>
-    <string translatable="false" name="navigate_title">List</string>
-    <string translatable="false" name="region_name">Region %1$d</string>
-    <string translatable="false" name="set_region_name_hint">Enter name</string>
 
     <!--SimpleOfflineMapActivity activity-->
-    <string translatable="false" name="simple_offline_end_progress_success">Region downloaded successfully.</string>
 
     <!--FeatureCountActivity activity-->
-    <string translatable="false" name="feature_count_snackbar_feature_size">%1$d features in box</string>
 
     <!--QueryFeatureActivity activity-->
-    <string translatable="false" name="query_feature_marker_title">Properties:</string>
-    <string translatable="false" name="query_feature_no_properties_found">No feature properties found</string>
 
     <!--LocationPickerActivity activity-->
-    <string translatable="false" name="location_picker_select_location_button_cancel">Cancel</string>
-    <string translatable="false" name="location_picker_select_location_button_select">Select a location</string>
-    <string translatable="false" name="location_picker_dropped_marker_snippet_no_results">No results</string>
-    <string translatable="false" name="location_picker_place_name_result">Place name: %1$s</string>
 
     <!--PulsingLayerOpacityColorActivity activity-->
-    <string translatable="false" name="fab_title_hotels">Hotels</string>
-    <string translatable="false" name="fab_title_parks">Parks</string>
-    <string translatable="false" name="fab_title_attractions">Attractions</string>
 
     <!--OffRouteActivity activity-->
 
     <!--LanguageSwitchActivity activity-->
-    <string translatable="false" name="language_switch_options_menu_language_english">English</string>
-    <string translatable="false" name="language_switch_options_menu_language_french">French</string>
-    <string translatable="false" name="language_switch_options_menu_language_russian">Russian</string>
-    <string translatable="false" name="language_switch_options_menu_language_german">German</string>
-    <string translatable="false" name="language_switch_options_menu_language_spanish">Spanish</string>
-    <string translatable="false" name="language_switch_options_menu_language_italian">Italian</string>
-    <string translatable="false" name="language_switch_options_menu_language_vietnamese">Vietnamese</string>
-    <string translatable="false" name="language_switch_options_menu_language_korean">Korean</string>
-    <string translatable="false" name="language_switch_options_menu_language_japanese">Japanese</string>
-    <string translatable="false" name="language_switch_options_menu_language_simplified_chinese">Simplified Chinese</string>
-    <string translatable="false" name="language_switch_options_menu_language_traditional_chinese">Traditional Chinese</string>
 
     <!--LanguageSwitchActivity activity-->
 
     <!--Tap on map instruction for toast-->
-    <string translatable="false" name="tap_on_map_instruction">Tap anywhere on the map</string>
-    <string translatable="false" name="tap_on_map_for_notification">Tap on map to get a notification with map image</string>
-
-    <string translatable="false" name="san_francisco">San Francisco</string>
-    <string translatable="false" name="los_angeles">Los Angeles</string>
-    <string translatable="false" name="seattle">Seattle</string>
-    <string translatable="false" name="new_orleans">New Orleans</string>
-    <string translatable="false" name="chicago">Chicago</string>
-    <string translatable="false" name="philadelphia">Philadelphia</string>
-    <string translatable="false" name="new_york">New York</string>
-    <string translatable="false" name="atlanta">Atlanta</string>
-    <string translatable="false" name="portland">Portland</string>
-    <string translatable="false" name="denver">Denver</string>
-    <string translatable="false" name="minneapolis">Minneapolis</string>
-    <string translatable="false" name="miami">Miami</string>
-    <string translatable="false" name="extrusions_category">3D Extrusions</string>
-    <string translatable="false" name="plugins_category">Plugins</string>
 
     <!--Landing activity-->
-    <string translatable="false" name="tv_create_account_button">Create account</string>
-    <string translatable="false" name="tv_sign_in_to_account_button">Sign in</string>
-    <string translatable="false" name="landing_cta_tv_text">Create or sign in to your Mapbox account to view the latest Mapbox demos</string>
-    <string translatable="false" name="skip_for_now_bottom_button">Skip for now</string>
-    <string translatable="false" name="do_not_show_again_button_text">Don\'t ask again</string>
-    <string translatable="false" name="whoops_error_dialog_title">Whoops!</string>
-    <string translatable="false" name="whoops_error_dialog_message">Looks like something went wrong with the log in process! Please try clearing your browser\'s cache/cookies and then sign back in.</string>
-    <string translatable="false" name="whoops_error_dialog_ok_positive_button">Ok</string>
 
     <!--Loading activity-->
-    <string translatable="false" name="loading_textview">Loading&#8230;</string>
 
     <!--Space station toast-->
-    <string translatable="false" name="space_station_toast">Zoom in closely on the space station\nto see it moving across the map</string>
 
     <!-- Extrusion light activity menu -->
-    <string translatable="false" name="change_anchor">Change anchor</string>
-    <string translatable="false" name="change_intensity">Change intensity</string>
-
-    <string translatable="false" name="no_picture_in_picture_support">This device\'s Android version does not\nsupport picture-in-picture mode</string>
-    <string translatable="false" name="retrieval_error_dialog_title">Whoops!</string>
-    <string translatable="false" name="retrieval_error_dialog_message">Looks like something went wrong with the log in process! Please try clearing your browser\'s cache/cookies and then sign back in.</string>
-    <string translatable="false" name="retrieval_error_dialog_ok_button">Ok</string>
 
     <!-- Share app intent -->
-    <string translatable="false" name="share_app_subject">Mapbox demo app for Android</string>
-    <string translatable="false" name="share_app_text">Hey, check out these great examples showing what can be built using Mapbox:\n
-    http://play.google.com/store/apps/details?id=com.mapbox.mapboxandroiddemo</string>
-    <string translatable="false" name="share_app_choose_one_instruction">Share the app:</string>
 
     <!-- Clicked on layer activity -->
-    <string translatable="false" name="click_on_polygon_toast_instruction">Click anywhere within polygon FillLayer</string>
-    <string translatable="false" name="click_on_polygon_toast">Clicked on FillLayer</string>
 
     <!-- Recyclerview on map -->
-    <string translatable="false" name="rv_card_name">Location #%1$d</string>
-    <string translatable="false" name="rv_card_bed_info">This location has %1$d beds</string>
-    <string translatable="false" name="toast_instruction">Tap on cards below</string>
 
     <!-- Recyclerview Directions on map -->
-    <string translatable="false" name="rv_directions_route_card_name">Restaurant #%1$d</string>
-    <string translatable="false" name="rv_directions_route_available_table_info">%1$d tables available</string>
 
     <!-- Optimization API activity -->
-    <string translatable="false" name="only_twelve_stops_allowed">Only 12 stops allowed on route. Press on the map and hold to clear markers.</string>
-    <string translatable="false" name="click_instructions">Tap on the map to select a maximum of 12 locations</string>
-    <string translatable="false" name="successful_but_no_routes">No routes found for that location</string>
-    <string translatable="false" name="null_in_response">%1$s is null.</string>
-    <string translatable="false" name="no_success">No routes found, make sure you set the right user and access token</string>
 
     <!-- Rotation extrusion -->
-    <string translatable="false" name="no_accelerometer">This device doesn\'t support an accelerometer sensor</string>
-    <string translatable="false" name="no_magnetic">This device doesn\'t support a magnetic sensor</string>
 
     <!-- GeoJSON plugin activity-->
 
     <!-- Raster and local style source activity-->
-    <string translatable="false" name="load_raster_button_text">Load custom raster style</string>
-    <string translatable="false" name="load_local_style_button_text">Load local style</string>
 
     <!-- Localization plugin -->
-    <string translatable="false" name="chinese">Chinese</string>
-    <string translatable="false" name="russian">Russian</string>
-    <string translatable="false" name="arabic">Arabic</string>
-    <string translatable="false" name="change_device_language_instruction">Change the device\'s language to German and then tap this button. Already in German? Try French</string>
-    <string translatable="false" name="instruction_description">Tap the buttons above to
-        switch the map\'s language.</string>
 
     <!-- Matrix API -->
-    <string translatable="false" name="call_error">Oh no! The call to the Directions Matrix API failed</string>
-    <string translatable="false" name="miles_distance">%1$s miles</string>
-    <string translatable="false" name="click_on_marker_instruction_toast">Click on a bolt marker to get started</string>
 
     <!-- Geocoding -->
     <string translatable="false" name="latitude">latitude</string>
     <string translatable="false" name="longitude">longitude</string>
-    <string translatable="false" name="geocode">Start geocode</string>
-    <string translatable="false" name="map_center">Map center</string>
-    <string translatable="false" name="no_results">No results</string>
-    <string translatable="false" name="choose_city_spinner">Choose city</string>
-    <string translatable="false" name="fill_in_a_value">Fill in a value</string>
-    <string translatable="false" name="geocoding_results">Raw geocoding results:</string>
-    <string translatable="false" name="make_valid_lat">Latitude must be between -90 and 90.
-    Longitude must be between -180 and 180.</string>
 
     <!-- Infowindow SymbolLayer -->
     <string translatable="false" name="capital">Capital:</string>
-    <string translatable="false" name="tap_on_marker_instruction">Tap on a marker</string>
 
     <!-- Redo search -->
-    <string translatable="false" name="redo_search_button">Search in this area</string>
-    <string translatable="false" name="layer_not_found">The %1$s layer isn\'t part of this map style, so data might not appear</string>
-    <string translatable="false" name="move_the_map_and_research">Move the map and search again</string>
 
     <!-- Place Picker plugin -->
-    <string translatable="false" name="selected_place_info">Selected location information:\n%1$s</string>
-    <string translatable="false" name="go_to_picker_activity">Go to place picker activity</string>
 
     <!-- Static image -->
-    <string translatable="false" name="dark_style">Dark</string>
-    <string translatable="false" name="streets_style">Streets</string>
-    <string translatable="false" name="create_image">Create static image</string>
-    <string translatable="false" name="select_a_style">Select a style button first</string>
 
     <!-- Building outline-->
-    <string translatable="false" name="building_layer_not_present">This map style doesn\'t have a building layer</string>
-    <string translatable="false" name="move_map_around_building_out_instruction">Move the map to place red dot on a building</string>
-    <string translatable="false" name="move_map_around_instruction">Move the map around</string>
 
     <!--Calendar integration toast-->
-    <string translatable="false" name="user_calendar_permission_explanation">This example needs calendar access in order to show calendar and map integration.</string>
-    <string translatable="false" name="click_on_calendar_icon_instruction">Tap on a calendar event map icon</string>
-    <string translatable="false" name="no_connectivity">Calendar events won\'t appear because your device isn\'t connected to the internet.</string>
 
     <!-- Temperature change -->
-    <string translatable="false" name="temp_change_feedback"> Showing min and max temperatures up to 2006 in %1$s</string>
 
     <!-- Click to add image -->
-    <string translatable="false" name="tap_instructions">Tap four points on the map in a CLOCKWISE order</string>
 
     <!-- Satellite land selection -->
-    <string translatable="false" name="clear_all">Clear</string>
-    <string translatable="false" name="trace_instruction">Trace some of the Gardens of Versailles</string>
 
     <!-- Isochrone change -->
-    <string translatable="false" name="click_on_map_instruction">Tap on the map</string>
-    <string translatable="false" name="showing_time_labels_on_line_toast">Now showing minute labels on lines</string>
 
     <!--Custom location layer plugin icon-->
-    <string translatable="false" name="current_location">Lat: %1$f Long: %2$f</string>
-    <string translatable="false" name="tracking_enabled">Tracking mode re-enabled</string>
-    <string translatable="false" name="tracking_already_enabled">Tracking already enabled. Move the map</string>
 
     <!-- Tilequery API -->
-    <string translatable="false" name="api_response">Tilequery API response:</string>
-    <string translatable="false" name="api_error">Error with the request. Do you have internet access?</string>
-    <string translatable="false" name="no_tilequery_response_features_toast">No features found where you tapped. Find and tap on a building outline.</string>
 
     <!-- Magic window -->
-    <string translatable="false" name="could_not_get_location">Couldn\'t retrieve the device\'s location</string>
 
     <!-- Highlighted line -->
-    <string translatable="false" name="tap_on_line">Tap on one of the blue lines</string>
 
     <!-- Building plugin -->
-    <string translatable="false" name="radial_coordinate">Light radial coordinate</string>
-    <string translatable="false" name="light_azimuth_angle">Light azimuthal angle</string>
-    <string translatable="false" name="light_polar_angle">Light polar angle</string>
-    <string translatable="false" name="building_opacity">Building opacity</string>
 
     <!-- Rotating anchor position change-->
-    <string translatable="false" name="position_textview">\"State-label\" layer\'s anchor position: %1$s \n%2$s</string>
 
     <!-- Rotating camera -->
-    <string translatable="false" name="rotating_camera_toast_instruction">Try tapping on the map and/or adjusting the zoom</string>
 
     <!-- Zoom based icon change -->
-    <string translatable="false" name="zoom_map_in_and_out_icon_switch_instruction">Zoom in and out to see the icons change</string>
 
     <!-- Pin drop animation -->
-    <string translatable="false" name="bounce_interpolator">Bounce interpolator</string>
-    <string translatable="false" name="linear_interpolator">Linear interpolator</string>
-    <string translatable="false" name="accelerate_interpolator">Accelerate interpolator</string>
-    <string translatable="false" name="decelerate_interpolator">Decelerate interpolator</string>
     <string translatable="false" name="_00_00_00">00:00:00</string>
 
     <!--TextFieldFormatting activity-->
-    <string translatable="false" name="instruction_toast">Use the buttons to adjust the ocean name text labels</string>
-    <string translatable="false" name="map_style_not_loaded_yet">The map\'s style hasn\'t loaded yet</string>
-    <string translatable="false" name="fab_toggle_font">Font</string>
-    <string translatable="false" name="fab_toggle_text_size">Size</string>
-    <string translatable="false" name="fab_toggle_text_color">Color</string>
 
     <!-- Polygon toggle -->
-    <string translatable="false" name="tap_on_neighborhood">Tap on a neighborhood area to toggle its color</string>
 
     <!-- Turf circle ring-->
-    <string translatable="false" name="tap_on_map">Tap on the map to move the ring</string>
 
     <!-- Collision toggle -->
-    <string translatable="false" name="collision_enabled">true</string>
-    <string translatable="false" name="collision_disabled">false</string>
-    <string translatable="false" name="placement_explanation">textIgnorePlacement: other symbols can be visible even if \n they collide with the text</string>
-    <string translatable="false" name="overlap_explanation">textAllowOverlap: if true, the text will be visible even if it collides with other previously drawn symbols</string>
-    <string translatable="false" name="icon_overlap_explanation">iconAllowOverlap: the icon will be visible even if it collides with other previously drawn symbols</string>
-    <string translatable="false" name="icon_placement_explanation">iconIgnorePlacement: other symbols can be visible even if \n they collide with the icon</string>
 
     <!-- Variable label placement-->
-    <string translatable="false" name="zoom_map_in_and_out_variable_label_instruction">Zoom in and out to see red labels try to avoid collisions</string>
 
     <!-- Finger drag to draw -->
-    <string translatable="false" name="draw_instruction">Move your finger on the map to draw a search area</string>
-    <string translatable="false" name="toggle_search_data_points_title">Toggle searchable data</string>
-    <string translatable="false" name="search_result_size">Move map around to explore the %1$d locations in the drawn search area</string>
-    <string translatable="false" name="move_map_drawn_line">Move map around to explore your drawn line</string>
-    <string translatable="false" name="clear_map">Clear map for new draw</string>
-    <string translatable="false" name="toggle_straight_line_drawing">Toggle drawing single line only</string>
-    <string translatable="false" name="now_drawing">Now drawing %1$s</string>
-    <string translatable="false" name="single_line">single line</string>
-    <string translatable="false" name="polygon">polygon</string>
 
     <!-- Scale bar plugin-->
-    <string translatable="false" name="zoom_map_fab_instruction">Zoom the map in and out. Click the button to change the scale bar styling.</string>
 
     <!-- Symbol listener-->
-    <string translatable="false" name="clicked_symbol_toast">Symbol clicked</string>
-    <string translatable="false" name="long_clicked_symbol_toast">Symbol long clicked</string>
-    <string translatable="false" name="symbol_listener_instruction_toast">Tap, tap and hold, or tap and drag the icon</string>
 
     <!-- LocationComponent camera options -->
-    <string translatable="false" name="normal">Normal</string>
-    <string translatable="false" name="gps">GPS</string>
-    <string translatable="false" name="none">None</string>
-    <string translatable="false" name="none_compass">None Compass</string>
-    <string translatable="false" name="none_gps">None GPS</string>
-    <string translatable="false" name="tracking">Tracking</string>
-    <string translatable="false" name="tracking_compass">Tracking Compass</string>
-    <string translatable="false" name="tracking_gps">Tracking GPS</string>
-    <string translatable="false" name="tracking_gps_north">Tracking GPS North</string>
-    <string translatable="false" name="clicked_on_location_component">Clicked on LocationComponent</string>
 
     <!-- Isochrone with seekbar-->
-    <string translatable="false" name="live_within_textview">You want to live within how many minutes from your downtown Vienna office?</string>
-    <string translatable="false" name="minutes_textview">%1$d min</string>
 
     <!-- Turf polygon circle transformation -->
-    <string translatable="false" name="polygon_circle_transformation_click_map_instruction">Tap the map to move the circle</string>
-    <string translatable="false" name="polygon_circle_transformation_circle_steps">Steps: %1$d</string>
-    <string translatable="false" name="polygon_circle_transformation_circle_radius">Radius: %1$s</string>
-    <string translatable="false" name="polygon_circle_transformation_circle_distance_units">Unit: </string>
-    <string-array name="polygon_circle_transformation_circle_distance_units_array">
-        <item>Kilometers</item>
-        <item>Miles</item>
-        <item>Degrees</item>
-        <item>Radians</item>
-    </string-array>
 
     <!-- Cache management -->
-    <string translatable="false" name="cache_invalidated_toast_confirmation">Ambient cache successfully invalidated</string>
-    <string translatable="false" name="cache_invalidated_toast_error">Error with invalidating the ambient cache: %1$s</string>
-    <string translatable="false" name="reset_database_toast_confirmation">Database successfully reset</string>
-    <string translatable="false" name="reset_database_toast_error">Error with resetting database: %1$s</string>
-    <string translatable="false" name="set_max_ambient_cache_size_textview">Enter new max\ncache size in bytes</string>
-    <string translatable="false" name="set_max_ambient_cache_size_toast_confirmation">Max cache size successfully set to %1$d bytes</string>
-    <string translatable="false" name="set_max_ambient_cache_size_toast_error">Error with setting new max cache size: %1$s</string>
-    <string translatable="false" name="clear_ambient_cache_size_toast_confirmation">Ambient cache successfully cleared</string>
-    <string translatable="false" name="clear_ambient_cache_size_toast_error">Error with clearing ambient cache: %1$s</string>
-    <string translatable="false" name="invalidate_cache_button">Invalidate cache</string>
-    <string translatable="false" name="reset_database_button">Reset database</string>
-    <string translatable="false" name="set_ambient_cache_max_hint">New max</string>
-    <string translatable="false" name="set_ambient_cache_max">Set ambient\nmax cache</string>
-    <string translatable="false" name="invalid_max_ambient_cache_size">Set ambient\nmax cache</string>
-    <string translatable="false" name="clear_ambient_cache_button">Clear ambient\ncache</string>
 
     <!-- Turf measure line distance -->
-    <string translatable="false" name="line_distance_tap_instruction">Tap on map at least twice to create and measure a line</string>
-    <string translatable="false" name="line_distance_textview">Line distance in %1$s: %2$s</string>
 
     <!-- Directions route gradient -->
-    <string translatable="false" name="route_can_not_be_displayed">The directions route can\'t be displayed at this time</string>
-    <string translatable="false" name="route_call_failure">Directions API call failed. Try again later.</string>
-    <string translatable="false" name="tap_map_instruction_gradient_directions">Tap the map to change the route destination.</string>
 
     <!-- Multiple geometries directions line-->
-    <string translatable="false" name="no_legs_toast">This directions route has no legs</string>
-    <string translatable="false" name="no_routes_found">No routes found</string>
-    <string translatable="false" name="response_body_null">Response body null. Try again later.</string>
-    <string translatable="false" name="tap_on_map_to_change_destination">Tap on map to change destination</string>
 
     <!-- Tilequery API -->
-    <string translatable="false" name="elevation_api_response_textview">Elevation data response from Tilequery API</string>
-    <string translatable="false" name="elevation_api_response_ten_meter_textview">Data is mapped to 10 meter height increments</string>
-    <string translatable="false" name="elevation_tilequery_api_response_error">Error with the request. Do you have internet access?</string>
-    <string translatable="false" name="elevation_tilequery_no_features">No features in the response.</string>
-    <string translatable="false" name="elevation_numbers_only_textview">%1$d Features in the API response: %2$s</string>
 
     <!-- Shared preferences save -->
-    <string translatable="false" name="not_saved_yet">Not saved yet</string>
-    <string translatable="false" name="saved_lat_textview">Saved latitude: %1$s</string>
-    <string translatable="false" name="saved_long_textview">Saved longitude: %1$s</string>
-    <string translatable="false" name="tap_on_map_save_to_shared_pref">Tap on the map to save coordinates to the device\'s Shared Preferences</string>
-    <string translatable="false" name="shared_pref_marker_placement">Marker placed at coordinates saved in Shared Preferences.</string>
 
     <!-- Variable label placement-->
-    <string translatable="false" name="zoom_map_in_and_out_circle_to_icon_transition">Zoom in and out to see the circles transition to icons</string>
 
     <!-- Zoom opacity swap-->
-    <string translatable="false" name="zoom_in_and_out_instruction">Zoom in and out to see the new order of the satellite and Streets styles</string>
 
     <!-- China bounds checker-->
-    <string translatable="false" name="device_location">Device %1$s in China</string>
-    <string translatable="false" name="china_style_with_english_labels_warning_toast">This style file isn\'t actually included in the app because of privacy reasons. Add the file to an assets folder. Please email Mapbox at apac-bd@mapbox.com if you need this file and/or have questions.</string>
 
     <!-- China mixed styles based on location-->
-    <string translatable="false" name="china_token_warning_toast">This example requires a regular Mapbox token and a China token. Please see the code for more instructions.</string>
 
     <!-- Biometrics fingerprint-->
-    <string translatable="false" name="prompt_title">Unlock map data</string>
-    <string translatable="false" name="prompt_subtitle">Show hidden data</string>
-    <string translatable="false" name="prompt_description">Touch your finger on the fingerprint sensor to add data to the map.</string>
-    <string translatable="false" name="prompt_negative_button">Cancel</string>
-    <string translatable="false" name="fingerprint_not_possible">Fingerprint authentication not set up on this device or not available yet.</string>
-    <string translatable="false" name="fingerprint_fail">Didn\'t recognize your fingerprint. Please try again!</string>
 
     <!-- Thick bordered circle-->
-    <string translatable="false" name="thick_bordered_circle_radius">Radius: %1$d kilometers</string>
-    <string translatable="false" name="thick_bordered_circle_border_difference">Border difference: %1$d kilometers</string>
-    <string translatable="false" name="tap_on_map_to_move_bordered_circle">Tap on the map to move the bordered circle</string>
 
     <!-- Worldview-->
-    <string translatable="false" name="now_viewing_worldview">Now viewing the "%1$s" world view</string>
 
     <!-- Property icon setting-->
-    <string translatable="false" name="toast_icon_property_info">This Feature\'s icon id is %1$s</string>
 
     <!-- Static image API notification-->
-    <string translatable="false" name="static_image_api_notification_content_title">%1$d wifi hotspots within %2$d ft.</string>
-    <string translatable="false" name="static_image_api_notification_bitmap_fail">Failed to retrieve an image from the Static Image API</string>
-    <string translatable="false" name="static_image_api_notification_description">Here\'s the closest one: %1$s</string>
-    <string translatable="false" name="static_image_api_notification_seekbar_feet">%1$d feet</string>
-    <string translatable="false" name="static_image_api_notification_no_wifi_nearby">Zero wifi locations nearby</string>
 
     <!-- Zoom to cluster leaves -->
-    <string translatable="false" name="tap_on_cluster_circle_instruction">Tap on a cluster circle to zoom and fit the bounds to its leaves</string>
 
     <!-- Driving profile toggle -->
-    <string translatable="false" name="driving_profile">%1$sm\nby car</string>
-    <string translatable="false" name="walking_profile">%1$sm\non foot</string>
-    <string translatable="false" name="cycling_profile">%1$sm\nby bike</string>
-    <string translatable="false" name="instruction">Click on map or buttons to change route</string>
 
     <!-- Baseball spray chart-->
-    <string translatable="false" name="baseball_spray_chart_show_icons">Show icons instead</string>
 
     <!-- Circle icon toggling on click-->
     <string translatable="false" name="tap_on_map_to_toggle_instruction">Tap on a circle and then marker to toggle. Tap elsewhere to reset to circles.</string>
 
     <!-- Vibrate-->
-    <string translatable="false" name="long_press_to_add_pin">Long press on the map to add a pin icon</string>
 
     <!-- Within circle filter-->
-    <string-array name="within_poi_filter_circle_distance_units_array">
-        <item>Miles</item>
-        <item>Kilometers</item>
-    </string-array>
 
     <!-- Two-person meetup location isochrone within  -->
-    <string translatable="false" name="drag_faces_instruction">Tap on, hold, and drag a face to move it to a new location</string>
 
     <!-- Custom LocationComponent pulsing  -->
-    <string translatable="false" name="duration">Duration:</string>
-    <string translatable="false" name="color">Color:</string>
-    <string translatable="false" name="select">Select</string>
 
     <!-- Feature filter  -->
-    <string translatable="false" name="showing_all_country_labels">Showing all country labels</string>
-    <string translatable="false" name="filtering_countries">Match filter using "name_en", applied to layer to hide some countries\' labels</string>
 
     <!-- Single building highlight  -->
-    <string translatable="false" name="tap_on_building">Tap on a building to get started</string>
-    <string translatable="false" name="keep_tapping_on_building_footprint">Keep tapping on any building footprints!</string>
 
     <!-- Extrusion color expression highlight -->
+    <string translatable="false" name="satellite">Satellite</string>
+    <string translatable="false" name="default_string">Default</string>
+    <string translatable="false" name="terrain">Terrain</string>
+    <string translatable="false" name="hybrid">Hybrid</string>
+    <string translatable="false" name="location_qr">Location QR</string>
+    <string translatable="false" name="collection">Collection</string>
+    <string translatable="false" name="elevation">Elevation</string>
+    <string translatable="false" name="accuracy">Accuracy</string>
+    <string translatable="false" name="time">Time</string>
+    <string translatable="false" name="start">Start</string>
+    <string translatable="false" name="photo_note">Photo Note:</string>
+    <string translatable="false" name="note">Note: </string>
+    <string translatable="false" name="save">Save</string>
+    <string translatable="false" name="location">Location</string>
+    <string translatable="false" name="altitude">Altitude</string>
+    <string translatable="false" name="current_altitude">Current Altitude</string>
+    <string translatable="false" name="yes">Yes</string>
+    <string translatable="false" name="no">No</string>
+    <string translatable="false" name="_000">000</string>
+    <string translatable="false" name="_0">0</string>
+    <string translatable="false" name="max_speed">Max Speed</string>
+    <string translatable="false" name="distance">Distance</string>
+    <string translatable="false" name="speedometer">Speedometer</string>
+    <string translatable="false" name="sky_map">Sky Map</string>
+    <string translatable="false" name="_10">10.</string>
+    <string translatable="false" name="pakistan">Pakistan</string>
+    <string translatable="false" name="population">Population:</string>
+    <string translatable="false" name="area">Area</string>
+    <string translatable="false" name="currency">Currency:</string>
+    <string translatable="false" name="country_list">Country List</string>
+    <string translatable="false" name="select_mode">Select Mode</string>
+    <string translatable="false" name="countries">Countries</string>
+    <string translatable="false" name="asia">Asia</string>
+    <string translatable="false" name="europe">Europe</string>
+    <string translatable="false" name="africa">Africa</string>
+    <string translatable="false" name="america">America</string>
+    <string translatable="false" name="oceania">Oceania</string>
+    <string translatable="false" name="world">World</string>
+    <string translatable="false" name="confirm">Confirm</string>
+    <string translatable="false" name="find">Find:</string>
+    <string translatable="false" name="correct">Correct !</string>
+    <string translatable="false" name="_0_30">0 / 30</string>
+    <string translatable="false" name="easy">Easy</string>
+    <string translatable="false" name="medium">Medium</string>
+    <string translatable="false" name="hard">Hard</string>
+    <string translatable="false" name="pro_player">Pro Player</string>
+    <string translatable="false" name="_0_70">0 / 70</string>
+    <string translatable="false" name="_0_236">0 / 236</string>
+    <string translatable="false" name="quiz_result">Quiz Result</string>
+    <string translatable="false" name="total_levels">Total Levels:</string>
+    <string translatable="false" name="correct_answers">Correct Answers</string>
+    <string translatable="false" name="false_answers">False Answers:</string>
+    <string translatable="false" name="back">Back</string>
+    <string translatable="false" name="quit">Quit ?</string>
+    <string translatable="false" name="do_you_really_want_to_quit">Do you really want to quit ?</string>
+    <string translatable="false" name="capitals">Capitals</string>
+    <string translatable="false" name="flags" >Flags</string>
+    <string translatable="false" name="continents">Continents</string>
+    <string translatable="false" name="difficulty_level">Difficulty Level</string>
+    <string translatable="false" name="km_h">KM/H</string>
+    <string translatable="false" name="km">KM</string>
+    <string translatable="false" name="add_note">Add Note</string>
+    <string translatable="false" name="loading">Loading..</string>
+    <string translatable="false" name="live_earth_map">Live Earth Map</string>
+    <string translatable="false" name="noise_detector">Noise Detector</string>
+    <string translatable="false" name="view_world">View World</string>
+    <string translatable="false" name="close">Close</string>
+    <string translatable="false" name="min">Min</string>
+    <string translatable="false" name="avg">Avg</string>
+    <string translatable="false" name="info">Info</string>
+    <string translatable="false" name="reset">Reset</string>
+    <string translatable="false" name="max">Max</string>
+    <string translatable="false" name="currencies">Currencies</string>
+    <string translatable="false" name="unlock_to_n_pro_features">Unlock to \nPro Features</string>
+    <string translatable="false" name="if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos">If you unlock you will access to: \n \n Ads free App \n Unlock All games features \n Capture unlimited photos.</string>
+    <string translatable="false" name="terms_and_condition">Terms &amp; Condition</string>
+    <string translatable="false" name="privacy_policy">Privacy Policy</string>
+    <string translatable="false" name="unlock">Unlock</string>
+    <string translatable="false" name="upgrade_to_pro">Upgrade to Pro</string>
+    <string translatable="false" name="share_app">Share App</string>
+    <string translatable="false" name="feedback">Feedback</string>
+    <string translatable="false" name="rate_us">Rate us</string>
+    <string translatable="false" name="settings">Settings</string>
+    <string translatable="false" name="enter_your_topic_and_let_us_know_about_your_feedback">Enter your topic and let us know about your feedback.</string>
+    <string translatable="false" name="enter_topic_here">Enter topic here</string>
+    <string translatable="false" name="do_you_suggestion_or_found_some_bug_n_do_let_us_know_your_feedback">Do you suggest or found some bug and do let us know your feedback.</string>
+    <string translatable="false" name="publish_feedback">Publish Feedback</string>
+    <string translatable="false" name="write_your_suggestion">Write your suggestion</string>
+    <string translatable="false" name="did_you_enjoy_the_app">Did you enfoy the App ?</string>
+    <string translatable="false" name="start_navigation">Start Navigation</string>
     <string name="tap_on_building_to_highlight">Tap on a building to highlight it</string>
     <string name="satellite">Satellite</string>
     <string name="default_string">Default</string>
@@ -1110,6 +624,8 @@
     <string name="qr">QR</string>
     <string name="direction">Direction</string>
     <string name="todo">TODO</string>
+    <string name="street">Street</string>
+    <string name="click_here_to_explore">Click here to explore</string>
     <string name="next">Next</string>
     <string name="more_applications">More Applications</string>
     <!--    <string translatable="false" name="analytics_enabled">Enable Analytics</string>-->

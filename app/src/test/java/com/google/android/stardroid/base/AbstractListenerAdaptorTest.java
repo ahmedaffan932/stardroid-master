@@ -14,6 +14,9 @@
 
 package com.google.android.stardroid.base;
 
+import com.liveearth.android.map.base.AbstractListenerAdaptor;
+import com.liveearth.android.map.base.Lists;
+
 import junit.framework.TestCase;
 
 import org.easymock.EasyMock;

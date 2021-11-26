@@ -19,12 +19,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -61,7 +61,6 @@ import kotlinx.android.synthetic.main.activity_altitude.llHybrid
 import kotlinx.android.synthetic.main.activity_altitude.llSatellite
 import kotlinx.android.synthetic.main.activity_altitude.llTerrain
 import kotlinx.android.synthetic.main.activity_altitude.svLocation
-import kotlinx.android.synthetic.main.activity_live_earth.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
