@@ -141,6 +141,9 @@ dependencies {
     implementation 'com.mapbox.maps:android:10.1.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v9:0.7.0'
     implementation "com.mapbox.navigation:android:2.0.2"
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'){
+        transitive=true
+    }
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
     implementation 'com.google.zxing:core:3.3.2'

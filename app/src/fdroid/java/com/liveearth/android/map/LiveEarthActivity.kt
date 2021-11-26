@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
@@ -58,16 +59,22 @@ import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
+import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.gestures.OnMapClickListener
+import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.navigation.base.extensions.applyDefaultNavigationOptions
 import com.mapbox.navigation.base.options.NavigationOptions
 import com.mapbox.navigation.base.route.RouterCallback
 import com.mapbox.navigation.base.route.RouterFailure
 import com.mapbox.navigation.base.route.RouterOrigin
-import com.mapbox.navigation.core.MapboxNavigation
 import com.mapbox.navigation.ui.maps.route.line.api.MapboxRouteLineApi
 import com.mapbox.navigation.ui.maps.route.line.api.MapboxRouteLineView
 import com.mapbox.navigation.ui.maps.route.line.model.MapboxRouteLineOptions
 import com.mapbox.navigation.ui.maps.route.line.model.RouteLine
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
@@ -105,7 +112,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private var address = ""
     private var isFirstTime = true
     private var isBtnGenerateVisible = true
-    private lateinit var mapView: MapView
+    private lateinit var mapView: com.mapbox.maps.MapView
     private lateinit var mapboxMap: MapboxMap
     private lateinit var mapBoxStyle: Style
     private lateinit var permissionsManager: PermissionsManager
@@ -121,10 +128,27 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_live_earth)
+        mapView = findViewById(R.id.mapView)
+        mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS)
+
+        val annotationApi = mapView.annotations
 
         mapView = findViewById(R.id.mapView)
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
+        mapView.gestures.pinchToZoomEnabled = true
+
+        mapView.gestures.addOnMapClickListener { point ->
+            annotationApi.cleanup()
+            val pointAnnotationManager = annotationApi.createPointAnnotationManager(mapView)
+            val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
+                .withPoint(Point.fromLngLat(point.longitude(), point.latitude()))
+                .withIconImage(BitmapFactory.decodeResource(resources, R.drawable.placeholder))
+            pointAnnotationManager.create(pointAnnotationOptions)
+            this.point.latitude = point.latitude()
+            this.point.longitude = point.longitude()
+//            animateCamera(this.point, 14.0)
+            getAddress(this.point)
+            true
+        }
 
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
@@ -220,7 +244,7 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
         btnThreeDView.setOnClickListener {
             setBtnTextWhiteColor()
-            setMapBoxStyle(Style.MAPBOX_STREETS, true)
+            setMapBoxStyle(Style.SATELLITE_STREETS, true)
             text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
         }
 
@@ -297,10 +321,11 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
     public override fun onResume() {
         super.onResume()
-        mapView.onResume()
+//        mapView.onResume()
         btnStartNavigation.visibility = View.GONE
     }
 
+    @SuppressLint("Lifecycle")
     override fun onStart() {
         super.onStart()
         mapView.onStart()
@@ -311,14 +336,15 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         mapView.onStop()
     }
 
+
     public override fun onPause() {
         super.onPause()
-        mapView.onPause()
+//        mapView.onPause()
     }
 
     @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle) {
-        mapView.onSaveInstanceState(outState)
+//        mapView.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 
@@ -377,8 +403,6 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             ) {
             }
             locationComponent.isLocationComponentEnabled = true
-
-            // Set the component's camera mode
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.NORMAL
         } else {
@@ -399,11 +423,9 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         return try {
             addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
             if (!(addresses == null || addresses.isEmpty())) {
-                mapboxMap.getStyle { style ->
-                    Log.d(Misc.logKey, addresses[0].getAddressLine(0))
-                    address =
-                        addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
-                }
+                Log.d(Misc.logKey, addresses[0].getAddressLine(0))
+                address =
+                    addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
                 addresses[0].countryName
             } else "null"
         } catch (ignored: IOException) {
@@ -413,56 +435,26 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     }
 
     private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
-        mapboxMap.setStyle(
-            styleName
-        ) { style ->
-            mapBoxStyle = style
-            if (isThreeDView) {
-                buildingPlugin?.setVisibility(true)
-                mapboxMap.animateCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition.Builder()
-                            .target(mapboxMap.cameraPosition.target)
-                            .zoom(17.0)
-                            .tilt(60.0)
-                            .build()
-                    ), 4000
-                )
-                isThreeDViewEnabled = true
-            } else {
-                mapboxMap.animateCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition.Builder()
-                            .target(mapboxMap.cameraPosition.target)
-                            .zoom(mapboxMap.cameraPosition.zoom)
-                            .tilt(0.0)
-                            .build()
-                    ), 4000
-                )
-                buildingPlugin?.setVisibility(false)
-                isThreeDViewEnabled = false
-            }
-            mapboxMap.addOnMapClickListener(this)
+        mapView.getMapboxMap().loadStyleUri(styleName)
 
-            if (isFirstTime) {
-                enableLocationPlugin(style)
-                val manager = getSystemService(LOCATION_SERVICE) as LocationManager
-                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    buildAlertMessageNoGps()
-                }
-                buildingPlugin = BuildingPlugin(mapView, mapboxMap, style)
-                buildingPlugin?.setMinZoomLevel(15f)
-                isFirstTime = false
-            }
-
-            hoveringMarker = ImageView(this@LiveEarthActivity)
-            hoveringMarker.setImageResource(R.drawable.ic_pin)
-            val params = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
+        if (isThreeDView) {
+            mapView.getMapboxMap().setCamera(
+                CameraOptions.Builder()
+                    .center(Point.fromLngLat(-74.0066, 40.7135))
+                    .pitch(45.0)
+                    .zoom(15.5)
+                    .bearing(-17.6)
+                    .build()
             )
-            hoveringMarker.layoutParams = params
-            initDroppedMarker(style)
+        }else{
+            mapView.getMapboxMap().setCamera(
+                CameraOptions.Builder()
+                    .center(Point.fromLngLat(-74.0066, 40.7135))
+                    .pitch(0.0)
+                    .zoom(15.5)
+                    .bearing(0.0)
+                    .build()
+            )
         }
     }
 
@@ -627,128 +619,45 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             .accessToken(getString(R.string.mapbox_access_token))
             .build()
 //        val mapboxNavigation = MapboxNavigationProvider.create(navigationOptions)
-        navMapRoute = MapboxNavigation(navigationOptions)
-        navMapRoute.requestRoutes(
-            RouteOptions.builder()
-                .applyDefaultNavigationOptions()
-                .coordinatesList(listOf(origin, destination))
-                .build(),
-            object : RouterCallback {
-                override fun onCanceled(routeOptions: RouteOptions, routerOrigin: RouterOrigin) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onFailure(reasons: List<RouterFailure>, routeOptions: RouteOptions) {
-                    Toast.makeText(
-                        this@LiveEarthActivity,
-                        "Some error occurred in route generation.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    for (reason in reasons)
-                        Log.d(Misc.logKey, reason.message)
-                }
-
-                override fun onRoutesReady(
-                    routes: List<DirectionsRoute>,
-                    routerOrigin: RouterOrigin
-                ) {
-                    val routeLineOptions = MapboxRouteLineOptions.Builder(this@LiveEarthActivity).build()
-                    val routeLineApi = MapboxRouteLineApi(routeLineOptions)
-                    val routeLineView = MapboxRouteLineView(routeLineOptions)
-
-                    val routeLines = routes.map { RouteLine(it, null) }
-                    routeLineApi.setRoutes(routeLines) { value ->
-                        val s = Style
-                        routeLineView.renderRouteDrawData(mapBoxStyle, value)
-                    }
-                }
-
-            }
-        )
-
-//        client.enqueueCall(object : Callback<DirectionsResponse> {
-//            override fun onResponse(
-//                call: Call<DirectionsResponse>,
-//                response: Response<DirectionsResponse>
-//            ) {
-//
-//                if (response.body() == null) {
-//                    Log.e(
-//                        Misc.logKey,
-//                        "No routes found, make sure you set the right user and access token."
-//                    )
-//                    return
-//                } else if (response.body()!!.routes().size < 1) {
-//                    Log.e(Misc.logKey, "No routes found")
-//                    return
+//        navMapRoute = MapboxNavigation(navigationOptions)
+//        navMapRoute.requestRoutes(
+//            RouteOptions.builder()
+//                .applyDefaultNavigationOptions()
+//                .coordinatesList(listOf(origin, destination))
+//                .build(),
+//            object : RouterCallback {
+//                override fun onCanceled(routeOptions: RouteOptions, routerOrigin: RouterOrigin) {
+//                    TODO("Not yet implemented")
 //                }
 //
-//                val currentRoute = response.body()!!.routes()[0]
-//                //                Log.d(Misc.logKey, currentRoute.toString())
-//                Log.d(Misc.logKey, "Here I am.")
-//
-//                if (this@LiveEarthActivity::navMapRoute.isInitialized) {
-////                    navMapRoute.removeRoute()
-//                    isRouteAdded = false
-//                } else {
-//
-//                    val navigationOptions = NavigationOptions.Builder(this@LiveEarthActivity)
-//                        .accessToken(getString(R.string.mapbox_access_token))
-//                        .build()
-//                    val mapboxNavigation = MapboxNavigationProvider.create(navigationOptions)
-//
-////                    navMapRoute = NavigationMapRoute(
-////                        null,
-////                        mapView,
-////                        mapboxMap,
-////                        R.style.NavigationLocationLayerStyle
-////                    )
+//                override fun onFailure(reasons: List<RouterFailure>, routeOptions: RouteOptions) {
+//                    Toast.makeText(
+//                        this@LiveEarthActivity,
+//                        "Some error occurred in route generation.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    for (reason in reasons)
+//                        Log.d(Misc.logKey, reason.message)
 //                }
 //
-////                navMapRoute.addRoute(currentRoute)
+//                override fun onRoutesReady(
+//                    routes: List<DirectionsRoute>,
+//                    routerOrigin: RouterOrigin
+//                ) {
+//                    val routeLineOptions = MapboxRouteLineOptions.Builder(this@LiveEarthActivity).build()
+//                    val routeLineApi = MapboxRouteLineApi(routeLineOptions)
+//                    val routeLineView = MapboxRouteLineView(routeLineOptions)
 //
-//                Misc.route = currentRoute
-//                Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
-//                btnStartNavigation.setOnClickListener {
-//                    if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
-//                        Misc.startActivity(
-//                            this@LiveEarthActivity,
-//                            Misc.isNavigationIntEnabled,
-//                            object : StartActivityCallBack {
-//                                override fun onStart() {
-//                                    startActivity(
-//                                        Intent(
-//                                            this@LiveEarthActivity,
-//                                            NavigationActivity::class.java
-//                                        )
-//                                    )
-//                                }
-//                            })
-//                    } else {
-//                        AlertDialog.Builder(this@LiveEarthActivity)
-//                            .setTitle("Upgrade to pro.")
-//                            .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
-//                            .setPositiveButton("Yes") { dialog, _ ->
-//                                dialog.dismiss()
-//                                val intent =
-//                                    Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
-//                                intent.putExtra(Misc.data, Misc.data)
-//                                startActivity(intent)
-//                            }
-//                            .setNegativeButton("May be later.", null)
-//                            .setIcon(android.R.drawable.ic_dialog_alert)
-//                            .show()
+//                    val routeLines = routes.map { RouteLine(it, null) }
+//                    routeLineApi.setRoutes(routeLines) { value ->
+////                        val s = Style
+//                        routeLineView.renderRouteDrawData(mapBoxStyle, value)
 //                    }
 //                }
-//                isRouteAdded = true
 //
 //            }
-//
-//            override fun onFailure(call: Call<DirectionsResponse>, throwable: Throwable) {
-//                Log.e(Misc.logKey, "Error: " + throwable.message)
-//
-//            }
-//        })
+//        )
+
     }
 
     private fun setBtnTextWhiteColor() {
