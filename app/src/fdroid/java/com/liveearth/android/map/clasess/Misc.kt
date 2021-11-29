@@ -327,7 +327,7 @@ class Misc {
             }
         }
 
-        fun showInterstitial(
+        private fun showInterstitial(
                 activity: Activity,
                 isEnabled: Boolean,
                 callBack: InterstitialCallBack?
@@ -383,14 +383,6 @@ class Misc {
                 val adLoader: AdLoader =
                         AdLoader.Builder(activity, /* "ca-app-pub-3940256099942544/2247696110" */ id)
                                 .forNativeAd { nativeAd ->
-//                                    val typedValue = TypedValue()
-//                                    activity.theme.resolveAttribute(
-//                                            com.google.android.gms.ads.R.attr.colorPrimary,
-//                                            typedValue,
-//                                            true
-//                                    )
-//                                    val color = typedValue.data
-//                                    colorPrimary = color
                                     Log.d(logKey, "Native Ad Loaded")
 
                                     nativeFailedCount = 0

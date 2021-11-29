@@ -219,7 +219,6 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                     isAdRequestSent = true
 
                     Misc.loadInterstitial(this, Misc.interstitialAdId)
-
                     Misc.loadNativeAd(
                         this,
                         Misc.nativeAdId,
