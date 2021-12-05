@@ -42,18 +42,6 @@
             mapbox:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="SpUsage" />
 
-
-        <ImageView
-            android:id="@+id/btnSearchLocationCompass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            android:visibility="gone"
-            android:padding="@dimen/fab_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.mapbox.mapboxsdk.maps.MapView
@@ -127,7 +115,7 @@
             android:layout_marginStart="@dimen/padding"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/tap_on_map_to_toggle_instruction"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,13 +130,12 @@
             android:layout_marginStart="@dimen/padding"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/tap_on_map_to_toggle_instruction"
+            android:text=""
             android:textColor="#DEDFE7"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnGetCurrentLocationCompass"
             app:layout_constraintTop_toBottomOf="@id/tvAddressCompass" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

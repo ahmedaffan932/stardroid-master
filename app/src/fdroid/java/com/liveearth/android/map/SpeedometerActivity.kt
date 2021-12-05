@@ -35,21 +35,13 @@ class SpeedometerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@SpeedometerActivity,
+            nativeAd,
+            Misc.isSpeedometerNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@SpeedometerActivity,
-                        nativeAd,
-                        Misc.isSpeedometerNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
@@ -85,7 +77,8 @@ class SpeedometerActivity : AppCompatActivity() {
                     val speed = p0.lastLocation.speed.toInt()
 
                     if (previousLocation != null) {
-                        distance += p0.lastLocation.distanceTo(previousLocation!!).roundToLong() / 100.0
+                        distance += p0.lastLocation.distanceTo(previousLocation!!)
+                            .roundToLong() / 100.0
                     }
 
                     textSpeedDigital.text = speed.toString()

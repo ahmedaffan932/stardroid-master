@@ -137,7 +137,7 @@ dependencies {
     implementation "androidx.core:core-ktx:1.6.0"
 
     //GPS Toolbox libraries.
-    implementation 'gov.nasa.worldwind.android:worldwind:0.8.0'
+//    implementation 'gov.nasa.worldwind.android:worldwind:0.8.0'
 
     implementation 'com.mapbox.maps:android:10.0.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'

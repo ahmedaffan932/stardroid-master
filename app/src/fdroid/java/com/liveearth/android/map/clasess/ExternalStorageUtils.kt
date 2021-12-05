@@ -1,4 +1,4 @@
-package com.example.qrcodescanner.activities
+package com.liveearth.android.map.clasess
 
 import android.os.Build
 

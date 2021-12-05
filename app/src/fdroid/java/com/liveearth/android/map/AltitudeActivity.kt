@@ -1,85 +1,63 @@
 package com.liveearth.android.map
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.speech.RecognizerIntent
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
-import com.mapbox.android.core.permissions.PermissionsManager
-import com.mapbox.api.geocoding.v5.MapboxGeocoding
-import com.mapbox.api.geocoding.v5.models.GeocodingResponse
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
+import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import kotlinx.android.synthetic.main.activity_altitude.*
-import kotlinx.android.synthetic.main.activity_altitude.btnSpeakSearchLocation
+import kotlinx.android.synthetic.main.activity_altitude.btnScreenShot
 import kotlinx.android.synthetic.main.activity_altitude.btnZoomIn
 import kotlinx.android.synthetic.main.activity_altitude.btnZoomOut
 import kotlinx.android.synthetic.main.activity_altitude.llDefault
 import kotlinx.android.synthetic.main.activity_altitude.llHybrid
 import kotlinx.android.synthetic.main.activity_altitude.llSatellite
 import kotlinx.android.synthetic.main.activity_altitude.llTerrain
-import kotlinx.android.synthetic.main.activity_altitude.svLocation
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_live_earth.*
 import java.util.*
 
 class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     OnMapReadyCallback, MapboxMap.OnMapClickListener {
-    private val REQUEST_CODE_AUTOCOMPLETE = 1
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
     private lateinit var mapBoxStyle: Style
-    private lateinit var hoveringMarker: ImageView
     private lateinit var locationCallback: LocationCallback
-    private val point = LatLng()
-    private val speechRequestCode = 0
     var isCurrentLocation = true
+    private lateinit var droppedMarkerLayer: Layer
 
     companion object {
-        private const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
+        const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,24 +74,21 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             Instacapture.capture(this, object : SimpleScreenCapturingListener() {
                 override fun onCaptureComplete(bitmap: Bitmap) {
 
-                    Misc.saveImageToExternal(this@AltitudeActivity, bitmap, object : OnImageSaveCallBack {
-                        override fun onImageSaved() {
-                            Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                    Misc.saveImageToExternal(
+                        this@AltitudeActivity,
+                        bitmap,
+                        object : OnImageSaveCallBack {
+                            override fun onImageSaved() {
+                                Toast.makeText(
+                                    this@AltitudeActivity,
+                                    "Screen Shot Saved in Gallery. ",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
 
                 }
             })
-
-//            val bitmap = Bitmap.createBitmap(clForSSAltitude.width, clForSSAltitude.height, Bitmap.Config.ARGB_8888)
-//            val canvas = Canvas(bitmap)
-//            clForSSAltitude.draw(canvas)
-//
-//            Misc.saveImageToExternal(this, bitmap, object : OnImageSaveCallBack {
-//                override fun onImageSaved() {
-//                    Toast.makeText(this@AltitudeActivity, "Screen Shot Saved in Gallery. ", Toast.LENGTH_SHORT).show()
-//                }
-//            })
         }
 
         btnZoomIn.setOnClickListener {
@@ -129,10 +104,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             onBackPressed()
         }
 
-        btnSpeakSearchLocation.setOnClickListener {
-            displaySpeechRecognizer()
-        }
-
         btnZoomOut.setOnClickListener {
             val position = CameraPosition.Builder()
                 .target(mapboxMap.cameraPosition.target)
@@ -143,17 +114,17 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         }
 
         llDefault.setOnClickListener {
-            setMapBoxStyle(Style.OUTDOORS, false)
+            setMapBoxStyle(Style.OUTDOORS)
         }
 
         llSatellite.setOnClickListener {
-            setMapBoxStyle(Style.SATELLITE, false)
+            setMapBoxStyle(Style.SATELLITE)
         }
         llTerrain.setOnClickListener {
-            setMapBoxStyle(Style.SATELLITE_STREETS, false)
+            setMapBoxStyle(Style.SATELLITE_STREETS)
         }
         llHybrid.setOnClickListener {
-            setMapBoxStyle(Style.DARK, false)
+            setMapBoxStyle(Style.DARK)
         }
     }
 
@@ -164,9 +135,10 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         TODO("Not yet implemented")
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(mapboxMap: MapboxMap) {
         this.mapboxMap = mapboxMap
-        setMapBoxStyle(Style.OUTDOORS, false)
+        setMapBoxStyle(Style.OUTDOORS)
     }
 
     override fun onMapClick(point: LatLng): Boolean {
@@ -178,108 +150,48 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
-        locationCallback = object : LocationCallback() {
-            @SuppressLint("SetTextI18n", "LogNotTimber")
-            override fun onLocationResult(p0: LocationResult) {
-                super.onLocationResult(p0)
-                Log.d(Misc.logKey, p0.toString())
-                val loc = p0.lastLocation
-                if (isCurrentLocation) {
-                    tvAltitude.text = loc.altitude.toString()
-                    tvLatLngAltitude.text = "Latitude:${loc.latitude}, Longitude: ${loc.longitude}"
-                }
-            }
-        }
+        mapView.onResume()
 
-        val locationRequest = LocationRequest.create()
-        locationRequest.fastestInterval = 1000
-        locationRequest.interval = 5000
-        LocationServices.getFusedLocationProviderClient(this)
-            .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
-    private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
+    @SuppressLint("MissingPermission")
+    private fun setMapBoxStyle(styleName: String) {
 
         mapboxMap.setStyle(
             styleName
         ) { style ->
-            mapBoxStyle = style
-//            mapboxMap.animateCamera(
-//                CameraUpdateFactory.newCameraPosition(
-//                    CameraPosition.Builder()
-//                        .target(mapboxMap.cameraPosition.target)
-//                        .zoom(mapboxMap.cameraPosition.zoom)
-//                        .tilt(0.0)
-//                        .build()
-//                ), 4000
-//            )
+                mapBoxStyle = style
+            val manager = getSystemService(LOCATION_SERVICE) as LocationManager
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps()
+            }else{
 
-//            mapboxMap.addOnMapClickListener(this)
-            initSearchFab();
+                locationCallback = object : LocationCallback() {
+                    @SuppressLint("SetTextI18n", "LogNotTimber")
+                    override fun onLocationResult(p0: LocationResult) {
+                        super.onLocationResult(p0)
+                        Log.d(Misc.logKey, p0.toString())
+                        val loc = p0.lastLocation
+                        if (isCurrentLocation) {
+                            tvAltitude.text = loc.altitude.toString()
+                            tvLatLngAltitude.text = "Latitude:${loc.latitude}, Longitude: ${loc.longitude}"
 
-//            if (isFirstTime) {
-                enableLocationPlugin(style)
-                val manager = getSystemService(LOCATION_SERVICE) as LocationManager
-                if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    buildAlertMessageNoGps()
+                            val p = LatLng()
+                            p.latitude = loc.latitude
+                            p.longitude = loc.longitude
+                            animateCamera(p, 14.0)
+                            setMarker(p)
+                        }
+                    }
                 }
-//                isFirstTime = false
-//            }
 
-
-//            hoveringMarker = ImageView(this)
-//            hoveringMarker.setImageResource(R.drawable.ic_pin)
-//            val params = FrameLayout.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER
-//            )
-//            hoveringMarker.layoutParams = params
-//            initDroppedMarker(style)
+                val locationRequest = LocationRequest.create()
+                locationRequest.fastestInterval = 1000
+                locationRequest.interval = 5000
+                LocationServices.getFusedLocationProviderClient(this)
+                    .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+            }
         }
-    }
-
-    private fun initSearchFab() {
-        svLocation.setOnClickListener {
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            Misc.startActivity(this, Misc.isSearchLocationIntEnabled, object :StartActivityCallBack{
-                override fun onStart() {
-                    startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-                }
-            })
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun initDroppedMarker(loadedMapStyle: Style) {
-        // Add the marker image to map
-        loadedMapStyle.addImage(
-            "dropped-icon-image",
-            resources.getDrawable(com.liveearth.android.map.R.drawable.ic_pin_selected)
-        )
-        loadedMapStyle.addSource(GeoJsonSource("dropped-marker-source-id"))
-        loadedMapStyle.addLayer(
-            SymbolLayer(
-                com.liveearth.android.map.AltitudeActivity.Companion.DROPPED_MARKER_LAYER_ID,
-                "dropped-marker-source-id"
-            ).withProperties(
-                PropertyFactory.iconImage("dropped-icon-image"),
-                PropertyFactory.visibility(Property.NONE),
-                PropertyFactory.iconAllowOverlap(true),
-                PropertyFactory.iconIgnorePlacement(true)
-            )
-        )
     }
 
     private fun buildAlertMessageNoGps() {
@@ -296,99 +208,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         alert.show()
     }
 
-
-    @SuppressLint("SetTextI18n")
-    private fun enableLocationPlugin(loadedMapStyle: Style): Location? {
-        var locationComponent: LocationComponent? = null
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
-            locationComponent = mapboxMap.locationComponent
-            locationComponent.activateLocationComponent(
-                LocationComponentActivationOptions.builder(
-                    this, loadedMapStyle
-                ).build()
-            )
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-            }
-            locationComponent.isLocationComponentEnabled = true
-
-            // Set the component's camera mode
-            locationComponent.cameraMode = CameraMode.TRACKING
-            locationComponent.renderMode = RenderMode.NORMAL
-        }
-        return locationComponent!!.lastKnownLocation
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-            isCurrentLocation = false
-
-            val selectedCarmenFeature = PlaceAutocomplete.getPlace(data)
-
-            point.latitude = (selectedCarmenFeature.geometry() as Point?)!!.latitude()
-            point.longitude = (selectedCarmenFeature.geometry() as Point?)!!.longitude()
-            animateCamera(point, 14.0)
-
-            tvAltitude.text = (selectedCarmenFeature.geometry() as Point?)!!.altitude().toString()
-            tvLatLngAltitude.text = "Latitude:${point.latitude}, Longitude: ${point.longitude}"
-        }
-
-
-        if (requestCode == speechRequestCode && resultCode == Activity.RESULT_OK) {
-            val spokenText: String? =
-                data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).let { results ->
-                    results?.get(0)
-                }
-
-            if (spokenText != null) {
-                val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
-                    .query(spokenText)
-                    .accessToken(getString(R.string.mapbox_access_token))
-                    .build()
-
-                geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
-                    @SuppressLint("LogNotTimber")
-                    override fun onResponse(
-                        call: Call<GeocodingResponse>,
-                        response: Response<GeocodingResponse>
-                    ) {
-                        if(response.isSuccessful){
-                            val t =  response.body()?.features()?.get(0)?.geometry()
-                            Log.d(Misc.logKey, response.body()?.features().toString())
-                            val arr = t.toString().split("[", "]")
-                            val p = arr[1].split(",")
-                            point.latitude = p[1].toDouble()
-                            point.longitude = p[0].toDouble()
-                            animateCamera(point, 14.0)
-                            for(item in arr)
-                                Log.d(Misc.logKey,item)
-                        }else{
-                            Toast.makeText(this@AltitudeActivity, "Place not found.", Toast.LENGTH_SHORT).show()
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {
-                        Toast.makeText(this@AltitudeActivity, "Place not found.", Toast.LENGTH_SHORT).show()
-                    }
-
-                })
-            }
-        }
-
-    }
-
-
-
     private fun animateCamera(p: LatLng, zoom: Double) {
         mapboxMap.animateCamera(
             CameraUpdateFactory.newCameraPosition(
@@ -404,19 +223,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             ), 4000
         )
     }
-
-    private fun displaySpeechRecognizer() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.EXTRA_LANGUAGE)
-        }
-        intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE,
-            "en"
-        )
-        startActivityForResult(intent, speechRequestCode)
-    }
-
-
 
     override fun onStart() {
         super.onStart()
@@ -450,12 +256,29 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     }
 
     override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack{
+        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack {
             override fun onBackPress() {
                 finish()
             }
         })
-//        super.onBackPressed()
     }
+
+
+
+    private fun setMarker(point: LatLng) {
+        if (mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID) != null) {
+            val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
+            source?.setGeoJson(
+                Point.fromLngLat(
+                    point.longitude,
+                    point.latitude
+                )
+            )
+            droppedMarkerLayer = mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID)!!
+            droppedMarkerLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE))
+
+        }
+    }
+
 
 }

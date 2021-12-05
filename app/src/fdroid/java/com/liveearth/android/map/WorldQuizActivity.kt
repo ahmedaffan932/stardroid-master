@@ -19,7 +19,7 @@ class WorldQuizActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        btnViewWorld.setOnClickListener{
+        btnViewWorld.setOnClickListener {
             Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     val intent = Intent(this@WorldQuizActivity, AmChartsActivity::class.java)
@@ -28,14 +28,18 @@ class WorldQuizActivity : AppCompatActivity() {
             })
         }
 
-        btnPlayGame.setOnClickListener{
-            Misc.startActivity(this, Misc.isQuizScreenOneIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@WorldQuizActivity, WorldQuizScreenOneActivity::class.java)
-                    intent.putExtra(Misc.data, "sda")
-                    startActivity(intent)
-                }
-            })
+        btnPlayGame.setOnClickListener {
+            Misc.startActivity(
+                this,
+                Misc.isQuizScreenOneIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        val intent =
+                            Intent(this@WorldQuizActivity, WorldQuizScreenOneActivity::class.java)
+                        intent.putExtra(Misc.data, "sda")
+                        startActivity(intent)
+                    }
+                })
         }
     }
 
@@ -50,22 +54,13 @@ class WorldQuizActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@WorldQuizActivity,
+            nativeAd,
+            Misc.isQuizActivitySplashEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@WorldQuizActivity,
-                        nativeAd,
-                        Misc.isQuizActivitySplashEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
-//                        showStartButton()
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )

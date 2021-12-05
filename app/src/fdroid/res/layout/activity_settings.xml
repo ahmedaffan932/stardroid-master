@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fab_padding"
-                    app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"
+                    app:srcCompat="@drawable/ic_baseline_privacy_tip_24"
                     app:tint="@color/pink" />
 
                 <TextView
@@ -221,10 +221,10 @@
                 android:paddingVertical="@dimen/fab_padding">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="@dimen/fab_padding"
-                    app:srcCompat="@drawable/ic_baseline_privacy_tip_24"
+                    app:srcCompat="@drawable/advertising"
                     app:tint="@color/pink" />
 
                 <TextView

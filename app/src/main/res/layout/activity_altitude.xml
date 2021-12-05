@@ -48,31 +48,6 @@
             mapbox:srcCompat="@drawable/ic_screenshot"
             mapbox:tint="@color/white" />
 
-
-        <SearchView
-            android:id="@+id/svLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/extra_padding"
-            android:layout_marginTop="@dimen/extra_padding"
-            android:background="@drawable/bg_search"
-            android:queryHint="Click here to explore"
-            android:visibility="gone"
-            mapbox:layout_constraintTop_toBottomOf="@+id/textView4"
-            tools:layout_editor_absoluteX="16dp" />
-
-
-        <ImageView
-            android:id="@+id/btnSpeakSearchLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding"
-            android:src="@drawable/ic_mic_circle"
-            android:visibility="gone"
-            mapbox:layout_constraintBottom_toBottomOf="@id/svLocation"
-            mapbox:layout_constraintEnd_toEndOf="@id/svLocation"
-            mapbox:layout_constraintTop_toTopOf="@id/svLocation" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

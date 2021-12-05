@@ -43,6 +43,10 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
+import com.mapbox.mapboxsdk.style.layers.Layer
+import com.mapbox.mapboxsdk.style.layers.Property
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import edu.arbelkilani.compass.CompassListener
 import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_compass.*
@@ -51,16 +55,16 @@ import java.io.IOException
 import java.util.*
 
 
-class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
+class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
     MapboxMap.OnMapClickListener {
     private val point: LatLng = LatLng()
     private lateinit var mapView: MapView
-    private lateinit var mapBoxStyle: Style
     private lateinit var mapboxMap: MapboxMap
     private val REQUEST_CODE_AUTOCOMPLETE = 1
     private lateinit var locationCallback: LocationCallback
     var isCurrentLocation = true
-
+    private lateinit var mapBoxStyle: Style
+    private lateinit var droppedMarkerLayer: Layer
 
     companion object {
         private const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
@@ -113,8 +117,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     override fun onMapReady(mapboxMap: MapboxMap) {
         this.mapboxMap = mapboxMap
         setMapBoxStyle(Style.OUTDOORS)
-
-//        getAddress(this, point)
     }
 
     @SuppressLint("LogNotTimber")
@@ -123,82 +125,41 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         return true
     }
 
+    @SuppressLint("MissingPermission")
     private fun setMapBoxStyle(styleName: String) {
         mapboxMap.setStyle(
             styleName
         ) { style ->
             mapBoxStyle = style
-
-//            mapboxMap.animateCamera(
-//                CameraUpdateFactory.newCameraPosition(
-//                    CameraPosition.Builder()
-//                        .target(mapboxMap.cameraPosition.target)
-//                        .zoom(mapboxMap.cameraPosition.zoom)
-//                        .tilt(0.0)
-//                        .build()
-//                ), 4000
-//            )
-
-            enableLocationPlugin(style)
             val manager = getSystemService(LOCATION_SERVICE) as LocationManager
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps()
-            }
+            }else{
+                locationCallback = object : LocationCallback() {
+                    @SuppressLint("SetTextI18n", "LogNotTimber")
+                    override fun onLocationResult(p0: LocationResult) {
+                        super.onLocationResult(p0)
+                        Log.d(Misc.logKey, p0.toString())
+                        point.latitude = p0.lastLocation.latitude
+                        point.longitude = p0.lastLocation.longitude
+                        if (isCurrentLocation && this@CompassActivity::mapboxMap.isInitialized){
+                            animateCamera(point, 14.0)
+                            getAddress(point)
+                        }
+                    }
+                }
 
+                val locationRequest = LocationRequest.create()
+                locationRequest.fastestInterval = 1000
+                locationRequest.interval = 5000
+                LocationServices.getFusedLocationProviderClient(this)
+                    .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+            }
 
             mapboxMap.addOnMapClickListener(this)
-
-            initSearchFab()
         }
     }
 
-
-    private fun initSearchFab() {
-        btnSearchLocationCompass.setOnClickListener {
-            val intent = PlaceAutocomplete.IntentBuilder()
-                .accessToken(
-                    (if (Mapbox.getAccessToken() != null) Mapbox.getAccessToken() else getString(
-                        R.string.mapbox_access_token
-                    ))!!
-                )
-                .placeOptions(
-                    PlaceOptions.builder()
-                        .backgroundColor(Color.parseColor("#EEEEEE"))
-                        .limit(10)
-                        .build(PlaceOptions.MODE_CARDS)
-                )
-                .build(this)
-            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE)
-        }
-    }
-
-    private fun enableLocationPlugin(loadedMapStyle: Style): Location? {
-        var locationComponent: LocationComponent? = null
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
-            locationComponent = mapboxMap.locationComponent
-            locationComponent.activateLocationComponent(
-                LocationComponentActivationOptions.builder(
-                    this, loadedMapStyle
-                ).build()
-            )
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-            }
-            locationComponent.isLocationComponentEnabled = true
-
-            // Set the component's camera mode
-            locationComponent.cameraMode = CameraMode.TRACKING
-            locationComponent.renderMode = RenderMode.NORMAL
-        }
-        return locationComponent!!.lastKnownLocation
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -207,23 +168,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
-    override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
-            .show()
-    }
-
-    override fun onPermissionResult(granted: Boolean) {
-        if (granted) {
-            val style = mapboxMap.style
-            style?.let { enableLocationPlugin(it) }
-        } else {
-            Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG)
-                .show()
-            finish()
-        }
-    }
-
 
     private fun animateCamera(p: LatLng, zoom: Double) {
         mapboxMap.animateCamera(
@@ -282,26 +226,6 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     public override fun onResume() {
         super.onResume()
         mapView.onResume()
-
-        locationCallback = object : LocationCallback() {
-            @SuppressLint("SetTextI18n", "LogNotTimber")
-            override fun onLocationResult(p0: LocationResult) {
-                super.onLocationResult(p0)
-                Log.d(Misc.logKey, p0.toString())
-                point.latitude = p0.lastLocation.latitude
-                point.longitude = p0.lastLocation.longitude
-                if (isCurrentLocation && this@CompassActivity::mapboxMap.isInitialized){
-                    animateCamera(point, 14.0)
-                    getAddress(point)
-                }
-            }
-        }
-
-        val locationRequest = LocationRequest.create()
-        locationRequest.fastestInterval = 1000
-        locationRequest.interval = 5000
-        LocationServices.getFusedLocationProviderClient(this)
-            .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
     override fun onStart() {
@@ -355,6 +279,21 @@ class CompassActivity() : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 finish()
             }
         })
+    }
+
+    private fun setMarker(point: LatLng) {
+        if (mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID) != null) {
+            val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
+            source?.setGeoJson(
+                Point.fromLngLat(
+                    point.longitude,
+                    point.latitude
+                )
+            )
+            droppedMarkerLayer = mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID)!!
+            droppedMarkerLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE))
+
+        }
     }
 
 }

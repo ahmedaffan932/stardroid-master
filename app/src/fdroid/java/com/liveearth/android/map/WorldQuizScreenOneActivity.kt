@@ -17,21 +17,13 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         setContentView(R.layout.activity_world_quiz_screen_one)
 
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@WorldQuizScreenOneActivity,
+            nativeAd,
+            Misc.isQuizScreenOneNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@WorldQuizScreenOneActivity,
-                        nativeAd,
-                        Misc.isQuizScreenOneNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
@@ -39,33 +31,45 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         btnBackWorldQuizScreenOne.setOnClickListener {
             onBackPressed()
         }
-        val intent = Intent(this@WorldQuizScreenOneActivity, WorldQuizSelectContinentActivity::class.java)
+        val intent = Intent(
+            this@WorldQuizScreenOneActivity,
+            WorldQuizSelectContinentActivity::class.java
+        )
 
         clCountries.setOnClickListener {
-            Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameMode = Misc.countries
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isQuizCountriesIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameMode = Misc.countries
+                        startActivity(intent)
+                    }
+                })
         }
 
         clFlags.setOnClickListener {
-            Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameMode = Misc.flags
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isQuizCountriesIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameMode = Misc.flags
+                        startActivity(intent)
+                    }
+                })
         }
 
         clCapitals.setOnClickListener {
-            Misc.startActivity(this, Misc.isQuizCountriesIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameMode = Misc.capitals
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isQuizCountriesIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameMode = Misc.capitals
+                        startActivity(intent)
+                    }
+                })
         }
 
         clCurrencies.setOnClickListener {
@@ -82,10 +86,13 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isQuizScreenOneBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
+        Misc.onBackPress(
+            this,
+            Misc.isQuizScreenOneBackIntEnabled,
+            object : OnBackPressCallBack {
+                override fun onBackPress() {
+                    finish()
+                }
+            })
     }
 }

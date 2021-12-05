@@ -24,21 +24,13 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_word_quiz_mode_selector)
 
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@WordQuizModeSelectorActivity,
+            nativeAd,
+            Misc.isQuizSelectModeNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@WordQuizModeSelectorActivity,
-                        nativeAd,
-                        Misc.isQuizSelectModeNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
@@ -47,19 +39,20 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         val arr = World.getAllCountries()
         if (Misc.gameContinent != Misc.wholeWorld) {
             clPro.visibility = View.GONE
-            val a = arr.filter { con -> con.continent.contains(Misc.gameContinent, ignoreCase = true) }
+            val a =
+                arr.filter { con -> con.continent.contains(Misc.gameContinent, ignoreCase = true) }
             hardLevel = a.size
             textEasy.text = "0 / $easyLevel"
             textMedium.text = "0 / $mediumLevel"
             textHard.text = "0 / $hardLevel"
 
-        }else{
+        } else {
             easyLevel = 30
             mediumLevel = 70
             hardLevel = 150
         }
 
-        if(Misc.gameContinent == Misc.oceania){
+        if (Misc.gameContinent == Misc.oceania) {
             clHard.visibility = View.GONE
         }
 
@@ -83,7 +76,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
     }
 
     private fun startGame(levels: Int) {
-        if (Misc.gameMode == Misc.flags){
+        if (Misc.gameMode == Misc.flags) {
             val intent = Intent(this, WorldQuizFlagActivity::class.java)
             intent.putExtra(Misc.data, levels)
             Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
@@ -91,7 +84,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             })
-        }else{
+        } else {
             val intent = Intent(this, WorldQuizCountriesActivity::class.java)
             intent.putExtra(Misc.data, levels)
             Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {

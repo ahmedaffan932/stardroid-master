@@ -53,11 +53,11 @@
 
     <ImageView
         android:id="@+id/btnShareQRCode"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="@dimen/_64sdp"
         android:background="@drawable/bg_gradient_pink_rounded"
         android:layout_marginTop="@dimen/extra_padding"
-        android:padding="@dimen/fab_padding"
+        android:padding="@dimen/padding_24"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/extra_padding"
         app:layout_constraintTop_toBottomOf="@id/qrImage"
@@ -66,21 +66,43 @@
         android:src="@drawable/ic_baseline_share_24"
         app:tint="@color/white" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/share"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/pink"
+        app:layout_constraintTop_toBottomOf="@+id/btnShareQRCode"
+        app:layout_constraintEnd_toEndOf="@+id/btnShareQRCode"
+        app:layout_constraintStart_toStartOf="@+id/btnShareQRCode" />
+
     <ImageView
         android:id="@+id/btnSaveQRCode"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_gradient_pink_rounded"
-        android:layout_marginTop="@dimen/extra_padding"
-        android:padding="@dimen/fab_padding"
+        android:layout_width="@dimen/_64sdp"
+        android:layout_height="@dimen/_64sdp"
+        android:scaleType="fitCenter"
+        android:padding="@dimen/padding_24"
+        android:src="@drawable/ic_save_file"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/extra_padding"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@id/qrImage"
         app:layout_constraintEnd_toEndOf="@id/qrImage"
-        android:src="@drawable/ic_save_file"
+        android:layout_marginTop="@dimen/extra_padding"
+        app:layout_constraintTop_toBottomOf="@id/qrImage"
+        android:background="@drawable/bg_gradient_pink_rounded"
         app:tint="@color/white" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/pink"
+        app:layout_constraintEnd_toEndOf="@+id/btnSaveQRCode"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveQRCode"
+        app:layout_constraintStart_toStartOf="@+id/btnSaveQRCode" />
 
     <com.google.android.ads.nativetemplates.TemplateView
         android:id="@+id/nativeAdViewQRGenerated"

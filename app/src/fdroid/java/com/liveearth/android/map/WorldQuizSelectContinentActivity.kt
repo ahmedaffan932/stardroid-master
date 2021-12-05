@@ -16,21 +16,13 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz_select_continet)
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@WorldQuizSelectContinentActivity,
+            nativeAd,
+            Misc.isContinentSelectNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@WorldQuizSelectContinentActivity,
-                        nativeAd,
-                        Misc.isContinentSelectNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
@@ -39,58 +31,77 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val intent = Intent(this@WorldQuizSelectContinentActivity, WordQuizModeSelectorActivity::class.java)
+        val intent =
+            Intent(this@WorldQuizSelectContinentActivity, WordQuizModeSelectorActivity::class.java)
         clWholeWorld.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.wholeWorld
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.wholeWorld
+                        startActivity(intent)
+                    }
+                })
         }
 
         clAsia.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.asia
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.asia
+                        startActivity(intent)
+                    }
+                })
         }
 
         clEurope.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.europe
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.europe
+                        startActivity(intent)
+                    }
+                })
         }
 
         clAfrica.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.africa
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.africa
+                        startActivity(intent)
+                    }
+                })
         }
 
         clAmerica.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.america
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.america
+                        startActivity(intent)
+                    }
+                })
         }
         clOceania.setOnClickListener {
-            Misc.startActivity(this, Misc.isContinentSelectIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.gameContinent = Misc.oceania
-                    startActivity(intent)
-                }
-            })
+            Misc.startActivity(
+                this,
+                Misc.isContinentSelectIntEnabled,
+                object : StartActivityCallBack {
+                    override fun onStart() {
+                        Misc.gameContinent = Misc.oceania
+                        startActivity(intent)
+                    }
+                })
         }
     }
 

@@ -17,28 +17,26 @@ class WorldQuizCompletedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_world_quiz_completed)
 
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+
+        Misc.showNativeAd(
+            this@WorldQuizCompletedActivity,
+            nativeAd,
+            Misc.isQuizCompleteNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@WorldQuizCompletedActivity,
-                        nativeAd,
-                        Misc.isQuizCompleteNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
 
         textCorrectAnswers.text = "Correct Answer: ${intent.getIntExtra(Misc.data, 0)}"
         textTotalLevels.text = "Total levels: ${intent.getIntExtra(Misc.levels, 0)}"
-        textFalseAnswer.text = "False Answers: ${(intent.getIntExtra(Misc.levels, 0) - intent.getIntExtra(Misc.data, 0))}"
+        textFalseAnswer.text = "False Answers: ${
+            (intent.getIntExtra(Misc.levels, 0) - intent.getIntExtra(
+                Misc.data,
+                0
+            ))
+        }"
 
         btnBackWorldQuizCompleted.setOnClickListener {
             onBackPressed()

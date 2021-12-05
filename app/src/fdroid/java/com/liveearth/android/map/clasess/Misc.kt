@@ -11,12 +11,10 @@ import android.net.NetworkInfo
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.example.qrcodescanner.activities.sdk29AndUp
 import com.google.android.ads.nativetemplates.NativeTemplateStyle
 import com.google.android.ads.nativetemplates.TemplateView
 import com.google.android.gms.ads.*
@@ -47,32 +45,33 @@ class Misc {
         var gameContinent: String = ""
         var levels: String = "levels"
         var startingTime: Long = 0
-        var navigationLimit = 2
+        var navigationLimit = 3
         const val data: String = "data"
         var mInterstitialAd: InterstitialAd? = null
         var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
         var intFailedCount = 0
-
         var nativeFailedCount = 0
+
         const val logKey: String = "logKey"
-
         private const val purchasedStatus: String = "purchasedStatus"
+
         const val flags: String = "flags"
-
         const val capitals: String = "capitals"
-        const val countries: String = "countries"
 
+        const val countries: String = "countries"
         private const val flash: String = "flash"
+
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
         var location: Location? = null
         var isGameIntEnabled: Boolean = false
         var isSkyMapIntEnabled: Boolean = true
         var isSplashIntEnabled: Boolean = true
-
         var isSettingIntEnabled: Boolean = true
+
         var isCompassIntEnabled: Boolean = true
         var isNoteCamIntEnabled: Boolean = true
+        var isBtnClickIntEnable: Boolean = true
         var isGameBackIntEnabled: Boolean = true
         var isAltitudeIntEnabled: Boolean = true
         var isProScreenIntEnabled: Boolean = true
@@ -327,7 +326,7 @@ class Misc {
             }
         }
 
-        private fun showInterstitial(
+        fun showInterstitial(
                 activity: Activity,
                 isEnabled: Boolean,
                 callBack: InterstitialCallBack?

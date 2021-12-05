@@ -52,6 +52,7 @@
         android:padding="@dimen/fab_padding"
         android:layout_margin="1dp"
         android:hint="@string/enter_topic_here"
+        android:maxLength="50"
         android:layout_marginTop="@dimen/extra_padding"
         android:focusable="auto"
         android:ems="10"

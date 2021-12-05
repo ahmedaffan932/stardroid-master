@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/extra_padding"
                         android:layout_weight="1"
-                        android:text="@string/live_earth_map"
+                        android:text="@string/app_name"
                         android:textColor="@color/white"
                         android:textSize="24dp"
                         android:textStyle="bold" />

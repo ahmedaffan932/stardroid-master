@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "102662691113",
-    "project_id": "automated-style-304613",
-    "storage_bucket": "automated-style-304613.appspot.com"
+    "project_number": "747605382611",
+    "project_id": "liveearthmap-46757",
+    "storage_bucket": "liveearthmap-46757.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:102662691113:android:c2ef404f2b48ffa9367f38",
+        "mobilesdk_app_id": "1:747605382611:android:3c0994286b56b5ffca8b26",
         "android_client_info": {
           "package_name": "com.liveearth.android.map"
         }
       },
       "oauth_client": [
         {
-          "client_id": "102662691113-ceaprtqt3v5gd4l0gu223295k9rosd8i.apps.googleusercontent.com",
+          "client_id": "747605382611-2fv49g23902jjs3f4ic83mhgkadfs8js.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAJHtANmNpm87aNW8jq9PiOeHY9_2Fw-y4"
+          "current_key": "AIzaSyB5n3AKRXHWT85O5688uh6FwP9dXHbXsJA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "102662691113-ceaprtqt3v5gd4l0gu223295k9rosd8i.apps.googleusercontent.com",
+              "client_id": "747605382611-2fv49g23902jjs3f4ic83mhgkadfs8js.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

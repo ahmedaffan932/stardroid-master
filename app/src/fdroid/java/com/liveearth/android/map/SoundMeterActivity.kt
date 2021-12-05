@@ -23,21 +23,13 @@ class SoundMeterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sound_meter)
 
 
-        Misc.loadNativeAd(
-            this,
-            Misc.nativeAdId,
+        Misc.showNativeAd(
+            this@SoundMeterActivity,
+            nativeAd,
+            Misc.isSoundMeterNativeEnabled,
             object : NativeAdCallBack {
                 override fun onLoad() {
-                    Misc.showNativeAd(
-                        this@SoundMeterActivity,
-                        nativeAd,
-                        Misc.isSoundMeterNativeEnabled,
-                        object : NativeAdCallBack {
-                            override fun onLoad() {
-                                nativeAd.visibility = View.VISIBLE
-                            }
-                        }
-                    )
+                    nativeAd.visibility = View.VISIBLE
                 }
             }
         )
@@ -48,18 +40,20 @@ class SoundMeterActivity : AppCompatActivity() {
 
         btnInfo.setOnClickListener {
             AlertDialog.Builder(this)
-                    .setTitle("Example:")
-                    .setMessage("20 dB-Whisper\n" +
+                .setTitle("Example:")
+                .setMessage(
+                    "20 dB-Whisper\n" +
                             "40 dB-Quite library\n" +
                             "60 dB-Conversation\n" +
                             "80 dB-Loud Music\n" +
                             "100 dB-Motorcycle\n" +
-                            "120 dB-Threshold of pain")
-                    .setPositiveButton("Ok") { dialog, which ->
-                        dialog.dismiss()
-                    }
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .show()
+                            "120 dB-Threshold of pain"
+                )
+                .setPositiveButton("Ok") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show()
         }
 
         btnReset.setOnClickListener {
@@ -74,7 +68,6 @@ class SoundMeterActivity : AppCompatActivity() {
                 handler.post(runSoundMeter)
             }, 1000)
         }
-
 
 
     }

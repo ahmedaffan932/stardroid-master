@@ -23,9 +23,9 @@
 -outjars out.jar
 -libaryjars <java.home>/jmods/java.base.jmod(!**.jar;!module-info.class)
 -printmapping out.map
--keep class com.blongho.country_data* {
-   *;
-  }
+#-keep class com.blongho.country_data* {
+#   *;
+#  }
 
 -keepparameternames
 -renamesourcefileattribute SourceFile

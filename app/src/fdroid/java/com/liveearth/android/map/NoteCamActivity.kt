@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -25,19 +28,22 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.main.activity_am_chatrs.*
+import kotlinx.android.synthetic.main.activity_live_earth.*
 import kotlinx.android.synthetic.main.activity_note_cam.*
 import kotlinx.android.synthetic.main.note_cam_bottom_sheet.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.io.File
+import java.io.IOException
+import java.util.*
 
 class NoteCamActivity : BaseActivity() {
     private lateinit var locationCallback: LocationCallback
@@ -55,7 +61,6 @@ class NoteCamActivity : BaseActivity() {
         getImageForCollection()
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetNoteCam))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
 
         KeyboardVisibilityEvent.setEventListener(this, object : KeyboardVisibilityEventListener {
             override fun onVisibilityChanged(isOpen: Boolean) {
@@ -126,7 +131,6 @@ class NoteCamActivity : BaseActivity() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     previewImageNoteCam.visibility = View.GONE
-//                    tvNoteNoteCam.visibility = View.GONE
                 }
             }
         })
@@ -142,6 +146,7 @@ class NoteCamActivity : BaseActivity() {
             tvElevationNoteCam.visibility = View.VISIBLE
             tvAccuracyNoteCam.visibility = View.VISIBLE
             tvTimeNoteCam.visibility = View.VISIBLE
+            tvAddress.visibility = View.VISIBLE
             tvNoteNoteCam.visibility = View.GONE
             textViewNoteCam.text = "GPS Map Cam"
 
@@ -163,7 +168,6 @@ class NoteCamActivity : BaseActivity() {
 
                             previewImageNoteCam.setImageURI(uri)
                             previewImageNoteCam.visibility = View.VISIBLE
-//                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
                             Handler().postDelayed({
                                 val bitmap = Bitmap.createBitmap(
@@ -260,6 +264,7 @@ class NoteCamActivity : BaseActivity() {
                 tvElevationNoteCam.text = "Altitude: ${Math.round(loc.altitude * 100.0) / 100.0}"
                 tvAccuracyNoteCam.text = "Accuracy: ${loc.accuracy}"
                 tvTimeNoteCam.text = "Time: ${Misc.timeMillsToHms(loc.time)}"
+                getAddress(loc)
             }
         }
 
@@ -287,7 +292,7 @@ class NoteCamActivity : BaseActivity() {
                 val builder = VmPolicy.Builder()
                 StrictMode.setVmPolicy(builder.build())
 
-                var i: Intent?
+                val i: Intent?
                 val manager = packageManager
 //                try {
 //                    i = Intent(manager.getLaunchIntentForPackage("com.google.android.apps.photos"))
@@ -359,4 +364,22 @@ class NoteCamActivity : BaseActivity() {
             )
         }
     }
+
+    private fun getAddress(p: Location): String? {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses: List<Address>?
+        return try {
+            addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
+            if (!(addresses == null || addresses.isEmpty())) {
+                    tvAddress.text =
+                        addresses[0].getAddressLine(0)
+
+                addresses[0].countryName
+            } else "null"
+        } catch (ignored: IOException) {
+            ignored.printStackTrace()
+            "Exception"
+        }
+    }
+
 }

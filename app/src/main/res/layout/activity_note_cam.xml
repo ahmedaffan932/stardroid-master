@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -72,15 +73,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNote"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_padding"
-                android:background="@drawable/bg_translucent_less_rounded"
                 android:elevation="@dimen/padding_24"
-                app:layout_constraintStart_toStartOf="parent"
                 android:padding="@dimen/less_padding"
+                android:layout_margin="@dimen/padding"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                mapbox:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/bg_translucent_less_rounded">
 
                 <TextView
                     android:id="@+id/tvLatitudeNoteCam"
@@ -141,16 +142,26 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvAccuracyNoteCam" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam" />
+
+                <TextView
                     android:id="@+id/tvNoteNoteCam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:text="@string/note"
                     android:paddingVertical="@dimen/less_padding"
-                    android:textSize="18sp"
                     android:textColor="@color/black"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
                 <EditText
                     android:id="@+id/etNoteNoteCam"
@@ -158,6 +169,8 @@
                     android:layout_height="wrap_content"
                     android:textCursorDrawable="@drawable/cursor_pink"
                     android:background="@color/nothing"
+                    android:maxLines="3"
+                    android:maxLength="150"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam"

@@ -1,11 +1,9 @@
 package com.liveearth.android.map
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Address
@@ -13,6 +11,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
@@ -24,18 +23,17 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.OnImageSaveCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
-import com.mapbox.android.core.permissions.PermissionsListener
-import com.mapbox.android.core.permissions.PermissionsManager
+import com.liveearth.android.map.interfaces.*
 import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.MapboxDirections
 import com.mapbox.api.directions.v5.models.DirectionsResponse
@@ -46,10 +44,6 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
@@ -61,7 +55,6 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
-import com.mapbox.services.android.navigation.v5.navigation.SdkVersionChecker
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
@@ -69,14 +62,13 @@ import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_live_earth.*
 import kotlinx.android.synthetic.main.activity_live_earth.btnGetCurrentLocation
 import kotlinx.android.synthetic.main.activity_live_earth.btnScreenShot
-import kotlinx.android.synthetic.main.activity_live_earth.btnSpeakSearchLocation
 import kotlinx.android.synthetic.main.activity_live_earth.btnZoomIn
 import kotlinx.android.synthetic.main.activity_live_earth.btnZoomOut
 import kotlinx.android.synthetic.main.activity_live_earth.llDefault
 import kotlinx.android.synthetic.main.activity_live_earth.llHybrid
 import kotlinx.android.synthetic.main.activity_live_earth.llSatellite
 import kotlinx.android.synthetic.main.activity_live_earth.llTerrain
-import kotlinx.android.synthetic.main.activity_live_earth.svLocation
+import kotlinx.android.synthetic.main.activity_note_cam.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -87,13 +79,14 @@ import java.io.IOException
 import java.util.*
 
 @SuppressLint("LogNotTimber")
-class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback,
+class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     MapboxMap.OnMapClickListener, AdapterView.OnItemClickListener {
 
     private var address = ""
     private var point = LatLng()
     var placesArray = JSONArray()
     private var isFirstTime = true
+    private var isCameraFocused = false
     private var latLng: String = ""
     private var isRouteAdded = false
     private val speechRequestCode = 0
@@ -108,7 +101,9 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
     private lateinit var droppedMarkerLayer: Layer
     private var buildingPlugin: BuildingPlugin? = null
     private lateinit var navMapRoute: NavigationMapRoute
-    private lateinit var permissionsManager: PermissionsManager
+    private lateinit var locationCallback: LocationCallback
+    private var loc: Location? = null
+    private var btnClickCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,22 +127,41 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             sharingIntent.type = "text/plain"
             sharingIntent.putExtra(Intent.EXTRA_TEXT, address)
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
+            manageBtnClickInterstitial()
         }
 
         btnGetDirection.setOnClickListener {
-            val locationComponent = mapboxMap.locationComponent
-            val lastKnownLocation = locationComponent.lastKnownLocation
 
-            if (lastKnownLocation != null) {
-                currentLocation.latitude = lastKnownLocation.latitude
-                currentLocation.longitude = lastKnownLocation.longitude
+            if (!Misc.manageNavigationLimit(this)) {
+                AlertDialog.Builder(this@LiveEarthActivity)
+                    .setTitle("Upgrade to pro.")
+                    .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        dialog.dismiss()
+                        val intent =
+                            Intent(
+                                this@LiveEarthActivity,
+                                ProScreenActivity::class.java
+                            )
+                        intent.putExtra(Misc.data, Misc.data)
+                        startActivity(intent)
+                    }
+                    .setNegativeButton("May be later.", null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show()
             } else {
-                buildAlertMessageNoGps()
-            }
+                if (loc != null) {
+                    currentLocation.latitude = loc!!.latitude
+                    currentLocation.longitude = loc!!.longitude
+                } else {
+                    buildAlertMessageNoGps()
+                }
 
-            val destination = Point.fromLngLat(point.longitude, point.latitude)
-            val origin = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
-            getRoute(origin, destination)
+                val destination = Point.fromLngLat(point.longitude, point.latitude)
+                val origin = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
+                getRoute(origin, destination)
+                manageBtnClickInterstitial()
+            }
         }
 
 
@@ -189,68 +203,36 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps()
             } else {
-                val lastKnownLocation = enableLocationPlugin(mapboxMap.style!!)
-                point.latitude = lastKnownLocation!!.latitude
-                point.longitude = lastKnownLocation.longitude
+                point.latitude = loc!!.latitude
+                point.longitude = loc!!.longitude
 
-                currentLocation.latitude = lastKnownLocation.latitude
-                currentLocation.longitude = lastKnownLocation.longitude
+                currentLocation.latitude = loc!!.latitude
+                currentLocation.longitude = loc!!.longitude
 
                 setMarker(point)
                 animateCamera(point, 14.0)
                 getAddress(point)
             }
+            manageBtnClickInterstitial()
         }
 
         btnSpeakSearchLocation.setOnClickListener {
             displaySpeechRecognizer()
+            manageBtnClickInterstitial()
         }
 
         searchSuggestions()
 
         btnTraffic.setOnClickListener {
             setBtnTextWhiteColor()
-//            if (isTrafficEnabled) {
-//                setMapBoxStyle(lastStyle, false)
-//                if (lastStyle == Style.SATELLITE) {
-//                    textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.OUTDOORS) {
-//                    textStreet.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.SATELLITE_STREETS) {
-//                    textTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.DARK) {
-//                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//            } else {
             setMapBoxStyle(Style.TRAFFIC_DAY, false)
             textTraffic.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//            }
-//            isTrafficEnabled = !isTrafficEnabled
         }
 
         btnThreeDView.setOnClickListener {
             setBtnTextWhiteColor()
-//            if (isThreeDViewEnabled) {
-//                setMapBoxStyle(lastStyle, false)
-//                if (lastStyle == Style.SATELLITE) {
-//                    textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.OUTDOORS) {
-//                    textStreet.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.SATELLITE_STREETS) {
-//                    textTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//                if (lastStyle == Style.DARK) {
-//                    textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//                }
-//            } else {
             setMapBoxStyle(Style.MAPBOX_STREETS, true)
             text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
-//            }
         }
 
         llDefault.setOnClickListener {
@@ -287,9 +269,9 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                                 "Screen Shot Saved in Gallery. ",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            manageBtnClickInterstitial()
                         }
                     })
-
                 }
             })
         }
@@ -298,14 +280,12 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
 
     override fun onMapReady(mapboxMap: MapboxMap) {
         this@LiveEarthActivity.mapboxMap = mapboxMap
-//        mapboxMap.setStyle(Style.SATELLITE)
         textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
         setMapBoxStyle(Style.SATELLITE, false)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initDroppedMarker(loadedMapStyle: Style) {
-        // Add the marker image to map
         loadedMapStyle.addImage(
             "dropped-icon-image",
             resources.getDrawable(R.drawable.ic_pin_selected)
@@ -361,64 +341,8 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         mapView.onLowMemory()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
-            .show()
-    }
-
-    override fun onPermissionResult(granted: Boolean) {
-        if (granted) {
-            val style = mapboxMap.style
-            style?.let { enableLocationPlugin(it) }
-        } else {
-            Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG)
-                .show()
-            finish()
-        }
-    }
-
-    private fun enableLocationPlugin(loadedMapStyle: Style): Location? {
-        var locationComponent: LocationComponent? = null
-        if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
-            locationComponent = mapboxMap.locationComponent
-            locationComponent.activateLocationComponent(
-                LocationComponentActivationOptions.builder(
-                    this, loadedMapStyle
-                ).build()
-            )
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-            }
-            locationComponent.isLocationComponentEnabled = true
-
-            // Set the component's camera mode
-            locationComponent.cameraMode = CameraMode.TRACKING
-            locationComponent.renderMode = RenderMode.NORMAL
-        } else {
-            permissionsManager = PermissionsManager(this)
-            permissionsManager.requestLocationPermissions(this)
-        }
-        return locationComponent!!.lastKnownLocation
-    }
-
     companion object {
-        private const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
+        const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
     }
 
 
@@ -441,14 +365,12 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
         mapboxMap.setStyle(
             styleName
         ) { style ->
             mapBoxStyle = style
-//            if (styleName != Style.TRAFFIC_DAY && isThreeDView) {
-//                lastStyle = styleName
-//            }
             if (isThreeDView) {
                 buildingPlugin?.setVisibility(true)
                 mapboxMap.animateCamera(
@@ -475,17 +397,58 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
                 isThreeDViewEnabled = false
             }
             mapboxMap.addOnMapClickListener(this)
-//            initSearchFab();
 
             if (isFirstTime) {
-                enableLocationPlugin(style)
                 val manager = getSystemService(LOCATION_SERVICE) as LocationManager
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
+                } else {
+                    locationCallback = object : LocationCallback() {
+                        @SuppressLint("SetTextI18n", "LogNotTimber")
+                        override fun onLocationResult(p0: LocationResult) {
+                            super.onLocationResult(p0)
+                            loc = p0.lastLocation
+                            if (!isCameraFocused) {
+                                currentLocation.latitude = loc!!.latitude
+                                currentLocation.longitude = loc!!.longitude
+
+                                point.latitude = loc!!.latitude
+                                point.longitude = loc!!.longitude
+
+                                animateCamera(point, 14.0)
+                                getAddress(point)
+                                isCameraFocused = true
+                            }
+                        }
+                    }
+
+                    val locationRequest = LocationRequest.create()
+                    locationRequest.fastestInterval = 1000
+                    locationRequest.interval = 5000
+                    LocationServices.getFusedLocationProviderClient(this)
+                        .requestLocationUpdates(
+                            locationRequest,
+                            locationCallback,
+                            Looper.getMainLooper()
+                        )
                 }
+
+                if (loc != null) {
+                    currentLocation.latitude = loc!!.latitude
+                    currentLocation.longitude = loc!!.longitude
+
+                    point.latitude = loc!!.latitude
+                    point.longitude = loc!!.longitude
+
+                    animateCamera(point, 14.0)
+                    getAddress(point)
+                }
+
                 buildingPlugin = BuildingPlugin(mapView, mapboxMap, style)
                 buildingPlugin?.setMinZoomLevel(15f)
                 isFirstTime = false
+            } else {
+                manageBtnClickInterstitial()
             }
 
             hoveringMarker = ImageView(this@LiveEarthActivity)
@@ -506,13 +469,13 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
         if (isRouteAdded) {
             navMapRoute.removeRoute()
             isRouteAdded = false
+            btnStartNavigation.visibility = View.GONE
         }
         this.point = point
         return true
     }
 
     private fun setMarker(point: LatLng) {
-        hoveringMarker.visibility = View.INVISIBLE
         if (mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
             val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
             source?.setGeoJson(
@@ -915,5 +878,15 @@ class LiveEarthActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCa
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    fun manageBtnClickInterstitial() {
+        if (btnClickCount > 2) {
+            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, null)
+            btnClickCount = 0
+        } else {
+            btnClickCount++
+        }
+
     }
 }
