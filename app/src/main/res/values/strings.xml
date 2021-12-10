@@ -211,7 +211,7 @@
     <string  name="spacer" translatable="false">Spacer</string>
     <string translatable="false" name="mapbox_access_token">"sk.eyJ1IjoiYWhtZWRhZmZhbjkzMiIsImEiOiJja3YxdzVrZWkwNGl2MnBvYmJ6ZnFwOWIyIn0.sk2ShDEkkLCqvgnVNWz5Rg"</string>
 
-    <string translatable="false" name="app_name">Live satellite View</string>
+    <string translatable="false" name="app_name">Live Satellite View</string>
     <string translatable="false" name="explore">Explore</string>
     <string translatable="false" name="lorem_ispum_dollar_ist">Lorem ispum dollar ist</string>
     <string translatable="false" name="world_quiz">World Quiz</string>
@@ -301,7 +301,7 @@
     <string translatable="false" name="max">Max</string>
     <string translatable="false" name="currencies">Currencies</string>
     <string translatable="false" name="unlock_to_n_pro_features">Unlock to \nPro Features</string>
-    <string translatable="false" name="if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos">If you unlock you will access to: \n \n Ads free App \n Unlock All games features \n Capture unlimited photos \n Get unlimited directions.\n Get unlimited navigation.</string>
+    <string translatable="false" name="if_you_unlock_you_will_access_to_n_ads_free_app_n_unlock_all_games_features_n_capture_unlimited_photos">If you unlock you will access to: \n \n \u2022 Ads free App \n \u2022 Unlock All games features \n \u2022 Capture unlimited photos \n \u2022 Get unlimited directions.\n \u2022 Get unlimited navigation.</string>
     <string translatable="false" name="terms_and_condition">Terms &amp; Condition</string>
     <string translatable="false" name="privacy_policy"><u>Privacy Policy</u></string>
     <string translatable="false" name="unlock">Unlock</string>
@@ -328,4 +328,9 @@
     <string name="next" translatable="false">Next</string>
     <string name="get_premium_version" translatable="false">Get Premium Version</string>
     <string translatable="false" name="share">Share</string>
+    <string name="ad">Ad</string>
+    <string name="altitude_meter">Altitude Meter</string>
+    <string name="explore_the_unknown_world">Explore the unknown world.</string>
+    <string name="allow_app_to_access_location">Allow app to access location.</string>
+    <string name="allow_access">Allow Access</string>
 </resources>

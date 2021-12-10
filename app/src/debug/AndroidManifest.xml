@@ -131,9 +131,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
-            android:name=".QRActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
             android:name=".AmChartsActivity"
             android:fitsSystemWindows="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -148,11 +145,7 @@
         <activity
             android:name=".NoteCamActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustResize"
-            />
-        <activity
-            android:name=".GameGlobeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"

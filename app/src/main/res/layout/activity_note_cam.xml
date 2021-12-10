@@ -18,7 +18,6 @@
             android:background="@drawable/bg_gradient_pink"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <ImageView
                 android:id="@+id/btnBackNoteCam"
                 android:layout_width="wrap_content"
@@ -89,6 +88,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/less_padding"
                     android:visibility="gone"
+                    android:drawableStart="@drawable/ic_lat"
+                    android:drawablePadding="@dimen/less_padding"
                     android:text="@string/latitude"
                     app:layout_constraintEnd_toStartOf="@+id/tvLongitudeNoteCam"
                     android:textColor="@color/black"
@@ -101,6 +102,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/less_padding"
                     android:text="@string/longitude"
+                    android:drawableStart="@drawable/ic_long"
+                    android:drawablePadding="@dimen/less_padding"
                     android:textColor="@color/black"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +116,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/less_padding"
                     android:text="@string/elevation"
+                    android:drawableStart="@drawable/mountains"
+                    android:drawablePadding="@dimen/less_padding"
                     android:textColor="@color/black"
                     android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@id/tvAccuracyNoteCam"
@@ -127,6 +132,9 @@
                     android:text="@string/accuracy"
                     android:textColor="@color/black"
                     android:visibility="gone"
+                    android:drawableStart="@drawable/accuracy"
+                    android:drawableTint="@color/black"
+                    android:drawablePadding="@dimen/less_padding"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tvElevationNoteCam"
                     app:layout_constraintTop_toBottomOf="@+id/tvLongitudeNoteCam" />
@@ -137,6 +145,8 @@
                     android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text="@string/time"
+                    android:drawableStart="@drawable/clock"
+                    android:drawablePadding="@dimen/less_padding"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvAccuracyNoteCam" />
@@ -147,6 +157,8 @@
                     android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text="@string/time"
+                    android:drawableStart="@drawable/ip"
+                    android:drawablePadding="@dimen/less_padding"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTimeNoteCam" />

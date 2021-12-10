@@ -14,7 +14,6 @@
         android:background="@drawable/bg_gradient_pink"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <ImageView
             android:id="@+id/btnBackSoundMeter"
             android:layout_width="wrap_content"
@@ -216,6 +215,7 @@
         android:background="@color/nothing"
         android:elevation="@dimen/padding"
         android:visibility="gone"
+        android:layout_marginTop="@dimen/less_padding"
         app:gnt_template_type="@layout/custom_native"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

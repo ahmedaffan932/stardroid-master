@@ -114,6 +114,8 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, Misc.lsvBannerAdId, bannerAdFrameLayout)
+
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
         isBtnGenerateVisible = Misc.hideShowView(btnGenerateQR, this, isBtnGenerateVisible)
@@ -147,7 +149,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                         startActivity(intent)
                     }
                     .setNegativeButton("May be later.", null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIcon(R.drawable.ic_diamond)
                     .show()
             } else {
                 if (loc != null) {
@@ -687,7 +689,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                                     startActivity(intent)
                                 }
                                 .setNegativeButton("May be later.", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setIcon(R.drawable.ic_diamond)
                                 .show()
                         }
                     }

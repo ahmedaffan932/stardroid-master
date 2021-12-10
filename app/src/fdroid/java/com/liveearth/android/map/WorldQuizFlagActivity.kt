@@ -39,27 +39,6 @@ class WorldQuizFlagActivity : AppCompatActivity() {
 
     }
 
-//    private fun setCountryData(country: Country) {
-//        runOnUiThread {
-//            flagCountryInfo.setImageResource(World.getFlagOf(country.alpha2))
-//            countryNameInfo.text = country.name
-//            countryCapitalInfo.text = "Capital: ${country.capital}"
-//            countryPopulationInfo.text = "Population: ${country.population}"
-//            countryAreaInfo.text = "Area: ${country.area} km²"
-//            countryCurrencyInfo.text =
-//                "Currency: ${country.currency.name} (${country.currency.symbol})"
-//            clCountryInfo.visibility = View.VISIBLE
-//            val a: Animation =
-//                AnimationUtils.loadAnimation(
-//                    this,
-//                    R.anim.slide_from_left_to_right
-//                )
-//            a.interpolator = OvershootInterpolator()
-//            a.duration = 300
-//            clCountryInfo.startAnimation(a)
-//        }
-//
-//    }
 
     @SuppressLint("SetTextI18n")
     fun getCurrentLevel() {

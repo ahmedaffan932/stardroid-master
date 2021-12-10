@@ -1,19 +1,25 @@
 package com.liveearth.android.map.clasess
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.*
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.ads.nativetemplates.NativeTemplateStyle
 import com.google.android.ads.nativetemplates.TemplateView
@@ -51,9 +57,11 @@ class Misc {
         var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
         var intFailedCount = 0
         var nativeFailedCount = 0
-
+        var isRemoteConfigFetched = false
         const val logKey: String = "logKey"
+        var bannerAdId: String = "ca-app-pub-3940256099942544/6300978111"
         private const val purchasedStatus: String = "purchasedStatus"
+        var lsvBannerAdId = "ca-app-pub-3940256099942544/6300978111"
 
         const val flags: String = "flags"
         const val capitals: String = "capitals"
@@ -63,12 +71,14 @@ class Misc {
 
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
+
         var location: Location? = null
         var isGameIntEnabled: Boolean = false
+
         var isSkyMapIntEnabled: Boolean = true
         var isSplashIntEnabled: Boolean = true
+        var isLSVBannerEnabled: Boolean = true
         var isSettingIntEnabled: Boolean = true
-
         var isCompassIntEnabled: Boolean = true
         var isNoteCamIntEnabled: Boolean = true
         var isBtnClickIntEnable: Boolean = true
@@ -89,6 +99,7 @@ class Misc {
         var isSpeedometerIntEnabled: Boolean = true
         var isPlayGameBackIntEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
+        var isDashboardNativeEnabled: Boolean = true
         var isQuizCompleteIntEnabled: Boolean = true
         var isSoundMeterNativeEnabled: Boolean = true
         var isQuizScreenOneIntEnabled: Boolean = true
@@ -105,6 +116,7 @@ class Misc {
         var isSearchLocationIntEnabled: Boolean = true
         var isContinentSelectIntEnabled: Boolean = true
         var isQuizCompleteNativeEnabled: Boolean = true
+        var isMainActivityBannerEnabled: Boolean = true
         var isQuizActivitySplashEnabled: Boolean = true
         var isSpeedometerBackIntEnabled: Boolean = true
         var isLiveEarthOnBackIntEnabled: Boolean = true
@@ -300,8 +312,6 @@ class Misc {
                 val adRequest = AdRequest.Builder().build()
                 InterstitialAd.load(
                         activity,
-//                    test
-//                    "ca-app-pub-4113492848151023/5138055389",
                         id,
                         adRequest,
                         object : InterstitialAdLoadCallback() {
@@ -464,6 +474,64 @@ class Misc {
 
             return getNavigationCount(activity) < navigationLimit
         }
+
+        fun getStoragePermission(activity: Activity,storageReadPermissionRequest: Int, storagePermissionInterface: StoragePermissionInterface) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    activity.requestPermissions(
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        storageReadPermissionRequest
+                    )
+                } else {
+                    storagePermissionInterface.onPermissionGranted()
+                }
+            }else{
+                storagePermissionInterface.onPermissionGranted()
+            }
+        }
+
+        fun loadBannerAd(activity: Activity, isEnabled: Boolean, id: String, frameLayout: FrameLayout) {
+            if(isEnabled) {
+                val bannerView = AdView(activity)
+                bannerView.adUnitId = id
+
+                bannerView.adSize = getAdSize(activity, frameLayout)
+
+                val adRequest = AdRequest.Builder().build()
+                bannerView.loadAd(adRequest)
+                bannerView.adListener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        frameLayout.addView(bannerView)
+                    }
+
+                    override fun onAdFailedToLoad(adError: LoadAdError) {
+                    }
+
+                    override fun onAdOpened() {
+                    }
+
+                    override fun onAdClicked() {
+                    }
+
+                    override fun onAdClosed() {
+                    }
+                }
+            }
+        }
+
+        private fun getAdSize(activity: Activity, frameLayout: FrameLayout): AdSize? {
+            val display: Display = activity.windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+            val density = outMetrics.density
+            var adWidthPixels = frameLayout.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth)
+        }
+
 
     }
 

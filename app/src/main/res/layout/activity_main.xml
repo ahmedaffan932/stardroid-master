@@ -11,20 +11,21 @@
         android:layout_height="match_parent">
 
         <View
+            android:visibility="gone"
             android:id="@+id/blockOnClickMain"
+            android:background="@color/nothing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/nothing"
-            android:elevation="@dimen/extra_padding"
-            android:visibility="gone"/>
+            android:elevation="@dimen/extra_padding" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:background="@drawable/ic_bg"
             android:scrollbars="none"
             android:paddingBottom="@dimen/padding"
             android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameLayout"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -164,6 +165,19 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <com.google.android.ads.nativetemplates.TemplateView
+                    android:id="@+id/nativeAdViewMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:background="@color/nothing"
+                    android:layout_margin="@dimen/padding"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="@dimen/extra_padding"
+                    app:gnt_template_type="@layout/native_hctr"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llSkyMap" />
+
                 <LinearLayout
                     android:id="@+id/llWorldQuiz"
                     android:layout_width="match_parent"
@@ -177,7 +191,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/extra_padding"
-                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
+                    app:layout_constraintTop_toBottomOf="@id/nativeAdViewMain">
 
                     <ImageView
                         android:layout_width="68dp"
@@ -397,6 +411,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/bannerAdFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/bottom_sheet_quit" />
 

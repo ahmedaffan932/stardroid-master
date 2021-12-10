@@ -318,13 +318,12 @@
             mapbox:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_color"
-        mapbox:layout_constraintBottom_toBottomOf="parent">
+        mapbox:layout_constraintBottom_toTopOf="@id/bannerAdFrameLayout">
 
         <LinearLayout
             android:id="@+id/llDefault"
@@ -442,4 +441,11 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/bannerAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        mapbox:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,15 +68,9 @@ class ProScreenActivity : AppCompatActivity() {
         if(intent.getStringExtra(Misc.data) == null) {
             val timer = object : CountDownTimer(3000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-//                    if (millisUntilFinished > 999)
-//                        textContinueCounter.text = millisUntilFinished.toString()[0].toString()
-//                    else
-//                        textContinueCounter.text = "0"
                 }
 
                 override fun onFinish() {
-//                    textContinueCounter.text = ""
-
                     btnContinue.visibility = View.VISIBLE
                     btnContinue.setOnClickListener {
                         Misc.startActivity(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : StartActivityCallBack{
@@ -89,7 +83,6 @@ class ProScreenActivity : AppCompatActivity() {
             }
             timer.start()
         }else{
-//            textContinueCounter.text = ""
             btnContinue.visibility = View.VISIBLE
 
             btnContinue.setOnClickListener {
