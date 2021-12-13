@@ -138,7 +138,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val updated = task.result
-                        Log.d(Misc.logKey, "Config params updated: $updated")
+                        Log.d(Misc.logKey, "Fetch Config params updated: $updated")
 
                         mFirebaseRemoteConfig.activate()
 
@@ -149,6 +149,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
 
                         Misc.isSkyMapIntEnabled =
                             mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
+                        Log.d(Misc.logKey, "Fetch Remote Config isSkyMapIntEnabled: ${Misc.isSkyMapIntEnabled}")
                         Misc.isSplashIntEnabled =
                             mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
                         Misc.isSettingIntEnabled =
