@@ -104,8 +104,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation project(path: ':country_data')
-    implementation project(path: ':country_data')
-    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+//    implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     implementation 'com.google.android.play:core-ktx:1.8.1'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
     implementation 'com.google.android.gms:play-services-ads-lite:20.4.0'
@@ -178,7 +177,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
-
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation project(':nativetemplates')
 
     implementation 'com.google.firebase:firebase-core:20.0.0'
@@ -199,3 +198,4 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

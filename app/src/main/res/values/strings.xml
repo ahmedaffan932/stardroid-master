@@ -331,6 +331,6 @@
     <string name="ad">Ad</string>
     <string name="altitude_meter">Altitude Meter</string>
     <string name="explore_the_unknown_world">Explore the unknown world.</string>
-    <string name="allow_app_to_access_location">Allow app to access location.</string>
+    <string name="allow_app_to_access_location">Please allow location permission to the app to proceed further to view your current location.</string>
     <string name="allow_access">Allow Access</string>
 </resources>

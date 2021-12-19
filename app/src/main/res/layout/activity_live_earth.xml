@@ -57,7 +57,7 @@
             android:gravity="center_vertical"
             android:textSize="18sp"
             android:paddingVertical="@dimen/fab_padding"
-            android:paddingStart="@dimen/padding"
+            android:paddingStart="@dimen/fab_padding"
             android:drawablePadding="@dimen/fab_padding"
             android:drawableStart="@drawable/ic_search"
             android:hint="@string/click_here_to_explore"

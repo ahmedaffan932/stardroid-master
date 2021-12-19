@@ -1,38 +1,80 @@
 package com.liveearth.android.map
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PurchasesUpdatedListener
 import com.blongho.country_data.World
-import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.StartActivityCallBack
-import com.google.firebase.FirebaseApp
-
-import com.mapbox.android.core.permissions.PermissionsListener
-import com.mapbox.android.core.permissions.PermissionsManager
-import kotlinx.android.synthetic.main.activity_splash_screen.*
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.NativeAdCallBack
+import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.android.core.permissions.PermissionsManager
+import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : BaseActivity(), PermissionsListener {
     private var isAdRequestSent: Boolean = false
     private lateinit var permissionsManager: PermissionsManager
+    private val purchasesUpdatedListener =
+        PurchasesUpdatedListener { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                Misc.setPurchasedStatus(this, true)
+                Log.d(Misc.logKey, "Ya hooo.....")
+                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, SplashScreenActivity::class.java))
+                finish()
+            }
+        }
+
+    private lateinit var billingClient: BillingClient
 
     @SuppressLint("LogNotTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        billingClient = BillingClient.newBuilder(this)
+            .setListener(purchasesUpdatedListener)
+            .enablePendingPurchases()
+            .build()
+
+
+        billingClient.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { p0, p1 ->
+                        Log.d(Misc.logKey, p1?.size.toString() + " size ..")
+                        if (/*p0.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED
+                            &&*/ p1 != null
+                        ) {
+                            for (purchase in p1) {
+                                Misc.setPurchasedStatus(this@SplashScreenActivity, true)
+                            }
+                        }
+                    }
+                    Log.d(Misc.logKey, "Billing Result Ok")
+                }
+            }
+
+            override fun onBillingServiceDisconnected() {
+                Log.d(Misc.logKey, "Service disconnected")
+            }
+        })
+
         FirebaseApp.initializeApp(this)
 
         getRemoteConfigValues()
@@ -150,6 +192,8 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                         Misc.isSkyMapIntEnabled =
                             mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
                         Log.d(Misc.logKey, "Fetch Remote Config isSkyMapIntEnabled: ${Misc.isSkyMapIntEnabled}")
+                        Misc.isLSVBannerEnabled =
+                            mFirebaseRemoteConfig.getBoolean("isLSVBannerEnabled")
                         Misc.isSplashIntEnabled =
                             mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
                         Misc.isSettingIntEnabled =

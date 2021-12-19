@@ -25,6 +25,12 @@ class ProScreenActivity : AppCompatActivity() {
         PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 Misc.setPurchasedStatus(this, true)
+                for (p in purchases){
+                    Log.d(Misc.logKey, p.orderId)
+                }
+                GlobalScope.launch {
+                    handlePurchase(purchases[0])
+                }
                 Log.d(Misc.logKey, "Ya hooo.....")
                 Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SplashScreenActivity::class.java))
@@ -153,6 +159,25 @@ class ProScreenActivity : AppCompatActivity() {
 //            super.onBackPressed()
         }
 
+    }
+
+    private suspend fun handlePurchase(purchase: Purchase) {
+        val consumeParams =
+            ConsumeParams.newBuilder()
+                .setPurchaseToken(purchase.purchaseToken)
+                .build()
+        val consumeResult = withContext(Dispatchers.IO) {
+            billingClient.consumePurchase(consumeParams)
+        }
+
+        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED)
+            if (!purchase.isAcknowledged) {
+                val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(purchase.purchaseToken)
+                val ackPurchaseResult = withContext(Dispatchers.IO) {
+                    billingClient.acknowledgePurchase(acknowledgePurchaseParams.build())
+                }
+            }
     }
 
 }

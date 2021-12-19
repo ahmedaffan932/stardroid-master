@@ -19,11 +19,13 @@
 
     <TextView
         android:id="@+id/textViewPermissions"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/imageViewPermissions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_32sdp"
+        android:gravity="center"
         android:layout_marginTop="@dimen/extra_padding"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"

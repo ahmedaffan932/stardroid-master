@@ -215,7 +215,7 @@
         android:background="@color/nothing"
         android:elevation="@dimen/padding"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/less_padding"
+        android:layout_margin="@dimen/less_padding"
         app:gnt_template_type="@layout/custom_native"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
