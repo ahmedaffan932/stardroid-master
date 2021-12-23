@@ -180,7 +180,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
                             p.latitude = loc.latitude
                             p.longitude = loc.longitude
                             animateCamera(p, 14.0)
-                            setMarker(p)
+//                            setMarker(p)
                         }
                     }
                 }

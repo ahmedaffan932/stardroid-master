@@ -34,12 +34,11 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
         const val appUrl: String =
-            "https://play.google.com/store/apps/details?id=com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+            "https://play.google.com/store/apps/details?id=com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         const val currencies: String = "currencies"
         const val oceania: String = "oceania"
         const val america: String = "america"
@@ -142,23 +141,23 @@ class Misc {
         }
 
         fun startActivity(
-                activity: Activity,
-                isIntEnabled: Boolean,
-                callBack: StartActivityCallBack?
+            activity: Activity,
+            isIntEnabled: Boolean,
+            callBack: StartActivityCallBack?
         ) {
             showInterstitial(activity,
-                    isIntEnabled,
-                    object : InterstitialCallBack {
-                        override fun onDismiss() {
-                            callBack?.onStart()
-                        }
-                    })
+                isIntEnabled,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        callBack?.onStart()
+                    }
+                })
         }
 
         fun onBackPress(
-                activity: Activity,
-                inIntEnabled: Boolean,
-                callBack: OnBackPressCallBack?
+            activity: Activity,
+            inIntEnabled: Boolean,
+            callBack: OnBackPressCallBack?
         ) {
             showInterstitial(activity, inIntEnabled, object : InterstitialCallBack {
                 override fun onDismiss() {
@@ -197,29 +196,29 @@ class Misc {
 
         fun zoomInView(view: View, activity: Activity, duration: Int) {
             val a: Animation =
-                    AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
+                AnimationUtils.loadAnimation(activity, R.anim.zoom_in)
             a.duration = duration.toLong()
             view.startAnimation(a)
         }
 
         fun zoomOutView(view: View, activity: Activity, duration: Int) {
             val a: Animation =
-                    AnimationUtils.loadAnimation(activity, R.anim.zoom_out)
+                AnimationUtils.loadAnimation(activity, R.anim.zoom_out)
             a.duration = duration.toLong()
             view.startAnimation(a)
         }
 
         fun getFlash(activity: Activity): Boolean {
             val sharedPreferences: SharedPreferences =
-                    activity.getSharedPreferences(flash, AppCompatActivity.MODE_PRIVATE)
+                activity.getSharedPreferences(flash, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getBoolean(flash, false)
         }
 
 
         fun setCameraFace(activity: Activity, boolean: Boolean) {
             val sharedPreferences = activity.getSharedPreferences(
-                    cameraFace,
-                    AppCompatActivity.MODE_PRIVATE
+                cameraFace,
+                AppCompatActivity.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             editor.putBoolean(cameraFace, boolean)
@@ -228,7 +227,7 @@ class Misc {
 
         fun getCameraFace(activity: Activity): Boolean {
             val sharedPreferences: SharedPreferences =
-                    activity.getSharedPreferences(cameraFace, AppCompatActivity.MODE_PRIVATE)
+                activity.getSharedPreferences(cameraFace, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getBoolean(cameraFace, true)
         }
 
@@ -243,9 +242,9 @@ class Misc {
         }
 
         fun saveImageToExternal(
-                activity: Activity,
-                bitmap: Bitmap,
-                onImageSaveCallBack: OnImageSaveCallBack?
+            activity: Activity,
+            bitmap: Bitmap,
+            onImageSaveCallBack: OnImageSaveCallBack?
         ): Uri? {
             val imageCollection = sdk29AndUp {
                 MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
@@ -276,13 +275,13 @@ class Misc {
 
         fun getLastSavedUri(activity: Activity): String {
             val sharedPreferences: SharedPreferences =
-                    activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
+                activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
             return sharedPreferences.getString(lastUri, "o").toString()
         }
 
         fun setLatestUri(uri: String, activity: Activity) {
             val sharedPreferences =
-                    activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
+                activity.getSharedPreferences(lastUri, AppCompatActivity.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
             editor.putString(lastUri, uri)
             editor.apply()
@@ -290,8 +289,8 @@ class Misc {
 
         fun setPurchasedStatus(activity: Activity, boolean: Boolean) {
             val sharedPreferences = activity.getSharedPreferences(
-                    purchasedStatus,
-                    AppCompatActivity.MODE_PRIVATE
+                purchasedStatus,
+                AppCompatActivity.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             editor.putBoolean(purchasedStatus, boolean)
@@ -300,46 +299,46 @@ class Misc {
 
         fun getPurchasedStatus(activity: Activity?): Boolean {
             val sharedPreferences =
-                    activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
+                activity!!.getSharedPreferences(purchasedStatus, Context.MODE_PRIVATE)
             return sharedPreferences.getBoolean(purchasedStatus, false)
         }
 
         fun loadInterstitial(activity: Activity, id: String) {
             if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
-                            activity
-                    )
+                    activity
+                )
             ) {
                 val adRequest = AdRequest.Builder().build()
                 InterstitialAd.load(
-                        activity,
-                        id,
-                        adRequest,
-                        object : InterstitialAdLoadCallback() {
-                            override fun onAdFailedToLoad(adError: LoadAdError) {
-                                Log.d(logKey, adError.message)
-                                val clipboard: ClipboardManager =
-                                        activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                val clip =
-                                        ClipData.newPlainText("Camera Translator", adError.message)
-                                clipboard.setPrimaryClip(clip)
-                                Log.e(logKey, adError.message)
-                                intFailedCount++
-                                mInterstitialAd = null
-                            }
+                    activity,
+                    id,
+                    adRequest,
+                    object : InterstitialAdLoadCallback() {
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            Log.d(logKey, adError.message)
+                            val clipboard: ClipboardManager =
+                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            val clip =
+                                ClipData.newPlainText("Camera Translator", adError.message)
+                            clipboard.setPrimaryClip(clip)
+                            Log.e(logKey, adError.message)
+                            intFailedCount++
+                            mInterstitialAd = null
+                        }
 
-                            override fun onAdLoaded(p0: InterstitialAd) {
-                                mInterstitialAd = p0
-                                intFailedCount = 0
-                                Log.d(logKey, "Interstitial Ad loaded.")
-                            }
-                        })
+                        override fun onAdLoaded(p0: InterstitialAd) {
+                            mInterstitialAd = p0
+                            intFailedCount = 0
+                            Log.d(logKey, "Interstitial Ad loaded.")
+                        }
+                    })
             }
         }
 
         fun showInterstitial(
-                activity: Activity,
-                isEnabled: Boolean,
-                callBack: InterstitialCallBack?
+            activity: Activity,
+            isEnabled: Boolean,
+            callBack: InterstitialCallBack?
         ) {
             if (getPurchasedStatus(activity)) {
                 callBack?.onDismiss()
@@ -383,55 +382,58 @@ class Misc {
         }
 
         fun loadNativeAd(
-                activity: Activity,
-                id: String,
-                callBack: NativeAdCallBack?
+            activity: Activity,
+            id: String,
+            callBack: NativeAdCallBack?
         ) {
             mNativeAd = null
-            if (!getPurchasedStatus(activity) && nativeFailedCount < 3 && checkInternetConnection(activity)) {
+            if (!getPurchasedStatus(activity) && nativeFailedCount < 3 && checkInternetConnection(
+                    activity
+                )
+            ) {
                 val adLoader: AdLoader =
-                        AdLoader.Builder(activity, /* "ca-app-pub-3940256099942544/2247696110" */ id)
-                                .forNativeAd { nativeAd ->
-                                    Log.d(logKey, "Native Ad Loaded")
+                    AdLoader.Builder(activity, /* "ca-app-pub-3940256099942544/2247696110" */ id)
+                        .forNativeAd { nativeAd ->
+                            Log.d(logKey, "Native Ad Loaded")
 
-                                    nativeFailedCount = 0
+                            nativeFailedCount = 0
 
-                                    mNativeAd = nativeAd
-                                    callBack?.onLoad()
-                                    if (activity.isDestroyed) {
-                                        nativeAd.destroy()
-                                    }
+                            mNativeAd = nativeAd
+                            callBack?.onLoad()
+                            if (activity.isDestroyed) {
+                                nativeAd.destroy()
+                            }
 
-                                }.withAdListener(object : AdListener() {
-                                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                                        val clipboard: ClipboardManager =
-                                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                        val clip =
-                                                ClipData.newPlainText("Camera Translator", adError.message)
-                                        clipboard.setPrimaryClip(clip)
-                                        nativeFailedCount++
-                                        loadNativeAd(activity, nativeAdId, null)
-                                        Log.e(logKey, adError.message)
-                                    }
-                                })
-                                .build()
+                        }.withAdListener(object : AdListener() {
+                            override fun onAdFailedToLoad(adError: LoadAdError) {
+                                val clipboard: ClipboardManager =
+                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clip =
+                                    ClipData.newPlainText("Camera Translator", adError.message)
+                                clipboard.setPrimaryClip(clip)
+                                nativeFailedCount++
+                                loadNativeAd(activity, nativeAdId, null)
+                                Log.e(logKey, adError.message)
+                            }
+                        })
+                        .build()
                 adLoader.loadAd(AdRequest.Builder().build())
             }
         }
 
         fun showNativeAd(
-                activity: Activity,
-                nativeAdTemplateView: TemplateView,
-                isEnabled: Boolean,
-                callBack: NativeAdCallBack?
+            activity: Activity,
+            nativeAdTemplateView: TemplateView,
+            isEnabled: Boolean,
+            callBack: NativeAdCallBack?
         ) {
             if (!getPurchasedStatus(activity))
                 if (mNativeAd != null) {
                     if (isEnabled) {
                         val styles =
-                                NativeTemplateStyle.Builder()
-                                        .withMainBackgroundColor(ColorDrawable())
-                                        .build()
+                            NativeTemplateStyle.Builder()
+                                .withMainBackgroundColor(ColorDrawable())
+                                .build()
                         nativeAdTemplateView.setStyles(styles)
                         nativeAdTemplateView.setNativeAd(mNativeAd)
 
@@ -451,22 +453,23 @@ class Misc {
         fun checkInternetConnection(activity: Activity): Boolean {
             //Check internet connection:
             val connectivityManager: ConnectivityManager? =
-                    activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+                activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 
             //Means that we are connected to a network (mobile or wi-fi)
             return connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
                     connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
         }
+
         fun getNavigationCount(activity: Activity?): Int {
             val sharedPreferences =
                 activity!!.getSharedPreferences("navLimit", Context.MODE_PRIVATE)
             return sharedPreferences.getInt("navLimit", 0)
         }
 
-        fun manageNavigationLimit(activity: Activity): Boolean{
+        fun manageNavigationLimit(activity: Activity): Boolean {
             val sharedPreferences = activity.getSharedPreferences(
-                    "navLimit",
-                    AppCompatActivity.MODE_PRIVATE
+                "navLimit",
+                AppCompatActivity.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             editor.putInt("navLimit", getNavigationCount(activity) + 1)
@@ -475,7 +478,11 @@ class Misc {
             return getNavigationCount(activity) < navigationLimit
         }
 
-        fun getStoragePermission(activity: Activity,storageReadPermissionRequest: Int, storagePermissionInterface: StoragePermissionInterface) {
+        fun getStoragePermission(
+            activity: Activity,
+            storageReadPermissionRequest: Int,
+            storagePermissionInterface: StoragePermissionInterface
+        ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     activity.requestPermissions(
@@ -485,38 +492,44 @@ class Misc {
                 } else {
                     storagePermissionInterface.onPermissionGranted()
                 }
-            }else{
+            } else {
                 storagePermissionInterface.onPermissionGranted()
             }
         }
 
-        fun loadBannerAd(activity: Activity, isEnabled: Boolean, id: String, frameLayout: FrameLayout) {
-            if(isEnabled) {
-                val bannerView = AdView(activity)
-                bannerView.adUnitId = id
+        fun loadBannerAd(
+            activity: Activity,
+            isEnabled: Boolean,
+            id: String,
+            frameLayout: FrameLayout
+        ) {
+            if (!getPurchasedStatus(activity))
+                if (isEnabled) {
+                    val bannerView = AdView(activity)
+                    bannerView.adUnitId = id
 
-                bannerView.adSize = getAdSize(activity, frameLayout)
+                    bannerView.adSize = getAdSize(activity, frameLayout)
 
-                val adRequest = AdRequest.Builder().build()
-                bannerView.loadAd(adRequest)
-                bannerView.adListener = object : AdListener() {
-                    override fun onAdLoaded() {
-                        frameLayout.addView(bannerView)
-                    }
+                    val adRequest = AdRequest.Builder().build()
+                    bannerView.loadAd(adRequest)
+                    bannerView.adListener = object : AdListener() {
+                        override fun onAdLoaded() {
+                            frameLayout.addView(bannerView)
+                        }
 
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                    }
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                        }
 
-                    override fun onAdOpened() {
-                    }
+                        override fun onAdOpened() {
+                        }
 
-                    override fun onAdClicked() {
-                    }
+                        override fun onAdClicked() {
+                        }
 
-                    override fun onAdClosed() {
+                        override fun onAdClosed() {
+                        }
                     }
                 }
-            }
         }
 
         private fun getAdSize(activity: Activity, frameLayout: FrameLayout): AdSize? {

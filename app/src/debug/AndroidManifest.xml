@@ -56,7 +56,7 @@
 
     <application
         android:name=".StardroidApplication"
-        android:icon="@drawable/lem_logo"
+        android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round">

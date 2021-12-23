@@ -159,7 +159,7 @@ class SettingsActivity : AppCompatActivity() {
 //            }
 //        }
 
-        val p = "com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+        val p = "com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         val uri: Uri = Uri.parse("market://details?id=$p")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
         goToMarket.addFlags(

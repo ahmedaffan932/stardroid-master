@@ -32,6 +32,7 @@
             android:text="@string/altitude_meter"
             android:textColor="@color/white"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             mapbox:layout_constraintBottom_toBottomOf="@id/btnBackAltitude"

@@ -82,7 +82,6 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
         permissionsManager = PermissionsManager(this)
         World.init(this)
         FirebaseApp.initializeApp(applicationContext)
-//        FirebaseMessaging.getInstance().subscribeToTopic("com.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app")
 
         MobileAds.initialize(this) {}
 
@@ -188,116 +187,60 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                         Misc.nativeAdId = mFirebaseRemoteConfig.getString("nativeAdId")
                         Misc.lsvBannerAdId = mFirebaseRemoteConfig.getString("lsvBannerAdId")
                         Misc.interstitialAdId = mFirebaseRemoteConfig.getString("interstitialAdId")
-
-                        Misc.isSkyMapIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
-                        Log.d(Misc.logKey, "Fetch Remote Config isSkyMapIntEnabled: ${Misc.isSkyMapIntEnabled}")
-                        Misc.isLSVBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isLSVBannerEnabled")
-                        Misc.isSplashIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
-                        Misc.isSettingIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
-                        Misc.isCompassIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isCompassIntEnabled")
-                        Misc.isNoteCamIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isNoteCamIntEnabled")
-                        Misc.isBtnClickIntEnable =
-                            mFirebaseRemoteConfig.getBoolean("isBtnClickIntEnable")
-                        Misc.isGameBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isGameBackIntEnabled")
-                        Misc.isAltitudeIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isAltitudeIntEnabled")
-                        Misc.isProScreenIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isProScreenIntEnabled")
-                        Misc.isLiveEarthIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isLiveEarthIntEnabled")
-                        Misc.isViewWorldIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isViewWorldIntEnabled")
-                        Misc.isStartGameIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isStartGameIntEnabled")
-                        Misc.isSplashNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
-                        Misc.isSoundMeterIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSoundMeterIntEnabled")
-                        Misc.isGenerateQRIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isGenerateQRIntEnabled")
-                        Misc.isNavigationIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isNavigationIntEnabled")
-                        Misc.isGPSMapCamsIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isGPSMapCamsIntEnabled")
-                        Misc.isSkyMapBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSkyMapBackIntEnabled")
-                        Misc.isSettingBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSettingBackIntEnabled")
-                        Misc.isCompassBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isCompassBackIntEnabled")
-                        Misc.isSpeedometerIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSpeedometerIntEnabled")
-                        Misc.isPlayGameBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isPlayGameBackIntEnabled")
-                        Misc.isAltitudeBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
-                        Misc.isDashboardNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isDashboardNativeEnabled")
-                        Misc.isQuizCompleteIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizCompleteIntEnabled")
-                        Misc.isSoundMeterNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSoundMeterNativeEnabled")
-                        Misc.isQuizScreenOneIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizScreenOneIntEnabled")
-                        Misc.isQuizCountriesIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizCountriesIntEnabled")
-                        Misc.isProScreenBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isProScreenBackIntEnabled")
-                        Misc.isViewWorldBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
-                        Misc.isNoteCamOnBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isNoteCamOnBackIntEnabled")
-                        Misc.isStartGameBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isStartGameBackIntEnabled")
-                        Misc.isSoundMeterBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
-                        Misc.isMainActivityBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isMainActivityBannerEnabled")
-                        Misc.isQuizSelectModeIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
-                        Misc.isNavigationBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isNavigationBackIntEnabled")
-                        Misc.isQuizCurrenciesIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizCurrenciesIntEnabled")
-                        Misc.isSpeedometerNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSpeedometerNativeEnabled")
-                        Misc.isSearchLocationIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSearchLocationIntEnabled")
-                        Misc.isContinentSelectIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
-                        Misc.isQuizCompleteNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
-                        Misc.isQuizActivitySplashEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizActivitySplashEnabled")
-                        Misc.isSpeedometerBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSpeedometerBackIntEnabled")
-                        Misc.isLiveEarthOnBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isLiveEarthOnBackIntEnabled")
-                        Misc.isQuizCompleteBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizCompleteBackIntEnabled")
-                        Misc.isQuizScreenOneNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizScreenOneNativeEnabled")
-                        Misc.isGenerateQrOnBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackIntEnabled")
-                        Misc.isQuizScreenOneBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizScreenOneBackIntEnabled")
-                        Misc.isQuizSelectModeNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isQuizSelectModeNativeEnabled")
-                        Misc.isMainFromProScreenIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isMainFromProScreenIntEnabled")
-                        Misc.isContinentSelectNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isContinentSelectNativeEnabled")
-                        Misc.isGenerateQrOnBackNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackNativeEnabled")
-                        Misc.isContinentSelectBackIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isContinentSelectBackIntEnabled")
+                        Misc.isSkyMapIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
+                        Misc.isLSVBannerEnabled = mFirebaseRemoteConfig.getBoolean("isLSVBannerEnabled")
+                        Misc.isSplashIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
+                        Misc.isSettingIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingIntEnabled")
+                        Misc.isCompassIntEnabled = mFirebaseRemoteConfig.getBoolean("isCompassIntEnabled")
+                        Misc.isNoteCamIntEnabled = mFirebaseRemoteConfig.getBoolean("isNoteCamIntEnabled")
+                        Misc.isBtnClickIntEnable = mFirebaseRemoteConfig.getBoolean("isBtnClickIntEnable")
+                        Misc.isGameBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isGameBackIntEnabled")
+                        Misc.isAltitudeIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeIntEnabled")
+                        Misc.isProScreenIntEnabled = mFirebaseRemoteConfig.getBoolean("isProScreenIntEnabled")
+                        Misc.isLiveEarthIntEnabled = mFirebaseRemoteConfig.getBoolean("isLiveEarthIntEnabled")
+                        Misc.isViewWorldIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldIntEnabled")
+                        Misc.isStartGameIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameIntEnabled")
+                        Misc.isSplashNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
+                        Misc.isSoundMeterIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterIntEnabled")
+                        Misc.isGenerateQRIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQRIntEnabled")
+                        Misc.isNavigationIntEnabled = mFirebaseRemoteConfig.getBoolean("isNavigationIntEnabled")
+                        Misc.isGPSMapCamsIntEnabled = mFirebaseRemoteConfig.getBoolean("isGPSMapCamsIntEnabled")
+                        Misc.isSkyMapBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBackIntEnabled")
+                        Misc.isSettingBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingBackIntEnabled")
+                        Misc.isCompassBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isCompassBackIntEnabled")
+                        Misc.isSpeedometerIntEnabled = mFirebaseRemoteConfig.getBoolean("isSpeedometerIntEnabled")
+                        Misc.isPlayGameBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isPlayGameBackIntEnabled")
+                        Misc.isAltitudeBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
+                        Misc.isDashboardNativeEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardNativeEnabled")
+                        Misc.isQuizCompleteIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteIntEnabled")
+                        Misc.isSoundMeterNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterNativeEnabled")
+                        Misc.isQuizScreenOneIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneIntEnabled")
+                        Misc.isQuizCountriesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCountriesIntEnabled")
+                        Misc.isProScreenBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isProScreenBackIntEnabled")
+                        Misc.isViewWorldBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
+                        Misc.isNoteCamOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isNoteCamOnBackIntEnabled")
+                        Misc.isStartGameBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameBackIntEnabled")
+                        Misc.isSoundMeterBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
+                        Misc.isMainActivityBannerEnabled = mFirebaseRemoteConfig.getBoolean("isMainActivityBannerEnabled")
+                        Misc.isQuizSelectModeIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
+                        Misc.isNavigationBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isNavigationBackIntEnabled")
+                        Misc.isQuizCurrenciesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCurrenciesIntEnabled")
+                        Misc.isSpeedometerNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSpeedometerNativeEnabled")
+                        Misc.isSearchLocationIntEnabled = mFirebaseRemoteConfig.getBoolean("isSearchLocationIntEnabled")
+                        Misc.isContinentSelectIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
+                        Misc.isQuizCompleteNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
+                        Misc.isQuizActivitySplashEnabled = mFirebaseRemoteConfig.getBoolean("isQuizActivitySplashEnabled")
+                        Misc.isSpeedometerBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSpeedometerBackIntEnabled")
+                        Misc.isLiveEarthOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isLiveEarthOnBackIntEnabled")
+                        Misc.isQuizCompleteBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteBackIntEnabled")
+                        Misc.isQuizScreenOneNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneNativeEnabled")
+                        Misc.isGenerateQrOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackIntEnabled")
+                        Misc.isQuizScreenOneBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneBackIntEnabled")
+                        Misc.isQuizSelectModeNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeNativeEnabled")
+                        Misc.isMainFromProScreenIntEnabled = mFirebaseRemoteConfig.getBoolean("isMainFromProScreenIntEnabled")
+                        Misc.isContinentSelectNativeEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectNativeEnabled")
+                        Misc.isGenerateQrOnBackNativeEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackNativeEnabled")
+                        Misc.isContinentSelectBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectBackIntEnabled")
 
 
                         if (Misc.nativeAdId != "" && !isAdRequestSent) {
