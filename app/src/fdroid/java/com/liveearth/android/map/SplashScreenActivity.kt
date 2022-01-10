@@ -158,7 +158,7 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                         startActivity(
                             Intent(
                                 this@SplashScreenActivity,
-                                ProScreenActivity::class.java
+                                MainActivity::class.java
                             )
                         )
                     }
@@ -221,12 +221,12 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                         Misc.isNoteCamOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isNoteCamOnBackIntEnabled")
                         Misc.isStartGameBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameBackIntEnabled")
                         Misc.isSoundMeterBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
-                        Misc.isMainActivityBannerEnabled = mFirebaseRemoteConfig.getBoolean("isMainActivityBannerEnabled")
                         Misc.isQuizSelectModeIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
                         Misc.isNavigationBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isNavigationBackIntEnabled")
                         Misc.isQuizCurrenciesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCurrenciesIntEnabled")
                         Misc.isSpeedometerNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSpeedometerNativeEnabled")
                         Misc.isSearchLocationIntEnabled = mFirebaseRemoteConfig.getBoolean("isSearchLocationIntEnabled")
+                        Misc.isMainActivityBannerEnabled = mFirebaseRemoteConfig.getBoolean("isMainActivityBannerEnabled")
                         Misc.isContinentSelectIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
                         Misc.isQuizCompleteNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
                         Misc.isQuizActivitySplashEnabled = mFirebaseRemoteConfig.getBoolean("isQuizActivitySplashEnabled")
@@ -282,7 +282,6 @@ class SplashScreenActivity : BaseActivity(), PermissionsListener {
                             )
                             mFirebaseRemoteConfig.reset()
                         }
-
                     } else {
                         Log.d(Misc.logKey, "Fetch failed")
                     }

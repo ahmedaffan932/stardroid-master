@@ -6,15 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".LiveEarthActivity">
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/mapView"
+    <FrameLayout
+        android:id="@+id/bannerAdFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        mapbox:layout_constraintBottom_toTopOf="@id/cl"
-        mapbox:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        mapbox:mapbox_cameraTargetLat="51.50550"
-        mapbox:mapbox_cameraTargetLng="-0.07520"
-        mapbox:mapbox_cameraZoom="12" />
+        android:layout_height="wrap_content"
+        mapbox:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -89,6 +85,16 @@
             mapbox:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        mapbox:layout_constraintBottom_toTopOf="@id/cl"
+        mapbox:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        mapbox:mapbox_cameraTargetLat="51.50550"
+        mapbox:mapbox_cameraTargetLng="-0.07520"
+        mapbox:mapbox_cameraZoom="12" />
 
     <LinearLayout
         android:id="@+id/btnGetDirection"
@@ -323,7 +329,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_color"
-        mapbox:layout_constraintBottom_toTopOf="@id/bannerAdFrameLayout">
+        mapbox:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/llDefault"
@@ -442,10 +448,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/bannerAdFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        mapbox:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

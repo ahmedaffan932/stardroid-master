@@ -10,6 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/bannerAdFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <View
             android:visibility="gone"
             android:id="@+id/blockOnClickMain"
@@ -25,8 +31,8 @@
             android:scrollbars="none"
             android:paddingBottom="@dimen/padding"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@id/bannerAdFrameLayout"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -408,16 +414,10 @@
                         android:textSize="@dimen/fab_text_size"
                         android:textStyle="bold" />
                 </LinearLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
-        <FrameLayout
-            android:id="@+id/bannerAdFrameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <include layout="@layout/bottom_sheet_quit" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
