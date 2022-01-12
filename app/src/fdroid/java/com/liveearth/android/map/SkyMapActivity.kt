@@ -9,6 +9,8 @@ import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_sky_map.*
+import kotlinx.android.synthetic.fdroid.activity_sky_map.bannerAdFrameLayout
+import kotlinx.android.synthetic.main.activity_live_earth.*
 
 class SkyMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,8 @@ class SkyMapActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sky_map)
 
         Toast.makeText(this, "Thanks to Stardroid Google.",Toast.LENGTH_SHORT).show()
+
+        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
 
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")

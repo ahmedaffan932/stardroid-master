@@ -33,12 +33,10 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             productFlavors {
-                // includes gms Google services
                 gms {
                     resValue "string", "analytics_enabled", "true"
                 }
 
-                // uses only open source software
                 fdroid {
                     resValue "string", "analytics_enabled", "false"
                 }
@@ -51,17 +49,11 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             productFlavors {
-                // includes gms Google services
                 gms {
-                    //noinspection GradlePath
-//                    applicationIdSuffix "liveearth.android.map"
                     resValue "string", "analytics_enabled", "true"
                 }
 
-                // uses only open source software
                 fdroid {
-                    //noinspection GradlePath
-//                    applicationIdSuffix "liveearth.android.map"
                     resValue "string", "analytics_enabled", "false"
                 }
             }

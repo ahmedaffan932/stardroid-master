@@ -55,7 +55,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name=".StardroidApplication"
+        android:name=".AdsApp"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         android:label="@string/app_name"
@@ -138,6 +138,7 @@
             android:name=".LiveEarthActivity"
             android:exported="true"
             android:foregroundServiceType="location"
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
 

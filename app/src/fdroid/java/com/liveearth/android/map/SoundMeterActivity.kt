@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
@@ -39,34 +40,43 @@ class SoundMeterActivity : AppCompatActivity() {
         }
 
         btnInfo.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("Example:")
-                .setMessage(
-                    "20 dB-Whisper\n" +
-                            "40 dB-Quite library\n" +
-                            "60 dB-Conversation\n" +
-                            "80 dB-Loud Music\n" +
-                            "100 dB-Motorcycle\n" +
-                            "120 dB-Threshold of pain"
-                )
-                .setPositiveButton("Ok") { dialog, which ->
-                    dialog.dismiss()
+            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+                override fun onDismiss() {
+                    AlertDialog.Builder(this@SoundMeterActivity)
+                        .setTitle("Example:")
+                        .setMessage(
+                            "20 dB-Whisper\n" +
+                                    "40 dB-Quite library\n" +
+                                    "60 dB-Conversation\n" +
+                                    "80 dB-Loud Music\n" +
+                                    "100 dB-Motorcycle\n" +
+                                    "120 dB-Threshold of pain"
+                        )
+                        .setPositiveButton("Ok")
+                        { dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .show()
                 }
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show()
+            })
         }
 
-        btnReset.setOnClickListener {
-            handler.removeCallbacks(runSoundMeter)
-            speedAnalog.speedTo(0.toFloat(), 100)
-            textAvg.text = "0"
-            textMax.text = "0"
-            textMin.text = "0"
-            arr.clear()
+        btnReset.setOnClickListener{
+            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+                override fun onDismiss() {
+                    handler.removeCallbacks(runSoundMeter)
+                    speedAnalog.speedTo(0.toFloat(), 100)
+                    textAvg.text = "0"
+                    textMax.text = "0"
+                    textMin.text = "0"
+                    arr.clear()
 
-            Handler().postDelayed({
-                handler.post(runSoundMeter)
-            }, 1000)
+                    Handler().postDelayed({
+                        handler.post(runSoundMeter)
+                    }, 1000)
+                }
+            })
         }
 
 

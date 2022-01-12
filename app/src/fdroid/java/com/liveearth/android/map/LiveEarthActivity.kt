@@ -539,6 +539,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                     .accessToken(getString(R.string.mapbox_access_token))
                     .build()
 
+                svLocation.setText(spokenText, true)
                 geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
                     @SuppressLint("LogNotTimber")
                     override fun onResponse(
@@ -755,7 +756,8 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             places.clear()
             for (n in 0 until jArray.length()) {
                 val jsonObject = jArray.getJSONObject(n)
-                places.add(jsonObject.getString("name"))
+                if (!places.contains(jsonObject.getString("name")))
+                    places.add(jsonObject.getString("name"))
             }
             placesArray = jArray
             val adapter: ArrayAdapter<String> = ArrayAdapter(
@@ -883,7 +885,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     fun manageBtnClickInterstitial() {
-        if (btnClickCount > 2) {
+        if (btnClickCount >= 1) {
             Misc.showInterstitial(this, Misc.isBtnClickIntEnable, null)
             btnClickCount = 0
         } else {

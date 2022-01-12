@@ -37,6 +37,8 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isSkyMapBannerEnabled: Boolean = true
+        var appOpenAddId: String = "ca-app-pub-3940256099942544/3419835294"
         const val appUrl: String =
             "https://play.google.com/store/apps/details?id=com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         const val currencies: String = "currencies"

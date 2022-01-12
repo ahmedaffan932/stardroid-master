@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
+//        val mApplication: StardroidApplication = applicationContext as StardroidApplication
+//        mApplication.
+
         Misc.loadBannerAd(this, Misc.isMainActivityBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
 
         btnPro.setOnClickListener {

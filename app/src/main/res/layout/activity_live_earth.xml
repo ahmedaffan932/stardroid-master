@@ -10,7 +10,7 @@
         android:id="@+id/bannerAdFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        mapbox:layout_constraintBottom_toBottomOf="parent"/>
+        mapbox:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
         android:paddingBottom="@dimen/fab_padding"
-        mapbox:layout_constraintTop_toTopOf="parent">
+        mapbox:layout_constraintTop_toBottomOf="@id/bannerAdFrameLayout">
 
         <ImageView
             android:id="@+id/btnBackLiveEarthMap"
@@ -46,7 +46,7 @@
             android:id="@+id/svLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_blue_rounded"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:completionThreshold="1"
@@ -67,7 +67,7 @@
             android:id="@+id/btnSpeakSearchLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding"
+            android:padding="@dimen/padding"
             android:src="@drawable/ic_mic_circle"
             mapbox:layout_constraintBottom_toBottomOf="@id/svLocation"
             mapbox:layout_constraintEnd_toEndOf="@id/svLocation"
@@ -104,7 +104,7 @@
         android:orientation="vertical"
         android:layout_marginEnd="@dimen/padding"
         android:paddingHorizontal="@dimen/padding"
-        android:background="@drawable/bg_plain_blue"
+        android:background="@drawable/bg_blue_ripple_rounded"
         android:layout_marginBottom="@dimen/less_padding"
         mapbox:layout_constraintBottom_toTopOf="@+id/btnGenerateQR"
         mapbox:layout_constraintEnd_toEndOf="parent">
@@ -138,7 +138,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/less_padding"
-        android:background="@drawable/bg_plain_blue"
+        android:background="@drawable/bg_blue_ripple_rounded"
         mapbox:layout_constraintBottom_toTopOf="@+id/btnThreeDView"
         mapbox:layout_constraintEnd_toEndOf="@+id/btnGetDirection"
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetDirection">
@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/bg_plain_blue"
+        android:background="@drawable/bg_blue_ripple_rounded"
         android:layout_marginBottom="@dimen/less_padding"
         mapbox:layout_constraintBottom_toTopOf="@id/btnGetCurrentLocation"
         mapbox:layout_constraintEnd_toEndOf="@+id/btnGetCurrentLocation"
@@ -194,7 +194,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@drawable/bg_plain_blue"
+        android:background="@drawable/bg_blue_ripple_rounded"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/extra_padding"
         mapbox:layout_constraintBottom_toTopOf="@id/cl"
@@ -223,7 +223,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginBottom="@dimen/less_padding"
-        android:background="@drawable/bg_plain_blue"
+        android:background="@drawable/bg_blue_ripple_rounded"
         mapbox:layout_constraintBottom_toTopOf="@id/btnTraffic"
         mapbox:layout_constraintEnd_toEndOf="@+id/btnGetDirection"
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetDirection">

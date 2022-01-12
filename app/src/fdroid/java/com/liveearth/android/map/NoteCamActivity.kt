@@ -34,6 +34,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.main.activity_am_chatrs.*
 import kotlinx.android.synthetic.main.activity_live_earth.*
@@ -81,6 +82,8 @@ class NoteCamActivity : BaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                tvNoteNoteCam.visibility = View.GONE
+                etNoteNoteCam.clearFocus()
                 Handler().postDelayed({
                     val bitmap = Bitmap.createBitmap(
                         clPreviewImageView.width,
@@ -102,6 +105,7 @@ class NoteCamActivity : BaseActivity() {
 
                     bottomSheetBehavior.state =
                         BottomSheetBehavior.STATE_COLLAPSED
+                    tvNoteNoteCam.visibility = View.VISIBLE
                 }, 10)
             }
         }
@@ -151,44 +155,60 @@ class NoteCamActivity : BaseActivity() {
             textViewNoteCam.text = "GPS Map Cam"
 
             btnCapture.setOnClickListener {
-                val file = File(
-                    externalMediaDirs.firstOrNull(),
-                    ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
-                )
+                Misc.showInterstitial(
+                    this,
+                    Misc.isBtnClickIntEnable,
+                    object : InterstitialCallBack {
+                        override fun onDismiss() {
 
-                val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
-                imageCapture.takePicture(
-                    outPut,
-                    ContextCompat.getMainExecutor(this),
-                    object : ImageCapture.OnImageCapturedCallback(),
-                        ImageCapture.OnImageSavedCallback {
-                        @SuppressLint("SetTextI18n")
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            val uri = outputFileResults.savedUri
+                            val file = File(
+                                externalMediaDirs.firstOrNull(),
+                                ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
+                            )
 
-                            previewImageNoteCam.setImageURI(uri)
-                            previewImageNoteCam.visibility = View.VISIBLE
+                            val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
+                            imageCapture.takePicture(
+                                outPut,
+                                ContextCompat.getMainExecutor(this@NoteCamActivity),
+                                object : ImageCapture.OnImageCapturedCallback(),
+                                    ImageCapture.OnImageSavedCallback {
+                                    @SuppressLint("SetTextI18n")
+                                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                        val uri = outputFileResults.savedUri
 
-                            Handler().postDelayed({
-                                val bitmap = Bitmap.createBitmap(
-                                    clPreviewImageView.width,
-                                    clPreviewImageView.height,
-                                    Bitmap.Config.ARGB_8888
-                                )
-                                val canvas = Canvas(bitmap)
-                                clPreviewImageView.draw(canvas)
+                                        previewImageNoteCam.setImageURI(uri)
+                                        previewImageNoteCam.visibility = View.VISIBLE
 
-                                val tempUri =
-                                    Misc.saveImageToExternal(this@NoteCamActivity, bitmap, null)
-                                Misc.setLatestUri(tempUri.toString(), this@NoteCamActivity)
+                                        Handler().postDelayed({
+                                            val bitmap = Bitmap.createBitmap(
+                                                clPreviewImageView.width,
+                                                clPreviewImageView.height,
+                                                Bitmap.Config.ARGB_8888
+                                            )
+                                            val canvas = Canvas(bitmap)
+                                            clPreviewImageView.draw(canvas)
 
-                                getImageForCollection()
+                                            val tempUri =
+                                                Misc.saveImageToExternal(
+                                                    this@NoteCamActivity,
+                                                    bitmap,
+                                                    null
+                                                )
+                                            Misc.setLatestUri(
+                                                tempUri.toString(),
+                                                this@NoteCamActivity
+                                            )
 
-                                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                            }, 10)
+                                            getImageForCollection()
+
+                                            bottomSheetBehavior.state =
+                                                BottomSheetBehavior.STATE_COLLAPSED
+                                        }, 10)
+                                    }
+                                }
+                            )
                         }
-                    }
-                )
+                    })
             }
 
         } else {
@@ -200,31 +220,39 @@ class NoteCamActivity : BaseActivity() {
                 imm.showSoftInput(etNoteNoteCam, InputMethodManager.SHOW_IMPLICIT)
             }
             btnCapture.setOnClickListener {
-                val file = File(
-                    externalMediaDirs.firstOrNull(),
-                    ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
-                )
+                Misc.showInterstitial(
+                    this,
+                    Misc.isBtnClickIntEnable,
+                    object : InterstitialCallBack {
+                        override fun onDismiss() {
+                            val file = File(
+                                externalMediaDirs.firstOrNull(),
+                                ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
+                            )
 
-                val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
-                imageCapture.takePicture(
-                    outPut,
-                    ContextCompat.getMainExecutor(this),
-                    object : ImageCapture.OnImageCapturedCallback(),
-                        ImageCapture.OnImageSavedCallback {
-                        @SuppressLint("SetTextI18n")
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            val uri = outputFileResults.savedUri
+                            val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
+                            imageCapture.takePicture(
+                                outPut,
+                                ContextCompat.getMainExecutor(this@NoteCamActivity),
+                                object : ImageCapture.OnImageCapturedCallback(),
+                                    ImageCapture.OnImageSavedCallback {
+                                    @SuppressLint("SetTextI18n")
+                                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                        val uri = outputFileResults.savedUri
 
-                            previewImageNoteCam.setImageURI(uri)
-                            previewImageNoteCam.visibility = View.VISIBLE
-                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                            etPhotoNote.text = etNoteNoteCam.text
-                            btnSavePhotoNote.text = "Save"
-                            textViewSavePhoto.text = "Save Photo"
+                                        previewImageNoteCam.setImageURI(uri)
+                                        previewImageNoteCam.visibility = View.VISIBLE
+                                        bottomSheetBehavior.state =
+                                            BottomSheetBehavior.STATE_EXPANDED
+                                        etPhotoNote.text = etNoteNoteCam.text
+                                        btnSavePhotoNote.text = "Save"
+                                        textViewSavePhoto.text = "Save Photo"
 
+                                    }
+                                }
+                            )
                         }
-                    }
-                )
+                    })
             }
         }
 
@@ -371,8 +399,8 @@ class NoteCamActivity : BaseActivity() {
         return try {
             addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
             if (!(addresses == null || addresses.isEmpty())) {
-                    tvAddress.text =
-                        addresses[0].getAddressLine(0)
+                tvAddress.text =
+                    addresses[0].getAddressLine(0)
 
                 addresses[0].countryName
             } else "null"
