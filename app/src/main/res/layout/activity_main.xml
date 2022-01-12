@@ -55,14 +55,14 @@
                 <ImageView
                     android:id="@+id/btnMenu"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:padding="@dimen/fab_padding"
-                    android:layout_marginTop="@dimen/fab_padding"
                     android:background="@drawable/bg_nothing"
                     android:elevation="@dimen/fab_padding"
                     app:srcCompat="@drawable/ic_settings"
                     app:layout_constraintEnd_toStartOf="@+id/btnPro"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnPro"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnPro"
                     tools:layout_editor_absoluteY="15dp"
                     app:tint="@color/white" />
 
