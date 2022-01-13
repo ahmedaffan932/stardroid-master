@@ -55,7 +55,6 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name=".AdsApp"
         android:icon="@mipmap/ic_launcher_foreground"
         android:usesCleartextTraffic="true"
         android:label="@string/app_name"

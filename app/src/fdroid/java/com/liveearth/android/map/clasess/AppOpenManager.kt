@@ -1,30 +1,29 @@
 package com.liveearth.android.map.clasess
 
+import java.util.*
+import android.util.Log
+import android.os.Bundle
 import android.app.Activity
 import android.app.Application
-import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.android.gms.ads.AdError
+import androidx.lifecycle.OnLifecycleEvent
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
+import androidx.lifecycle.LifecycleObserver
 import com.google.android.gms.ads.LoadAdError
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.liveearth.android.map.AdsApp
-import java.util.*
-
+import com.liveearth.android.map.StardroidApplication
+import com.google.android.gms.ads.FullScreenContentCallback
 
 /** Prefetches App Open Ads.  */
-class AppOpenManager(myApplication: AdsApp) : LifecycleObserver,
+class AppOpenManager(myApplication: StardroidApplication) : LifecycleObserver,
     Application.ActivityLifecycleCallbacks {
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
     private var loadTime: Long = 0
     private var loadCallback: AppOpenAd.AppOpenAdLoadCallback? = null
-    private val myApplication: AdsApp
+    private val myApplication: StardroidApplication
 
     /** LifecycleObserver methods  */
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

@@ -43,26 +43,26 @@ class WorldQuizActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isGameBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isGameBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
-    override fun onResume() {
-        super.onResume()
+//    override fun onResume() {
+//        super.onResume()
+//        Misc.showNativeAd(
+//            this@WorldQuizActivity,
+//            nativeAd,
+//            Misc.isQuizActivitySplashEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAd.visibility = View.VISIBLE
+//                }
+//            }
+//        )
+//    }
 
-        Misc.showNativeAd(
-            this@WorldQuizActivity,
-            nativeAd,
-            Misc.isQuizActivitySplashEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAd.visibility = View.VISIBLE
-                }
-            }
-        )
-    }
 }

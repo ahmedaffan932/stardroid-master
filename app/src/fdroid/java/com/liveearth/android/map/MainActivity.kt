@@ -52,7 +52,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 //        val mApplication: StardroidApplication = applicationContext as StardroidApplication
 //        mApplication.
 
-        Misc.loadBannerAd(this, Misc.isMainActivityBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
+        Misc.loadBannerAd(
+            this,
+            Misc.isMainActivityBannerEnabled,
+            Misc.bannerAdId,
+            bannerAdFrameLayout
+        )
 
         btnPro.setOnClickListener {
             Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack {
@@ -144,11 +149,11 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
-        findViewById<LinearLayout>(R.id.llWorldQuiz).setOnClickListener {
+        llWorldQuiz.setOnClickListener {
             Misc.startActivity(this, Misc.isGameIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    val intent = Intent(this@MainActivity, WorldQuizActivity::class.java)
-                    startActivity(intent)
+//                    val intent =
+                    startActivity(Intent(this@MainActivity, WorldQuizActivity::class.java))
                 }
             })
         }
@@ -170,14 +175,42 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         cameraPermissionRequestForGPSCam
                     )
                 } else {
-                    Misc.getStoragePermission(this, gpsMapCamStoragePermission, object : StoragePermissionInterface{
+                    Misc.getStoragePermission(
+                        this,
+                        gpsMapCamStoragePermission,
+                        object : StoragePermissionInterface {
+                            override fun onPermissionGranted() {
+                                Misc.startActivity(
+                                    this@MainActivity,
+                                    Misc.isGPSMapCamsIntEnabled,
+                                    object : StartActivityCallBack {
+                                        override fun onStart() {
+                                            val intent = Intent(
+                                                this@MainActivity,
+                                                NoteCamActivity::class.java
+                                            )
+                                            intent.putExtra(Misc.data, Misc.data)
+                                            startActivity(intent)
+                                        }
+                                    }
+                                )
+                            }
+                        })
+
+                }
+            } else {
+                Misc.getStoragePermission(
+                    this,
+                    gpsMapCamStoragePermission,
+                    object : StoragePermissionInterface {
                         override fun onPermissionGranted() {
                             Misc.startActivity(
                                 this@MainActivity,
                                 Misc.isGPSMapCamsIntEnabled,
                                 object : StartActivityCallBack {
                                     override fun onStart() {
-                                        val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
+                                        val intent =
+                                            Intent(this@MainActivity, NoteCamActivity::class.java)
                                         intent.putExtra(Misc.data, Misc.data)
                                         startActivity(intent)
                                     }
@@ -185,43 +218,31 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             )
                         }
                     })
-
-                }
-            } else {
-                Misc.getStoragePermission(this, gpsMapCamStoragePermission, object : StoragePermissionInterface{
-                    override fun onPermissionGranted() {
-                        Misc.startActivity(
-                            this@MainActivity,
-                            Misc.isGPSMapCamsIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
-                                    intent.putExtra(Misc.data, Misc.data)
-                                    startActivity(intent)
-                                }
-                            }
-                        )
-                    }
-                })
             }
 
         }
 
         llAltitude.setOnClickListener {
-            Misc.getStoragePermission(this, altitudeStoragePermission, object : StoragePermissionInterface{
-                override fun onPermissionGranted() {
-                    Misc.startActivity(this@MainActivity, Misc.isAltitudeIntEnabled, object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(
-                                Intent(
-                                    this@MainActivity,
-                                    AltitudeActivity::class.java
-                                )
-                            )
-                        }
-                    })
-                }
-            })
+            Misc.getStoragePermission(
+                this,
+                altitudeStoragePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
+                        Misc.startActivity(
+                            this@MainActivity,
+                            Misc.isAltitudeIntEnabled,
+                            object : StartActivityCallBack {
+                                override fun onStart() {
+                                    startActivity(
+                                        Intent(
+                                            this@MainActivity,
+                                            AltitudeActivity::class.java
+                                        )
+                                    )
+                                }
+                            })
+                    }
+                })
         }
         llCompass.setOnClickListener {
             Misc.startActivity(this, Misc.isCompassIntEnabled, object : StartActivityCallBack {
@@ -238,17 +259,20 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     lsvStoragePermission,
                     object : StoragePermissionInterface {
                         override fun onPermissionGranted() {
-                            Misc.startActivity(this@MainActivity, Misc.isLiveEarthIntEnabled, object :
-                                StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
-                                        Intent(
-                                            this@MainActivity,
-                                            LiveEarthActivity::class.java
+                            Misc.startActivity(
+                                this@MainActivity,
+                                Misc.isLiveEarthIntEnabled,
+                                object :
+                                    StartActivityCallBack {
+                                    override fun onStart() {
+                                        startActivity(
+                                            Intent(
+                                                this@MainActivity,
+                                                LiveEarthActivity::class.java
+                                            )
                                         )
-                                    )
-                                }
-                            })
+                                    }
+                                })
                         }
                     }
                 )
@@ -261,16 +285,27 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getCameraPermission()
             } else {
-                Misc.getStoragePermission(this, noteCamStoragePermission, object : StoragePermissionInterface{
-                    override fun onPermissionGranted() {
+                Misc.getStoragePermission(
+                    this,
+                    noteCamStoragePermission,
+                    object : StoragePermissionInterface {
+                        override fun onPermissionGranted() {
 
-                        Misc.startActivity(this@MainActivity, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
-                            override fun onStart() {
-                                startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
-                            }
-                        })
-                    }
-                })
+                            Misc.startActivity(
+                                this@MainActivity,
+                                Misc.isNoteCamIntEnabled,
+                                object : StartActivityCallBack {
+                                    override fun onStart() {
+                                        startActivity(
+                                            Intent(
+                                                this@MainActivity,
+                                                NoteCamActivity::class.java
+                                            )
+                                        )
+                                    }
+                                })
+                        }
+                    })
             }
         }
     }
@@ -293,16 +328,27 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), cameraPermissionRequest)
         } else {
-            Misc.getStoragePermission(this, noteCamStoragePermission, object : StoragePermissionInterface{
-                override fun onPermissionGranted() {
+            Misc.getStoragePermission(
+                this,
+                noteCamStoragePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
 
-                    Misc.startActivity(this@MainActivity, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
-                        override fun onStart() {
-                            startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
-                        }
-                    })
-                }
-            })
+                        Misc.startActivity(
+                            this@MainActivity,
+                            Misc.isNoteCamIntEnabled,
+                            object : StartActivityCallBack {
+                                override fun onStart() {
+                                    startActivity(
+                                        Intent(
+                                            this@MainActivity,
+                                            NoteCamActivity::class.java
+                                        )
+                                    )
+                                }
+                            })
+                    }
+                })
         }
 
     }
@@ -316,7 +362,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if(requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(this@MainActivity, Misc.isLiveEarthIntEnabled, object :
                 StartActivityCallBack {
                 override fun onStart() {
@@ -330,7 +376,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
-        if(requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(
                 this@MainActivity,
                 Misc.isGPSMapCamsIntEnabled,
@@ -344,7 +390,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             )
         }
 
-        if(requestCode == noteCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == noteCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
@@ -352,7 +398,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }
 
-        if(requestCode == altitudeStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == altitudeStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(this, Misc.isAltitudeIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
                     startActivity(
@@ -366,36 +412,51 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         if (requestCode == cameraPermissionRequestForGPSCam && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.getStoragePermission(this, gpsMapCamStoragePermission, object : StoragePermissionInterface{
-                override fun onPermissionGranted() {
-                    Misc.startActivity(
-                        this@MainActivity,
-                        Misc.isGPSMapCamsIntEnabled,
-                        object : StartActivityCallBack {
-                            override fun onStart() {
-                                val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
-                                intent.putExtra(Misc.data, Misc.data)
-                                startActivity(intent)
+            Misc.getStoragePermission(
+                this,
+                gpsMapCamStoragePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
+                        Misc.startActivity(
+                            this@MainActivity,
+                            Misc.isGPSMapCamsIntEnabled,
+                            object : StartActivityCallBack {
+                                override fun onStart() {
+                                    val intent =
+                                        Intent(this@MainActivity, NoteCamActivity::class.java)
+                                    intent.putExtra(Misc.data, Misc.data)
+                                    startActivity(intent)
+                                }
                             }
-                        }
-                    )
-                }
-            })
+                        )
+                    }
+                })
         }
 
         if (requestCode == cameraPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
                 override fun onStart() {
-                    Misc.getStoragePermission(this@MainActivity, noteCamStoragePermission, object : StoragePermissionInterface{
-                        override fun onPermissionGranted() {
+                    Misc.getStoragePermission(
+                        this@MainActivity,
+                        noteCamStoragePermission,
+                        object : StoragePermissionInterface {
+                            override fun onPermissionGranted() {
 
-                            Misc.startActivity(this@MainActivity, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
-                                }
-                            })
-                        }
-                    })
+                                Misc.startActivity(
+                                    this@MainActivity,
+                                    Misc.isNoteCamIntEnabled,
+                                    object : StartActivityCallBack {
+                                        override fun onStart() {
+                                            startActivity(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    NoteCamActivity::class.java
+                                                )
+                                            )
+                                        }
+                                    })
+                            }
+                        })
                 }
             }
             )

@@ -9,7 +9,7 @@
         android:pathData="M0,0h428v926h-428z"/>
     <path
         android:pathData="M0,0h428v926h-428z"
-        android:fillColor="#3f4371"/>
+        android:fillColor="#181B3A"/>
     <path
         android:pathData="M-63.55,-33.332L690.488,-193.7L757.464,121.216L93.402,262.448A91.988,91.988 123.772,0 1,-15.71 191.608Z">
       <aapt:attr name="android:fillColor">

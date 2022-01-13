@@ -110,8 +110,8 @@
         mapbox:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:layout_width="@dimen/large_icon_size"
-            android:layout_height="@dimen/large_icon_size"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
             android:scaleType="fitCenter"
             android:backgroundTint="@color/blue"
             android:padding="@dimen/less_padding"
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/direction"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -144,8 +144,8 @@
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetDirection">
 
         <ImageView
-            android:layout_width="@dimen/large_icon_size"
-            android:layout_height="@dimen/large_icon_size"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
             android:scaleType="fitCenter"
             mapbox:layout_constraintBottom_toTopOf="@+id/textQR"
             mapbox:layout_constraintEnd_toEndOf="@+id/btnThreeDView"
@@ -156,7 +156,7 @@
             android:id="@+id/textQR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:text="@string/qr"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -174,9 +174,9 @@
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetCurrentLocation">
 
         <ImageView
-            android:layout_width="@dimen/large_icon_size"
-            android:layout_height="@dimen/large_icon_size"
-            android:layout_marginBottom="@dimen/less_padding"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:scaleType="fitCenter"
             mapbox:srcCompat="@drawable/ic_map_traffic" />
 
@@ -184,7 +184,7 @@
             android:id="@+id/textTraffic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:text="@string/traffic"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -201,9 +201,10 @@
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetDirection"
         mapbox:layout_constraintEnd_toEndOf="@+id/btnGetDirection">
     <ImageView
-        android:layout_width="@dimen/large_icon_size"
-        android:layout_height="@dimen/large_icon_size"
-        android:layout_marginBottom="@dimen/less_padding"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginBottom="@dimen/_3sdp"
+        android:padding="@dimen/less_padding"
         android:scaleType="fitCenter"
         mapbox:srcCompat="@drawable/ic_current_location" />
 
@@ -212,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location"
-        android:layout_marginBottom="@dimen/padding"
+        android:layout_marginBottom="@dimen/_3sdp"
         android:textColor="@color/white" />
     </LinearLayout>
 
@@ -229,9 +230,9 @@
         mapbox:layout_constraintStart_toStartOf="@+id/btnGetDirection">
 
         <ImageView
-            android:layout_width="@dimen/large_icon_size"
-            android:layout_height="@dimen/large_icon_size"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:scaleType="fitCenter"
             mapbox:layout_constraintBottom_toTopOf="@id/text3d"
             mapbox:layout_constraintEnd_toEndOf="parent"
@@ -241,7 +242,7 @@
             android:id="@+id/text3d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:text="@string/_3d"
             android:textColor="@color/white" />
     </LinearLayout>
