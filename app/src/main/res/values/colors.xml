@@ -17,5 +17,7 @@
     <color name="medium_accuracy">#FFEB3B</color>
     <color name="absent_sensor">#ffa0a0a0</color>
     <color name="background_color">#181B3A</color>
+    <color name="light_blue">#636998</color>
+    <color name="old_light_blue">#636998</color>
     <color name="translucent_black">#55000000</color>
 </resources>

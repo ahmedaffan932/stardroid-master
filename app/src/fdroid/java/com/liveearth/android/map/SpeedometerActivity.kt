@@ -58,12 +58,12 @@ class SpeedometerActivity : AppCompatActivity() {
                 previousLocation = null
                 handler.post(runTimer)
                 isStarted = true
-                textStartStop.text = "Stop"
+                textStart.text = "Stop"
                 imgBtnStart.setImageResource(R.drawable.ic_baseline_stop_24)
             } else {
                 handler.removeCallbacks(runTimer)
                 isStarted = false
-                textStartStop.text = "Start"
+                textStart.text = "Start"
                 imgBtnStart.setImageResource(R.drawable.ic_baseline_play_arrow_24)
             }
         }
