@@ -2,23 +2,19 @@ package com.liveearth.android.map
 
 import android.annotation.SuppressLint
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.widget.TextView
-import com.liveearth.android.map.clasess.Misc
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.liveearth.android.map.interfaces.NativeAdCallBack
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.clasess.Misc
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_select_continet.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
-import kotlinx.android.synthetic.main.activity_speedometer.nativeAd
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToLong
 
@@ -35,16 +31,16 @@ class SpeedometerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)
 
-        Misc.showNativeAd(
-            this@SpeedometerActivity,
-            nativeAd,
-            Misc.isSpeedometerNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAd.visibility = View.VISIBLE
-                }
-            }
-        )
+//        Misc.showNativeAd(
+//            this@SpeedometerActivity,
+//            nativeAd,
+//            Misc.isSpeedometerNativeEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAd.visibility = View.VISIBLE
+//                }
+//            }
+//        )
 
         btnBackSpeedometer.setOnClickListener {
             onBackPressed()
@@ -130,12 +126,12 @@ class SpeedometerActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isSpeedometerBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isSpeedometerBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
 }

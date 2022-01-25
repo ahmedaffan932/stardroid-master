@@ -234,8 +234,8 @@
                     app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:srcCompat="@drawable/ic_gps_cam" />
 
                     <TextView
@@ -268,8 +268,8 @@
                     app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:srcCompat="@drawable/ic_cam_note" />
 
                     <TextView
@@ -313,7 +313,7 @@
                         android:gravity="center"
                         android:text="@string/speedometer"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/fab_text_size"
+                        android:textSize="@dimen/_13sdp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -368,8 +368,8 @@
                     app:layout_constraintTop_toBottomOf="@id/llSpeedometer">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:srcCompat="@drawable/ic_compass" />
 
                     <TextView
@@ -400,8 +400,8 @@
                     app:layout_constraintTop_toBottomOf="@id/llSoundMeter">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:srcCompat="@drawable/ic_altitude" />
 
                     <TextView

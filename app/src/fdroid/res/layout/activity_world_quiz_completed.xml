@@ -81,19 +81,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textCorrectAnswers" />
 
 
-    <com.google.android.ads.nativetemplates.TemplateView
-        android:id="@+id/nativeAd"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/nothing"
-        android:visibility="gone"
-        android:elevation="@dimen/padding"
-        android:layout_margin="@dimen/padding"
-        app:gnt_template_type="@layout/custom_native"
-        app:layout_constraintBottom_toTopOf="@+id/btnback"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFalseAnswer" />
+<!--    <com.google.android.ads.nativetemplates.TemplateView-->
+<!--        android:id="@+id/nativeAd"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:background="@color/nothing"-->
+<!--        android:visibility="gone"-->
+<!--        android:elevation="@dimen/padding"-->
+<!--        android:layout_margin="@dimen/padding"-->
+<!--        app:gnt_template_type="@layout/custom_native"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnback"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textFalseAnswer" />-->
 
 
     <ImageView

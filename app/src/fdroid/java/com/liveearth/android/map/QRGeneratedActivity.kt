@@ -103,25 +103,25 @@ class QRGeneratedActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(intent, "Share QR"))
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isGenerateQrOnBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isGenerateQrOnBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
-    override fun onResume() {
-        super.onResume()
-        Misc.showNativeAd(
-            this,
-            nativeAdViewQRGenerated,
-            Misc.isGenerateQrOnBackNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAdViewQRGenerated.visibility = View.VISIBLE
-                }
-            }
-        )
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        Misc.showNativeAd(
+//            this,
+//            nativeAdViewQRGenerated,
+//            Misc.isGenerateQrOnBackNativeEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAdViewQRGenerated.visibility = View.VISIBLE
+//                }
+//            }
+//        )
+//    }
 }

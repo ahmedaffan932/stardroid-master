@@ -273,13 +273,13 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
         alert.show()
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isCompassBackIntEnabled, object : OnBackPressCallBack{
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isCompassBackIntEnabled, object : OnBackPressCallBack{
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
     private fun setMarker(point: LatLng) {
         if (mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID) != null) {

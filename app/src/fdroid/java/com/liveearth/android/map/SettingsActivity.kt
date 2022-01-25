@@ -25,13 +25,13 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         tvUpgradeToPremium.setOnClickListener {
-            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
-                override fun onStart() {
+//            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
+//                override fun onStart() {
                     val intent = Intent(this@SettingsActivity, ProScreenActivity::class.java)
                     intent.putExtra(Misc.data, Misc.data)
                     startActivity(intent)
-                }
-            })
+//                }
+//            })
         }
 
         llShareApp.setOnClickListener {
@@ -179,12 +179,12 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isSettingBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isSettingBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
 }

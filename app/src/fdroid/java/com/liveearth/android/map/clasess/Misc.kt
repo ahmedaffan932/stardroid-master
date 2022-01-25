@@ -37,6 +37,7 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isDashboardIntEnabled: Boolean = true
         var isSkyMapBannerEnabled: Boolean = true
         var appOpenAddId: String = "ca-app-pub-3940256099942544/3419835294"
         const val appUrl: String =
@@ -54,8 +55,6 @@ class Misc {
         var startingTime: Long = 0
         var navigationLimit = 3
         const val data: String = "data"
-        var mInterstitialAd: InterstitialAd? = null
-        var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
         var intFailedCount = 0
         var nativeFailedCount = 0
         var isRemoteConfigFetched = false
@@ -63,6 +62,9 @@ class Misc {
         var bannerAdId: String = "ca-app-pub-3940256099942544/6300978111"
         private const val purchasedStatus: String = "purchasedStatus"
         var lsvBannerAdId = "ca-app-pub-3940256099942544/6300978111"
+
+        var mInterstitialAd: InterstitialAd? = null
+        var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
 
         const val flags: String = "flags"
         const val capitals: String = "capitals"
@@ -142,31 +144,32 @@ class Misc {
             "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAujKAuRSsOBeupTizEzEJprzT8ZBba12bbHN9bS4Fz3S8rmfRLC1VZ0MBb56tkq2JmuqAp1bmMRu2yYJGLCck5ZxV67QthUhYpWLccmEP89cdz6HgUtQvsihRAsO29JUOnaL/Zc+quFvf13+dHR/8tN4ySIFcQ6w29NxACbHdlUfngdEbaxrP/z8dk6bFkbGmNabH4DqDv3+gURWZuaT4OnK86dVLJRzoiGcG6wJJY4nxhj6gCh78O9rGbQkJi+hY4kQ+OMM0evOqTNVn4fSahFAGJmDya5nr57i9xREslI3JT7Y+vzNXDvJmNuqyLvAEzYZvUt/hdKzyy4MearU08QIDAQAB"
         }
 
-        fun startActivity(
-            activity: Activity,
-            isIntEnabled: Boolean,
-            callBack: StartActivityCallBack?
-        ) {
-            showInterstitial(activity,
-                isIntEnabled,
-                object : InterstitialCallBack {
-                    override fun onDismiss() {
-                        callBack?.onStart()
-                    }
-                })
-        }
+//        fun startActivity(
+//            activity: Activity,
+//            isIntEnabled: Boolean,
+//            callBack: StartActivityCallBack?
+//        ) {
+//            callBack?.onStart()
+//            showInterstitial(activity,
+//                isIntEnabled,
+//                object : InterstitialCallBack {
+//                    override fun onDismiss() {
+//                        callBack?.onStart()
+//                    }
+//                })
+//        }
 
-        fun onBackPress(
-            activity: Activity,
-            inIntEnabled: Boolean,
-            callBack: OnBackPressCallBack?
-        ) {
-            showInterstitial(activity, inIntEnabled, object : InterstitialCallBack {
-                override fun onDismiss() {
-                    callBack?.onBackPress()
-                }
-            })
-        }
+//        fun onBackPress(
+//            activity: Activity,
+//            inIntEnabled: Boolean,
+//            callBack: OnBackPressCallBack?
+//        ) {
+//            showInterstitial(activity, inIntEnabled, object : InterstitialCallBack {
+//                override fun onDismiss() {
+//                    callBack?.onBackPress()
+//                }
+//            })
+//        }
 
         fun hideShowView(view: View, activity: Activity, isVisible: Boolean): Boolean {
             if (isVisible) {
@@ -305,153 +308,6 @@ class Misc {
             return sharedPreferences.getBoolean(purchasedStatus, false)
         }
 
-        fun loadInterstitial(activity: Activity, id: String) {
-            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
-                    activity
-                )
-            ) {
-                val adRequest = AdRequest.Builder().build()
-                InterstitialAd.load(
-                    activity,
-                    id,
-                    adRequest,
-                    object : InterstitialAdLoadCallback() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(logKey, adError.message)
-                            val clipboard: ClipboardManager =
-                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val clip =
-                                ClipData.newPlainText("Camera Translator", adError.message)
-                            clipboard.setPrimaryClip(clip)
-                            Log.e(logKey, adError.message)
-                            intFailedCount++
-                            mInterstitialAd = null
-                        }
-
-                        override fun onAdLoaded(p0: InterstitialAd) {
-                            mInterstitialAd = p0
-                            intFailedCount = 0
-                            Log.d(logKey, "Interstitial Ad loaded.")
-                        }
-                    })
-            }
-        }
-
-        fun showInterstitial(
-            activity: Activity,
-            isEnabled: Boolean,
-            callBack: InterstitialCallBack?
-        ) {
-            if (getPurchasedStatus(activity)) {
-                callBack?.onDismiss()
-                return
-            }
-            if (isEnabled) {
-                if (mInterstitialAd != null) {
-                    mInterstitialAd?.show(activity)
-                } else {
-                    loadInterstitial(activity, interstitialAdId)
-                    callBack?.onDismiss()
-                    Log.d("TAG", "The interstitial ad wasn't ready yet.")
-                    return
-                }
-
-                mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        callBack?.onDismiss()
-                    }
-
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                        callBack?.onDismiss()
-                        loadInterstitial(activity, interstitialAdId)
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        Log.d(logKey, "Ad showed fullscreen content.")
-                        mInterstitialAd = null
-                        loadInterstitial(activity, interstitialAdId)
-                    }
-                }
-            } else {
-                callBack?.onDismiss()
-            }
-            if (!getPurchasedStatus(activity)) {
-                if (mInterstitialAd == null) {
-                    callBack?.onDismiss()
-                    loadInterstitial(activity, interstitialAdId)
-                }
-            }
-        }
-
-        fun loadNativeAd(
-            activity: Activity,
-            id: String,
-            callBack: NativeAdCallBack?
-        ) {
-            mNativeAd = null
-            if (!getPurchasedStatus(activity) && nativeFailedCount < 3 && checkInternetConnection(
-                    activity
-                )
-            ) {
-                val adLoader: AdLoader =
-                    AdLoader.Builder(activity, /* "ca-app-pub-3940256099942544/2247696110" */ id)
-                        .forNativeAd { nativeAd ->
-                            Log.d(logKey, "Native Ad Loaded")
-
-                            nativeFailedCount = 0
-
-                            mNativeAd = nativeAd
-                            callBack?.onLoad()
-                            if (activity.isDestroyed) {
-                                nativeAd.destroy()
-                            }
-
-                        }.withAdListener(object : AdListener() {
-                            override fun onAdFailedToLoad(adError: LoadAdError) {
-                                val clipboard: ClipboardManager =
-                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                val clip =
-                                    ClipData.newPlainText("Camera Translator", adError.message)
-                                clipboard.setPrimaryClip(clip)
-                                nativeFailedCount++
-                                loadNativeAd(activity, nativeAdId, null)
-                                Log.e(logKey, adError.message)
-                            }
-                        })
-                        .build()
-                adLoader.loadAd(AdRequest.Builder().build())
-            }
-        }
-
-        fun showNativeAd(
-            activity: Activity,
-            nativeAdTemplateView: TemplateView,
-            isEnabled: Boolean,
-            callBack: NativeAdCallBack?
-        ) {
-            if (!getPurchasedStatus(activity))
-                if (mNativeAd != null) {
-                    if (isEnabled) {
-                        val styles =
-                            NativeTemplateStyle.Builder()
-                                .withMainBackgroundColor(ColorDrawable())
-                                .build()
-                        nativeAdTemplateView.setStyles(styles)
-                        nativeAdTemplateView.setNativeAd(mNativeAd)
-
-                        if (mNativeAd?.mediaContent?.hasVideoContent() == true) {
-                            mNativeAd?.mediaContent?.videoController?.play()
-                        }
-
-                        callBack?.onLoad()
-                        Log.d(logKey, "Native Ad displayed.")
-                        loadNativeAd(activity, nativeAdId, null)
-                    }
-                } else {
-                    loadNativeAd(activity, nativeAdId, null)
-                }
-        }
-
         fun checkInternetConnection(activity: Activity): Boolean {
             //Check internet connection:
             val connectivityManager: ConnectivityManager? =
@@ -499,55 +355,143 @@ class Misc {
             }
         }
 
-        fun loadBannerAd(
+        fun loadInterstitial(
             activity: Activity,
             isEnabled: Boolean,
-            id: String,
-            frameLayout: FrameLayout
+            callback: LoadInterstitialCallBack?
+        ) {
+            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
+                    activity
+                )
+            ) {
+                if (isEnabled) {
+                    val adRequest = AdRequest.Builder().build()
+                    InterstitialAd.load(
+                        activity,
+                        interstitialAdId,
+                        adRequest,
+                        object : InterstitialAdLoadCallback() {
+                            override fun onAdFailedToLoad(adError: LoadAdError) {
+                                Log.d(logKey, adError.message)
+                                val clipboard: ClipboardManager =
+                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clip =
+                                    ClipData.newPlainText("Camera Translator", adError.message)
+                                clipboard.setPrimaryClip(clip)
+                                Log.e(logKey, "Interstitial ad load failed.")
+                                intFailedCount++
+                                mInterstitialAd = null
+                                callback?.onFailed()
+                            }
+
+                            override fun onAdLoaded(p0: InterstitialAd) {
+                                mInterstitialAd = p0
+                                intFailedCount = 0
+                                Log.d(logKey, "Interstitial Ad loaded.")
+                                callback?.onLoaded()
+                            }
+                        }
+                    )
+                }
+            } else {
+                callback?.onFailed()
+            }
+        }
+
+
+        fun showInterstitial(
+            activity: Activity,
+            callBack: InterstitialCallBack?
+        ) {
+            if (getPurchasedStatus(activity)) {
+                callBack?.onDismiss()
+                return
+            }
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(activity)
+            } else {
+                callBack?.onDismiss()
+                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+                return
+            }
+
+            mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    callBack?.onDismiss()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    callBack?.onDismiss()
+                }
+
+                override fun onAdShowedFullScreenContent() {
+                    Log.d(logKey, "Ad showed fullscreen content.")
+                    mInterstitialAd = null
+                }
+            }
+
+            if (!getPurchasedStatus(activity)) {
+                if (mInterstitialAd == null) {
+                    callBack?.onDismiss()
+                }
+            }
+        }
+
+        fun showNativeAd(
+            activity: Activity,
+            nativeAdTemplateView: TemplateView,
+            callBack: NativeAdCallBack?
         ) {
             if (!getPurchasedStatus(activity))
-                if (isEnabled) {
-                    val bannerView = AdView(activity)
-                    bannerView.adUnitId = id
+                if (mNativeAd != null) {
+                    val styles =
+                        NativeTemplateStyle.Builder()
+                            .withMainBackgroundColor(ColorDrawable())
+                            .build()
+                    nativeAdTemplateView.setStyles(styles)
+                    nativeAdTemplateView.setNativeAd(mNativeAd)
 
-                    bannerView.adSize = getAdSize(activity, frameLayout)
-
-                    val adRequest = AdRequest.Builder().build()
-                    bannerView.loadAd(adRequest)
-                    bannerView.adListener = object : AdListener() {
-                        override fun onAdLoaded() {
-                            frameLayout.addView(bannerView)
-                        }
-
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                        }
-
-                        override fun onAdOpened() {
-                        }
-
-                        override fun onAdClicked() {
-                        }
-
-                        override fun onAdClosed() {
-                        }
+                    if (mNativeAd?.mediaContent?.hasVideoContent() == true) {
+                        mNativeAd?.mediaContent?.videoController?.play()
                     }
+
+                    callBack?.onLoad()
+                    Log.d(logKey, "Native Ad displayed.")
                 }
         }
 
-        private fun getAdSize(activity: Activity, frameLayout: FrameLayout): AdSize? {
-            val display: Display = activity.windowManager.defaultDisplay
-            val outMetrics = DisplayMetrics()
-            display.getMetrics(outMetrics)
-            val density = outMetrics.density
-            var adWidthPixels = frameLayout.width.toFloat()
-            if (adWidthPixels == 0f) {
-                adWidthPixels = outMetrics.widthPixels.toFloat()
+        fun loadNativeAd(
+            activity: Activity,
+            isEnabled: Boolean,
+        ) {
+            mNativeAd = null
+            if (!getPurchasedStatus(activity) && isEnabled) {
+                val adLoader: AdLoader =
+                    AdLoader.Builder(activity, nativeAdId)
+                        .forNativeAd { nativeAd ->
+                            Log.d(logKey, "Native Ad Loaded")
+
+                            nativeFailedCount = 0
+
+                            mNativeAd = nativeAd
+                            if (activity.isDestroyed) {
+                                nativeAd.destroy()
+                            }
+
+                        }.withAdListener(object : AdListener() {
+                            override fun onAdFailedToLoad(adError: LoadAdError) {
+                                val clipboard: ClipboardManager =
+                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clip =
+                                    ClipData.newPlainText("Camera Translator", adError.message)
+                                clipboard.setPrimaryClip(clip)
+                                nativeFailedCount++
+                                Log.e(logKey, adError.message)
+                            }
+                        })
+                        .build()
+                adLoader.loadAd(AdRequest.Builder().build())
             }
-            val adWidth = (adWidthPixels / density).toInt()
-            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth)
         }
-
-
     }
-
 }

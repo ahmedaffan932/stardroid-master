@@ -8,17 +8,19 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.liveearth.android.map.AltitudeActivity
+import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.NativeAdCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
-import com.liveearth.android.map.interfaces.StoragePermissionInterface
+import com.liveearth.android.map.interfaces.*
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
@@ -45,36 +47,29 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             setContentView(R.layout.activity_main)
         }
 
+        Misc.showNativeAd(
+            this,
+            nativeAdViewMain,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    nativeAdViewMain.visibility = View.VISIBLE
+                }
+            }
+        )
+
         permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-//        val mApplication: StardroidApplication = applicationContext as StardroidApplication
-//        mApplication.
-
-        Misc.loadBannerAd(
-            this,
-            Misc.isMainActivityBannerEnabled,
-            Misc.bannerAdId,
-            bannerAdFrameLayout
-        )
 
         btnPro.setOnClickListener {
-            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
-                    intent.putExtra(Misc.data, Misc.data)
-                    startActivity(intent)
-                }
-            })
+            val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
+            intent.putExtra(Misc.data, Misc.data)
+            startMyActivity(intent)
         }
 
         btnMenu.setOnClickListener {
-            Misc.startActivity(this, Misc.isSettingIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
-                }
-            })
+            startMyActivity(Intent(this@MainActivity, SettingsActivity::class.java))
         }
 
         llSoundMeter.setOnClickListener {
@@ -85,29 +80,14 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         micPermissionRequest
                     )
                 } else {
-                    Misc.startActivity(
-                        this,
-                        Misc.isSoundMeterIntEnabled,
-                        object : StartActivityCallBack {
-                            override fun onStart() {
-                                val intent =
-                                    Intent(this@MainActivity, SoundMeterActivity::class.java)
-                                startActivity(intent)
-                            }
-                        })
+                    val intent =
+                        Intent(this@MainActivity, SoundMeterActivity::class.java)
+                    startMyActivity(intent)
                 }
             } else {
-                Misc.startActivity(
-                    this,
-                    Misc.isSoundMeterIntEnabled,
-                    object : StartActivityCallBack {
-                        override fun onStart() {
-                            val intent =
-                                Intent(this@MainActivity, SoundMeterActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                )
+                val intent =
+                    Intent(this@MainActivity, SoundMeterActivity::class.java)
+                startMyActivity(intent)
             }
 
         }
@@ -141,30 +121,17 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
 
         llSkyMap.setOnClickListener {
-            Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
-                    startActivity(intent)
-                }
-            })
+            val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
+            startMyActivity(intent)
         }
 
         llWorldQuiz.setOnClickListener {
-            Misc.startActivity(this, Misc.isGameIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-//                    val intent =
-                    startActivity(Intent(this@MainActivity, WorldQuizActivity::class.java))
-                }
-            })
+            startMyActivity(Intent(this@MainActivity, WorldQuizActivity::class.java))
         }
 
         llSpeedometer.setOnClickListener {
-            Misc.startActivity(this, Misc.isSpeedometerIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    val intent = Intent(this@MainActivity, SpeedometerActivity::class.java)
-                    startActivity(intent)
-                }
-            })
+            val intent = Intent(this@MainActivity, SpeedometerActivity::class.java)
+            startMyActivity(intent)
         }
 
         llGPSMapCams.setOnClickListener {
@@ -180,20 +147,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         gpsMapCamStoragePermission,
                         object : StoragePermissionInterface {
                             override fun onPermissionGranted() {
-                                Misc.startActivity(
+                                val intent = Intent(
                                     this@MainActivity,
-                                    Misc.isGPSMapCamsIntEnabled,
-                                    object : StartActivityCallBack {
-                                        override fun onStart() {
-                                            val intent = Intent(
-                                                this@MainActivity,
-                                                NoteCamActivity::class.java
-                                            )
-                                            intent.putExtra(Misc.data, Misc.data)
-                                            startActivity(intent)
-                                        }
-                                    }
+                                    NoteCamActivity::class.java
                                 )
+                                intent.putExtra(Misc.data, Misc.data)
+                                startMyActivity(intent)
                             }
                         })
 
@@ -204,18 +163,10 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     gpsMapCamStoragePermission,
                     object : StoragePermissionInterface {
                         override fun onPermissionGranted() {
-                            Misc.startActivity(
-                                this@MainActivity,
-                                Misc.isGPSMapCamsIntEnabled,
-                                object : StartActivityCallBack {
-                                    override fun onStart() {
-                                        val intent =
-                                            Intent(this@MainActivity, NoteCamActivity::class.java)
-                                        intent.putExtra(Misc.data, Misc.data)
-                                        startActivity(intent)
-                                    }
-                                }
-                            )
+                            val intent =
+                                Intent(this@MainActivity, NoteCamActivity::class.java)
+                            intent.putExtra(Misc.data, Misc.data)
+                            startMyActivity(intent)
                         }
                     })
             }
@@ -228,28 +179,17 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 altitudeStoragePermission,
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
-                        Misc.startActivity(
-                            this@MainActivity,
-                            Misc.isAltitudeIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
-                                        Intent(
-                                            this@MainActivity,
-                                            AltitudeActivity::class.java
-                                        )
-                                    )
-                                }
-                            })
+                        startMyActivity(
+                            Intent(
+                                this@MainActivity,
+                                AltitudeActivity::class.java
+                            )
+                        )
                     }
                 })
         }
         llCompass.setOnClickListener {
-            Misc.startActivity(this, Misc.isCompassIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@MainActivity, CompassActivity::class.java))
-                }
-            })
+            startMyActivity(Intent(this@MainActivity, CompassActivity::class.java))
         }
 
         llLiveEarthMap.setOnClickListener {
@@ -259,20 +199,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     lsvStoragePermission,
                     object : StoragePermissionInterface {
                         override fun onPermissionGranted() {
-                            Misc.startActivity(
-                                this@MainActivity,
-                                Misc.isLiveEarthIntEnabled,
-                                object :
-                                    StartActivityCallBack {
-                                    override fun onStart() {
-                                        startActivity(
-                                            Intent(
-                                                this@MainActivity,
-                                                LiveEarthActivity::class.java
-                                            )
-                                        )
-                                    }
-                                })
+                            startMyActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    LiveEarthActivity::class.java
+                                )
+                            )
                         }
                     }
                 )
@@ -290,37 +222,16 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     noteCamStoragePermission,
                     object : StoragePermissionInterface {
                         override fun onPermissionGranted() {
-
-                            Misc.startActivity(
-                                this@MainActivity,
-                                Misc.isNoteCamIntEnabled,
-                                object : StartActivityCallBack {
-                                    override fun onStart() {
-                                        startActivity(
-                                            Intent(
-                                                this@MainActivity,
-                                                NoteCamActivity::class.java
-                                            )
-                                        )
-                                    }
-                                })
+                            startMyActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    NoteCamActivity::class.java
+                                )
+                            )
                         }
                     })
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Misc.showNativeAd(
-            this,
-            nativeAdViewMain,
-            Misc.isDashboardNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAdViewMain.visibility = View.VISIBLE
-                }
-            })
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -333,24 +244,15 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 noteCamStoragePermission,
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
-
-                        Misc.startActivity(
-                            this@MainActivity,
-                            Misc.isNoteCamIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    startActivity(
-                                        Intent(
-                                            this@MainActivity,
-                                            NoteCamActivity::class.java
-                                        )
-                                    )
-                                }
-                            })
+                        startMyActivity(
+                            Intent(
+                                this@MainActivity,
+                                NoteCamActivity::class.java
+                            )
+                        )
                     }
                 })
         }
-
     }
 
 
@@ -363,52 +265,31 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(this@MainActivity, Misc.isLiveEarthIntEnabled, object :
-                StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            LiveEarthActivity::class.java
-                        )
-                    )
-                }
-            })
-        }
-
-        if (requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(
-                this@MainActivity,
-                Misc.isGPSMapCamsIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
-                        val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
-                        intent.putExtra(Misc.data, Misc.data)
-                        startActivity(intent)
-                    }
-                }
+            startMyActivity(
+                Intent(
+                    this@MainActivity,
+                    LiveEarthActivity::class.java
+                )
             )
         }
 
+        if (requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
+            intent.putExtra(Misc.data, Misc.data)
+            startMyActivity(intent)
+        }
+
         if (requestCode == noteCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
-                }
-            })
+            startMyActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
         }
 
         if (requestCode == altitudeStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(this, Misc.isAltitudeIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            com.liveearth.android.map.AltitudeActivity::class.java
-                        )
-                    )
-                }
-            })
+            startMyActivity(
+                Intent(
+                    this@MainActivity,
+                    AltitudeActivity::class.java
+                )
+            )
         }
 
         if (requestCode == cameraPermissionRequestForGPSCam && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -417,64 +298,35 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 gpsMapCamStoragePermission,
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
-                        Misc.startActivity(
-                            this@MainActivity,
-                            Misc.isGPSMapCamsIntEnabled,
-                            object : StartActivityCallBack {
-                                override fun onStart() {
-                                    val intent =
-                                        Intent(this@MainActivity, NoteCamActivity::class.java)
-                                    intent.putExtra(Misc.data, Misc.data)
-                                    startActivity(intent)
-                                }
-                            }
-                        )
+                        val intent =
+                            Intent(this@MainActivity, NoteCamActivity::class.java)
+                        intent.putExtra(Misc.data, Misc.data)
+                        startMyActivity(intent)
                     }
                 })
         }
 
         if (requestCode == cameraPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Misc.startActivity(this, Misc.isNoteCamIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
-                    Misc.getStoragePermission(
-                        this@MainActivity,
-                        noteCamStoragePermission,
-                        object : StoragePermissionInterface {
-                            override fun onPermissionGranted() {
-
-                                Misc.startActivity(
-                                    this@MainActivity,
-                                    Misc.isNoteCamIntEnabled,
-                                    object : StartActivityCallBack {
-                                        override fun onStart() {
-                                            startActivity(
-                                                Intent(
-                                                    this@MainActivity,
-                                                    NoteCamActivity::class.java
-                                                )
-                                            )
-                                        }
-                                    })
-                            }
-                        })
-                }
-            }
-            )
+            Misc.getStoragePermission(
+                this@MainActivity,
+                noteCamStoragePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
+                        startMyActivity(
+                            Intent(
+                                this@MainActivity,
+                                NoteCamActivity::class.java
+                            )
+                        )
+                    }
+                })
         }
 
         if (requestCode == micPermissionRequest) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Misc.startActivity(
-                    this,
-                    Misc.isSoundMeterIntEnabled,
-                    object : StartActivityCallBack {
-                        override fun onStart() {
-                            val intent =
-                                Intent(this@MainActivity, SoundMeterActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                )
+                val intent =
+                    Intent(this@MainActivity, SoundMeterActivity::class.java)
+                startMyActivity(intent)
             } else {
                 Toast.makeText(
                     this,
@@ -498,17 +350,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 lsvStoragePermission,
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
-                        Misc.startActivity(this@MainActivity, Misc.isLiveEarthIntEnabled, object :
-                            StartActivityCallBack {
-                            override fun onStart() {
-                                startActivity(
-                                    Intent(
-                                        this@MainActivity,
-                                        LiveEarthActivity::class.java
-                                    )
-                                )
-                            }
-                        })
+                        startMyActivity(
+                            Intent(
+                                this@MainActivity,
+                                LiveEarthActivity::class.java
+                            )
+                        )
                     }
                 }
             )
@@ -524,5 +371,35 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+    }
+
+    fun startMyActivity(intent: Intent) {
+
+        val objCustomDialog = CustomDialog(this)
+        objCustomDialog.show()
+
+        val window: Window = objCustomDialog.window!!
+        window.setLayout(
+            WindowManager.LayoutParams.FILL_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        window.setBackgroundDrawableResource(R.color.nothing)
+        objCustomDialog.setCancelable(false)
+
+        Misc.loadInterstitial(this, Misc.isDashboardIntEnabled, object : LoadInterstitialCallBack {
+            override fun onFailed() {
+                objCustomDialog.dismiss()
+                startActivity(intent)
+            }
+
+            override fun onLoaded() {
+                objCustomDialog.dismiss()
+                Misc.showInterstitial(this@MainActivity, object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        startActivity(intent)
+                    }
+                })
+            }
+        })
     }
 }

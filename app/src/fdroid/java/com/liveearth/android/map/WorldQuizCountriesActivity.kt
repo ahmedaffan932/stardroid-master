@@ -172,11 +172,11 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCompleteIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCompleteIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         finish()
                         val intent =
                             Intent(
@@ -186,8 +186,8 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                         intent.putExtra(Misc.levels, levels)
                         intent.putExtra(Misc.data, numberOfCorrectAnswers)
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
     }
 
@@ -341,12 +341,12 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
             isCompleted = false
             isCountrySelected = false
         }else{
-            Misc.onBackPress(this, Misc.isPlayGameBackIntEnabled, object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
-//            super.onBackPressed()
+//            Misc.onBackPress(this, Misc.isPlayGameBackIntEnabled, object : OnBackPressCallBack {
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
+            super.onBackPressed()
         }
     }
 

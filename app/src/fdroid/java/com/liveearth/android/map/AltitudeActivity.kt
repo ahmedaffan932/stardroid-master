@@ -255,14 +255,13 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         mapView.onLowMemory()
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
-
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 
 
     private fun setMarker(point: LatLng) {

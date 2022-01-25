@@ -155,11 +155,11 @@ class NoteCamActivity : BaseActivity() {
             textViewNoteCam.text = "GPS Map Cam"
 
             btnCapture.setOnClickListener {
-                Misc.showInterstitial(
-                    this,
-                    Misc.isBtnClickIntEnable,
-                    object : InterstitialCallBack {
-                        override fun onDismiss() {
+//                Misc.showInterstitial(
+//                    this,
+//                    Misc.isBtnClickIntEnable,
+//                    object : InterstitialCallBack {
+//                        override fun onDismiss() {
 
                             val file = File(
                                 externalMediaDirs.firstOrNull(),
@@ -207,8 +207,8 @@ class NoteCamActivity : BaseActivity() {
                                     }
                                 }
                             )
-                        }
-                    })
+//                        }
+//                    })
             }
 
         } else {
@@ -220,11 +220,11 @@ class NoteCamActivity : BaseActivity() {
                 imm.showSoftInput(etNoteNoteCam, InputMethodManager.SHOW_IMPLICIT)
             }
             btnCapture.setOnClickListener {
-                Misc.showInterstitial(
-                    this,
-                    Misc.isBtnClickIntEnable,
-                    object : InterstitialCallBack {
-                        override fun onDismiss() {
+//                Misc.showInterstitial(
+//                    this,
+//                    Misc.isBtnClickIntEnable,
+//                    object : InterstitialCallBack {
+//                        override fun onDismiss() {
                             val file = File(
                                 externalMediaDirs.firstOrNull(),
                                 ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
@@ -251,8 +251,8 @@ class NoteCamActivity : BaseActivity() {
                                     }
                                 }
                             )
-                        }
-                    })
+//                        }
+//                    })
             }
         }
 
@@ -270,11 +270,12 @@ class NoteCamActivity : BaseActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
-            Misc.onBackPress(this, Misc.isNoteCamOnBackIntEnabled, object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
+            super.onBackPressed()
+//            Misc.onBackPress(this, Misc.isNoteCamOnBackIntEnabled, object : OnBackPressCallBack {
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
         }
     }
 

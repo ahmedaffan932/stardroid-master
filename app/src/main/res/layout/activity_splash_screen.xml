@@ -18,17 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.ads.nativetemplates.TemplateView
-            android:id="@+id/nativeAdViewSplash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/nothing"
-            android:visibility="gone"
-            app:gnt_template_type="@layout/custom_native"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <com.google.android.ads.nativetemplates.TemplateView-->
+<!--            android:id="@+id/nativeAdViewSplash"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@color/nothing"-->
+<!--            android:visibility="gone"-->
+<!--            app:gnt_template_type="@layout/custom_native"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -73,7 +73,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/fab_padding"
         android:textStyle="bold|italic"
-        android:layout_marginBottom="@dimen/fab_padding"
+        android:layout_marginVertical="@dimen/padding"
         app:layout_constraintEnd_toEndOf="@+id/btnStart"
         app:layout_constraintStart_toStartOf="@+id/btnStart"
         app:layout_constraintTop_toBottomOf="@id/btnStart" />

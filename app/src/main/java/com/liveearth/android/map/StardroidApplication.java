@@ -30,10 +30,10 @@ import android.util.Log;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.liveearth.android.map.clasess.AppOpenManager;
+//import com.google.android.gms.ads.MobileAds;
+//import com.google.android.gms.ads.initialization.InitializationStatus;
+//import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+//import com.liveearth.android.map.clasess.AppOpenManager;
 import com.liveearth.android.map.layers.LayerManager;
 import com.liveearth.android.map.util.Analytics;
 import com.liveearth.android.map.util.AnalyticsInterface;
@@ -59,7 +59,7 @@ public class StardroidApplication extends Application {
   private static final String PREVIOUS_APP_VERSION_PREF = "previous_app_version";
   private static final String NONE = "Clean install";
   private static final String UNKNOWN = "Unknown previous version";
-  private static AppOpenManager appOpenManager;
+//  private static AppOpenManager appOpenManager;
 
   @Inject SharedPreferences preferences;
   // We keep a reference to this just to start it initializing.
@@ -99,10 +99,10 @@ public class StardroidApplication extends Application {
 
     Log.d(TAG, "StardroidApplication: -onCreate");
 
-    MobileAds.initialize(
-            this,
-            initializationStatus -> {});
-    appOpenManager = new AppOpenManager(this);
+//    MobileAds.initialize(
+//            this,
+//            initializationStatus -> {});
+//    appOpenManager = new AppOpenManager(this);
 
   }
 

@@ -114,7 +114,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, Misc.lsvBannerAdId, bannerAdFrameLayout)
+//        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, Misc.lsvBannerAdId, bannerAdFrameLayout)
 
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
@@ -129,7 +129,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             sharingIntent.type = "text/plain"
             sharingIntent.putExtra(Intent.EXTRA_TEXT, address)
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
-            manageBtnClickInterstitial()
+//            manageBtnClickInterstitial()
         }
 
         btnGetDirection.setOnClickListener {
@@ -162,7 +162,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 val destination = Point.fromLngLat(point.longitude, point.latitude)
                 val origin = Point.fromLngLat(currentLocation.longitude, currentLocation.latitude)
                 getRoute(origin, destination)
-                manageBtnClickInterstitial()
+//                manageBtnClickInterstitial()
             }
         }
 
@@ -193,11 +193,11 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             val intent = Intent(this, QRGeneratedActivity::class.java)
             Log.d(Misc.logKey, latLng)
             intent.putExtra(Misc.data, latLng)
-            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
+//            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack {
+//                override fun onStart() {
                     startActivity(intent)
-                }
-            })
+//                }
+//            })
         }
 
         btnGetCurrentLocation.setOnClickListener {
@@ -215,12 +215,12 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 animateCamera(point, 14.0)
                 getAddress(point)
             }
-            manageBtnClickInterstitial()
+//            manageBtnClickInterstitial()
         }
 
         btnSpeakSearchLocation.setOnClickListener {
             displaySpeechRecognizer()
-            manageBtnClickInterstitial()
+//            manageBtnClickInterstitial()
         }
 
         searchSuggestions()
@@ -271,7 +271,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                                 "Screen Shot Saved in Gallery. ",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            manageBtnClickInterstitial()
+//                            manageBtnClickInterstitial()
                         }
                     })
                 }
@@ -449,9 +449,10 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 buildingPlugin = BuildingPlugin(mapView, mapboxMap, style)
                 buildingPlugin?.setMinZoomLevel(15f)
                 isFirstTime = false
-            } else {
-                manageBtnClickInterstitial()
             }
+//            else {
+//                manageBtnClickInterstitial()
+//            }
 
             hoveringMarker = ImageView(this@LiveEarthActivity)
             hoveringMarker.setImageResource(R.drawable.ic_pin)
@@ -517,11 +518,12 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             Misc.hideShowView(btnStartNavigation, this, true)
             isRouteAdded = false
         } else {
-            Misc.onBackPress(this, Misc.isLiveEarthOnBackIntEnabled, object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
+            super.onBackPressed()
+//            Misc.onBackPress(this, Misc.isLiveEarthOnBackIntEnabled, object : OnBackPressCallBack {
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
         }
     }
 
@@ -661,19 +663,19 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                     Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                     btnStartNavigation.setOnClickListener {
                         if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
-                            Misc.startActivity(
-                                this@LiveEarthActivity,
-                                Misc.isNavigationIntEnabled,
-                                object : StartActivityCallBack {
-                                    override fun onStart() {
+//                            Misc.startActivity(
+//                                this@LiveEarthActivity,
+//                                Misc.isNavigationIntEnabled,
+//                                object : StartActivityCallBack {
+//                                    override fun onStart() {
                                         startActivity(
                                             Intent(
                                                 this@LiveEarthActivity,
                                                 NavigationActivity::class.java
                                             )
-                                        )
-                                    }
-                                }
+//                                        )
+//                                    }
+//                                }
                             )
                         } else {
                             AlertDialog.Builder(this@LiveEarthActivity)
@@ -884,13 +886,13 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-    fun manageBtnClickInterstitial() {
-        if (btnClickCount >= 1) {
-            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, null)
-            btnClickCount = 0
-        } else {
-            btnClickCount++
-        }
-
-    }
+//    fun manageBtnClickInterstitial() {
+//        if (btnClickCount >= 1) {
+//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, null)
+//            btnClickCount = 0
+//        } else {
+//            btnClickCount++
+//        }
+//
+//    }
 }

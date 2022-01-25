@@ -101,11 +101,12 @@ class NavigationActivity : AppCompatActivity(), OnNavigationReadyCallback, Navig
         if (navigationView != null) {
             navigationView.stopNavigation()
         }
-        Misc.onBackPress(this, Misc.isNavigationBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
+//        Misc.onBackPress(this, Misc.isNavigationBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
 //        finish()
+        super.onBackPressed()
     }
 }

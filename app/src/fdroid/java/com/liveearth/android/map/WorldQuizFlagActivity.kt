@@ -76,11 +76,11 @@ class WorldQuizFlagActivity : AppCompatActivity() {
             }
 
         } catch (e: Exception) {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCompleteIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCompleteIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         finish()
                         val intent =
                             Intent(
@@ -90,8 +90,8 @@ class WorldQuizFlagActivity : AppCompatActivity() {
                         intent.putExtra(Misc.levels, levels)
                         intent.putExtra(Misc.data, numberOfCorrectAnswers)
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
     }
 

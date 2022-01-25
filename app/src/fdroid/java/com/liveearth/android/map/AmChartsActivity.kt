@@ -151,11 +151,12 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 clCountryInfo.visibility = View.GONE
             }, 300)
         } else {
-            Misc.onBackPress(this, Misc.isViewWorldBackIntEnabled, object : OnBackPressCallBack{
-                override fun onBackPress() {
-                    finish()
-                }
-            })
+            super.onBackPressed()
+//            Misc.onBackPress(this, Misc.isViewWorldBackIntEnabled, object : OnBackPressCallBack{
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
         }
     }
 

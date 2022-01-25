@@ -16,17 +16,16 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz_screen_one)
 
-
-        Misc.showNativeAd(
-            this@WorldQuizScreenOneActivity,
-            nativeAd,
-            Misc.isQuizScreenOneNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAd.visibility = View.VISIBLE
-                }
-            }
-        )
+//        Misc.showNativeAd(
+//            this@WorldQuizScreenOneActivity,
+//            nativeAd,
+//            Misc.isQuizScreenOneNativeEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAd.visibility = View.VISIBLE
+//                }
+//            }
+//        )
 
         btnBackWorldQuizScreenOne.setOnClickListener {
             onBackPressed()
@@ -37,62 +36,62 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         )
 
         clCountries.setOnClickListener {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCountriesIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCountriesIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         Misc.gameMode = Misc.countries
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
 
         clFlags.setOnClickListener {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCountriesIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCountriesIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         Misc.gameMode = Misc.flags
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
 
         clCapitals.setOnClickListener {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCountriesIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCountriesIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         Misc.gameMode = Misc.capitals
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
 
         clCurrencies.setOnClickListener {
-            Misc.startActivity(
-                this,
-                Misc.isQuizCurrenciesIntEnabled,
-                object : StartActivityCallBack {
-                    override fun onStart() {
+//            Misc.startActivity(
+//                this,
+//                Misc.isQuizCurrenciesIntEnabled,
+//                object : StartActivityCallBack {
+//                    override fun onStart() {
                         Misc.gameMode = Misc.currencies
                         startActivity(intent)
-                    }
-                })
+//                    }
+//                })
         }
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(
-            this,
-            Misc.isQuizScreenOneBackIntEnabled,
-            object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(
+//            this,
+//            Misc.isQuizScreenOneBackIntEnabled,
+//            object : OnBackPressCallBack {
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
+//    }
 }

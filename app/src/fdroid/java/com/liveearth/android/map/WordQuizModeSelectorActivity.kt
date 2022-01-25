@@ -23,17 +23,16 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_word_quiz_mode_selector)
 
-
-        Misc.showNativeAd(
-            this@WordQuizModeSelectorActivity,
-            nativeAd,
-            Misc.isQuizSelectModeNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAd.visibility = View.VISIBLE
-                }
-            }
-        )
+//        Misc.showNativeAd(
+//            this@WordQuizModeSelectorActivity,
+//            nativeAd,
+//            Misc.isQuizSelectModeNativeEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAd.visibility = View.VISIBLE
+//                }
+//            }
+//        )
 
         World.init(this)
         val arr = World.getAllCountries()
@@ -79,27 +78,27 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         if (Misc.gameMode == Misc.flags) {
             val intent = Intent(this, WorldQuizFlagActivity::class.java)
             intent.putExtra(Misc.data, levels)
-            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
+//            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
+//                override fun onStart() {
                     startActivity(intent)
-                }
-            })
+//                }
+//            })
         } else {
             val intent = Intent(this, WorldQuizCountriesActivity::class.java)
             intent.putExtra(Misc.data, levels)
-            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
-                override fun onStart() {
+//            Misc.startActivity(this, Misc.isStartGameIntEnabled, object : StartActivityCallBack {
+//                override fun onStart() {
                     startActivity(intent)
-                }
-            })
+//                }
+//            })
         }
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isContinentSelectBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isContinentSelectBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 }

@@ -19,7 +19,7 @@ class SkyMapActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Thanks to Stardroid Google.",Toast.LENGTH_SHORT).show()
 
-        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
+//        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
 
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")
@@ -64,18 +64,18 @@ class SkyMapActivity : AppCompatActivity() {
     private fun searchPlanet(str: String){
         val intent = Intent(this, DynamicStarMapActivity::class.java)
         intent.putExtra(Misc.data, str)
-        Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
-            override fun onStart() {
+//        Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
+//            override fun onStart() {
                 startActivity(intent)
-            }
-        })
+//            }
+//        })
     }
-
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isSkyMapBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isSkyMapBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 }

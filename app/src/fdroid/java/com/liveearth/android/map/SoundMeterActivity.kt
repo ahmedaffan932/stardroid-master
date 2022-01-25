@@ -24,24 +24,24 @@ class SoundMeterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sound_meter)
 
 
-        Misc.showNativeAd(
-            this@SoundMeterActivity,
-            nativeAd,
-            Misc.isSoundMeterNativeEnabled,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAd.visibility = View.VISIBLE
-                }
-            }
-        )
+//        Misc.showNativeAd(
+//            this@SoundMeterActivity,
+//            nativeAd,
+//            Misc.isSoundMeterNativeEnabled,
+//            object : NativeAdCallBack {
+//                override fun onLoad() {
+//                    nativeAd.visibility = View.VISIBLE
+//                }
+//            }
+//        )
 
         btnBackSoundMeter.setOnClickListener {
             onBackPressed()
         }
 
         btnInfo.setOnClickListener {
-            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
-                override fun onDismiss() {
+//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+//                override fun onDismiss() {
                     AlertDialog.Builder(this@SoundMeterActivity)
                         .setTitle("Example:")
                         .setMessage(
@@ -58,13 +58,13 @@ class SoundMeterActivity : AppCompatActivity() {
                         }
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .show()
-                }
-            })
+//                }
+//            })
         }
 
         btnReset.setOnClickListener{
-            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
-                override fun onDismiss() {
+//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+//                override fun onDismiss() {
                     handler.removeCallbacks(runSoundMeter)
                     speedAnalog.speedTo(0.toFloat(), 100)
                     textAvg.text = "0"
@@ -75,8 +75,8 @@ class SoundMeterActivity : AppCompatActivity() {
                     Handler().postDelayed({
                         handler.post(runSoundMeter)
                     }, 1000)
-                }
-            })
+//                }
+//            })
         }
 
 
@@ -129,11 +129,11 @@ class SoundMeterActivity : AppCompatActivity() {
         handler.removeCallbacks(runSoundMeter)
     }
 
-    override fun onBackPressed() {
-        Misc.onBackPress(this, Misc.isSoundMeterBackIntEnabled, object : OnBackPressCallBack {
-            override fun onBackPress() {
-                finish()
-            }
-        })
-    }
+//    override fun onBackPressed() {
+//        Misc.onBackPress(this, Misc.isSoundMeterBackIntEnabled, object : OnBackPressCallBack {
+//            override fun onBackPress() {
+//                finish()
+//            }
+//        })
+//    }
 }

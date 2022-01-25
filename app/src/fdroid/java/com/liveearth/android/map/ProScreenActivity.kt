@@ -79,11 +79,11 @@ class ProScreenActivity : AppCompatActivity() {
                 override fun onFinish() {
                     btnContinue.visibility = View.VISIBLE
                     btnContinue.setOnClickListener {
-                        Misc.startActivity(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : StartActivityCallBack{
-                            override fun onStart() {
+//                        Misc.startActivity(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : StartActivityCallBack{
+//                            override fun onStart() {
                                 startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
-                            }
-                        })
+//                            }
+//                        })
                     }
                 }
             }
@@ -151,12 +151,12 @@ class ProScreenActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null){
-            Misc.onBackPress(this, Misc.isProScreenBackIntEnabled, object : OnBackPressCallBack {
-                override fun onBackPress() {
-                    finish()
-                }
-            })
-//            super.onBackPressed()
+//            Misc.onBackPress(this, Misc.isProScreenBackIntEnabled, object : OnBackPressCallBack {
+//                override fun onBackPress() {
+//                    finish()
+//                }
+//            })
+            super.onBackPressed()
         }
 
     }
