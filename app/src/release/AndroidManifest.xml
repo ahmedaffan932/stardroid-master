@@ -129,9 +129,9 @@
             android:name=".QRGeneratedActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <activity
-            android:name=".QRActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".QRActivity"-->
+<!--            android:theme="@style/Theme.AppCompat.NoActionBar" />-->
         <activity
             android:name=".AmChartsActivity"
             android:fitsSystemWindows="true"
@@ -149,9 +149,9 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustResize"
             />
-        <activity
-            android:name=".GameGlobeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".GameGlobeActivity"-->
+<!--            android:theme="@style/Theme.AppCompat.NoActionBar" />-->
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -217,5 +217,9 @@
             android:name="com.liveearth.android.map.WorldQuizFlagActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4646444773193134~3224317182"/>
     </application>
 </manifest>

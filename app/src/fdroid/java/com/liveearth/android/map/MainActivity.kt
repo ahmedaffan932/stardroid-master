@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     private val gpsMapCamStoragePermission = 93
     private val noteCamStoragePermission = 936
     private val altitudeStoragePermission = 989
+    private lateinit var myIntent: Intent
+    private var isNativeDisplayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +49,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             setContentView(R.layout.activity_main)
         }
 
-        Misc.showNativeAd(
-            this,
-            nativeAdViewMain,
-            object : NativeAdCallBack {
-                override fun onLoad() {
-                    nativeAdViewMain.visibility = View.VISIBLE
-                }
-            }
-        )
 
         permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
@@ -193,24 +186,20 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llLiveEarthMap.setOnClickListener {
-            if (PermissionsManager.areLocationPermissionsGranted(this)) {
-                Misc.getStoragePermission(
-                    this,
-                    lsvStoragePermission,
-                    object : StoragePermissionInterface {
-                        override fun onPermissionGranted() {
-                            startMyActivity(
-                                Intent(
-                                    this@MainActivity,
-                                    LiveEarthActivity::class.java
-                                )
+            Misc.getStoragePermission(
+                this,
+                lsvStoragePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
+                        startMyActivity(
+                            Intent(
+                                this@MainActivity,
+                                LiveEarthActivity::class.java
                             )
-                        }
+                        )
                     }
-                )
-            } else {
-                permissionsManager.requestLocationPermissions(this)
-            }
+                }
+            )
         }
 
         llNoteCam.setOnClickListener {
@@ -345,20 +334,21 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-            Misc.getStoragePermission(
-                this,
-                lsvStoragePermission,
-                object : StoragePermissionInterface {
-                    override fun onPermissionGranted() {
-                        startMyActivity(
-                            Intent(
-                                this@MainActivity,
-                                LiveEarthActivity::class.java
-                            )
-                        )
-                    }
-                }
-            )
+//            Misc.getStoragePermission(
+//                this,
+//                lsvStoragePermission,
+//                object : StoragePermissionInterface {
+//                    override fun onPermissionGranted() {
+//                        startMyActivity(
+//                            Intent(
+//                                this@MainActivity,
+//                                LiveEarthActivity::class.java
+//                            )
+//                        )
+//                    }
+//                }
+//            )
+            startMyActivity(myIntent)
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
         }
@@ -374,32 +364,66 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     }
 
     fun startMyActivity(intent: Intent) {
+        myIntent = intent
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            val objCustomDialog = CustomDialog(this)
+            objCustomDialog.show()
 
-        val objCustomDialog = CustomDialog(this)
-        objCustomDialog.show()
+            val window: Window = objCustomDialog.window!!
+            window.setLayout(
+                WindowManager.LayoutParams.FILL_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+            window.setBackgroundDrawableResource(R.color.nothing)
+            objCustomDialog.setCancelable(false)
 
-        val window: Window = objCustomDialog.window!!
-        window.setLayout(
-            WindowManager.LayoutParams.FILL_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-        window.setBackgroundDrawableResource(R.color.nothing)
-        objCustomDialog.setCancelable(false)
+            if(Misc.mInterstitialAd== null) {
+                Misc.loadInterstitial(
+                    this,
+                    Misc.isDashboardIntEnabled,
+                    object : LoadInterstitialCallBack {
+                        override fun onFailed() {
+                            objCustomDialog.dismiss()
+                            startActivity(intent)
+                        }
 
-        Misc.loadInterstitial(this, Misc.isDashboardIntEnabled, object : LoadInterstitialCallBack {
-            override fun onFailed() {
-                objCustomDialog.dismiss()
-                startActivity(intent)
-            }
-
-            override fun onLoaded() {
-                objCustomDialog.dismiss()
-                Misc.showInterstitial(this@MainActivity, object : InterstitialCallBack {
+                        override fun onLoaded() {
+                            objCustomDialog.dismiss()
+                            Misc.showInterstitial(this@MainActivity, object : InterstitialCallBack {
+                                override fun onDismiss() {
+                                    startActivity(intent)
+                                }
+                            })
+                        }
+                    })
+            }else{
+                Misc.showInterstitial(this, object : InterstitialCallBack{
                     override fun onDismiss() {
+                        objCustomDialog.dismiss()
                         startActivity(intent)
                     }
                 })
             }
-        })
+        } else {
+            permissionsManager.requestLocationPermissions(this)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (!isNativeDisplayed) {
+            Misc.showNativeAd(
+                this,
+                nativeAdViewMain,
+                object : NativeAdCallBack {
+                    override fun onLoad() {
+                        nativeAdViewMain.visibility = View.VISIBLE
+                        isNativeDisplayed = true
+                    }
+                }
+            )
+        }
     }
 }

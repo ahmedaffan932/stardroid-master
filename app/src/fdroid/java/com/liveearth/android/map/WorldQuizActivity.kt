@@ -20,49 +20,15 @@ class WorldQuizActivity : AppCompatActivity() {
         }
 
         btnViewWorld.setOnClickListener {
-//            Misc.startActivity(this, Misc.isViewWorldIntEnabled, object : StartActivityCallBack {
-//                override fun onStart() {
-                    val intent = Intent(this@WorldQuizActivity, AmChartsActivity::class.java)
-                    startActivity(intent)
-//                }
-//            })
+            val intent = Intent(this@WorldQuizActivity, AmChartsActivity::class.java)
+            startActivity(intent)
         }
 
         btnPlayGame.setOnClickListener {
-//            Misc.startActivity(
-//                this,
-//                Misc.isQuizScreenOneIntEnabled,
-//                object : StartActivityCallBack {
-//                    override fun onStart() {
-                        val intent =
-                            Intent(this@WorldQuizActivity, WorldQuizScreenOneActivity::class.java)
-                        intent.putExtra(Misc.data, "sda")
-                        startActivity(intent)
-//                    }
-//                })
+            val intent =
+                Intent(this@WorldQuizActivity, WorldQuizScreenOneActivity::class.java)
+            intent.putExtra(Misc.data, "sda")
+            startActivity(intent)
         }
     }
-
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isGameBackIntEnabled, object : OnBackPressCallBack {
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
-
-//    override fun onResume() {
-//        super.onResume()
-//        Misc.showNativeAd(
-//            this@WorldQuizActivity,
-//            nativeAd,
-//            Misc.isQuizActivitySplashEnabled,
-//            object : NativeAdCallBack {
-//                override fun onLoad() {
-//                    nativeAd.visibility = View.VISIBLE
-//                }
-//            }
-//        )
-//    }
-
 }

@@ -55,7 +55,7 @@
         android:paddingHorizontal="@dimen/fab_padding"
         android:layout_marginTop="@dimen/padding"
         android:text="@string/_00_00_00"
-        android:textColor="@color/pink"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,7 @@
             android:fontFamily="@font/digital"
             android:gravity="center"
             android:text="@string/_0"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             android:textSize="@dimen/digital_speed_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:text="@string/km_h"
         android:textSize="@dimen/_16sdp"
-        android:textColor="@color/pink"
+        android:textColor="@color/white"
         android:fontFamily="@font/digital"
         app:layout_constraintBottom_toBottomOf="@id/constraintLayout7"
         app:layout_constraintStart_toEndOf="@id/constraintLayout7"/>

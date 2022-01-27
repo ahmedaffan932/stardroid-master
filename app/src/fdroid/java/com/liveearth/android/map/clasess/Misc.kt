@@ -37,9 +37,6 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
-        var isDashboardIntEnabled: Boolean = true
-        var isSkyMapBannerEnabled: Boolean = true
-        var appOpenAddId: String = "ca-app-pub-3940256099942544/3419835294"
         const val appUrl: String =
             "https://play.google.com/store/apps/details?id=com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
         const val currencies: String = "currencies"
@@ -59,9 +56,7 @@ class Misc {
         var nativeFailedCount = 0
         var isRemoteConfigFetched = false
         const val logKey: String = "logKey"
-        var bannerAdId: String = "ca-app-pub-3940256099942544/6300978111"
         private const val purchasedStatus: String = "purchasedStatus"
-        var lsvBannerAdId = "ca-app-pub-3940256099942544/6300978111"
 
         var mInterstitialAd: InterstitialAd? = null
         var mNativeAd: com.google.android.gms.ads.nativead.NativeAd? = null
@@ -76,62 +71,11 @@ class Misc {
         private const val cameraFace: String = "cameraFace"
 
         var location: Location? = null
-        var isGameIntEnabled: Boolean = false
 
-        var isSkyMapIntEnabled: Boolean = true
+
         var isSplashIntEnabled: Boolean = true
-        var isLSVBannerEnabled: Boolean = true
-        var isSettingIntEnabled: Boolean = true
-        var isCompassIntEnabled: Boolean = true
-        var isNoteCamIntEnabled: Boolean = true
-        var isBtnClickIntEnable: Boolean = true
-        var isGameBackIntEnabled: Boolean = true
-        var isAltitudeIntEnabled: Boolean = true
-        var isProScreenIntEnabled: Boolean = true
-        var isLiveEarthIntEnabled: Boolean = true
-        var isViewWorldIntEnabled: Boolean = true
-        var isStartGameIntEnabled: Boolean = true
-        var isSplashNativeEnabled: Boolean = true
-        var isSoundMeterIntEnabled: Boolean = true
-        var isGenerateQRIntEnabled: Boolean = true
-        var isNavigationIntEnabled: Boolean = true
-        var isGPSMapCamsIntEnabled: Boolean = true
-        var isSkyMapBackIntEnabled: Boolean = true
-        var isSettingBackIntEnabled: Boolean = true
-        var isCompassBackIntEnabled: Boolean = true
-        var isSpeedometerIntEnabled: Boolean = true
-        var isPlayGameBackIntEnabled: Boolean = true
-        var isAltitudeBackIntEnabled: Boolean = true
+        var isDashboardIntEnabled: Boolean = true
         var isDashboardNativeEnabled: Boolean = true
-        var isQuizCompleteIntEnabled: Boolean = true
-        var isSoundMeterNativeEnabled: Boolean = true
-        var isQuizScreenOneIntEnabled: Boolean = true
-        var isQuizCountriesIntEnabled: Boolean = true
-        var isProScreenBackIntEnabled: Boolean = true
-        var isViewWorldBackIntEnabled: Boolean = true
-        var isNoteCamOnBackIntEnabled: Boolean = true
-        var isStartGameBackIntEnabled: Boolean = true
-        var isSoundMeterBackIntEnabled: Boolean = true
-        var isQuizSelectModeIntEnabled: Boolean = true
-        var isNavigationBackIntEnabled: Boolean = true
-        var isQuizCurrenciesIntEnabled: Boolean = true
-        var isSpeedometerNativeEnabled: Boolean = true
-        var isSearchLocationIntEnabled: Boolean = true
-        var isContinentSelectIntEnabled: Boolean = true
-        var isQuizCompleteNativeEnabled: Boolean = true
-        var isMainActivityBannerEnabled: Boolean = true
-        var isQuizActivitySplashEnabled: Boolean = true
-        var isSpeedometerBackIntEnabled: Boolean = true
-        var isLiveEarthOnBackIntEnabled: Boolean = true
-        var isQuizCompleteBackIntEnabled: Boolean = true
-        var isQuizScreenOneNativeEnabled: Boolean = true
-        var isGenerateQrOnBackIntEnabled: Boolean = true
-        var isQuizScreenOneBackIntEnabled: Boolean = true
-        var isQuizSelectModeNativeEnabled: Boolean = true
-        var isMainFromProScreenIntEnabled: Boolean = true
-        var isContinentSelectNativeEnabled: Boolean = true
-        var isGenerateQrOnBackNativeEnabled: Boolean = true
-        var isContinentSelectBackIntEnabled: Boolean = true
 
         var nativeAdId = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdId = "ca-app-pub-3940256099942544/1033173712"
@@ -360,10 +304,7 @@ class Misc {
             isEnabled: Boolean,
             callback: LoadInterstitialCallBack?
         ) {
-            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
-                    activity
-                )
-            ) {
+            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(activity)) {
                 if (isEnabled) {
                     val adRequest = AdRequest.Builder().build()
                     InterstitialAd.load(
@@ -392,6 +333,9 @@ class Misc {
                             }
                         }
                     )
+                }
+                else {
+                    callback?.onFailed()
                 }
             } else {
                 callback?.onFailed()

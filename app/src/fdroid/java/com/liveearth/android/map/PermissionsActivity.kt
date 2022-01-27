@@ -24,7 +24,6 @@ class PermissionsActivity : AppCompatActivity(), PermissionsListener {
         }
     }
 
-
     override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
         Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
             .show()
