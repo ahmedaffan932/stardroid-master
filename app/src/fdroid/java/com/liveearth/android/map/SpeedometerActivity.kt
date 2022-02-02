@@ -70,11 +70,12 @@ class SpeedometerActivity : AppCompatActivity() {
             override fun onLocationChanged(location: Location) {
                 if (isStarted) {
                     Log.d(Misc.logKey, location.toString())
-                    val speed = location.speed.toInt()
+                    val speed = (location.speed * 3.6).roundToInt()
 
                     if (previousLocation != null) {
-                        distance += location.distanceTo(previousLocation!!)
-                            .roundToLong() / 100.0
+                        distance += (location.distanceTo(previousLocation!!)
+                            .roundToLong() / 1000.0)
+                        textDistanceDigital.text = String.format("%.3f", distance)
                     }
 
                     textSpeedDigital.text = speed.toString()
