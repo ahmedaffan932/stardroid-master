@@ -195,7 +195,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             intent.putExtra(Misc.data, latLng)
 //            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack {
 //                override fun onStart() {
-                    startActivity(intent)
+            startActivity(intent)
 //                }
 //            })
         }
@@ -205,22 +205,26 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 buildAlertMessageNoGps()
             } else {
-                point.latitude = loc!!.latitude
-                point.longitude = loc!!.longitude
+                try {
+                    point.latitude = loc!!.latitude
+                    point.longitude = loc!!.longitude
 
-                currentLocation.latitude = loc!!.latitude
-                currentLocation.longitude = loc!!.longitude
+                    currentLocation.latitude = loc!!.latitude
+                    currentLocation.longitude = loc!!.longitude
 
-                setMarker(point)
-                animateCamera(point, 14.0)
-                getAddress(point)
+                    setMarker(point)
+                    animateCamera(point, 14.0)
+                    getAddress(point)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Sorry, unable to find your location", Toast.LENGTH_SHORT)
+                        .show()
+                    e.printStackTrace()
+                }
             }
-//            manageBtnClickInterstitial()
         }
 
         btnSpeakSearchLocation.setOnClickListener {
             displaySpeechRecognizer()
-//            manageBtnClickInterstitial()
         }
 
         searchSuggestions()
@@ -663,19 +667,11 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                     Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                     btnStartNavigation.setOnClickListener {
                         if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
-//                            Misc.startActivity(
-//                                this@LiveEarthActivity,
-//                                Misc.isNavigationIntEnabled,
-//                                object : StartActivityCallBack {
-//                                    override fun onStart() {
-                                        startActivity(
-                                            Intent(
-                                                this@LiveEarthActivity,
-                                                NavigationActivity::class.java
-                                            )
-//                                        )
-//                                    }
-//                                }
+                            startActivity(
+                                Intent(
+                                    this@LiveEarthActivity,
+                                    NavigationActivity::class.java
+                                )
                             )
                         } else {
                             AlertDialog.Builder(this@LiveEarthActivity)
@@ -791,24 +787,27 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                         call: Call<GeocodingResponse>,
                         response: Response<GeocodingResponse>
                     ) {
-                        if (response.isSuccessful) {
-                            val t = response.body()?.features()?.get(0)?.geometry()
-                            val arr = t.toString().split("[", "]")
-                            val p = arr[1].split(",")
-                            point.latitude = p[1].toDouble()
-                            point.longitude = p[0].toDouble()
-                            setMarker(point)
-                            animateCamera(point, 10.0)
-                            for (item in arr)
-                                Log.d(Misc.logKey, item)
-                        } else {
-                            Toast.makeText(
-                                this@LiveEarthActivity,
-                                "Place not found.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        try {
+                            if (response.isSuccessful) {
+                                val t = response.body()?.features()?.get(0)?.geometry()
+                                val arr = t.toString().split("[", "]")
+                                val p = arr[1].split(",")
+                                point.latitude = p[1].toDouble()
+                                point.longitude = p[0].toDouble()
+                                setMarker(point)
+                                animateCamera(point, 10.0)
+                                for (item in arr)
+                                    Log.d(Misc.logKey, item)
+                            } else {
+                                Toast.makeText(
+                                    this@LiveEarthActivity,
+                                    "Place not found.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }catch (e: Exception){
+                            e.printStackTrace()
                         }
-
                     }
 
                     override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {
@@ -876,7 +875,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
 
         })
     }
-
 
     fun hideSoftKeyboard() {
         val view = this.currentFocus

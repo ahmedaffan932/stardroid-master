@@ -26,7 +26,6 @@ import kotlin.math.roundToLong
 
 @SuppressLint("LogNotTimber")
 class SpeedometerActivity : AppCompatActivity() {
-    private lateinit var locationCallback: LocationCallback
     private lateinit var locationManager: LocationManager
     private lateinit var listener: LocationListener
     private var isStarted = false
@@ -75,7 +74,7 @@ class SpeedometerActivity : AppCompatActivity() {
                     if (previousLocation != null) {
                         distance += (location.distanceTo(previousLocation!!)
                             .roundToLong() / 1000.0)
-                        textDistanceDigital.text = String.format("%.3f", distance)
+                        textDistanceDigital.text = String.format("%.2f", distance)
                     }
 
                     textSpeedDigital.text = speed.toString()
@@ -94,51 +93,7 @@ class SpeedometerActivity : AppCompatActivity() {
             override fun onProviderDisabled(s: String) {
             }
         }
-//        if (ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return
-//        }
         locationManager.requestLocationUpdates("gps", 0, 0f, listener)
-
-//        locationCallback = object : LocationCallback() {
-//            @SuppressLint("SetTextI18n", "LogNotTimber")
-//            override fun onLocationResult(p0: LocationResult) {
-//                super.onLocationResult(p0)
-//                if (isStarted) {
-//                    Log.d(Misc.logKey, p0.toString())
-//                    var speed = p0.lastLocation.speed.toInt()
-//
-//                    if (previousLocation != null) {
-//                        distance += p0.lastLocation.distanceTo(previousLocation!!)
-//                            .roundToLong() / 100.0
-//                        speed =
-//                            (distance / ((System.currentTimeMillis() - previousTime) / 3600000))?.roundToInt()
-//                    }
-//
-//                    textSpeedDigital.text = speed.toString()
-//                    if (maxSpeed < speed) {
-//                        maxSpeed = speed
-//                        textMaxSpeedDigital.text = maxSpeed.toString()
-//                        handler.post(runTimer)
-//                    }
-//
-//                    previousLocation = p0.lastLocation
-//                    previousTime = System.currentTimeMillis()
-//                }
-//            }
-//        }
-
-//        val locationRequest = LocationRequest.create()
-//        locationRequest.fastestInterval = 1000
-//        locationRequest.interval = 2000
-//        LocationServices.getFusedLocationProviderClient(this)
-//            .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
 
     }
 
