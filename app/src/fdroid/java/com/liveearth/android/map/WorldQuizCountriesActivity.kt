@@ -17,10 +17,7 @@ import com.blongho.country_data.World
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.CountryListInterface
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
-import com.liveearth.android.map.interfaces.WebAppInterface
+import com.liveearth.android.map.interfaces.*
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
 import kotlinx.coroutines.tasks.await
 
@@ -172,11 +169,11 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
-//            Misc.startActivity(
-//                this,
-//                Misc.isQuizCompleteIntEnabled,
-//                object : StartActivityCallBack {
-//                    override fun onStart() {
+            Misc.showInterstitial(
+                this,
+                Misc.isQuizCompleteIntEnabled,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
                         finish()
                         val intent =
                             Intent(
@@ -186,8 +183,8 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                         intent.putExtra(Misc.levels, levels)
                         intent.putExtra(Misc.data, numberOfCorrectAnswers)
                         startActivity(intent)
-//                    }
-//                })
+                    }
+                })
         }
     }
 

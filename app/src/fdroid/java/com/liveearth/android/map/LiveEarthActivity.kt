@@ -58,7 +58,6 @@ import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.tarek360.instacapture.Instacapture
 import com.tarek360.instacapture.listener.SimpleScreenCapturingListener
 import fr.arnaudguyon.xmltojsonlib.XmlToJson
-import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_live_earth.*
 import kotlinx.android.synthetic.main.activity_live_earth.btnGetCurrentLocation
 import kotlinx.android.synthetic.main.activity_live_earth.btnScreenShot
@@ -68,7 +67,6 @@ import kotlinx.android.synthetic.main.activity_live_earth.llDefault
 import kotlinx.android.synthetic.main.activity_live_earth.llHybrid
 import kotlinx.android.synthetic.main.activity_live_earth.llSatellite
 import kotlinx.android.synthetic.main.activity_live_earth.llTerrain
-import kotlinx.android.synthetic.main.activity_note_cam.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -193,11 +191,11 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             val intent = Intent(this, QRGeneratedActivity::class.java)
             Log.d(Misc.logKey, latLng)
             intent.putExtra(Misc.data, latLng)
-//            Misc.startActivity(this, Misc.isGenerateQRIntEnabled, object : StartActivityCallBack {
-//                override fun onStart() {
-            startActivity(intent)
-//                }
-//            })
+            Misc.showInterstitial(this, Misc.isGenerateQRIntEnabled, object : InterstitialCallBack {
+                override fun onDismiss() {
+                    startActivity(intent)
+                }
+            })
         }
 
         btnGetCurrentLocation.setOnClickListener {
@@ -522,12 +520,15 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             Misc.hideShowView(btnStartNavigation, this, true)
             isRouteAdded = false
         } else {
-            super.onBackPressed()
-//            Misc.onBackPress(this, Misc.isLiveEarthOnBackIntEnabled, object : OnBackPressCallBack {
-//                override fun onBackPress() {
-//                    finish()
-//                }
-//            })
+//            super.onBackPressed()
+            Misc.showInterstitial(
+                this,
+                Misc.isLiveEarthOnBackIntEnabled,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        finish()
+                    }
+                })
         }
     }
 
@@ -805,7 +806,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                        }catch (e: Exception){
+                        } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }

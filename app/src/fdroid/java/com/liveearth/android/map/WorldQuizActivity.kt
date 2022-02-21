@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
 import kotlinx.android.synthetic.fdroid.activity_world_quiz.*
 
 class WorldQuizActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_quiz)
+
+        Misc.showNativeAd(this, nativeAd, Misc.isWordlQuizActivityNativeEnabled, object: NativeAdCallBack{
+            override fun onLoad() {
+                nativeAd.visibility = View.VISIBLE
+            }
+        })
 
         btnCloseGame.setOnClickListener {
             onBackPressed()
@@ -30,5 +35,14 @@ class WorldQuizActivity : AppCompatActivity() {
             intent.putExtra(Misc.data, "sda")
             startActivity(intent)
         }
+
+    }
+
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isWorldQuizOnBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
     }
 }

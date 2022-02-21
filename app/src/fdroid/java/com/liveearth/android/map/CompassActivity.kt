@@ -1,15 +1,12 @@
 package com.liveearth.android.map
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
@@ -18,37 +15,28 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.liveearth.android.map.clasess.Misc
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 
-import com.mapbox.android.core.permissions.PermissionsListener
-import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.LocationComponent
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete
-import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import edu.arbelkilani.compass.CompassListener
-import kotlinx.android.synthetic.main.activity_altitude.*
 import kotlinx.android.synthetic.main.activity_compass.*
 import kotlinx.android.synthetic.main.activity_compass.btnGetCurrentLocationCompass
 import java.io.IOException
@@ -273,13 +261,13 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
         alert.show()
     }
 
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isCompassBackIntEnabled, object : OnBackPressCallBack{
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isCompassBackIntEnabled, object : InterstitialCallBack{
+            override fun onDismiss() {
+                finish()
+            }
+        })
+    }
 
     private fun setMarker(point: LatLng) {
         if (mapBoxStyle.getLayer(LiveEarthActivity.DROPPED_MARKER_LAYER_ID) != null) {

@@ -6,11 +6,13 @@
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <!-- For Google Analytics -->
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -238,6 +240,10 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data android:name="applovin.sdk.key"
+            android:value="rHXhDWaiaAqcqDS2Z_aTTRtM7JFZ6i5Esd1zZndxnU0D-FxK0UfBRDwi18NeNK2Myt-XLzx3wZBH2dpBq6isrG"/>
+
     </application>
 
 </manifest>

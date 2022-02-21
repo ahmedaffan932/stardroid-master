@@ -216,6 +216,10 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+        <meta-data android:name="applovin.sdk.key"
+            android:value="rHXhDWaiaAqcqDS2Z_aTTRtM7JFZ6i5Esd1zZndxnU0D-FxK0UfBRDwi18NeNK2Myt-XLzx3wZBH2dpBq6isrG"/>
+
     </application>
 
 

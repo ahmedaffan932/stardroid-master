@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +16,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.geojson.Point
@@ -44,8 +42,6 @@ import kotlinx.android.synthetic.main.activity_altitude.llDefault
 import kotlinx.android.synthetic.main.activity_altitude.llHybrid
 import kotlinx.android.synthetic.main.activity_altitude.llSatellite
 import kotlinx.android.synthetic.main.activity_altitude.llTerrain
-import kotlinx.android.synthetic.main.activity_live_earth.*
-import java.util.*
 
 class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     OnMapReadyCallback, MapboxMap.OnMapClickListener {
@@ -255,13 +251,13 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         mapView.onLowMemory()
     }
 
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isAltitudeBackIntEnabled, object : OnBackPressCallBack {
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isAltitudeBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
+    }
 
 
     private fun setMarker(point: LatLng) {

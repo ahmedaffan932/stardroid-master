@@ -152,7 +152,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/extra_padding"
-                    app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap"
+                    app:layout_constraintTop_toBottomOf="@id/nativeAdViewMain"
                     tools:layout_editor_absoluteX="32dp">
 
                     <ImageView
@@ -182,7 +182,7 @@
                     app:gnt_template_type="@layout/native_hctr"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/llSkyMap" />
+                    app:layout_constraintTop_toBottomOf="@+id/llWorldQuiz" />
 
                 <LinearLayout
                     android:id="@+id/llWorldQuiz"
@@ -197,7 +197,8 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/extra_padding"
-                    app:layout_constraintTop_toBottomOf="@id/nativeAdViewMain">
+                    app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap"
+                    >
 
                     <ImageView
                         android:layout_width="68dp"
@@ -231,7 +232,7 @@
                     android:paddingHorizontal="@dimen/extra_padding"
                     app:layout_constraintEnd_toStartOf="@+id/llNoteCam"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
+                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
 
                     <ImageView
                         android:layout_width="68dp"
@@ -265,7 +266,7 @@
                     android:paddingHorizontal="@dimen/extra_padding"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/llGPSMapCams"
-                    app:layout_constraintTop_toBottomOf="@id/llWorldQuiz">
+                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
 
                     <ImageView
                         android:layout_width="68dp"

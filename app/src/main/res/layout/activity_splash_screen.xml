@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,29 +7,29 @@
     android:background="@color/blue"
     tools:context=".SplashScreenActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--        <com.google.android.ads.nativetemplates.TemplateView-->
+    <!--            android:id="@+id/nativeAdViewSplash"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@color/nothing"-->
+    <!--            android:visibility="gone"-->
+    <!--            app:gnt_template_type="@layout/custom_native"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <FrameLayout
+        android:id="@+id/nativeAdFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/padding"
-        android:layout_marginVertical="@dimen/fab_padding"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-<!--        <com.google.android.ads.nativetemplates.TemplateView-->
-<!--            android:id="@+id/nativeAdViewSplash"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@color/nothing"-->
-<!--            android:visibility="gone"-->
-<!--            app:gnt_template_type="@layout/custom_native"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        android:background="@color/nothing"
+        android:visibility="gone"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animLoading"
@@ -38,21 +37,21 @@
         android:layout_height="@dimen/_60sdp"
         android:layout_margin="@dimen/fab_padding"
         android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/btnStart"
+        app:layout_constraintStart_toStartOf="@+id/btnStart"
+        app:layout_constraintTop_toTopOf="@id/btnStart"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_square"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintTop_toTopOf="@id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"/>
+        app:lottie_rawRes="@raw/loading_square" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/extra_padding"
         android:background="@drawable/bg_gradient_pink_circle"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
         app:layout_constraintStart_toStartOf="@+id/imageView9">
 
         <ImageView
@@ -69,35 +68,36 @@
         android:id="@+id/textStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start"
+        android:layout_marginVertical="@dimen/padding"
+        android:text="@string/loading"
         android:textColor="@color/white"
         android:textSize="@dimen/fab_padding"
         android:textStyle="bold|italic"
-        android:layout_marginVertical="@dimen/padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"
-        app:layout_constraintTop_toBottomOf="@id/btnStart" />
+        app:layout_constraintStart_toStartOf="@+id/btnStart" />
 
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
-        app:srcCompat="@drawable/transparent_globe"
+        android:layout_height="@dimen/_200sdp"
         android:layout_marginHorizontal="@dimen/extra_padding"
+        android:layout_marginBottom="@dimen/extra_padding"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:srcCompat="@drawable/transparent_globe" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/live_earth_map"
-        android:textSize="24sp"
-        android:textColor="@color/light_pink"
         android:layout_marginStart="@dimen/fab_padding"
+        android:text="@string/live_earth_map"
+        android:textColor="@color/light_pink"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textVie"
         app:layout_constraintStart_toEndOf="@+id/btnStart" />
 
@@ -105,10 +105,10 @@
         android:id="@+id/textVie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fab_padding"
         android:text="@string/explore_the_unknown_world"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:layout_marginStart="@dimen/fab_padding"
         app:layout_constraintBottom_toBottomOf="@+id/btnStart"
         app:layout_constraintStart_toEndOf="@+id/btnStart" />
 

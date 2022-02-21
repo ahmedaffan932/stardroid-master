@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 
 class SoundMeterActivity : AppCompatActivity() {
@@ -24,16 +23,16 @@ class SoundMeterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sound_meter)
 
 
-//        Misc.showNativeAd(
-//            this@SoundMeterActivity,
-//            nativeAd,
-//            Misc.isSoundMeterNativeEnabled,
-//            object : NativeAdCallBack {
-//                override fun onLoad() {
-//                    nativeAd.visibility = View.VISIBLE
-//                }
-//            }
-//        )
+        Misc.showNativeAd(
+            this@SoundMeterActivity,
+            nativeAd,
+            Misc.isSoundMeterNativeEnabled,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    nativeAd.visibility = View.VISIBLE
+                }
+            }
+        )
 
         btnBackSoundMeter.setOnClickListener {
             onBackPressed()
@@ -129,11 +128,11 @@ class SoundMeterActivity : AppCompatActivity() {
         handler.removeCallbacks(runSoundMeter)
     }
 
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isSoundMeterBackIntEnabled, object : OnBackPressCallBack {
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isSoundMeterBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
+    }
 }

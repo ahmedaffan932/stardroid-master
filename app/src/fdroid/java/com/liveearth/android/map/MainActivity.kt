@@ -5,25 +5,16 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.style.ImageSpan
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
-import com.liveearth.android.map.AltitudeActivity
-import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
-import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 import kotlinx.android.synthetic.fdroid.bottom_sheet_quit.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -49,20 +40,18 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             setContentView(R.layout.activity_main)
         }
 
-
         permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
-            startMyActivity(intent)
+            startActivity(intent)
         }
 
         btnMenu.setOnClickListener {
-            startMyActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
         }
 
         llSoundMeter.setOnClickListener {
@@ -366,44 +355,44 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     fun startMyActivity(intent: Intent) {
         myIntent = intent
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            val objCustomDialog = CustomDialog(this)
-            objCustomDialog.show()
+//            val objCustomDialog = CustomDialog(this)
+//            objCustomDialog.show()
+//
+//            val window: Window = objCustomDialog.window!!
+//            window.setLayout(
+//                WindowManager.LayoutParams.FILL_PARENT,
+//                WindowManager.LayoutParams.WRAP_CONTENT
+//            )
+//            window.setBackgroundDrawableResource(R.color.nothing)
+//            objCustomDialog.setCancelable(false)
 
-            val window: Window = objCustomDialog.window!!
-            window.setLayout(
-                WindowManager.LayoutParams.FILL_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
-            )
-            window.setBackgroundDrawableResource(R.color.nothing)
-            objCustomDialog.setCancelable(false)
-
-            if(Misc.mInterstitialAd== null) {
-                Misc.loadInterstitial(
+//            if(Misc.mInterstitialAdAdMob== null) {
+                Misc.showInterstitial(
                     this,
                     Misc.isDashboardIntEnabled,
-                    object : LoadInterstitialCallBack {
-                        override fun onFailed() {
-                            objCustomDialog.dismiss()
-                            startActivity(intent)
-                        }
+                    object : InterstitialCallBack {
+//                        override fun onFailed() {
+//                            objCustomDialog.dismiss()
+//                            startActivity(intent)
+//                        }
 
-                        override fun onLoaded() {
-                            objCustomDialog.dismiss()
-                            Misc.showInterstitial(this@MainActivity, object : InterstitialCallBack {
-                                override fun onDismiss() {
+                        override fun onDismiss() {
+//                            objCustomDialog.dismiss()
+//                            Misc.showAdMobInterstitial(this@MainActivity, object : InterstitialCallBack {
+//                                override fun onDismiss() {
                                     startActivity(intent)
-                                }
-                            })
+//                                }
+//                            })
                         }
                     })
-            }else{
-                Misc.showInterstitial(this, object : InterstitialCallBack{
-                    override fun onDismiss() {
-                        objCustomDialog.dismiss()
-                        startActivity(intent)
-                    }
-                })
-            }
+//            }else{
+//                Misc.showAdMobInterstitial(this, object : InterstitialCallBack{
+//                    override fun onDismiss() {
+//                        objCustomDialog.dismiss()
+//                        startActivity(intent)
+//                    }
+//                })
+//            }
         } else {
             permissionsManager.requestLocationPermissions(this)
         }
@@ -414,7 +403,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onResume()
 
         if (!isNativeDisplayed) {
-            Misc.showNativeAd(
+            Misc.showAdMobNativeAd(
                 this,
                 nativeAdViewMain,
                 object : NativeAdCallBack {

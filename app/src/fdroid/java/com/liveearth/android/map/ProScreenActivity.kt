@@ -11,8 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.*
 import kotlinx.coroutines.*
 
@@ -79,11 +78,11 @@ class ProScreenActivity : AppCompatActivity() {
                 override fun onFinish() {
                     btnContinue.visibility = View.VISIBLE
                     btnContinue.setOnClickListener {
-//                        Misc.startActivity(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : StartActivityCallBack{
-//                            override fun onStart() {
+                        Misc.showInterstitial(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : InterstitialCallBack{
+                            override fun onDismiss() {
                                 startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
-//                            }
-//                        })
+                            }
+                        })
                     }
                 }
             }

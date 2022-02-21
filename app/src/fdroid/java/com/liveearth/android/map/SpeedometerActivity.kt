@@ -7,22 +7,12 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.type.LatLng
 import com.liveearth.android.map.clasess.Misc
-import kotlinx.android.synthetic.fdroid.activity_world_quiz_select_continet.*
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.main.activity_speedometer.*
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 @SuppressLint("LogNotTimber")
 class SpeedometerActivity : AppCompatActivity() {
@@ -67,25 +57,8 @@ class SpeedometerActivity : AppCompatActivity() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         listener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
-                if (isStarted) {
-                    Log.d(Misc.logKey, location.toString())
-                    val speed = (location.speed * 3.6).roundToInt()
-
-                    if (previousLocation != null) {
-                        distance += (location.distanceTo(previousLocation!!)
-                            .roundToLong() / 1000.0)
-                        textDistanceDigital.text = String.format("%.2f", distance)
-                    }
-
-                    textSpeedDigital.text = speed.toString()
-                    if (maxSpeed < speed) {
-                        maxSpeed = speed
-                        textMaxSpeedDigital.text = maxSpeed.toString()
-                        handler.post(runTimer)
-                    }
-
-                    previousLocation = location
-                }
+                location.latitude
+                location.longitude
             }
 
             override fun onStatusChanged(s: String, i: Int, bundle: Bundle) {}
@@ -94,7 +67,6 @@ class SpeedometerActivity : AppCompatActivity() {
             }
         }
         locationManager.requestLocationUpdates("gps", 0, 0f, listener)
-
     }
 
     @SuppressLint("DefaultLocale")
@@ -124,6 +96,15 @@ class SpeedometerActivity : AppCompatActivity() {
                 handler.postDelayed(this, 1000)
             }
         }
+    }
+
+
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isSoundMeterBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
     }
 
 }

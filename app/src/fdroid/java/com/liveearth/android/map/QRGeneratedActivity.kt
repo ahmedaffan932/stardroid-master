@@ -10,17 +10,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
-import com.liveearth.android.map.interfaces.NativeAdCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
 
 class QRGeneratedActivity : AppCompatActivity() {
@@ -103,13 +101,13 @@ class QRGeneratedActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(intent, "Share QR"))
     }
 
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isGenerateQrOnBackIntEnabled, object : OnBackPressCallBack {
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isGenerateQrOnBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
+    }
 
 //    override fun onResume() {
 //        super.onResume()

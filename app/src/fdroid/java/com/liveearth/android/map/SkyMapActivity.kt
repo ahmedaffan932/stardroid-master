@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import com.liveearth.android.map.activities.DynamicStarMapActivity
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_sky_map.*
-import kotlinx.android.synthetic.fdroid.activity_sky_map.bannerAdFrameLayout
-import kotlinx.android.synthetic.main.activity_live_earth.*
 
 class SkyMapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,18 +61,18 @@ class SkyMapActivity : AppCompatActivity() {
     private fun searchPlanet(str: String){
         val intent = Intent(this, DynamicStarMapActivity::class.java)
         intent.putExtra(Misc.data, str)
-//        Misc.startActivity(this, Misc.isSkyMapIntEnabled, object : StartActivityCallBack {
-//            override fun onStart() {
+        Misc.showInterstitial(this, Misc.isSkyMapIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
                 startActivity(intent)
-//            }
-//        })
+            }
+        })
     }
 //
-//    override fun onBackPressed() {
-//        Misc.onBackPress(this, Misc.isSkyMapBackIntEnabled, object : OnBackPressCallBack {
-//            override fun onBackPress() {
-//                finish()
-//            }
-//        })
-//    }
+    override fun onBackPressed() {
+        Misc.showInterstitial(this, Misc.isSkyMapBackIntEnabled, object : InterstitialCallBack {
+            override fun onDismiss() {
+                finish()
+            }
+        })
+    }
 }

@@ -22,11 +22,13 @@ import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.LoadInterstitialCallBack
+import com.liveearth.android.map.interfaces.NativeAdCallBack
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
 @SuppressLint("CustomSplashScreen", "LogNotTimber")
 class SplashScreenActivity : BaseActivity() {
     private var isAdRequestSent: Boolean = false
+    private var isAdMobInterstitialLoaded = false
 
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
@@ -51,16 +53,14 @@ class SplashScreenActivity : BaseActivity() {
             .enablePendingPurchases()
             .build()
 
+//        Misc.loadInterstitial(this, null)
 
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
-
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                     billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { p0, p1 ->
                         Log.d(Misc.logKey, p1?.size.toString() + " size ..")
-                        if (/*p0.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED
-                            &&*/ p1 != null
-                        ) {
+                        if (/*p0.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED &&*/ p1 != null) {
                             for (purchase in p1) {
                                 Misc.setPurchasedStatus(this@SplashScreenActivity, true)
                             }
@@ -83,19 +83,42 @@ class SplashScreenActivity : BaseActivity() {
         FirebaseApp.initializeApp(applicationContext)
 
         btnStart.setOnClickListener {
-//            if (Misc.isSplashIntEnabled) {
-//                Misc.showInterstitial(this, object : InterstitialCallBack {
-//                    override fun onDismiss() {
-//                        start()
-//                    }
-//                })
-//            } else {
-                start()
-//            }
+            start()
         }
 
+//        Handler().postDelayed({
+//            if (btnStart.visibility != View.VISIBLE) {
+//                Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
+//                Misc.zoomOutView(
+//                    animLoading,
+//                    this@SplashScreenActivity,
+//                    300
+//                )
+//            }
+//        }, 5000)
+
         Handler().postDelayed({
-            if (btnStart.visibility != View.VISIBLE) {
+            if (!Misc.isSplashNativeEnabled){
+                if(Misc.isDashboardIntEnabled){
+                    if(isAdMobInterstitialLoaded){
+                        Misc.showAdMobInterstitial(this,object : InterstitialCallBack{
+                            override fun onDismiss() {
+                                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                            }
+                        })
+                    } else{
+                        Misc.showInterstitial(this, Misc.isDashboardIntEnabled, object : InterstitialCallBack{
+                            override fun onDismiss() {
+                                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                            }
+                        })
+                    }
+                }else{
+                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                }
+            }else{
+//                btnStart.animate().translationY(0F)
+//                spin_kit.visibility = View.INVISIBLE
                 Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
                 Misc.zoomOutView(
                     animLoading,
@@ -103,7 +126,7 @@ class SplashScreenActivity : BaseActivity() {
                     300
                 )
             }
-        }, 5000)
+        }, 7000)
 
 
     }
@@ -134,51 +157,112 @@ class SplashScreenActivity : BaseActivity() {
 
                         mFirebaseRemoteConfig.activate()
 
+                        Misc.nativeAdIdAdMob = mFirebaseRemoteConfig.getString("nativeAdIdAdMob")
                         Misc.nativeAdId = mFirebaseRemoteConfig.getString("nativeAdId")
                         Misc.interstitialAdId = mFirebaseRemoteConfig.getString("interstitialAdId")
+                        Misc.interstitialAdIdAdMob = mFirebaseRemoteConfig.getString("interstitialAdIdAdMob")
+                        Misc.isSplashIntEnabled = mFirebaseRemoteConfig.getBoolean("isSplashIntEnabled")
+                        Misc.isDashboardIntEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardIntEnabled")
+                        Misc.isContinentSelectIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
+                        Misc.isStartGameIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameIntEnabled")
+                        Misc.isMainFromProScreenIntEnabled = mFirebaseRemoteConfig.getBoolean("isMainFromProScreenIntEnabled")
+                        Misc.isGenerateQRIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQRIntEnabled")
+                        Misc.isQuizCompleteIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteIntEnabled")
+                        Misc.isSkyMapIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
+                        Misc.isQuizCountriesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCountriesIntEnabled")
+                        Misc.isQuizScreenOneNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneNativeEnabled")
+                        Misc.isQuizScreenOneBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneBackIntEnabled")
+                        Misc.isQuizSelectModeIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
+                        Misc.isContinentSelectNativeEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectNativeEnabled")
+                        Misc.isQuizCompleteBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteBackIntEnabled")
+                        Misc.isWorldQuizOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isWorldQuizOnBackIntEnabled")
+                        Misc.isQuizCompleteNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
+                        Misc.isWordlQuizActivityNativeEnabled = mFirebaseRemoteConfig.getBoolean("isWordlQuizActivityNativeEnabled")
+                        Misc.isContinentSelectBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectBackIntEnabled")
+                        Misc.isQuizSelectModeNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeNativeEnabled")
+                        Misc.isSoundMeterBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
+                        Misc.isSoundMeterNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterNativeEnabled")
+                        Misc.isSkyMapBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBackIntEnabled")
+                        Misc.isSettingBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingBackIntEnabled")
+                        Misc.isGenerateQrOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackIntEnabled")
+                        Misc.isLiveEarthOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isLiveEarthOnBackIntEnabled")
+                        Misc.isCompassBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isCompassBackIntEnabled")
+                        Misc.isViewWorldBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
+                        Misc.isSplashNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
+                        Misc.isAltitudeBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
 
-                        Misc.isSplashIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSplashIntEnabled")
-                        Misc.isDashboardIntEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isDashboardIntEnabled")
-                        Misc.isDashboardNativeEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isDashboardNativeEnabled")
-
-                        if (Misc.nativeAdId != "" && !isAdRequestSent) {
+                        if (Misc.nativeAdIdAdMob != "" && !isAdRequestSent) {
                             isAdRequestSent = true
-                            Misc.loadInterstitial(this, Misc.isSplashIntEnabled, object : LoadInterstitialCallBack{
-                                override fun onLoaded() {
-                                    val objCustomDialog = CustomDialog(this@SplashScreenActivity)
-                                    objCustomDialog.show()
+                            Misc.loadAdMobNativeAd(this, Misc.isDashboardNativeEnabled)
 
-                                    val window: Window = objCustomDialog.window!!
-                                    window.setLayout(
-                                        WindowManager.LayoutParams.FILL_PARENT,
-                                        WindowManager.LayoutParams.WRAP_CONTENT
-                                    )
-                                    window.setBackgroundDrawableResource(R.color.nothing)
-                                    objCustomDialog.setCancelable(false)
-                                    Handler().postDelayed({
-                                        objCustomDialog.dismiss()
-                                        Misc.showInterstitial(this@SplashScreenActivity, null)
-                                    },1000)
+//                            val objCustomDialog = CustomDialog(this@SplashScreenActivity)
+//                            objCustomDialog.show()
+//
+//                            val window: Window = objCustomDialog.window!!
+//                            window.setLayout(
+//                                WindowManager.LayoutParams.FILL_PARENT,
+//                                WindowManager.LayoutParams.WRAP_CONTENT
+//                            )
+//                            window.setBackgroundDrawableResource(R.color.nothing)
+//
+//                            objCustomDialog.setCancelable(false)
+//                            Misc.loadAdMobInterstitial(this, Misc.isSplashIntEnabled, object : LoadInterstitialCallBack{
+//                                override fun onLoaded() {
+//                                    Handler().postDelayed({
+//                                        objCustomDialog.dismiss()
+//                                        Misc.showAdMobInterstitial(this@SplashScreenActivity, object : InterstitialCallBack{
+//                                            override fun onDismiss() {
+//                                                start()
+//                                            }
+//
+//                                        })
+//                                    },1000)
+//                                }
+//
+//                                override fun onFailed() {
+//                                    Log.e(Misc.logKey, "Interstitial Ad loading failed.")
+//                                    start()
+//                                }
+//
+//                            })
+                            Misc.loadNativeAd(this, object : NativeAdCallBack {
+                                override fun onLoad() {
+                                    Misc.showNativeAd(
+                                        this@SplashScreenActivity,
+                                        nativeAdFrameLayout,
+                                        Misc.isSplashNativeEnabled,
+                                        object : NativeAdCallBack {
+                                            override fun onLoad() {
+                                                Misc.zoomInView(nativeAdFrameLayout, this@SplashScreenActivity, 250)
+                                            }
+                                        })
                                 }
-
-                                override fun onFailed() {
-                                    Log.e(Misc.logKey, "Interstitial Ad loading failed.")
-                                }
-
                             })
 
-                            Misc.loadNativeAd(this, Misc.isDashboardNativeEnabled)
+                            Misc.loadAdMobInterstitial(
+                                this,
+                                Misc.isDashboardIntEnabled,
+                                object : LoadInterstitialCallBack {
+                                    override fun onLoaded() {
+                                        isAdMobInterstitialLoaded = true
+                                    }
+
+                                    override fun onFailed() {
+                                        Misc.loadInterstitial(this@SplashScreenActivity, null)
+                                    }
+
+                                })
+
                             mFirebaseRemoteConfig.reset()
                         }
                     } else {
+                        start()
                         Log.e(Misc.logKey, "Fetch failed")
                     }
                 }
             true
         } catch (e: Exception) {
+//            start()
             e.printStackTrace()
             false
         }

@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.webkit.*
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,7 @@ import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.google.firebase.FirebaseApp
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.StartActivityCallBack
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_flag.*
 
 class WorldQuizFlagActivity : AppCompatActivity() {
@@ -76,11 +75,11 @@ class WorldQuizFlagActivity : AppCompatActivity() {
             }
 
         } catch (e: Exception) {
-//            Misc.startActivity(
-//                this,
-//                Misc.isQuizCompleteIntEnabled,
-//                object : StartActivityCallBack {
-//                    override fun onStart() {
+            Misc.showInterstitial(
+                this,
+                Misc.isQuizCompleteIntEnabled,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
                         finish()
                         val intent =
                             Intent(
@@ -90,8 +89,9 @@ class WorldQuizFlagActivity : AppCompatActivity() {
                         intent.putExtra(Misc.levels, levels)
                         intent.putExtra(Misc.data, numberOfCorrectAnswers)
                         startActivity(intent)
-//                    }
-//                })
+                    }
+                }
+            )
         }
     }
 
