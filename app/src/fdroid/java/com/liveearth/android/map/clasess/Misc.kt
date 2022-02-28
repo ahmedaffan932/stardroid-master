@@ -1,44 +1,44 @@
 package com.liveearth.android.map.clasess
 
-import java.util.*
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.*
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
+import android.location.Location
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
-import android.util.Log
-import android.content.*
-import android.view.View
-import java.io.IOException
-import android.app.Activity
-import android.graphics.Bitmap
-import android.net.NetworkInfo
-import android.location.Location
-import java.text.SimpleDateFormat
 import android.provider.MediaStore
-import com.liveearth.android.map.R
-import com.google.android.gms.ads.*
-import android.annotation.SuppressLint
-import android.net.ConnectivityManager
+import android.util.Log
+import android.view.View
 import android.view.animation.Animation
-import android.content.pm.PackageManager
 import android.view.animation.AnimationUtils
-import com.liveearth.android.map.BuildConfig
-import com.liveearth.android.map.interfaces.*
-import android.graphics.drawable.ColorDrawable
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxAdListener
-import com.applovin.mediation.MaxError
+import com.applovin.mediation.*
+import com.applovin.mediation.ads.MaxAdView
 import com.applovin.mediation.ads.MaxInterstitialAd
 import com.applovin.mediation.nativeAds.MaxNativeAdListener
 import com.applovin.mediation.nativeAds.MaxNativeAdLoader
 import com.applovin.mediation.nativeAds.MaxNativeAdView
 import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder
-import com.mapbox.api.directions.v5.models.DirectionsRoute
-import com.google.android.ads.nativetemplates.TemplateView
-import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.applovin.sdk.AppLovinSdkUtils
 import com.google.android.ads.nativetemplates.NativeTemplateStyle
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.liveearth.android.map.BuildConfig
+import com.liveearth.android.map.R
+import com.liveearth.android.map.interfaces.*
+import com.mapbox.api.directions.v5.models.DirectionsRoute
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Misc {
     @SuppressLint("LogNotTimber")
@@ -71,6 +71,9 @@ class Misc {
         var isSplashNativeEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
         lateinit var nativeAdLoader: MaxNativeAdLoader
+
+        var mRecAdId = "dsadf"
+        var isDashboardMRecEnabled = true
 
         @SuppressLint("StaticFieldLeak")
         var nativeAdView: MaxNativeAdView? = null
@@ -316,7 +319,10 @@ class Misc {
             isEnabled: Boolean,
             callback: LoadInterstitialCallBack?
         ) {
-            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(activity)) {
+            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
+                    activity
+                )
+            ) {
                 if (isEnabled) {
                     val adRequest = AdRequest.Builder().build()
                     InterstitialAd.load(
@@ -624,9 +630,44 @@ class Misc {
             return MaxNativeAdView(binder, activity)
         }
 
-//        fun onBackPress(activity: Activity, isEnabled: Boolean, callBack: InterstitialCallBack?){
-//            showInterstitial(activity, isEnabled, callBack)
-//        }
+        fun showMREC(activity: Activity, marcAdContainer: FrameLayout, isEnabled: Boolean) {
+            if (isEnabled) {
+                val adViewMRec = MaxAdView(mRecAdId, MaxAdFormat.MREC, activity)
+                val maxAdViewAdListener: MaxAdViewAdListener = object : MaxAdViewAdListener {
+                    override fun onAdExpanded(ad: MaxAd) {}
+                    override fun onAdCollapsed(ad: MaxAd) {}
+                    override fun onAdLoaded(ad: MaxAd) {
+                        Log.e("Add", "LOADED")
+                        marcAdContainer.visibility = View.VISIBLE
+                        //marcAdContainer.addView(adViewMarcs);
+                    }
+
+                    override fun onAdDisplayed(ad: MaxAd) {
+                        Log.e("Add", "DISPLAYED")
+                    }
+
+                    override fun onAdHidden(ad: MaxAd) {}
+                    override fun onAdClicked(ad: MaxAd) {}
+                    override fun onAdLoadFailed(adUnitId: String, error: MaxError) {
+                        Log.e("Add", "FAILED TO LOADED")
+                    }
+
+                    override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                        Log.e("Add", "FAILED TO DISPLAY")
+                    }
+                }
+                val maxAdRevenueListener = MaxAdRevenueListener { ad: MaxAd? -> }
+                val widthPx = AppLovinSdkUtils.dpToPx(activity, 300)
+                val heightPx = AppLovinSdkUtils.dpToPx(activity, 250)
+                adViewMRec.layoutParams = FrameLayout.LayoutParams(widthPx, heightPx)
+                marcAdContainer.addView(adViewMRec)
+                adViewMRec.setListener(maxAdViewAdListener)
+                adViewMRec.setRevenueListener(maxAdRevenueListener)
+                adViewMRec.loadAd()
+                adViewMRec.startAutoRefresh()
+            }
+        }
+
 
     }
 }

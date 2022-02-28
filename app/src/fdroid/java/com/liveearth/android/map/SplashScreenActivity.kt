@@ -132,13 +132,26 @@ class SplashScreenActivity : BaseActivity() {
     }
 
     fun start() {
-        startActivity(
-            Intent(
-                this@SplashScreenActivity,
-                MainActivity::class.java
-            )
-        )
-        finish()
+        if(isAdMobInterstitialLoaded){
+            Misc.showAdMobInterstitial(this,object : InterstitialCallBack{
+                override fun onDismiss() {
+                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                }
+            })
+        } else{
+            Misc.showInterstitial(this, Misc.isDashboardIntEnabled, object : InterstitialCallBack{
+                override fun onDismiss() {
+                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                }
+            })
+        }
+//        startActivity(
+//            Intent(
+//                this@SplashScreenActivity,
+//                MainActivity::class.java
+//            )
+//        )
+//        finish()
     }
 
     @SuppressLint("LogNotTimber")
@@ -190,6 +203,8 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.isViewWorldBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
                         Misc.isSplashNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
                         Misc.isAltitudeBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
+                        Misc.isDashboardMRecEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardMRecEnabled")
+                        Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")
 
                         if (Misc.nativeAdIdAdMob != "" && !isAdRequestSent) {
                             isAdRequestSent = true
@@ -245,6 +260,7 @@ class SplashScreenActivity : BaseActivity() {
                                 object : LoadInterstitialCallBack {
                                     override fun onLoaded() {
                                         isAdMobInterstitialLoaded = true
+                                        Misc.loadInterstitial(this@SplashScreenActivity, null)
                                     }
 
                                     override fun onFailed() {

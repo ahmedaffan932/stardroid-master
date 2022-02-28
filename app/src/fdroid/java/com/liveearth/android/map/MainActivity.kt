@@ -34,16 +34,13 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.getStringExtra(Misc.data) != null) {
-            setContentView(R.layout.activity_main_seconde_design)
-        } else {
-            setContentView(R.layout.activity_main)
-        }
+        setContentView(R.layout.activity_main)
 
         permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
+        Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
@@ -367,24 +364,24 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 //            objCustomDialog.setCancelable(false)
 
 //            if(Misc.mInterstitialAdAdMob== null) {
-                Misc.showInterstitial(
-                    this,
-                    Misc.isDashboardIntEnabled,
-                    object : InterstitialCallBack {
+            Misc.showInterstitial(
+                this,
+                Misc.isDashboardIntEnabled,
+                object : InterstitialCallBack {
 //                        override fun onFailed() {
 //                            objCustomDialog.dismiss()
 //                            startActivity(intent)
 //                        }
 
-                        override fun onDismiss() {
+                    override fun onDismiss() {
 //                            objCustomDialog.dismiss()
 //                            Misc.showAdMobInterstitial(this@MainActivity, object : InterstitialCallBack {
 //                                override fun onDismiss() {
-                                    startActivity(intent)
+                        startActivity(intent)
 //                                }
 //                            })
-                        }
-                    })
+                    }
+                })
 //            }else{
 //                Misc.showAdMobInterstitial(this, object : InterstitialCallBack{
 //                    override fun onDismiss() {
@@ -401,18 +398,26 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onResume() {
         super.onResume()
-
         if (!isNativeDisplayed) {
-            Misc.showAdMobNativeAd(
-                this,
-                nativeAdViewMain,
-                object : NativeAdCallBack {
+            if(Misc.mNativeAdAdMob != null) {
+                Misc.showAdMobNativeAd(
+                    this,
+                    nativeAdViewMain,
+                    object : NativeAdCallBack {
+                        override fun onLoad() {
+                            nativeAdViewMain.visibility = View.VISIBLE
+                            isNativeDisplayed = true
+                        }
+                    }
+                )
+            }else{
+                Misc.showNativeAd(this,adFrameLayoutNative, Misc.isDashboardNativeEnabled,object : NativeAdCallBack{
                     override fun onLoad() {
-                        nativeAdViewMain.visibility = View.VISIBLE
+                        adFrameLayoutNative.visibility = View.VISIBLE
                         isNativeDisplayed = true
                     }
-                }
-            )
+                })
+            }
         }
     }
 }
