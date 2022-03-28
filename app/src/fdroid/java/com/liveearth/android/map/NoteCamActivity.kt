@@ -34,10 +34,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.liveearth.android.map.clasess.Misc
-import com.liveearth.android.map.interfaces.InterstitialCallBack
-import com.liveearth.android.map.interfaces.OnBackPressCallBack
-import kotlinx.android.synthetic.main.activity_am_chatrs.*
-import kotlinx.android.synthetic.main.activity_live_earth.*
 import kotlinx.android.synthetic.main.activity_note_cam.*
 import kotlinx.android.synthetic.main.note_cam_bottom_sheet.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -62,6 +58,8 @@ class NoteCamActivity : BaseActivity() {
         getImageForCollection()
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetNoteCam))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        Misc.loadBannerAd(this, Misc.isNoteCamBannerEnabled, bannerAdFrameLayout)
 
         KeyboardVisibilityEvent.setEventListener(this, object : KeyboardVisibilityEventListener {
             override fun onVisibilityChanged(isOpen: Boolean) {

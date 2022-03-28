@@ -31,7 +31,7 @@ class ProScreenActivity : AppCompatActivity() {
                     handlePurchase(purchases[0])
                 }
                 Log.d(Misc.logKey, "Ya hooo.....")
-                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SplashScreenActivity::class.java))
                 finish()
             }

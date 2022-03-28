@@ -8,12 +8,19 @@
     android:layout_width="match_parent"
     tools:context=".CompassActivity">
 
+
+    <FrameLayout
+        android:id="@+id/bannerAdFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayout">
 
 
         <ImageView

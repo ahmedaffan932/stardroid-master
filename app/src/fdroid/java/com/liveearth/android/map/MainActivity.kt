@@ -40,7 +40,10 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
+        quitBottomSheet.setOnClickListener {  }
+
         Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
+        Misc.loadBannerAd(this, Misc.isDashboardBannerEnabled, bannerAdFrameLayout)
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
@@ -320,20 +323,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-//            Misc.getStoragePermission(
-//                this,
-//                lsvStoragePermission,
-//                object : StoragePermissionInterface {
-//                    override fun onPermissionGranted() {
-//                        startMyActivity(
-//                            Intent(
-//                                this@MainActivity,
-//                                LiveEarthActivity::class.java
-//                            )
-//                        )
-//                    }
-//                }
-//            )
             startMyActivity(myIntent)
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
@@ -345,51 +334,27 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
         } else {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            Misc.showInterstitial(this, Misc.isQuitIntEnabled, object : InterstitialCallBack{
+                override fun onDismiss() {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    Misc.showNativeAd(this@MainActivity, nativeAd, Misc.isQuitNativeEnabled, null)
+                }
+
+            })
         }
     }
 
     fun startMyActivity(intent: Intent) {
         myIntent = intent
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-//            val objCustomDialog = CustomDialog(this)
-//            objCustomDialog.show()
-//
-//            val window: Window = objCustomDialog.window!!
-//            window.setLayout(
-//                WindowManager.LayoutParams.FILL_PARENT,
-//                WindowManager.LayoutParams.WRAP_CONTENT
-//            )
-//            window.setBackgroundDrawableResource(R.color.nothing)
-//            objCustomDialog.setCancelable(false)
-
-//            if(Misc.mInterstitialAdAdMob== null) {
             Misc.showInterstitial(
                 this,
-                Misc.isDashboardIntEnabled,
+                Misc.isDashboardItemIntEnabled,
                 object : InterstitialCallBack {
-//                        override fun onFailed() {
-//                            objCustomDialog.dismiss()
-//                            startActivity(intent)
-//                        }
-
                     override fun onDismiss() {
-//                            objCustomDialog.dismiss()
-//                            Misc.showAdMobInterstitial(this@MainActivity, object : InterstitialCallBack {
-//                                override fun onDismiss() {
                         startActivity(intent)
-//                                }
-//                            })
                     }
                 })
-//            }else{
-//                Misc.showAdMobInterstitial(this, object : InterstitialCallBack{
-//                    override fun onDismiss() {
-//                        objCustomDialog.dismiss()
-//                        startActivity(intent)
-//                    }
-//                })
-//            }
         } else {
             permissionsManager.requestLocationPermissions(this)
         }
@@ -406,14 +371,17 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     object : NativeAdCallBack {
                         override fun onLoad() {
                             nativeAdViewMain.visibility = View.VISIBLE
+                            llAd.visibility = View.VISIBLE
                             isNativeDisplayed = true
                         }
                     }
                 )
             }else{
-                Misc.showNativeAd(this,adFrameLayoutNative, Misc.isDashboardNativeEnabled,object : NativeAdCallBack{
+                if(Misc.isDashboardNativeEnabled == "am_al" || Misc.isDashboardNativeEnabled == "al")
+                Misc.showNativeAd(this,adFrameLayoutNative, true,object : NativeAdCallBack{
                     override fun onLoad() {
                         adFrameLayoutNative.visibility = View.VISIBLE
+                        llAd.visibility = View.VISIBLE
                         isNativeDisplayed = true
                     }
                 })

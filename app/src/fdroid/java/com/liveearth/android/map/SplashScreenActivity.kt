@@ -35,7 +35,7 @@ class SplashScreenActivity : BaseActivity() {
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 Misc.setPurchasedStatus(this, true)
                 Log.d(Misc.logKey, "Ya hooo.....")
-                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SplashScreenActivity::class.java))
                 finish()
             }
@@ -53,7 +53,6 @@ class SplashScreenActivity : BaseActivity() {
             .enablePendingPurchases()
             .build()
 
-//        Misc.loadInterstitial(this, null)
 
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
@@ -86,20 +85,9 @@ class SplashScreenActivity : BaseActivity() {
             start()
         }
 
-//        Handler().postDelayed({
-//            if (btnStart.visibility != View.VISIBLE) {
-//                Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
-//                Misc.zoomOutView(
-//                    animLoading,
-//                    this@SplashScreenActivity,
-//                    300
-//                )
-//            }
-//        }, 5000)
-
         Handler().postDelayed({
             if (!Misc.isSplashNativeEnabled){
-                if(Misc.isDashboardIntEnabled){
+                if(Misc.isDashboardIntEnabled == "am" || Misc.isDashboardIntEnabled == "al" || Misc.isDashboardIntEnabled == "am_al"){
                     if(isAdMobInterstitialLoaded){
                         Misc.showAdMobInterstitial(this,object : InterstitialCallBack{
                             override fun onDismiss() {
@@ -107,7 +95,7 @@ class SplashScreenActivity : BaseActivity() {
                             }
                         })
                     } else{
-                        Misc.showInterstitial(this, Misc.isDashboardIntEnabled, object : InterstitialCallBack{
+                        Misc.showInterstitial(this, true, object : InterstitialCallBack{
                             override fun onDismiss() {
                                 startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                             }
@@ -117,8 +105,6 @@ class SplashScreenActivity : BaseActivity() {
                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                 }
             }else{
-//                btnStart.animate().translationY(0F)
-//                spin_kit.visibility = View.INVISIBLE
                 Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
                 Misc.zoomOutView(
                     animLoading,
@@ -126,7 +112,7 @@ class SplashScreenActivity : BaseActivity() {
                     300
                 )
             }
-        }, 7000)
+        }, 10000)
 
 
     }
@@ -139,7 +125,8 @@ class SplashScreenActivity : BaseActivity() {
                 }
             })
         } else{
-            Misc.showInterstitial(this, Misc.isDashboardIntEnabled, object : InterstitialCallBack{
+            val bool = Misc.isDashboardIntEnabled == "al" || Misc.isDashboardIntEnabled == "am_al"
+            Misc.showInterstitial(this, bool, object : InterstitialCallBack{
                 override fun onDismiss() {
                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                 }
@@ -170,76 +157,56 @@ class SplashScreenActivity : BaseActivity() {
 
                         mFirebaseRemoteConfig.activate()
 
-                        Misc.nativeAdIdAdMob = mFirebaseRemoteConfig.getString("nativeAdIdAdMob")
-                        Misc.nativeAdId = mFirebaseRemoteConfig.getString("nativeAdId")
-                        Misc.interstitialAdId = mFirebaseRemoteConfig.getString("interstitialAdId")
-                        Misc.interstitialAdIdAdMob = mFirebaseRemoteConfig.getString("interstitialAdIdAdMob")
-                        Misc.isSplashIntEnabled = mFirebaseRemoteConfig.getBoolean("isSplashIntEnabled")
-                        Misc.isDashboardIntEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardIntEnabled")
-                        Misc.isContinentSelectIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
-                        Misc.isStartGameIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameIntEnabled")
-                        Misc.isMainFromProScreenIntEnabled = mFirebaseRemoteConfig.getBoolean("isMainFromProScreenIntEnabled")
-                        Misc.isGenerateQRIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQRIntEnabled")
-                        Misc.isQuizCompleteIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteIntEnabled")
-                        Misc.isSkyMapIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
-                        Misc.isQuizCountriesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCountriesIntEnabled")
-                        Misc.isQuizScreenOneNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneNativeEnabled")
-                        Misc.isQuizScreenOneBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneBackIntEnabled")
-                        Misc.isQuizSelectModeIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
-                        Misc.isContinentSelectNativeEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectNativeEnabled")
-                        Misc.isQuizCompleteBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteBackIntEnabled")
-                        Misc.isWorldQuizOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isWorldQuizOnBackIntEnabled")
-                        Misc.isQuizCompleteNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
-                        Misc.isWordlQuizActivityNativeEnabled = mFirebaseRemoteConfig.getBoolean("isWordlQuizActivityNativeEnabled")
-                        Misc.isContinentSelectBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectBackIntEnabled")
-                        Misc.isQuizSelectModeNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeNativeEnabled")
-                        Misc.isSoundMeterBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
-                        Misc.isSoundMeterNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterNativeEnabled")
-                        Misc.isSkyMapBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBackIntEnabled")
-                        Misc.isSettingBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingBackIntEnabled")
-                        Misc.isGenerateQrOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackIntEnabled")
-                        Misc.isLiveEarthOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isLiveEarthOnBackIntEnabled")
-                        Misc.isCompassBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isCompassBackIntEnabled")
-                        Misc.isViewWorldBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
-                        Misc.isSplashNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
-                        Misc.isAltitudeBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
-                        Misc.isDashboardMRecEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardMRecEnabled")
-                        Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")
+//                        Misc.nativeAdIdAdMob = mFirebaseRemoteConfig.getString("nativeAdIdAdMob")
+//                        Misc.nativeAdId = mFirebaseRemoteConfig.getString("nativeAdId")
+//                        Misc.interstitialAdId = mFirebaseRemoteConfig.getString("interstitialAdId")
+//                        Misc.interstitialAdIdAdMob = mFirebaseRemoteConfig.getString("interstitialAdIdAdMob")
+//                        Misc.isDashboardIntEnabled = mFirebaseRemoteConfig.getString("isDashboardIntEnabled")
+//                        Misc.isContinentSelectIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectIntEnabled")
+//                        Misc.isStartGameIntEnabled = mFirebaseRemoteConfig.getBoolean("isStartGameIntEnabled")
+//                        Misc.isDashboardItemIntEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardItemIntEnabled")
+//                        Misc.isMainFromProScreenIntEnabled = mFirebaseRemoteConfig.getBoolean("isMainFromProScreenIntEnabled")
+//                        Misc.isGenerateQRIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQRIntEnabled")
+//                        Misc.isQuizCompleteIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteIntEnabled")
+//                        Misc.isSkyMapIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapIntEnabled")
+//                        Misc.isQuizCountriesIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCountriesIntEnabled")
+//                        Misc.isQuizScreenOneNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneNativeEnabled")
+//                        Misc.isQuizScreenOneBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizScreenOneBackIntEnabled")
+//                        Misc.isQuizSelectModeIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeIntEnabled")
+//                        Misc.isContinentSelectNativeEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectNativeEnabled")
+//                        Misc.isQuizCompleteBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteBackIntEnabled")
+//                        Misc.isWorldQuizOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isWorldQuizOnBackIntEnabled")
+//                        Misc.isQuizCompleteNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizCompleteNativeEnabled")
+//                        Misc.isWordlQuizActivityNativeEnabled = mFirebaseRemoteConfig.getBoolean("isWordlQuizActivityNativeEnabled")
+//                        Misc.isContinentSelectBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isContinentSelectBackIntEnabled")
+//                        Misc.isQuizSelectModeNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuizSelectModeNativeEnabled")
+//                        Misc.isSoundMeterBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterBackIntEnabled")
+//                        Misc.isSoundMeterNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSoundMeterNativeEnabled")
+//                        Misc.isSkyMapBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBackIntEnabled")
+//                        Misc.isSettingBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isSettingBackIntEnabled")
+//                        Misc.isGenerateQrOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isGenerateQrOnBackIntEnabled")
+//                        Misc.isLiveEarthOnBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isLiveEarthOnBackIntEnabled")
+//                        Misc.isCompassBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isCompassBackIntEnabled")
+//                        Misc.isViewWorldBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isViewWorldBackIntEnabled")
+//                        Misc.isSplashNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSplashNativeEnabled")
+//                        Misc.isAltitudeBackIntEnabled = mFirebaseRemoteConfig.getBoolean("isAltitudeBackIntEnabled")
+//                        Misc.isDashboardMRecEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardMRecEnabled")
+//                        Misc.isDashboardNativeEnabled = mFirebaseRemoteConfig.getString("isDashboardNativeEnabled")
+//
+//                        Misc.isCompassBannerEnabled = mFirebaseRemoteConfig.getBoolean("isCompassBannerEnabled")
+//                        Misc.isNoteCamBannerEnabled = mFirebaseRemoteConfig.getBoolean("isNoteCamBannerEnabled")
+//                        Misc.isQuitNativeEnabled = mFirebaseRemoteConfig.getBoolean("isQuitNativeEnabled")
+//                        Misc.isQuitIntEnabled = mFirebaseRemoteConfig.getBoolean("isQuitIntEnabled")
+//                        Misc.bannerAdId = mFirebaseRemoteConfig.getString("bannerAdId")
+//                        Misc.isSkyMapBannerEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBannerEnabled")
+//                        Misc.isDashboardBannerEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardBannerEnabled")
+//                        Misc.isCreateQRNativeEnabled = mFirebaseRemoteConfig.getBoolean("isCreateQRNativeEnabled")
+//
+//                        Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")
 
                         if (Misc.nativeAdIdAdMob != "" && !isAdRequestSent) {
                             isAdRequestSent = true
                             Misc.loadAdMobNativeAd(this, Misc.isDashboardNativeEnabled)
-
-//                            val objCustomDialog = CustomDialog(this@SplashScreenActivity)
-//                            objCustomDialog.show()
-//
-//                            val window: Window = objCustomDialog.window!!
-//                            window.setLayout(
-//                                WindowManager.LayoutParams.FILL_PARENT,
-//                                WindowManager.LayoutParams.WRAP_CONTENT
-//                            )
-//                            window.setBackgroundDrawableResource(R.color.nothing)
-//
-//                            objCustomDialog.setCancelable(false)
-//                            Misc.loadAdMobInterstitial(this, Misc.isSplashIntEnabled, object : LoadInterstitialCallBack{
-//                                override fun onLoaded() {
-//                                    Handler().postDelayed({
-//                                        objCustomDialog.dismiss()
-//                                        Misc.showAdMobInterstitial(this@SplashScreenActivity, object : InterstitialCallBack{
-//                                            override fun onDismiss() {
-//                                                start()
-//                                            }
-//
-//                                        })
-//                                    },1000)
-//                                }
-//
-//                                override fun onFailed() {
-//                                    Log.e(Misc.logKey, "Interstitial Ad loading failed.")
-//                                    start()
-//                                }
-//
-//                            })
                             Misc.loadNativeAd(this, object : NativeAdCallBack {
                                 override fun onLoad() {
                                     Misc.showNativeAd(
@@ -264,6 +231,7 @@ class SplashScreenActivity : BaseActivity() {
                                     }
 
                                     override fun onFailed() {
+                                        Log.d(Misc.logKey," On Failed.")
                                         Misc.loadInterstitial(this@SplashScreenActivity, null)
                                     }
 
@@ -278,7 +246,6 @@ class SplashScreenActivity : BaseActivity() {
                 }
             true
         } catch (e: Exception) {
-//            start()
             e.printStackTrace()
             false
         }

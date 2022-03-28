@@ -17,4 +17,5 @@
     <dimen name="text_size_large">50sp</dimen>
     <dimen name="large_icon_size">40sp</dimen>
     <dimen name="digital_speed_size">150sp</dimen>
+    <dimen name="banner_ad_height">60dp</dimen>
 </resources>

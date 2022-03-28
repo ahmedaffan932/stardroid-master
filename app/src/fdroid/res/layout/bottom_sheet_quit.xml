@@ -15,6 +15,16 @@
     android:paddingHorizontal="@dimen/less_padding"
     android:paddingVertical="@dimen/fab_padding">
 
+    <FrameLayout
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/nothing"
+        android:layout_marginHorizontal="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/fab_padding"
+        android:visibility="gone"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

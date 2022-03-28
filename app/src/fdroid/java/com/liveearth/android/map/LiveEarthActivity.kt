@@ -112,7 +112,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-//        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, Misc.lsvBannerAdId, bannerAdFrameLayout)
+//        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, bannerAdFrameLayout)
 
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
@@ -131,8 +131,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         btnGetDirection.setOnClickListener {
-
-            if (!Misc.manageNavigationLimit(this)) {
+            if (!Misc.manageNavigationLimit(this) && !Misc.getPurchasedStatus(this)) {
                 AlertDialog.Builder(this@LiveEarthActivity)
                     .setTitle("Upgrade to pro.")
                     .setMessage("Your free navigation limit is exceeded. Would you like upgrade? ")
@@ -667,7 +666,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
                     Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                     btnStartNavigation.setOnClickListener {
-                        if (Misc.manageNavigationLimit(this@LiveEarthActivity)) {
+                        if (Misc.manageNavigationLimit(this@LiveEarthActivity) || Misc.getPurchasedStatus(this@LiveEarthActivity)) {
                             startActivity(
                                 Intent(
                                     this@LiveEarthActivity,

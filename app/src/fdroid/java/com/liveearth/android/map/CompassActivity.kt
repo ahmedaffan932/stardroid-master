@@ -67,6 +67,8 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
+        Misc.loadBannerAd(this, Misc.isCompassBannerEnabled, bannerAdFrameLayout)
+
         btnBackCompass.setOnClickListener {
             onBackPressed()
         }

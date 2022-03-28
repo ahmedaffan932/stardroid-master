@@ -15,6 +15,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
@@ -43,6 +44,16 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isCreateQRNativeEnabled: Boolean = true
+        var isDashboardBannerEnabled: Boolean = true
+        var isCompassBannerEnabled: Boolean = true
+        var isNoteCamBannerEnabled: Boolean = true
+        var isQuitNativeEnabled: Boolean = true
+        var isQuitIntEnabled: Boolean = true
+        var bannerAdId = "zsdf"
+        var isSkyMapBannerEnabled: Boolean = true
+
+        var isDashboardItemIntEnabled: Boolean = true
         var isContinentSelectIntEnabled: Boolean = true
         var isStartGameIntEnabled: Boolean = true
         var isMainFromProScreenIntEnabled: Boolean = true
@@ -70,6 +81,7 @@ class Misc {
         var isViewWorldBackIntEnabled: Boolean = true
         var isSplashNativeEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
+
         lateinit var nativeAdLoader: MaxNativeAdLoader
 
         var mRecAdId = "dsadf"
@@ -115,9 +127,8 @@ class Misc {
         private const val cameraFace: String = "cameraFace"
 
         var location: Location? = null
-        var isSplashIntEnabled: Boolean = true
-        var isDashboardIntEnabled: Boolean = true
-        var isDashboardNativeEnabled: Boolean = true
+        var isDashboardIntEnabled: String = "am_al"
+        var isDashboardNativeEnabled: String = "al"
 
         var nativeAdIdAdMob = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdIdAdMob = "ca-app-pub-3940256099942544/1033173712"
@@ -316,14 +327,14 @@ class Misc {
 
         fun loadAdMobInterstitial(
             activity: Activity,
-            isEnabled: Boolean,
+            isEnabled: String,
             callback: LoadInterstitialCallBack?
         ) {
             if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
                     activity
                 )
             ) {
-                if (isEnabled) {
+                if (isEnabled == "am" || isEnabled == "am_al") {
                     val adRequest = AdRequest.Builder().build()
                     InterstitialAd.load(
                         activity,
@@ -420,10 +431,12 @@ class Misc {
 
         fun loadAdMobNativeAd(
             activity: Activity,
-            isEnabled: Boolean,
+            isEnabled: String,
         ) {
             mNativeAdAdMob = null
-            if (!getPurchasedStatus(activity) && isEnabled) {
+            if (getPurchasedStatus(activity))
+                return
+            if (isEnabled == "am" || isEnabled == "am_al") {
                 val adLoader: AdLoader =
                     AdLoader.Builder(activity, nativeAdIdAdMob)
                         .forNativeAd { nativeAd ->
@@ -480,7 +493,9 @@ class Misc {
             }
             if (isEnabled) {
                 if (mInterstitialAd != null) {
+                    Log.d(logKey, "Filled")
                     if (mInterstitialAd?.isReady == true) {
+                        Log.d(logKey, "Ready")
                         mInterstitialAd?.showAd()
                     } else {
                         callBack?.onDismiss()
@@ -558,6 +573,7 @@ class Misc {
                             adFrameLayout.removeAllViews()
                             adFrameLayout.addView(nativeAdView)
                             adFrameLayout.visibility = View.VISIBLE
+
                             loadNativeAd(activity, null)
                         }
                     } else {
@@ -577,13 +593,13 @@ class Misc {
                     nativeAdLoader = MaxNativeAdLoader(nativeAdId, activity)
                     nativeAdLoader.setNativeAdListener(object : MaxNativeAdListener() {
 
-                        override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView, ad: MaxAd) {
+                        override fun onNativeAdLoaded(p0: MaxNativeAdView?, ad: MaxAd?) {
 //                            if (mNativeAd != null) {
 //                                nativeAdLoader.destroy(mNativeAd)
 //                            }
 
                             mNativeAd = ad
-                            Companion.nativeAdView = nativeAdView
+                            nativeAdView = p0
                             nativeFailedCount = 0
                             callBack?.onLoad()
                         }
@@ -596,7 +612,8 @@ class Misc {
                                 ClipData.newPlainText("Camera Translator", error.message)
                             clipboard.setPrimaryClip(clip)
                             nativeFailedCount++
-                            loadNativeAd(activity, null)
+                            if (nativeFailedCount < 3)
+                                loadNativeAd(activity, null)
                         }
 
                         override fun onNativeAdClicked(ad: MaxAd) {
@@ -619,10 +636,9 @@ class Misc {
             val binder: MaxNativeAdViewBinder =
                 MaxNativeAdViewBinder.Builder(R.layout.applovin_native)
                     .setTitleTextViewId(R.id.title_text_view)
-//                    .setBodyTextViewId(R.id.body_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
                     .setAdvertiserTextViewId(R.id.advertiser_textView)
                     .setIconImageViewId(R.id.icon_image_view)
-//                    .setMediaContentViewGroupId(R.id.media_view_container)
                     .setMediaContentViewGroupId(R.id.media_view_container)
                     .setOptionsContentViewGroupId(R.id.options_view)
                     .setCallToActionButtonId(R.id.cta_button)
@@ -666,6 +682,56 @@ class Misc {
                 adViewMRec.loadAd()
                 adViewMRec.startAutoRefresh()
             }
+        }
+
+
+        fun loadBannerAd(activity: Activity, isEnabled: Boolean, rootView: FrameLayout) {
+            try {
+                if (isEnabled)
+                    if (checkInternetConnection(activity) && bannerAdId != "") {
+                        val adView = MaxAdView(bannerAdId, activity)
+
+                        adView.setListener(object : MaxAdViewAdListener {
+                            override fun onAdLoaded(maxAd: MaxAd) {
+                                rootView.visibility = View.VISIBLE
+                            }
+
+                            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
+                                Log.d(logKey, "Banner ad load failed, ${error?.message}")
+                            }
+
+                            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
+                                Log.d(logKey, "Banner ad load failed, ${error?.message}")
+                            }
+
+                            override fun onAdClicked(maxAd: MaxAd) {}
+
+                            override fun onAdExpanded(maxAd: MaxAd) {}
+
+                            override fun onAdCollapsed(maxAd: MaxAd) {}
+
+                            override fun onAdDisplayed(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
+                            }
+
+                            override fun onAdHidden(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
+                                Log.d(logKey, "Banner ad load is hidden.")
+                            }
+
+                        })
+
+                        val width = ViewGroup.LayoutParams.MATCH_PARENT
+                        val heightPx: Int =
+                            activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
+
+                        adView.layoutParams = FrameLayout.LayoutParams(width, heightPx)
+
+                        rootView.addView(adView)
+                        adView.loadAd()
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
         }
 
 

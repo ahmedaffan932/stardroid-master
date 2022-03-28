@@ -46,7 +46,7 @@
         android:id="@+id/qrImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_24"
+        android:layout_margin="@dimen/fab_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -56,7 +56,7 @@
         android:layout_width="@dimen/_64sdp"
         android:layout_height="@dimen/_64sdp"
         android:background="@drawable/bg_gradient_pink_rounded"
-        android:layout_marginTop="@dimen/extra_padding"
+        android:layout_marginTop="@dimen/fab_padding"
         android:padding="@dimen/padding_24"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/extra_padding"
@@ -88,7 +88,7 @@
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/extra_padding"
         app:layout_constraintEnd_toEndOf="@id/qrImage"
-        android:layout_marginTop="@dimen/extra_padding"
+        android:layout_marginTop="@dimen/fab_padding"
         app:layout_constraintTop_toBottomOf="@id/qrImage"
         android:background="@drawable/bg_gradient_pink_rounded"
         app:tint="@color/white" />
@@ -105,16 +105,17 @@
         app:layout_constraintStart_toStartOf="@+id/btnSaveQRCode"
         app:layout_constraintTop_toBottomOf="@+id/btnSaveQRCode" />
 
-<!--    <com.google.android.ads.nativetemplates.TemplateView-->
-<!--        android:id="@+id/nativeAdViewQRGenerated"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_margin="@dimen/padding"-->
-<!--        android:background="@color/nothing"-->
-<!--        android:visibility="visible"-->
-<!--        app:gnt_template_type="@layout/custom_native"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView7" />-->
+    <FrameLayout
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding"
+        android:background="@color/nothing"
+        android:elevation="@dimen/padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

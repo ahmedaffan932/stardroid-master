@@ -16,7 +16,7 @@ class SkyMapActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Thanks to Stardroid Google.",Toast.LENGTH_SHORT).show()
 
-//        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, Misc.bannerAdId, bannerAdFrameLayout)
+        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, bannerAdFrameLayout)
 
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")

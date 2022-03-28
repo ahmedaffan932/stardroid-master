@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
@@ -19,7 +20,10 @@ import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
 import com.liveearth.android.map.interfaces.InterstitialCallBack
+import com.liveearth.android.map.interfaces.NativeAdCallBack
+import kotlinx.android.synthetic.fdroid.activity_world_quiz_screen_one.*
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
+import kotlinx.android.synthetic.main.activity_qrgenrated.nativeAd
 
 class QRGeneratedActivity : AppCompatActivity() {
     private val storageReadPermissionRequest = 101
@@ -32,6 +36,18 @@ class QRGeneratedActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getStoragePermission()
         }
+
+
+        Misc.showNativeAd(
+            this,
+            nativeAd,
+            Misc.isCreateQRNativeEnabled,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    nativeAd.visibility = View.VISIBLE
+                }
+            }
+        )
 
         val qrgEncoder =
             QRGEncoder(intent.getStringExtra(Misc.data), null, QRGContents.Type.TEXT, 600)
