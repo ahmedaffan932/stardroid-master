@@ -226,6 +226,7 @@
                     mapbox:srcCompat="@drawable/ic_map_default" />
 
                 <TextView
+                    android:id="@+id/tvDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_string"
@@ -253,6 +254,7 @@
                     mapbox:srcCompat="@drawable/ic_satellite" />
 
                 <TextView
+                    android:id="@+id/tvSatellite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/satellite"
@@ -281,6 +283,7 @@
                     mapbox:srcCompat="@drawable/ic_terrain" />
 
                 <TextView
+                    android:id="@+id/tvTerrain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/terrain"
@@ -310,6 +313,7 @@
                     mapbox:tint="@color/white" />
 
                 <TextView
+                    android:id="@+id/tvHybrid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hybrid"

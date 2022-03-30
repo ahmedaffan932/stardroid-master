@@ -3,6 +3,7 @@ package com.liveearth.android.map
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
@@ -11,6 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -51,10 +53,6 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     private lateinit var locationCallback: LocationCallback
     var isCurrentLocation = true
     private lateinit var droppedMarkerLayer: Layer
-
-    companion object {
-        const val DROPPED_MARKER_LAYER_ID = "DROPPED_MARKER_LAYER_ID"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,18 +107,27 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 100)
         }
 
+        tvDefault.setTextColor(ContextCompat.getColor(this, R.color.pink))
         llDefault.setOnClickListener {
+            setBtnTextWhiteColor()
             setMapBoxStyle(Style.OUTDOORS)
+            tvDefault.setTextColor(ContextCompat.getColor(this, R.color.pink))
         }
 
         llSatellite.setOnClickListener {
+            setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE)
+            tvSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
         }
         llTerrain.setOnClickListener {
+            setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE_STREETS)
+            tvTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
         }
         llHybrid.setOnClickListener {
+            setBtnTextWhiteColor()
             setMapBoxStyle(Style.DARK)
+            tvHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
         }
     }
 
@@ -275,5 +282,13 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         }
     }
 
+
+
+    private fun setBtnTextWhiteColor() {
+        tvDefault.setTextColor(Color.parseColor("#ffffff"))
+        tvHybrid.setTextColor(Color.parseColor("#ffffff"))
+        tvSatellite.setTextColor(Color.parseColor("#ffffff"))
+        tvTerrain.setTextColor(Color.parseColor("#ffffff"))
+    }
 
 }
