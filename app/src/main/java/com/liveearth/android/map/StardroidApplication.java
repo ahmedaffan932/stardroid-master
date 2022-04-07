@@ -112,11 +112,6 @@ public class StardroidApplication extends Application {
         AppLovinSdk.initializeSdk(this, configuration -> {
         });
 
-//    MobileAds.initialize(
-//            this,
-//            initializationStatus -> {});
-//    appOpenManager = new AppOpenManager(this);
-
     }
 
     public ApplicationComponent getApplicationComponent() {

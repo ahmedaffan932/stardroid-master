@@ -5,10 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.widget.Toast
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingResult
@@ -18,7 +14,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.LoadInterstitialCallBack
@@ -29,19 +24,21 @@ import kotlinx.android.synthetic.main.activity_splash_screen.*
 class SplashScreenActivity : BaseActivity() {
     private var isAdRequestSent: Boolean = false
     private var isAdMobInterstitialLoaded = false
+    private var handler = Handler()
+    private var loadingPercentage = 0
 
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 Misc.setPurchasedStatus(this, true)
                 Log.d(Misc.logKey, "Ya hooo.....")
-//                Toast.makeText(this, "Restarting Application.", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, SplashScreenActivity::class.java))
                 finish()
             }
         }
 
     private lateinit var billingClient: BillingClient
+    private var isStartBtnVisible = false
 
     @SuppressLint("LogNotTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +54,9 @@ class SplashScreenActivity : BaseActivity() {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { p0, p1 ->
+                    billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP) { _, p1 ->
                         Log.d(Misc.logKey, p1?.size.toString() + " size ..")
-                        if (/*p0.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED &&*/ p1 != null) {
+                        if (p1 != null) {
                             for (purchase in p1) {
                                 Misc.setPurchasedStatus(this@SplashScreenActivity, true)
                             }
@@ -80,65 +77,83 @@ class SplashScreenActivity : BaseActivity() {
 
         World.init(this)
         FirebaseApp.initializeApp(applicationContext)
+        handler.post(runLoadingPercentage)
 
         btnStart.setOnClickListener {
             start()
         }
 
         Handler().postDelayed({
-            if (!Misc.isSplashNativeEnabled){
-                if(Misc.isDashboardIntEnabled == "am" || Misc.isDashboardIntEnabled == "al" || Misc.isDashboardIntEnabled == "am_al"){
-                    if(isAdMobInterstitialLoaded){
-                        Misc.showAdMobInterstitial(this,object : InterstitialCallBack{
+            if (!Misc.isSplashNativeEnabled) {
+                if (Misc.isDashboardIntEnabled == "am" || Misc.isDashboardIntEnabled == "al" || Misc.isDashboardIntEnabled == "am_al") {
+                    if (isAdMobInterstitialLoaded) {
+                        Misc.showAdMobInterstitial(this, object : InterstitialCallBack {
                             override fun onDismiss() {
-                                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@SplashScreenActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
                             }
                         })
-                    } else{
-                        Misc.showInterstitial(this, true, object : InterstitialCallBack{
+                    } else {
+                        Misc.showInterstitial(this, true, object : InterstitialCallBack {
                             override fun onDismiss() {
-                                startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@SplashScreenActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
                             }
                         })
                     }
-                }else{
+                } else {
                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                 }
-            }else{
-                Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
-                Misc.zoomOutView(
-                    animLoading,
-                    this@SplashScreenActivity,
-                    300
-                )
+            } else {
+                if (!isStartBtnVisible) {
+                    Misc.zoomInView(btnStart, this@SplashScreenActivity, 300)
+                    Misc.zoomOutView(
+                        animLoading,
+                        this@SplashScreenActivity,
+                        300
+                    )
+                }
             }
-        }, 10000)
-
+        }, 8000)
 
     }
 
+
+    private val runLoadingPercentage: Runnable by lazy {
+        return@lazy object : Runnable {
+            @SuppressLint("LogNotTimber", "SetTextI18n")
+            override fun run() {
+                if (loadingPercentage < 100)
+                    loadingPercentage += 1
+                tvLoadingPercentage.text = "$loadingPercentage%"
+                handler.postDelayed(this, 80)
+            }
+        }
+    }
+
     fun start() {
-        if(isAdMobInterstitialLoaded){
-            Misc.showAdMobInterstitial(this,object : InterstitialCallBack{
+        if (isAdMobInterstitialLoaded) {
+            Misc.showAdMobInterstitial(this, object : InterstitialCallBack {
                 override fun onDismiss() {
                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                 }
             })
-        } else{
+        } else {
             val bool = Misc.isDashboardIntEnabled == "al" || Misc.isDashboardIntEnabled == "am_al"
-            Misc.showInterstitial(this, bool, object : InterstitialCallBack{
+            Misc.showInterstitial(this, bool, object : InterstitialCallBack {
                 override fun onDismiss() {
                     startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                 }
             })
         }
-//        startActivity(
-//            Intent(
-//                this@SplashScreenActivity,
-//                MainActivity::class.java
-//            )
-//        )
-//        finish()
     }
 
     @SuppressLint("LogNotTimber")
@@ -201,6 +216,9 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.isSkyMapBannerEnabled = mFirebaseRemoteConfig.getBoolean("isSkyMapBannerEnabled")
                         Misc.isDashboardBannerEnabled = mFirebaseRemoteConfig.getBoolean("isDashboardBannerEnabled")
                         Misc.isCreateQRNativeEnabled = mFirebaseRemoteConfig.getBoolean("isCreateQRNativeEnabled")
+                        Misc.isBannerAdTop = mFirebaseRemoteConfig.getBoolean("isBannerAdTop")
+                        Misc.isProScreenBannerEnabled = mFirebaseRemoteConfig.getBoolean("isProScreenBannerEnabled")
+                        Misc.isSplashLargeNative = mFirebaseRemoteConfig.getBoolean("isSplashLargeNative")
 
                         Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")
 
@@ -215,7 +233,22 @@ class SplashScreenActivity : BaseActivity() {
                                         Misc.isSplashNativeEnabled,
                                         object : NativeAdCallBack {
                                             override fun onLoad() {
-                                                Misc.zoomInView(nativeAdFrameLayout, this@SplashScreenActivity, 250)
+                                                if (!Misc.isSplashLargeNative) {
+                                                    val p = nativeAdFrameLayout.layoutParams
+                                                    p.height = 800
+                                                    nativeAdFrameLayout.layoutParams = p
+                                                } else {
+                                                    Misc.zoomOutView(
+                                                        icSplash,
+                                                        this@SplashScreenActivity,
+                                                        250
+                                                    )
+                                                }
+                                                Misc.zoomInView(
+                                                    nativeAdFrameLayout,
+                                                    this@SplashScreenActivity,
+                                                    250
+                                                )
                                             }
                                         })
                                 }
@@ -231,12 +264,13 @@ class SplashScreenActivity : BaseActivity() {
                                     }
 
                                     override fun onFailed() {
-                                        Log.d(Misc.logKey," On Failed.")
+                                        Log.d(Misc.logKey, " On Failed.")
                                         Misc.loadInterstitial(this@SplashScreenActivity, null)
                                     }
 
                                 })
 
+                            Misc.loadBannerAd(this)
                             mFirebaseRemoteConfig.reset()
                         }
                     } else {

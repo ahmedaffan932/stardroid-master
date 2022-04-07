@@ -59,6 +59,8 @@ class QRGeneratedActivity : AppCompatActivity() {
             qrImage.setImageBitmap(qrBitmap)
         } catch (e: WriterException) {
             e.printStackTrace()
+            Toast.makeText(this@QRGeneratedActivity, "Sorry some error occurred in QR creation.", Toast.LENGTH_SHORT).show()
+            onBackPressed()
         }
 
         btnSaveQRCode.setOnClickListener {

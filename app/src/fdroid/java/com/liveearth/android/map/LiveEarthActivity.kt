@@ -480,21 +480,25 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun setMarker(point: LatLng) {
-        if (mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
-            val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
-            source?.setGeoJson(
-                Point.fromLngLat(
-                    point.longitude,
-                    point.latitude
+        try {
+            if (mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID) != null) {
+                val source = mapBoxStyle.getSourceAs<GeoJsonSource>("dropped-marker-source-id")
+                source?.setGeoJson(
+                    Point.fromLngLat(
+                        point.longitude,
+                        point.latitude
+                    )
                 )
-            )
-            droppedMarkerLayer = mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID)!!
-            droppedMarkerLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE))
-            latLng = "geo:${point.latitude},${point.longitude},100"
+                droppedMarkerLayer = mapBoxStyle.getLayer(DROPPED_MARKER_LAYER_ID)!!
+                droppedMarkerLayer.setProperties(PropertyFactory.visibility(Property.VISIBLE))
+                latLng = "geo:${point.latitude},${point.longitude},100"
 
 
-            Misc.showView(btnGetDirection, this, false)
-            isBtnGenerateVisible = Misc.showView(btnGenerateQR, this, isBtnGenerateVisible)
+                Misc.showView(btnGetDirection, this, false)
+                isBtnGenerateVisible = Misc.showView(btnGenerateQR, this, isBtnGenerateVisible)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -666,7 +670,10 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.S) {
                     Misc.showView(btnStartNavigation, this@LiveEarthActivity, false)
                     btnStartNavigation.setOnClickListener {
-                        if (Misc.manageNavigationLimit(this@LiveEarthActivity) || Misc.getPurchasedStatus(this@LiveEarthActivity)) {
+                        if (Misc.manageNavigationLimit(this@LiveEarthActivity) || Misc.getPurchasedStatus(
+                                this@LiveEarthActivity
+                            )
+                        ) {
                             startActivity(
                                 Intent(
                                     this@LiveEarthActivity,

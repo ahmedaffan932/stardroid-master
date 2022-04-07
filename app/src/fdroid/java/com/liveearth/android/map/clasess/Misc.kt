@@ -44,6 +44,7 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isProScreenBannerEnabled: Boolean = true
         var isCreateQRNativeEnabled: Boolean = true
         var isDashboardBannerEnabled: Boolean = true
         var isCompassBannerEnabled: Boolean = true
@@ -82,7 +83,13 @@ class Misc {
         var isSplashNativeEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
 
+        var isSplashLargeNative: Boolean = false
+        var isBannerAdTop = false
+
         lateinit var nativeAdLoader: MaxNativeAdLoader
+        @SuppressLint("StaticFieldLeak")
+        private lateinit var adView: MaxAdView
+        private var isBannerAdLoaded = false
 
         var mRecAdId = "dsadf"
         var isDashboardMRecEnabled = true
@@ -115,7 +122,7 @@ class Misc {
 
         var mInterstitialAdAdMob: InterstitialAd? = null
         var mNativeAdAdMob: com.google.android.gms.ads.nativead.NativeAd? = null
-        var interstitialAdId = "asdlk"
+        var interstitialAdId = ""
 
         const val flags: String = "flags"
         const val capitals: String = "capitals"
@@ -279,13 +286,18 @@ class Misc {
         }
 
         fun checkInternetConnection(activity: Activity): Boolean {
-            //Check internet connection:
-            val connectivityManager: ConnectivityManager? =
-                activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            return try {
+                //Check internet connection:
+                val connectivityManager: ConnectivityManager? =
+                    activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
 
-            //Means that we are connected to a network (mobile or wi-fi)
-            return connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
-                    connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
+                //Means that we are connected to a network (mobile or wi-fi)
+                connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
+                        connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
+            }catch (e: Exception){
+                e.printStackTrace()
+                false
+            }
         }
 
         fun getNavigationCount(activity: Activity?): Int {
@@ -684,56 +696,63 @@ class Misc {
             }
         }
 
-
-        fun loadBannerAd(activity: Activity, isEnabled: Boolean, rootView: FrameLayout) {
+        fun loadBannerAd(activity: Activity) {
             try {
-                if (isEnabled)
-                    if (checkInternetConnection(activity) && bannerAdId != "") {
-                        val adView = MaxAdView(bannerAdId, activity)
+                if (checkInternetConnection(activity) && bannerAdId != "") {
+                    adView = MaxAdView(bannerAdId, activity)
 
-                        adView.setListener(object : MaxAdViewAdListener {
-                            override fun onAdLoaded(maxAd: MaxAd) {
-                                rootView.visibility = View.VISIBLE
-                            }
+                    adView.setListener(object : MaxAdViewAdListener {
+                        override fun onAdLoaded(maxAd: MaxAd) {
+                            isBannerAdLoaded = true
+                        }
 
-                            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
-                                Log.d(logKey, "Banner ad load failed, ${error?.message}")
-                            }
+                        override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
+                            isBannerAdLoaded = false
+                            Log.d(logKey, "Banner ad load failed, ${error?.message}")
+                        }
 
-                            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
-                                Log.d(logKey, "Banner ad load failed, ${error?.message}")
-                            }
+                        override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
+                            isBannerAdLoaded = false
+                            Log.d(logKey, "Banner ad load failed, ${error?.message}")
+                        }
 
-                            override fun onAdClicked(maxAd: MaxAd) {}
+                        override fun onAdClicked(maxAd: MaxAd) {}
 
-                            override fun onAdExpanded(maxAd: MaxAd) {}
+                        override fun onAdExpanded(maxAd: MaxAd) {}
 
-                            override fun onAdCollapsed(maxAd: MaxAd) {}
+                        override fun onAdCollapsed(maxAd: MaxAd) {}
 
-                            override fun onAdDisplayed(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
-                            }
+                        override fun onAdDisplayed(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
+                        }
 
-                            override fun onAdHidden(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
-                                Log.d(logKey, "Banner ad load is hidden.")
-                            }
+                        override fun onAdHidden(maxAd: MaxAd) { /* DO NOT USE - THIS IS RESERVED FOR FULLSCREEN ADS ONLY AND WILL BE REMOVED IN A FUTURE SDK RELEASE */
+                            Log.d(logKey, "Banner ad load is hidden.")
+                        }
 
-                        })
+                    })
 
-                        val width = ViewGroup.LayoutParams.MATCH_PARENT
-                        val heightPx: Int =
-                            activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
+                    val width = ViewGroup.LayoutParams.MATCH_PARENT
+                    val heightPx: Int =
+                        activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
 
-                        adView.layoutParams = FrameLayout.LayoutParams(width, heightPx)
+                    adView.layoutParams = FrameLayout.LayoutParams(width, heightPx)
 
-                        rootView.addView(adView)
-                        adView.loadAd()
-                    }
+                    adView.loadAd()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
 
-
+        fun showBannerAd(isEnabled: Boolean, rootView: FrameLayout) {
+            if (isEnabled) {
+                rootView.removeAllViews()
+                if (adView.parent != null) {
+                    (adView.parent as ViewGroup).removeView(adView)
+                }
+                rootView.addView(adView)
+                rootView.visibility = View.VISIBLE
+            }
+        }
     }
 }

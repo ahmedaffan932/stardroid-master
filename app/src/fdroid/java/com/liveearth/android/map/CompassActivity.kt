@@ -67,8 +67,6 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        Misc.loadBannerAd(this, Misc.isCompassBannerEnabled, bannerAdFrameLayout)
-
         btnBackCompass.setOnClickListener {
             onBackPressed()
         }
@@ -215,6 +213,14 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
     @SuppressLint("MissingPermission")
     public override fun onResume() {
         super.onResume()
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+
+        Misc.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
+
         mapView.onResume()
     }
 

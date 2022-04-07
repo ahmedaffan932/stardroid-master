@@ -16,8 +16,6 @@ class SkyMapActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Thanks to Stardroid Google.",Toast.LENGTH_SHORT).show()
 
-        Misc.loadBannerAd(this, Misc.isSkyMapBannerEnabled, bannerAdFrameLayout)
-
         clSearchSkyMap.setOnClickListener {
            searchPlanet("search")
         }
@@ -74,5 +72,18 @@ class SkyMapActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+
+        Misc.showBannerAd(Misc.isSkyMapBannerEnabled, bannerAdFrameLayout)
+
     }
 }

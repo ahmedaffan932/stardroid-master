@@ -334,4 +334,5 @@
     <string name="allow_app_to_access_location">Please allow location permission to the app to proceed further to view your current location.</string>
     <string name="allow_access">Allow Access</string>
     <string name="loading_ad">Loading Ad</string>
+    <string name="_00">00%</string>
 </resources>

@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         quitBottomSheet.setOnClickListener {  }
 
         Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
-        Misc.loadBannerAd(this, Misc.isDashboardBannerEnabled, bannerAdFrameLayout)
+
+
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
@@ -242,13 +243,17 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startMyActivity(
-                Intent(
-                    this@MainActivity,
-                    LiveEarthActivity::class.java
+        try {
+            if (requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startMyActivity(
+                    Intent(
+                        this@MainActivity,
+                        LiveEarthActivity::class.java
+                    )
                 )
-            )
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
         }
 
         if (requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -363,6 +368,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onResume() {
         super.onResume()
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+        Misc.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayout)
         if (!isNativeDisplayed) {
             if(Misc.mNativeAdAdMob != null) {
                 Misc.showAdMobNativeAd(

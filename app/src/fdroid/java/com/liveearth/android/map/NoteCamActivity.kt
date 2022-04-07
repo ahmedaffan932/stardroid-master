@@ -59,8 +59,6 @@ class NoteCamActivity : BaseActivity() {
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetNoteCam))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        Misc.loadBannerAd(this, Misc.isNoteCamBannerEnabled, bannerAdFrameLayout)
-
         KeyboardVisibilityEvent.setEventListener(this, object : KeyboardVisibilityEventListener {
             override fun onVisibilityChanged(isOpen: Boolean) {
                 if (isOpen) {
@@ -280,6 +278,16 @@ class NoteCamActivity : BaseActivity() {
     @SuppressLint("MissingPermission")
     override fun onResume() {
         super.onResume()
+
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+
+
+        Misc.showBannerAd(Misc.isNoteCamBannerEnabled, bannerAdFrameLayout)
+
         locationCallback = object : LocationCallback() {
             @SuppressLint("SetTextI18n", "LogNotTimber")
             override fun onLocationResult(p0: LocationResult) {
@@ -408,5 +416,4 @@ class NoteCamActivity : BaseActivity() {
             "Exception"
         }
     }
-
 }

@@ -8,9 +8,8 @@
     android:layout_width="match_parent"
     tools:context=".CompassActivity">
 
-
     <FrameLayout
-        android:id="@+id/bannerAdFrameLayout"
+        android:id="@+id/bannerAdFrameLayoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -20,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayout">
+        app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayoutTop">
 
 
         <ImageView
@@ -55,7 +54,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintBottom_toTopOf="@+id/bannerAdFrameLayoutBottom"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout"
         mapbox:mapbox_cameraTargetLat="51.50550"
         mapbox:mapbox_cameraTargetLng="-0.07520"
@@ -87,7 +86,7 @@
         android:background="@drawable/bg_gradient_pink_rounded"
         android:backgroundTint="@color/blue"
         android:padding="@dimen/padding"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/mapView"
         tools:layout_editor_absoluteX="32dp">
 
 
@@ -144,5 +143,13 @@
             app:layout_constraintTop_toBottomOf="@id/tvAddressCompass" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+        android:id="@+id/bannerAdFrameLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        mapbox:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

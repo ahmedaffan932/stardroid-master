@@ -155,6 +155,14 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
         super.onResume()
         mapView.onResume()
 
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+
+        Misc.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
+
     }
 
     @SuppressLint("MissingPermission")

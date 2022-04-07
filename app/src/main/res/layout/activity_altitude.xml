@@ -9,7 +9,7 @@
 
 
     <FrameLayout
-        android:id="@+id/bannerAdFrameLayout"
+        android:id="@+id/bannerAdFrameLayoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
-        app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayout">
+        app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayoutTop">
 
         <ImageView
             android:id="@+id/btnBackAltitude"
@@ -61,7 +61,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bannerAdFrameLayoutBottom"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout2">
 
         <ImageView
@@ -322,4 +322,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+        android:id="@+id/bannerAdFrameLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

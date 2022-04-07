@@ -13,6 +13,9 @@ import com.android.billingclient.api.*
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.*
+import kotlinx.android.synthetic.fdroid.activity_pro_screen.bannerAdFrameLayoutBottom
+import kotlinx.android.synthetic.fdroid.activity_pro_screen.bannerAdFrameLayoutTop
+import kotlinx.android.synthetic.fdroid.activity_sky_map.*
 import kotlinx.coroutines.*
 
 @SuppressLint("LogNotTimber")
@@ -42,6 +45,14 @@ class ProScreenActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pro_screen)
+
+        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+            bannerAdFrameLayoutTop
+        }else{
+            bannerAdFrameLayoutBottom
+        }
+
+        Misc.showBannerAd(Misc.isProScreenBannerEnabled, bannerAdFrameLayout)
 
         btnUnlock.setOnClickListener {
             if (isBillingClientConnected) {
@@ -144,17 +155,12 @@ class ProScreenActivity : AppCompatActivity() {
             // Process the result.
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Not available yet.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Not available yet.", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onBackPressed() {
         if (intent.getStringExtra(Misc.data) != null){
-//            Misc.onBackPress(this, Misc.isProScreenBackIntEnabled, object : OnBackPressCallBack {
-//                override fun onBackPress() {
-//                    finish()
-//                }
-//            })
             super.onBackPressed()
         }
 
