@@ -218,6 +218,7 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.isCreateQRNativeEnabled = mFirebaseRemoteConfig.getBoolean("isCreateQRNativeEnabled")
                         Misc.isBannerAdTop = mFirebaseRemoteConfig.getBoolean("isBannerAdTop")
                         Misc.isProScreenBannerEnabled = mFirebaseRemoteConfig.getBoolean("isProScreenBannerEnabled")
+                        Misc.isSpeedoMeterNativeEnabled = mFirebaseRemoteConfig.getBoolean("isSpeedoMeterNativeEnabled")
                         Misc.isSplashLargeNative = mFirebaseRemoteConfig.getBoolean("isSplashLargeNative")
 
                         Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")

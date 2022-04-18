@@ -83,11 +83,13 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     private var address = ""
     private var point = LatLng()
     var placesArray = JSONArray()
+    private var btnClickCount = 0
     private var isFirstTime = true
-    private var isCameraFocused = false
     private var latLng: String = ""
     private var isRouteAdded = false
+    private var loc: Location? = null
     private val speechRequestCode = 0
+    private var isCameraFocused = false
     private lateinit var mapView: MapView
     private var currentLocation = LatLng()
     private var isThreeDViewEnabled = false
@@ -100,8 +102,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     private var buildingPlugin: BuildingPlugin? = null
     private lateinit var navMapRoute: NavigationMapRoute
     private lateinit var locationCallback: LocationCallback
-    private var loc: Location? = null
-    private var btnClickCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,8 +111,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-
-//        Misc.loadBannerAd(this, Misc.isLSVBannerEnabled, bannerAdFrameLayout)
 
         Misc.hideShowView(btnGetDirection, this, isBtnGenerateVisible)
         Misc.hideShowView(btnStartNavigation, this, isBtnGenerateVisible)
@@ -138,10 +136,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                     .setPositiveButton("Yes") { dialog, _ ->
                         dialog.dismiss()
                         val intent =
-                            Intent(
-                                this@LiveEarthActivity,
-                                ProScreenActivity::class.java
-                            )
+                            Intent(this@LiveEarthActivity, ProScreenActivity::class.java)
                         intent.putExtra(Misc.data, Misc.data)
                         startActivity(intent)
                     }
@@ -754,7 +749,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         )
     }
 
-
     fun setAdapter(j: JSONObject): Int {
         if (j.getJSONObject("geonames").getInt("totalResultsCount") != 0) {
             val jArray = j.getJSONObject("geonames").getJSONArray("geoname")
@@ -779,7 +773,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         svLocation.setOnEditorActionListener { _, actionId, _ ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                getSearchedPlace(svLocation.text.toString())
                 hideSoftKeyboard()
                 svLocation.clearFocus()
 
@@ -824,7 +817,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-
                 })
                 handled = true
             }
@@ -891,13 +883,4 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-//    fun manageBtnClickInterstitial() {
-//        if (btnClickCount >= 1) {
-//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, null)
-//            btnClickCount = 0
-//        } else {
-//            btnClickCount++
-//        }
-//
-//    }
 }

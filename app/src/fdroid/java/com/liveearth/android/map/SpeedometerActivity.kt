@@ -7,11 +7,15 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
+import com.liveearth.android.map.interfaces.NativeAdCallBack
+import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
+import kotlinx.android.synthetic.main.activity_speedometer.nativeAd
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("LogNotTimber")
@@ -33,6 +37,16 @@ class SpeedometerActivity : AppCompatActivity() {
         btnBackSpeedometer.setOnClickListener {
             onBackPressed()
         }
+        Misc.showNativeAd(
+            this,
+            nativeAd,
+            Misc.isSpeedoMeterNativeEnabled,
+            object : NativeAdCallBack {
+                override fun onLoad() {
+                    nativeAd.visibility = View.VISIBLE
+                }
+            }
+        )
 
         btnStart.setOnClickListener {
             if (!isStarted) {

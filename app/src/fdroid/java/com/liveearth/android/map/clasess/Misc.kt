@@ -44,6 +44,7 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isSpeedoMeterNativeEnabled: Boolean = true
         var isProScreenBannerEnabled: Boolean = true
         var isCreateQRNativeEnabled: Boolean = true
         var isDashboardBannerEnabled: Boolean = true

@@ -68,13 +68,6 @@
         android:layout_marginTop="@dimen/padding"
         android:background="@drawable/bg_gradient_pink"
         app:layout_constraintTop_toBottomOf="@id/textTimeDigital"/>
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="@dimen/padding"
-        android:background="@drawable/bg_gradient_pink"
-        app:layout_constraintTop_toBottomOf="@id/textStart"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
@@ -285,7 +278,30 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </LinearLayout>
 
-<!--    <com.google.android.ads.nativetemplates.TemplateView-->
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/bg_gradient_pink"
+        app:layout_constraintTop_toBottomOf="@id/textStart"/>
+
+
+    <FrameLayout
+        android:id="@+id/nativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/nothing"
+        android:elevation="@dimen/padding"
+        android:visibility="gone"
+        android:layout_margin="@dimen/less_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+
+    <!--    <com.google.android.ads.nativetemplates.TemplateView-->
 <!--        android:id="@+id/nativeAd"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="0dp"-->
