@@ -44,50 +44,60 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
-        var isSpeedoMeterNativeEnabled: Boolean = true
-        var isProScreenBannerEnabled: Boolean = true
-        var isCreateQRNativeEnabled: Boolean = true
-        var isDashboardBannerEnabled: Boolean = true
+        var bannerAdId = "zsdf"
+        var lsvIntAm_al = "am_al"
+        var skyMapIntAm_al = "am_al"
+        var gpsCamIntAm_al = "am_al"
+        var compassIntAm_al = "am_al"
+        var noteCamIntAm_al = "al"
+        var altitudeIntAm_al = "am_al"
+        var worldQuizIntAm_al = "am_al"
+        var soundMeterIntAm_al = ""
+        var speedometerIntAm_al = "am_al"
+
+        var isDashboardItemIntEnabled: String = ""
+
+        var isBannerAdTop: Boolean = true
+        var isQuitIntEnabled: Boolean = true
+        var isSkyMapIntEnabled: Boolean = true
+        var isQuitNativeEnabled: Boolean = true
+        var isSplashLargeNative: Boolean = true
+        var isSkyMapBannerEnabled: Boolean = true
+        var isSplashNativeEnabled: Boolean = true
+        var isStartGameIntEnabled: Boolean = true
+        var isGenerateQRIntEnabled: Boolean = true
+        var isSkyMapBackIntEnabled: Boolean = true
         var isCompassBannerEnabled: Boolean = true
         var isNoteCamBannerEnabled: Boolean = true
-        var isQuitNativeEnabled: Boolean = true
-        var isQuitIntEnabled: Boolean = true
-        var bannerAdId = "zsdf"
-        var isSkyMapBannerEnabled: Boolean = true
-
-        var isDashboardItemIntEnabled: Boolean = true
-        var isContinentSelectIntEnabled: Boolean = true
-        var isStartGameIntEnabled: Boolean = true
-        var isMainFromProScreenIntEnabled: Boolean = true
-        var isGenerateQRIntEnabled: Boolean = true
-        var isQuizCompleteIntEnabled: Boolean = true
-        var isSkyMapIntEnabled: Boolean = true
-        var isQuizCountriesIntEnabled: Boolean = true
-        var isQuizScreenOneNativeEnabled: Boolean = true
-        var isQuizScreenOneBackIntEnabled: Boolean = true
-        var isQuizSelectModeIntEnabled: Boolean = true
-        var isContinentSelectNativeEnabled: Boolean = true
-        var isQuizCompleteBackIntEnabled: Boolean = true
-        var isWorldQuizOnBackIntEnabled: Boolean = true
-        var isQuizCompleteNativeEnabled: Boolean = true
-        var isWordlQuizActivityNativeEnabled: Boolean = true
-        var isContinentSelectBackIntEnabled: Boolean = true
-        var isQuizSelectModeNativeEnabled: Boolean = true
-        var isSoundMeterBackIntEnabled: Boolean = true
-        var isSoundMeterNativeEnabled: Boolean = true
-        var isSkyMapBackIntEnabled: Boolean = true
         var isSettingBackIntEnabled: Boolean = true
-        var isGenerateQrOnBackIntEnabled: Boolean = true
-        var isLiveEarthOnBackIntEnabled: Boolean = true
         var isCompassBackIntEnabled: Boolean = true
-        var isViewWorldBackIntEnabled: Boolean = true
-        var isSplashNativeEnabled: Boolean = true
+        var isCreateQRNativeEnabled: Boolean = true
         var isAltitudeBackIntEnabled: Boolean = true
-
-        var isSplashLargeNative: Boolean = false
-        var isBannerAdTop = false
+        var isQuizCompleteIntEnabled: Boolean = true
+        var isDashboardBannerEnabled: Boolean = true
+        var isProScreenBannerEnabled: Boolean = true
+        var isViewWorldBackIntEnabled: Boolean = true
+        var isQuizCountriesIntEnabled: Boolean = true
+        var isSoundMeterNativeEnabled: Boolean = true
+        var isSpeedoMeterNativeEnabled: Boolean = true
+        var isSoundMeterBackIntEnabled: Boolean = true
+        var isQuizSelectModeIntEnabled: Boolean = true
+        var isQuizCompleteNativeEnabled: Boolean = true
+        var isWorldQuizOnBackIntEnabled: Boolean = true
+        var isContinentSelectIntEnabled: Boolean = true
+        var isLiveEarthOnBackIntEnabled: Boolean = true
+        var isGenerateQrOnBackIntEnabled: Boolean = true
+        var isQuizCompleteBackIntEnabled: Boolean = true
+        var isQuizScreenOneNativeEnabled: Boolean = true
+        var isMainFromProScreenIntEnabled: Boolean = true
+        var isQuizScreenOneBackIntEnabled: Boolean = true
+        var isQuizSelectModeNativeEnabled: Boolean = true
+        var isContinentSelectNativeEnabled: Boolean = true
+        var isContinentSelectBackIntEnabled: Boolean = true
+        var isWordlQuizActivityNativeEnabled: Boolean = true
 
         lateinit var nativeAdLoader: MaxNativeAdLoader
+
         @SuppressLint("StaticFieldLeak")
         private lateinit var adView: MaxAdView
         private var isBannerAdLoaded = false
@@ -123,7 +133,7 @@ class Misc {
 
         var mInterstitialAdAdMob: InterstitialAd? = null
         var mNativeAdAdMob: com.google.android.gms.ads.nativead.NativeAd? = null
-        var interstitialAdId = ""
+        var interstitialAdId = "okasd"
 
         const val flags: String = "flags"
         const val capitals: String = "capitals"
@@ -135,8 +145,8 @@ class Misc {
         private const val cameraFace: String = "cameraFace"
 
         var location: Location? = null
-        var isDashboardIntEnabled: String = "am_al"
-        var isDashboardNativeEnabled: String = "al"
+        var splashIntAm_al: String = "am_al"
+        var dashboardNativeAm_al: String = "al"
 
         var nativeAdIdAdMob = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdIdAdMob = "ca-app-pub-3940256099942544/1033173712"
@@ -295,7 +305,7 @@ class Misc {
                 //Means that we are connected to a network (mobile or wi-fi)
                 connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state === NetworkInfo.State.CONNECTED ||
                         connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state === NetworkInfo.State.CONNECTED
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
                 false
             }
@@ -340,57 +350,74 @@ class Misc {
 
         fun loadAdMobInterstitial(
             activity: Activity,
-            isEnabled: String,
             callback: LoadInterstitialCallBack?
         ) {
             if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
                     activity
                 )
             ) {
-                if (isEnabled == "am" || isEnabled == "am_al") {
-                    val adRequest = AdRequest.Builder().build()
-                    InterstitialAd.load(
-                        activity,
-                        interstitialAdIdAdMob,
-                        adRequest,
-                        object : InterstitialAdLoadCallback() {
-                            override fun onAdFailedToLoad(adError: LoadAdError) {
-                                Log.d(logKey, adError.message)
-                                val clipboard: ClipboardManager =
-                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                val clip =
-                                    ClipData.newPlainText("Camera Translator", adError.message)
-                                clipboard.setPrimaryClip(clip)
-                                Log.e(logKey, "Interstitial ad load failed.")
-                                intFailedCount++
-                                mInterstitialAdAdMob = null
-                                callback?.onFailed()
-                            }
-
-                            override fun onAdLoaded(p0: InterstitialAd) {
-                                mInterstitialAdAdMob = p0
-                                intFailedCount = 0
-                                Log.d(logKey, "Interstitial Ad loaded.")
-                                callback?.onLoaded()
-                            }
+                val adRequest = AdRequest.Builder().build()
+                InterstitialAd.load(
+                    activity,
+                    interstitialAdIdAdMob,
+                    adRequest,
+                    object : InterstitialAdLoadCallback() {
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            Log.d(logKey, adError.message)
+                            val clipboard: ClipboardManager =
+                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            val clip =
+                                ClipData.newPlainText("Camera Translator", adError.message)
+                            clipboard.setPrimaryClip(clip)
+                            Log.e(logKey, "Interstitial ad load failed.")
+                            intFailedCount++
+                            mInterstitialAdAdMob = null
+                            callback?.onFailed()
                         }
-                    )
-                } else {
-                    callback?.onFailed()
-                }
+
+                        override fun onAdLoaded(p0: InterstitialAd) {
+                            mInterstitialAdAdMob = p0
+                            intFailedCount = 0
+                            Log.d(logKey, "Interstitial Ad loaded.")
+                            callback?.onLoaded()
+                        }
+                    }
+                )
             } else {
                 callback?.onFailed()
             }
         }
 
+        fun showAmAlInterstitial(
+            activity: Activity,
+            isEnabled: String,
+            callBack: InterstitialCallBack?
+        ) {
+            if (isEnabled == "am") {
+                showAdMobInterstitial(activity, callBack)
+            } else if (isEnabled == "al") {
+                showInterstitial(activity, true, callBack)
+            } else if (isEnabled == "am_al") {
+                if (mInterstitialAdAdMob != null) {
+                    showAdMobInterstitial(activity, callBack)
+                } else {
+                    showInterstitial(activity, true, callBack)
+                }
+            } else {
+                callBack?.onDismiss()
+            }
+        }
 
-        fun showAdMobInterstitial(activity: Activity, callBack: InterstitialCallBack?) {
+        private fun showAdMobInterstitial(activity: Activity, callBack: InterstitialCallBack?) {
             if (getPurchasedStatus(activity)) {
                 callBack?.onDismiss()
                 return
             }
             if (mInterstitialAdAdMob != null) {
                 mInterstitialAdAdMob?.show(activity)
+                if (isAdmobInterstitialRequired()) {
+                    loadAdMobInterstitial(activity, null)
+                }
             } else {
                 callBack?.onDismiss()
                 Log.d("TAG", "The interstitial ad wasn't ready yet.")
@@ -529,7 +556,6 @@ class Misc {
                     override fun onAdDisplayed(ad: MaxAd) {
                         Log.d(logKey, "Ad showed fullscreen content.")
                         mInterstitialAd = null
-//                        callBack?.onDismiss()
                         loadInterstitial(activity, null)
                     }
 
@@ -554,7 +580,6 @@ class Misc {
                     override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
                         callBack?.onDismiss()
                         loadInterstitial(activity, null)
-//                        mInterstitialAd?.loadAd()
                     }
                 }
                 mInterstitialAd?.setListener(maxAdListener)
@@ -607,10 +632,6 @@ class Misc {
                     nativeAdLoader.setNativeAdListener(object : MaxNativeAdListener() {
 
                         override fun onNativeAdLoaded(p0: MaxNativeAdView?, ad: MaxAd?) {
-//                            if (mNativeAd != null) {
-//                                nativeAdLoader.destroy(mNativeAd)
-//                            }
-
                             mNativeAd = ad
                             nativeAdView = p0
                             nativeFailedCount = 0
@@ -754,6 +775,17 @@ class Misc {
                 rootView.addView(adView)
                 rootView.visibility = View.VISIBLE
             }
+        }
+
+
+        private fun isAdmobInterstitialRequired(): Boolean {
+            return lsvIntAm_al.contains("am") || worldQuizIntAm_al.contains("am") || skyMapIntAm_al.contains(
+                "am"
+            ) || gpsCamIntAm_al.contains("am") || noteCamIntAm_al.contains("am") || speedometerIntAm_al.contains(
+                "am"
+            ) || compassIntAm_al.contains("am") || soundMeterIntAm_al.contains("am") || altitudeIntAm_al.contains(
+                "am"
+            )
         }
     }
 }

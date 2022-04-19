@@ -107,7 +107,7 @@ public class StardroidApplication extends Application {
 
         AudienceNetworkAds.initialize(this);
         AppLovinSdk.getInstance(this).getSettings().setTestDeviceAdvertisingIds(Arrays.asList(
-                "fd562179-4921-48ff-9072-ba61c40a12d6", "bfddc021-28a9-4628-89d6-07ddddc2a54c", "2d80dce8-e3f1-4ae5-81b7-6b60125b89b0", "8a6c953b-4257-4055-a6a9-0c63543a4200", "52eef28f-3574-405c-88f4-701d40f1104d"));
+                "fd562179-4921-48ff-9072-ba61c40a12d6", "bfddc021-28a9-4628-89d6-07ddddc2a54c", "2d80dce8-e3f1-4ae5-81b7-6b60125b89b0", "8a6c953b-4257-4055-a6a9-0c63543a4200", "52eef28f-3574-405c-88f4-701d40f1104d", "5cc64ff7-09c8-413c-8af9-8c8601affe0c"));
         AppLovinSdk.getInstance(this).setMediationProvider("max");
         AppLovinSdk.initializeSdk(this, configuration -> {
         });

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -34,16 +35,19 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         setContentView(R.layout.activity_main)
 
         permissionsManager = PermissionsManager(this)
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.quitBottomSheet))
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
-        quitBottomSheet.setOnClickListener {  }
+        quitBottomSheet.setOnClickListener { }
 
-        Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
-
+//        Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
 
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
@@ -65,12 +69,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 } else {
                     val intent =
                         Intent(this@MainActivity, SoundMeterActivity::class.java)
-                    startMyActivity(intent)
+                    startMyActivity(intent, Misc.soundMeterIntAm_al)
                 }
             } else {
                 val intent =
                     Intent(this@MainActivity, SoundMeterActivity::class.java)
-                startMyActivity(intent)
+                startMyActivity(intent, Misc.soundMeterIntAm_al)
             }
 
         }
@@ -105,16 +109,16 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
         llSkyMap.setOnClickListener {
             val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
-            startMyActivity(intent)
+            startMyActivity(intent, Misc.skyMapIntAm_al)
         }
 
         llWorldQuiz.setOnClickListener {
-            startMyActivity(Intent(this@MainActivity, WorldQuizActivity::class.java))
+            startMyActivity(Intent(this@MainActivity, WorldQuizActivity::class.java), Misc.worldQuizIntAm_al)
         }
 
         llSpeedometer.setOnClickListener {
             val intent = Intent(this@MainActivity, SpeedometerActivity::class.java)
-            startMyActivity(intent)
+            startMyActivity(intent, Misc.speedometerIntAm_al)
         }
 
         llGPSMapCams.setOnClickListener {
@@ -135,7 +139,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                                     NoteCamActivity::class.java
                                 )
                                 intent.putExtra(Misc.data, Misc.data)
-                                startMyActivity(intent)
+                                startMyActivity(intent, Misc.noteCamIntAm_al)
                             }
                         })
 
@@ -149,7 +153,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             val intent =
                                 Intent(this@MainActivity, NoteCamActivity::class.java)
                             intent.putExtra(Misc.data, Misc.data)
-                            startMyActivity(intent)
+                            startMyActivity(intent, Misc.gpsCamIntAm_al)
                         }
                     })
             }
@@ -163,16 +167,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
                         startMyActivity(
-                            Intent(
-                                this@MainActivity,
-                                AltitudeActivity::class.java
-                            )
-                        )
+                            Intent(this@MainActivity, AltitudeActivity::class.java), Misc.altitudeIntAm_al)
                     }
                 })
         }
         llCompass.setOnClickListener {
-            startMyActivity(Intent(this@MainActivity, CompassActivity::class.java))
+            startMyActivity(Intent(this@MainActivity, CompassActivity::class.java), Misc.compassIntAm_al)
         }
 
         llLiveEarthMap.setOnClickListener {
@@ -182,11 +182,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
                         startMyActivity(
-                            Intent(
-                                this@MainActivity,
-                                LiveEarthActivity::class.java
-                            )
-                        )
+                            Intent(this@MainActivity, LiveEarthActivity::class.java), Misc.lsvIntAm_al)
                     }
                 }
             )
@@ -205,8 +201,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                                 Intent(
                                     this@MainActivity,
                                     NoteCamActivity::class.java
-                                )
-                            )
+                                ), Misc.noteCamIntAm_al)
                         }
                     })
             }
@@ -227,8 +222,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             Intent(
                                 this@MainActivity,
                                 NoteCamActivity::class.java
-                            )
-                        )
+                            ), Misc.noteCamIntAm_al)
                     }
                 })
         }
@@ -249,21 +243,20 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     Intent(
                         this@MainActivity,
                         LiveEarthActivity::class.java
-                    )
-                )
+                    ),Misc.lsvIntAm_al)
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
         if (requestCode == gpsMapCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(this@MainActivity, NoteCamActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
-            startMyActivity(intent)
+            startMyActivity(intent, Misc.gpsCamIntAm_al)
         }
 
         if (requestCode == noteCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startMyActivity(Intent(this@MainActivity, NoteCamActivity::class.java))
+            startMyActivity(Intent(this@MainActivity, NoteCamActivity::class.java), Misc.noteCamIntAm_al)
         }
 
         if (requestCode == altitudeStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -271,8 +264,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 Intent(
                     this@MainActivity,
                     AltitudeActivity::class.java
-                )
-            )
+                ),Misc.altitudeIntAm_al)
         }
 
         if (requestCode == cameraPermissionRequestForGPSCam && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -284,7 +276,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         val intent =
                             Intent(this@MainActivity, NoteCamActivity::class.java)
                         intent.putExtra(Misc.data, Misc.data)
-                        startMyActivity(intent)
+                        startMyActivity(intent, Misc.gpsCamIntAm_al)
                     }
                 })
         }
@@ -299,8 +291,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             Intent(
                                 this@MainActivity,
                                 NoteCamActivity::class.java
-                            )
-                        )
+                            ), Misc.noteCamIntAm_al)
                     }
                 })
         }
@@ -309,7 +300,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 val intent =
                     Intent(this@MainActivity, SoundMeterActivity::class.java)
-                startMyActivity(intent)
+                startMyActivity(intent, Misc.soundMeterIntAm_al)
             } else {
                 Toast.makeText(
                     this,
@@ -328,7 +319,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
-            startMyActivity(myIntent)
+            startMyActivity(myIntent, Misc.lsvIntAm_al)
         } else {
             Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
         }
@@ -339,7 +330,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
         } else {
-            Misc.showInterstitial(this, Misc.isQuitIntEnabled, object : InterstitialCallBack{
+            Misc.showInterstitial(this, Misc.isQuitIntEnabled, object : InterstitialCallBack {
                 override fun onDismiss() {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                     Misc.showNativeAd(this@MainActivity, nativeAd, Misc.isQuitNativeEnabled, null)
@@ -349,12 +340,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
     }
 
-    fun startMyActivity(intent: Intent) {
+    fun startMyActivity(intent: Intent, isEnabled: String) {
         myIntent = intent
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            Misc.showInterstitial(
+            Misc.showAmAlInterstitial(
                 this,
-                Misc.isDashboardItemIntEnabled,
+                isEnabled,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         startActivity(intent)
@@ -368,14 +359,14 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onResume() {
         super.onResume()
-        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
-            bannerAdFrameLayoutTop
-        }else{
-            bannerAdFrameLayoutBottom
-        }
-        Misc.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayout)
+//        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+//            bannerAdFrameLayoutTop
+//        }else{
+//            bannerAdFrameLayoutBottom
+//        }
+        Misc.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayoutTop)
         if (!isNativeDisplayed) {
-            if(Misc.mNativeAdAdMob != null) {
+            if (Misc.mNativeAdAdMob != null) {
                 Misc.showAdMobNativeAd(
                     this,
                     nativeAdViewMain,
@@ -387,15 +378,15 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         }
                     }
                 )
-            }else{
-                if(Misc.isDashboardNativeEnabled == "am_al" || Misc.isDashboardNativeEnabled == "al")
-                Misc.showNativeAd(this,adFrameLayoutNative, true,object : NativeAdCallBack{
-                    override fun onLoad() {
-                        adFrameLayoutNative.visibility = View.VISIBLE
-                        llAd.visibility = View.VISIBLE
-                        isNativeDisplayed = true
-                    }
-                })
+            } else {
+                if (Misc.dashboardNativeAm_al == "am_al" || Misc.dashboardNativeAm_al == "al")
+                    Misc.showNativeAd(this, adFrameLayoutNative, true, object : NativeAdCallBack {
+                        override fun onLoad() {
+                            adFrameLayoutNative.visibility = View.VISIBLE
+                            llAd.visibility = View.VISIBLE
+                            isNativeDisplayed = true
+                        }
+                    })
             }
         }
     }

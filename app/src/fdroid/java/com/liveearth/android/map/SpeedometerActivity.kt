@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
@@ -30,8 +31,11 @@ class SpeedometerActivity : AppCompatActivity() {
     private val handler: Handler = Handler()
 
     @SuppressLint("MissingPermission", "SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_speedometer)
 
         btnBackSpeedometer.setOnClickListener {

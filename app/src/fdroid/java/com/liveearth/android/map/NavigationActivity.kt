@@ -2,6 +2,7 @@ package com.liveearth.android.map
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnBackPressCallBack
@@ -14,8 +15,11 @@ import kotlinx.android.synthetic.fdroid.activity_navigation.*
 class NavigationActivity : AppCompatActivity(), OnNavigationReadyCallback, NavigationListener {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         Mapbox.getInstance(this, resources.getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_navigation)
 

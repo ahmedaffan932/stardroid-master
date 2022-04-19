@@ -19,6 +19,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
@@ -51,8 +52,11 @@ class NoteCamActivity : BaseActivity() {
     var isAddNote = false
 
     @SuppressLint("LogNotTimber", "MissingPermission", "SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_note_cam)
 
         getImageForCollection()

@@ -215,7 +215,7 @@
     <string translatable="false" name="explore">Explore</string>
     <string translatable="false" name="lorem_ispum_dollar_ist">Lorem ispum dollar ist</string>
     <string translatable="false" name="world_quiz">World Quiz</string>
-    <string translatable="false" name="gps_map_nmap">GPS Map \nCam</string>
+    <string translatable="false" name="gps_map_nmap">GPS Map Cam</string>
     <string translatable="false" name="note_cam">Note Cam</string>
     <string translatable="false" name="compass">Compass</string>
     <string translatable="false" name="user_location_permission_explanation">This app needs location permissions in order to show its functionality.</string>
@@ -335,4 +335,5 @@
     <string name="allow_access">Allow Access</string>
     <string name="loading_ad">Loading Ad</string>
     <string name="_00">00%</string>
+    <string name="hot">Hot</string>
 </resources>

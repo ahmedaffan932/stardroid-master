@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.android.billingclient.api.*
 import com.liveearth.android.map.clasess.Misc
@@ -44,6 +45,9 @@ class ProScreenActivity : AppCompatActivity() {
     @OptIn(DelicateCoroutinesApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_pro_screen)
 
         val bannerAdFrameLayout = if(Misc.isBannerAdTop){

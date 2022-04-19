@@ -10,6 +10,7 @@ import android.print.PrintJob
 import android.print.PrintManager
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
@@ -37,8 +38,11 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface", "ObsoleteSdkInt", "LogNotTimber")
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_am_chatrs)
 
         btnBackViewWorld.setOnClickListener {
