@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -46,12 +48,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         quitBottomSheet.setOnClickListener { }
-
 //        Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
 
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
+            Firebase.analytics.logEvent("ProScreen", null)
             startActivity(intent)
         }
 
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llSoundMeter.setOnClickListener {
+            Firebase.analytics.logEvent("SoundMeter", null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
@@ -109,19 +112,24 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
         llSkyMap.setOnClickListener {
             val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
+            Firebase.analytics.logEvent("SkyMap", null)
+
             startMyActivity(intent, Misc.skyMapIntAm_al)
         }
 
         llWorldQuiz.setOnClickListener {
+            Firebase.analytics.logEvent("WorldMapQuiz", null)
             startMyActivity(Intent(this@MainActivity, WorldQuizActivity::class.java), Misc.worldQuizIntAm_al)
         }
 
         llSpeedometer.setOnClickListener {
+            Firebase.analytics.logEvent("Speedometer", null)
             val intent = Intent(this@MainActivity, SpeedometerActivity::class.java)
             startMyActivity(intent, Misc.speedometerIntAm_al)
         }
 
         llGPSMapCams.setOnClickListener {
+            Firebase.analytics.logEvent("GPSMapCams", null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
@@ -161,6 +169,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llAltitude.setOnClickListener {
+            Firebase.analytics.logEvent("Altitude", null)
             Misc.getStoragePermission(
                 this,
                 altitudeStoragePermission,
@@ -172,10 +181,12 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 })
         }
         llCompass.setOnClickListener {
+            Firebase.analytics.logEvent("llCompass", null)
             startMyActivity(Intent(this@MainActivity, CompassActivity::class.java), Misc.compassIntAm_al)
         }
 
         llLiveEarthMap.setOnClickListener {
+            Firebase.analytics.logEvent("LiveEarthMap", null)
             Misc.getStoragePermission(
                 this,
                 lsvStoragePermission,
@@ -189,6 +200,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         llNoteCam.setOnClickListener {
+            Firebase.analytics.logEvent("NoteCam", null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getCameraPermission()
             } else {

@@ -7,4 +7,3 @@
     android:searchMode="showSearchLabelAsBadge"
     android:searchSuggestIntentAction="android.intent.action.SEARCH"
     android:searchSuggestThreshold="1" />
-<!--    android:searchSuggestAuthority="com.google.android.stardroid.searchterms"-->

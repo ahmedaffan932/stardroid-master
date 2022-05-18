@@ -9,7 +9,6 @@
     android:id="@+id/clRoot"
     tools:context=".AmChartsActivity">
 
-
     <WebView
         android:id="@+id/webView"
         android:layout_width="0dp"

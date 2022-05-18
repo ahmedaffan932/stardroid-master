@@ -44,6 +44,8 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var isNoteCamOnBackIntEnabled: Boolean = true
+        var frequencyCappingCount = 0
         var bannerAdId = "zsdf"
         var lsvIntAm_al = "am_al"
         var skyMapIntAm_al = "am_al"
@@ -54,6 +56,8 @@ class Misc {
         var worldQuizIntAm_al = "am_al"
         var soundMeterIntAm_al = ""
         var speedometerIntAm_al = "am_al"
+
+        var frequencyCapping = 2
 
         var isDashboardItemIntEnabled: String = ""
 
@@ -352,37 +356,41 @@ class Misc {
             activity: Activity,
             callback: LoadInterstitialCallBack?
         ) {
-            if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
-                    activity
-                )
-            ) {
-                val adRequest = AdRequest.Builder().build()
-                InterstitialAd.load(
-                    activity,
-                    interstitialAdIdAdMob,
-                    adRequest,
-                    object : InterstitialAdLoadCallback() {
-                        override fun onAdFailedToLoad(adError: LoadAdError) {
-                            Log.d(logKey, adError.message)
-                            val clipboard: ClipboardManager =
-                                activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val clip =
-                                ClipData.newPlainText("Camera Translator", adError.message)
-                            clipboard.setPrimaryClip(clip)
-                            Log.e(logKey, "Interstitial ad load failed.")
-                            intFailedCount++
-                            mInterstitialAdAdMob = null
-                            callback?.onFailed()
-                        }
+            if (frequencyCappingCount < frequencyCapping) {
+                if (!getPurchasedStatus(activity) && intFailedCount < 3 && checkInternetConnection(
+                        activity
+                    )
+                ) {
+                    val adRequest = AdRequest.Builder().build()
+                    InterstitialAd.load(
+                        activity,
+                        interstitialAdIdAdMob,
+                        adRequest,
+                        object : InterstitialAdLoadCallback() {
+                            override fun onAdFailedToLoad(adError: LoadAdError) {
+                                Log.d(logKey, adError.message)
+                                val clipboard: ClipboardManager =
+                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val clip =
+                                    ClipData.newPlainText("Camera Translator", adError.message)
+                                clipboard.setPrimaryClip(clip)
+                                Log.e(logKey, "Interstitial ad load failed.")
+                                intFailedCount++
+                                mInterstitialAdAdMob = null
+                                callback?.onFailed()
+                            }
 
-                        override fun onAdLoaded(p0: InterstitialAd) {
-                            mInterstitialAdAdMob = p0
-                            intFailedCount = 0
-                            Log.d(logKey, "Interstitial Ad loaded.")
-                            callback?.onLoaded()
+                            override fun onAdLoaded(p0: InterstitialAd) {
+                                mInterstitialAdAdMob = p0
+                                intFailedCount = 0
+                                Log.d(logKey, "Interstitial Ad loaded.")
+                                callback?.onLoaded()
+                            }
                         }
-                    }
-                )
+                    )
+                } else {
+                    callback?.onFailed()
+                }
             } else {
                 callback?.onFailed()
             }
@@ -408,6 +416,7 @@ class Misc {
             }
         }
 
+
         private fun showAdMobInterstitial(activity: Activity, callBack: InterstitialCallBack?) {
             if (getPurchasedStatus(activity)) {
                 callBack?.onDismiss()
@@ -415,29 +424,40 @@ class Misc {
             }
             if (mInterstitialAdAdMob != null) {
                 mInterstitialAdAdMob?.show(activity)
-                if (isAdmobInterstitialRequired()) {
-                    loadAdMobInterstitial(activity, null)
-                }
+
             } else {
                 callBack?.onDismiss()
                 Log.d("TAG", "The interstitial ad wasn't ready yet.")
                 return
             }
 
-            mInterstitialAdAdMob?.fullScreenContentCallback = object : FullScreenContentCallback() {
-                override fun onAdDismissedFullScreenContent() {
-                    callBack?.onDismiss()
-                }
+            mInterstitialAdAdMob?.fullScreenContentCallback =
+                object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        callBack?.onDismiss()
+                    }
 
-                override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                    callBack?.onDismiss()
-                }
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                        callBack?.onDismiss()
+                        if (isAdmobInterstitialRequired()) {
+                            loadAdMobInterstitial(activity, null)
+                        }
+                    }
 
-                override fun onAdShowedFullScreenContent() {
-                    Log.d(logKey, "Ad showed fullscreen content.")
-                    mInterstitialAdAdMob = null
+                    override fun onAdShowedFullScreenContent() {
+                        Log.d(logKey, "Ad showed fullscreen content.")
+                        mInterstitialAdAdMob = null
+                    }
+
+                    override fun onAdImpression() {
+                        frequencyCappingCount++
+                        Log.d(logKey, frequencyCappingCount.toString())
+                        if (isAdmobInterstitialRequired()) {
+                            loadAdMobInterstitial(activity, null)
+                        }
+                        super.onAdImpression()
+                    }
                 }
-            }
 
             if (!getPurchasedStatus(activity)) {
                 if (mInterstitialAdAdMob == null) {
@@ -622,7 +642,7 @@ class Misc {
             }
         }
 
-        fun loadNativeAd(activity: Activity, callBack: NativeAdCallBack?) {
+        fun loadNativeAd(activity: Activity, callBack: LoadInterstitialCallBack?) {
             try {
                 if (!getPurchasedStatus(activity) && nativeAdId != "" && checkInternetConnection(
                         activity
@@ -635,7 +655,7 @@ class Misc {
                             mNativeAd = ad
                             nativeAdView = p0
                             nativeFailedCount = 0
-                            callBack?.onLoad()
+                            callBack?.onLoaded()
                         }
 
                         override fun onNativeAdLoadFailed(adUnitId: String, error: MaxError) {
@@ -646,6 +666,7 @@ class Misc {
                                 ClipData.newPlainText("Camera Translator", error.message)
                             clipboard.setPrimaryClip(clip)
                             nativeFailedCount++
+                            callBack?.onFailed()
                             if (nativeFailedCount < 3)
                                 loadNativeAd(activity, null)
                         }
@@ -767,14 +788,15 @@ class Misc {
         }
 
         fun showBannerAd(isEnabled: Boolean, rootView: FrameLayout) {
-            if (isEnabled) {
-                rootView.removeAllViews()
-                if (adView.parent != null) {
-                    (adView.parent as ViewGroup).removeView(adView)
+            if (this::adView.isInitialized)
+                if (isEnabled) {
+                    rootView.removeAllViews()
+                    if (adView.parent != null) {
+                        (adView.parent as ViewGroup).removeView(adView)
+                    }
+                    rootView.addView(adView)
+                    rootView.visibility = View.VISIBLE
                 }
-                rootView.addView(adView)
-                rootView.visibility = View.VISIBLE
-            }
         }
 
 
@@ -786,6 +808,17 @@ class Misc {
             ) || compassIntAm_al.contains("am") || soundMeterIntAm_al.contains("am") || altitudeIntAm_al.contains(
                 "am"
             )
+        }
+
+
+        private fun isFrequencyCapping(): Boolean {
+            if (frequencyCappingCount <= frequencyCapping) {
+                Log.d(logKey, "true")
+                return true
+            } else {
+                Log.d(logKey, "false")
+                return false
+            }
         }
     }
 }

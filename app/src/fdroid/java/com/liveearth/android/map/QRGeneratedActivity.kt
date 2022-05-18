@@ -59,6 +59,11 @@ class QRGeneratedActivity : AppCompatActivity() {
         qrgEncoder.colorWhite = R.color.blue
 
         try {
+            if (qrgEncoder.bitmap == null){
+                Toast.makeText(this@QRGeneratedActivity, "Sorry some error occurred in QR creation.", Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
             qrBitmap = qrgEncoder.bitmap
             qrImage.setImageBitmap(qrBitmap)
         } catch (e: WriterException) {

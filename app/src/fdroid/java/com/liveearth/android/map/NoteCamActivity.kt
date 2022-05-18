@@ -35,6 +35,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.liveearth.android.map.clasess.Misc
+import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.main.activity_note_cam.*
 import kotlinx.android.synthetic.main.note_cam_bottom_sheet.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -270,12 +271,12 @@ class NoteCamActivity : BaseActivity() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
-            super.onBackPressed()
-//            Misc.onBackPress(this, Misc.isNoteCamOnBackIntEnabled, object : OnBackPressCallBack {
-//                override fun onBackPress() {
-//                    finish()
-//                }
-//            })
+//            super.onBackPressed()
+            Misc.showInterstitial(this, Misc.isNoteCamOnBackIntEnabled, object : InterstitialCallBack {
+                override fun onDismiss() {
+                    finish()
+                }
+            })
         }
     }
 
@@ -377,13 +378,17 @@ class NoteCamActivity : BaseActivity() {
                 0
             }
 
-            cameraProvider?.bindToLifecycle(
-                this,
-                cameraFacing,
-                preview,
-                imageCapture
-            )
-
+            try {
+                cameraProvider?.bindToLifecycle(
+                    this,
+                    cameraFacing,
+                    preview,
+                    imageCapture
+                )
+            }catch (e: Exception){
+                Toast.makeText(this, "There is some problem with came, Unable to start it.",Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
         }
         cameraProviderFuture.addListener(
             cameraRunnable,

@@ -167,9 +167,9 @@ class WorldQuizFlagActivity : AppCompatActivity() {
             Log.d(Misc.logKey, arr.size.toString())
             if (levels < 120)
                 arr = arr.sortedByDescending { it.area }
-            for (a in arr) {
-                Log.d(Misc.logKey, a.area.toString())
-            }
+//            for (a in arr) {
+//                Log.d(Misc.logKey, a.area.toString())
+//            }
             var i = 0
             while (arrCountries.size < levels) {
                 val tempCountry = arr[i]
@@ -190,19 +190,19 @@ class WorldQuizFlagActivity : AppCompatActivity() {
     }
 
     @SuppressLint("LogNotTimber")
-    fun checkSelection(selectedCountry: String) {
-        if (selectedCountry == arrCountries[currentLevel].name) {
-            Log.d(Misc.logKey, "Correct")
-            currentLevel++
-            getCurrentLevel()
-        } else {
-            Log.e(Misc.logKey, "False")
-            currentLevel++
-            getCurrentLevel()
-        }
-//        getResult()
-
-    }
+//    fun checkSelection(selectedCountry: String) {
+//        if (selectedCountry == arrCountries[currentLevel].name) {
+//            Log.d(Misc.logKey, "Correct")
+//            currentLevel++
+//            getCurrentLevel()
+//        } else {
+//            Log.e(Misc.logKey, "False")
+//            currentLevel++
+//            getCurrentLevel()
+//        }
+////        getResult()
+//
+//    }
 
     private fun enableAnswersClickListeners(isEnable: Boolean){
         if(isEnable) {

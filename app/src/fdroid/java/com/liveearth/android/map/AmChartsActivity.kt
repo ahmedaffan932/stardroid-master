@@ -32,7 +32,6 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.set
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
-
     lateinit var adapter: CountryAdapter
     var isCountrySelected = false
 
@@ -68,7 +67,6 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
             override fun onCountryClick(country: Country) {
                 webView.loadUrl("javascript:selectCountry('${country.alpha2}');")
                 setCountryData(country)
-
                 val inputManager: InputMethodManager =
                     getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -88,10 +86,8 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
         webView.setBackgroundColor(getColor(R.color.background_color))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // chromium, enable hardware acceleration
             webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
         } else {
-            // older android version, disable hardware acceleration
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE;
@@ -116,7 +112,6 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
             }
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
-                // TODO Auto-generated method stub
                 view.loadUrl(url!!)
                 return true
             }
@@ -155,7 +150,6 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 clCountryInfo.visibility = View.GONE
             }, 300)
         } else {
-//            super.onBackPressed()
             Misc.showInterstitial(this, Misc.isViewWorldBackIntEnabled, object : InterstitialCallBack{
                 override fun onDismiss() {
                     finish()

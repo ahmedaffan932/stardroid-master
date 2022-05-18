@@ -776,53 +776,55 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     private fun searchSuggestions() {
         svLocation.setOnEditorActionListener { _, actionId, _ ->
             var handled = false
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideSoftKeyboard()
-                svLocation.clearFocus()
+            if(svLocation.text.toString().isNotEmpty()){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideSoftKeyboard()
+                    svLocation.clearFocus()
 
-                val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
-                    .query(svLocation.text.toString())
-                    .accessToken(getString(R.string.mapbox_access_token))
-                    .build()
+                    val geocodingClient: MapboxGeocoding = MapboxGeocoding.builder()
+                        .query(svLocation.text.toString())
+                        .accessToken(getString(R.string.mapbox_access_token))
+                        .build()
 
-                geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
-                    @SuppressLint("LogNotTimber")
-                    override fun onResponse(
-                        call: Call<GeocodingResponse>,
-                        response: Response<GeocodingResponse>
-                    ) {
-                        try {
-                            if (response.isSuccessful) {
-                                val t = response.body()?.features()?.get(0)?.geometry()
-                                val arr = t.toString().split("[", "]")
-                                val p = arr[1].split(",")
-                                point.latitude = p[1].toDouble()
-                                point.longitude = p[0].toDouble()
-                                setMarker(point)
-                                animateCamera(point, 10.0)
-                                for (item in arr)
-                                    Log.d(Misc.logKey, item)
-                            } else {
-                                Toast.makeText(
-                                    this@LiveEarthActivity,
-                                    "Place not found.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                    geocodingClient.enqueueCall(object : Callback<GeocodingResponse> {
+                        @SuppressLint("LogNotTimber")
+                        override fun onResponse(
+                            call: Call<GeocodingResponse>,
+                            response: Response<GeocodingResponse>
+                        ) {
+                            try {
+                                if (response.isSuccessful) {
+                                    val t = response.body()?.features()?.get(0)?.geometry()
+                                    val arr = t.toString().split("[", "]")
+                                    val p = arr[1].split(",")
+                                    point.latitude = p[1].toDouble()
+                                    point.longitude = p[0].toDouble()
+                                    setMarker(point)
+                                    animateCamera(point, 10.0)
+                                    for (item in arr)
+                                        Log.d(Misc.logKey, item)
+                                } else {
+                                    Toast.makeText(
+                                        this@LiveEarthActivity,
+                                        "Place not found.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
                         }
-                    }
 
-                    override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {
-                        Toast.makeText(
-                            this@LiveEarthActivity,
-                            "Place not found.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
-                handled = true
+                        override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {
+                            Toast.makeText(
+                                this@LiveEarthActivity,
+                                "Place not found.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+                    handled = true
+                }
             }
             handled
         }

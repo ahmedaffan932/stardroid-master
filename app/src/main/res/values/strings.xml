@@ -291,7 +291,7 @@
     <string translatable="false" name="add_note">Add Note</string>
     <string translatable="false" name="loading">Loading..</string>
     <string translatable="false" name="live_earth_map">Live Earth Map</string>
-    <string translatable="false" name="noise_detector">Noise Detector</string>
+    <string translatable="false" name="noise_detector">Sound Meter</string>
     <string translatable="false" name="view_world">View World</string>
     <string translatable="false" name="close">Close</string>
     <string translatable="false" name="min">Min</string>
@@ -336,4 +336,6 @@
     <string name="loading_ad">Loading Ad</string>
     <string name="_00">00%</string>
     <string name="hot">Hot</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="exit">Exit</string>
 </resources>
