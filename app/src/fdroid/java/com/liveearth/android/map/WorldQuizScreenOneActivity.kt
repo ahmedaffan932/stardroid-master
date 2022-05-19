@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -19,10 +20,10 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_world_quiz_screen_one)
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this@WorldQuizScreenOneActivity,
             nativeAd,
-            Misc.isQuizScreenOneNativeEnabled,
+            Misc.quizScreenOneNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -39,9 +40,9 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         )
 
         clCountries.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCountriesIntEnabled,
+                Misc.quizCountriesIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameMode = Misc.countries
@@ -51,9 +52,9 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         }
 
         clFlags.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCountriesIntEnabled,
+                Misc.quizCountriesIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameMode = Misc.flags
@@ -63,9 +64,9 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         }
 
         clCapitals.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCountriesIntEnabled,
+                Misc.quizCountriesIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameMode = Misc.capitals
@@ -75,9 +76,9 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
         }
 
         clCurrencies.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCountriesIntEnabled,
+                Misc.quizCountriesIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameMode = Misc.currencies
@@ -88,9 +89,9 @@ class WorldQuizScreenOneActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(
+        Ads.showInterstitial(
             this,
-            Misc.isQuizScreenOneBackIntEnabled,
+            Misc.quizScreenOneBackIntAm_Al,
             object : InterstitialCallBack {
                 override fun onDismiss() {
                     finish()

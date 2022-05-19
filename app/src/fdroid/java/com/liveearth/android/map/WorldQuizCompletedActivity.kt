@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -20,10 +21,10 @@ class WorldQuizCompletedActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_world_quiz_completed)
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this@WorldQuizCompletedActivity,
             nativeAd,
-            Misc.isQuizCompleteNativeEnabled,
+            Misc.quizCompleteNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -50,7 +51,7 @@ class WorldQuizCompletedActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isQuizCompleteBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.quizCompleteBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

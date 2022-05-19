@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.liveearth.android.map.adapters.CountryAdapter
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.CountryListInterface
 import com.liveearth.android.map.interfaces.InterstitialCallBack
@@ -150,7 +151,7 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
                 clCountryInfo.visibility = View.GONE
             }, 300)
         } else {
-            Misc.showInterstitial(this, Misc.isViewWorldBackIntEnabled, object : InterstitialCallBack{
+            Ads.showInterstitial(this, Misc.viewWorldBackIntAm_Al, object : InterstitialCallBack{
                 override fun onDismiss() {
                     finish()
                 }

@@ -1,9 +1,9 @@
 <resources>
     <color name="red">#FF0000</color>
     <color name="pink">#FF70B5</color>
-    <color name="blue">#181B3A</color>
+    <color name="blue">#282b4e</color>
     <color name="green">#00FF3C</color>
-    <color name="yellow">#181B3A</color>
+    <color name="yellow">#282b4e</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_700">#616161</color>
@@ -16,7 +16,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="medium_accuracy">#FFEB3B</color>
     <color name="absent_sensor">#ffa0a0a0</color>
-    <color name="background_color">#181B3A</color>
+    <color name="background_color">#282b4e</color>
     <color name="light_blue">#636998</color>
     <color name="old_light_blue">#636998</color>
     <color name="translucent_black">#55000000</color>

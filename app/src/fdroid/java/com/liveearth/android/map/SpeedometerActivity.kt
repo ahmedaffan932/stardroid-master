@@ -11,10 +11,10 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
-import kotlinx.android.synthetic.fdroid.activity_sound_meter.*
 import kotlinx.android.synthetic.main.activity_speedometer.*
 import kotlinx.android.synthetic.main.activity_speedometer.nativeAd
 import java.util.concurrent.TimeUnit
@@ -41,10 +41,10 @@ class SpeedometerActivity : AppCompatActivity() {
         btnBackSpeedometer.setOnClickListener {
             onBackPressed()
         }
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this,
             nativeAd,
-            Misc.isSpeedoMeterNativeEnabled,
+            Misc.speedoMeterNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -118,7 +118,7 @@ class SpeedometerActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isSoundMeterBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.soundMeterBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

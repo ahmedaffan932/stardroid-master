@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import com.mapbox.api.directions.v5.DirectionsCriteria
@@ -189,7 +190,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             val intent = Intent(this, QRGeneratedActivity::class.java)
             Log.d(Misc.logKey, latLng)
             intent.putExtra(Misc.data, latLng)
-            Misc.showInterstitial(this, Misc.isGenerateQRIntEnabled, object : InterstitialCallBack {
+            Ads.showInterstitial(this, Misc.generateQRIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     startActivity(intent)
                 }
@@ -523,9 +524,9 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             isRouteAdded = false
         } else {
 //            super.onBackPressed()
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isLiveEarthOnBackIntEnabled,
+                Misc.liveEarthOnBackIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         finish()

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.google.firebase.FirebaseApp
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_flag.*
@@ -79,9 +80,10 @@ class WorldQuizFlagActivity : AppCompatActivity() {
             }
 
         } catch (e: Exception) {
-            Misc.showInterstitial(
+
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCompleteIntEnabled,
+                Misc.quizCompleteIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         finish()

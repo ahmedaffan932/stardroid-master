@@ -17,6 +17,7 @@ import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import kotlinx.android.synthetic.fdroid.activity_world_quiz_countries.*
@@ -173,9 +174,9 @@ class WorldQuizCountriesActivity : AppCompatActivity() {
                 }
             }
         } catch (e: Exception) {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isQuizCompleteIntEnabled,
+                Misc.quizCompleteIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         finish()

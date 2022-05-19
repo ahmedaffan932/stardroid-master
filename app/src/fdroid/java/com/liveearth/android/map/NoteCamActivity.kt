@@ -34,6 +34,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.main.activity_note_cam.*
@@ -156,7 +157,7 @@ class NoteCamActivity : BaseActivity() {
             textViewNoteCam.text = "GPS Map Cam"
 
             btnCapture.setOnClickListener {
-//                Misc.showInterstitial(
+//                Ads.showInterstitial(
 //                    this,
 //                    Misc.isBtnClickIntEnable,
 //                    object : InterstitialCallBack {
@@ -221,7 +222,7 @@ class NoteCamActivity : BaseActivity() {
                 imm.showSoftInput(etNoteNoteCam, InputMethodManager.SHOW_IMPLICIT)
             }
             btnCapture.setOnClickListener {
-//                Misc.showInterstitial(
+//                Ads.showInterstitial(
 //                    this,
 //                    Misc.isBtnClickIntEnable,
 //                    object : InterstitialCallBack {
@@ -272,7 +273,7 @@ class NoteCamActivity : BaseActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
 //            super.onBackPressed()
-            Misc.showInterstitial(this, Misc.isNoteCamOnBackIntEnabled, object : InterstitialCallBack {
+            Ads.showInterstitial(this, Misc.noteCamOnBackIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     finish()
                 }
@@ -291,7 +292,7 @@ class NoteCamActivity : BaseActivity() {
         }
 
 
-        Misc.showBannerAd(Misc.isNoteCamBannerEnabled, bannerAdFrameLayout)
+        Ads.showBannerAd(Misc.isNoteCamBannerEnabled, bannerAdFrameLayout)
 
         locationCallback = object : LocationCallback() {
             @SuppressLint("SetTextI18n", "LogNotTimber")

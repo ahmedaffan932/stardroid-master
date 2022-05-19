@@ -502,7 +502,7 @@
         <LinearLayout
             android:id="@+id/llAd"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/fab_padding"
             android:layout_marginBottom="@dimen/padding"
             android:orientation="vertical"
@@ -512,18 +512,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
-            <com.google.android.ads.nativetemplates.TemplateView
-                android:id="@+id/nativeAdViewMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/nothing"
-                android:visibility="gone"
-                app:gnt_template_type="@layout/native_hctr" />
-
             <FrameLayout
                 android:id="@+id/adFrameLayoutNative"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_200sdp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

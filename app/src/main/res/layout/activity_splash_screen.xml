@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_map_texture"
     tools:context=".SplashScreenActivity">
 
     <!--        <com.google.android.ads.nativetemplates.TemplateView-->

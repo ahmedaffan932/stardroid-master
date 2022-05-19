@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.EmailUsDialogBox
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.clasess.RateUsDialog
@@ -182,7 +183,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isSettingBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.settingBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

@@ -21,6 +21,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 
 import com.mapbox.geojson.Point
@@ -223,7 +224,7 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
             bannerAdFrameLayoutBottom
         }
 
-        Misc.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
+        Ads.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
 
         mapView.onResume()
     }
@@ -274,7 +275,7 @@ class CompassActivity() : AppCompatActivity(), OnMapReadyCallback,
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isCompassBackIntEnabled, object : InterstitialCallBack{
+        Ads.showInterstitial(this, Misc.compassBackIntAm_Al, object : InterstitialCallBack{
             override fun onDismiss() {
                 finish()
             }

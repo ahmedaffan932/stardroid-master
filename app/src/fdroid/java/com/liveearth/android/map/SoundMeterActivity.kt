@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -27,10 +28,10 @@ class SoundMeterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sound_meter)
 
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this@SoundMeterActivity,
             nativeAd,
-            Misc.isSoundMeterNativeEnabled,
+            Misc.soundMeterNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -43,7 +44,7 @@ class SoundMeterActivity : AppCompatActivity() {
         }
 
         btnInfo.setOnClickListener {
-//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+//            Ads.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
 //                override fun onDismiss() {
                     AlertDialog.Builder(this@SoundMeterActivity)
                         .setTitle("Example:")
@@ -66,7 +67,7 @@ class SoundMeterActivity : AppCompatActivity() {
         }
 
         btnReset.setOnClickListener{
-//            Misc.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
+//            Ads.showInterstitial(this, Misc.isBtnClickIntEnable, object : InterstitialCallBack {
 //                override fun onDismiss() {
                     handler.removeCallbacks(runSoundMeter)
                     speedAnalog.speedTo(0.toFloat(), 100)
@@ -133,7 +134,7 @@ class SoundMeterActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isSoundMeterBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.soundMeterBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

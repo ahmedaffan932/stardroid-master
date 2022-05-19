@@ -14,8 +14,8 @@ android {
         applicationId "com"
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 10
-        versionName "1.9"
+        versionCode 11
+        versionName "1.10"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -171,7 +171,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation project(':nativetemplates')
+//    implementation project(':nativetemplates')
 
     implementation 'com.google.firebase:firebase-core:20.0.0'
 

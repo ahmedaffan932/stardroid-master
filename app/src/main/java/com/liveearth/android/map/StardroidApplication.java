@@ -36,6 +36,9 @@ import androidx.preference.PreferenceManager;
 //import com.liveearth.android.map.clasess.AppOpenManager;
 import com.applovin.sdk.AppLovinSdk;
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.liveearth.android.map.layers.LayerManager;
 import com.liveearth.android.map.util.Analytics;
 import com.liveearth.android.map.util.AnalyticsInterface;
@@ -105,9 +108,11 @@ public class StardroidApplication extends Application {
 
         Log.d(TAG, "StardroidApplication: -onCreate");
 
+        MobileAds.initialize(this, initializationStatus -> {
+        });
         AudienceNetworkAds.initialize(this);
         AppLovinSdk.getInstance(this).getSettings().setTestDeviceAdvertisingIds(Arrays.asList(
-                "fd562179-4921-48ff-9072-ba61c40a12d6", "bfddc021-28a9-4628-89d6-07ddddc2a54c", "2d80dce8-e3f1-4ae5-81b7-6b60125b89b0", "8a6c953b-4257-4055-a6a9-0c63543a4200", "52eef28f-3574-405c-88f4-701d40f1104d", "5cc64ff7-09c8-413c-8af9-8c8601affe0c"));
+                "6ccb7a2c-9cfa-4f5e-835e-b5f848e21826","fd562179-4921-48ff-9072-ba61c40a12d6", "bfddc021-28a9-4628-89d6-07ddddc2a54c", "2d80dce8-e3f1-4ae5-81b7-6b60125b89b0", "8a6c953b-4257-4055-a6a9-0c63543a4200", "52eef28f-3574-405c-88f4-701d40f1104d", "5cc64ff7-09c8-413c-8af9-8c8601affe0c"));
         AppLovinSdk.getInstance(this).setMediationProvider("max");
         AppLovinSdk.initializeSdk(this, configuration -> {
         });

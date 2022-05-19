@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.blongho.country_data.World
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -26,10 +27,10 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_word_quiz_mode_selector)
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this@WordQuizModeSelectorActivity,
             nativeAd,
-            Misc.isQuizSelectModeNativeEnabled,
+            Misc.quizSelectModeNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -81,7 +82,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         if (Misc.gameMode == Misc.flags) {
             val intent = Intent(this, WorldQuizFlagActivity::class.java)
             intent.putExtra(Misc.data, levels)
-            Misc.showInterstitial(this, Misc.isStartGameIntEnabled, object : InterstitialCallBack {
+            Ads.showInterstitial(this, Misc.startGameIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     startActivity(intent)
                 }
@@ -89,7 +90,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
         } else {
             val intent = Intent(this, WorldQuizCountriesActivity::class.java)
             intent.putExtra(Misc.data, levels)
-            Misc.showInterstitial(this, Misc.isStartGameIntEnabled, object : InterstitialCallBack {
+            Ads.showInterstitial(this, Misc.startGameIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     startActivity(intent)
                 }
@@ -98,7 +99,7 @@ class WordQuizModeSelectorActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isContinentSelectBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.continentSelectBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

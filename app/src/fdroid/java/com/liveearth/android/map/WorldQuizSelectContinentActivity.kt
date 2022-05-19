@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -19,10 +20,10 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_world_quiz_select_continet)
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this@WorldQuizSelectContinentActivity,
             nativeAd,
-            Misc.isContinentSelectNativeEnabled,
+            Misc.continentSelectNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -37,9 +38,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         val intent =
             Intent(this@WorldQuizSelectContinentActivity, WordQuizModeSelectorActivity::class.java)
         clWholeWorld.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.wholeWorld
@@ -49,9 +50,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAsia.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.asia
@@ -61,9 +62,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clEurope.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.europe
@@ -73,9 +74,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAfrica.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.africa
@@ -85,9 +86,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
         }
 
         clAmerica.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.america
@@ -96,9 +97,9 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
                 })
         }
         clOceania.setOnClickListener {
-            Misc.showInterstitial(
+            Ads.showInterstitial(
                 this,
-                Misc.isContinentSelectIntEnabled,
+                Misc.continentSelectIntAm_Al,
                 object : InterstitialCallBack {
                     override fun onDismiss() {
                         Misc.gameContinent = Misc.oceania
@@ -109,7 +110,7 @@ class WorldQuizSelectContinentActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isQuizSelectModeIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.quizSelectModeIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

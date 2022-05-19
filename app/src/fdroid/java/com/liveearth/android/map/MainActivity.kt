@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -119,7 +120,10 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
         llWorldQuiz.setOnClickListener {
             Firebase.analytics.logEvent("WorldMapQuiz", null)
-            startMyActivity(Intent(this@MainActivity, WorldQuizActivity::class.java), Misc.worldQuizIntAm_al)
+            startMyActivity(
+                Intent(this@MainActivity, WorldQuizActivity::class.java),
+                Misc.worldQuizIntAm_al
+            )
         }
 
         llSpeedometer.setOnClickListener {
@@ -176,13 +180,18 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
                         startMyActivity(
-                            Intent(this@MainActivity, AltitudeActivity::class.java), Misc.altitudeIntAm_al)
+                            Intent(this@MainActivity, AltitudeActivity::class.java),
+                            Misc.altitudeIntAm_al
+                        )
                     }
                 })
         }
         llCompass.setOnClickListener {
             Firebase.analytics.logEvent("llCompass", null)
-            startMyActivity(Intent(this@MainActivity, CompassActivity::class.java), Misc.compassIntAm_al)
+            startMyActivity(
+                Intent(this@MainActivity, CompassActivity::class.java),
+                Misc.compassIntAm_al
+            )
         }
 
         llLiveEarthMap.setOnClickListener {
@@ -193,7 +202,9 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 object : StoragePermissionInterface {
                     override fun onPermissionGranted() {
                         startMyActivity(
-                            Intent(this@MainActivity, LiveEarthActivity::class.java), Misc.lsvIntAm_al)
+                            Intent(this@MainActivity, LiveEarthActivity::class.java),
+                            Misc.lsvIntAm_al
+                        )
                     }
                 }
             )
@@ -213,7 +224,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                                 Intent(
                                     this@MainActivity,
                                     NoteCamActivity::class.java
-                                ), Misc.noteCamIntAm_al)
+                                ), Misc.noteCamIntAm_al
+                            )
                         }
                     })
             }
@@ -234,7 +246,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             Intent(
                                 this@MainActivity,
                                 NoteCamActivity::class.java
-                            ), Misc.noteCamIntAm_al)
+                            ), Misc.noteCamIntAm_al
+                        )
                     }
                 })
         }
@@ -255,7 +268,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                     Intent(
                         this@MainActivity,
                         LiveEarthActivity::class.java
-                    ),Misc.lsvIntAm_al)
+                    ), Misc.lsvIntAm_al
+                )
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -268,7 +282,10 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         }
 
         if (requestCode == noteCamStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startMyActivity(Intent(this@MainActivity, NoteCamActivity::class.java), Misc.noteCamIntAm_al)
+            startMyActivity(
+                Intent(this@MainActivity, NoteCamActivity::class.java),
+                Misc.noteCamIntAm_al
+            )
         }
 
         if (requestCode == altitudeStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -276,7 +293,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                 Intent(
                     this@MainActivity,
                     AltitudeActivity::class.java
-                ),Misc.altitudeIntAm_al)
+                ), Misc.altitudeIntAm_al
+            )
         }
 
         if (requestCode == cameraPermissionRequestForGPSCam && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -303,7 +321,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                             Intent(
                                 this@MainActivity,
                                 NoteCamActivity::class.java
-                            ), Misc.noteCamIntAm_al)
+                            ), Misc.noteCamIntAm_al
+                        )
                     }
                 })
         }
@@ -342,10 +361,10 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
         } else {
-            Misc.showInterstitial(this, Misc.isQuitIntEnabled, object : InterstitialCallBack {
+            Ads.showInterstitial(this, Misc.isQuitIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    Misc.showNativeAd(this@MainActivity, nativeAd, Misc.isQuitNativeEnabled, null)
+                    Ads.showNativeAd(this@MainActivity, nativeAd, Misc.quitNativeAm_Al, null)
                 }
 
             })
@@ -355,7 +374,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     fun startMyActivity(intent: Intent, isEnabled: String) {
         myIntent = intent
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-            Misc.showAmAlInterstitial(
+            Ads.showInterstitial(
                 this,
                 isEnabled,
                 object : InterstitialCallBack {
@@ -371,35 +390,20 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
     override fun onResume() {
         super.onResume()
-//        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
-//            bannerAdFrameLayoutTop
-//        }else{
-//            bannerAdFrameLayoutBottom
-//        }
-        Misc.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayoutTop)
+        Ads.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayoutTop)
         if (!isNativeDisplayed) {
-            if (Misc.mNativeAdAdMob != null) {
-                Misc.showAdMobNativeAd(
-                    this,
-                    nativeAdViewMain,
-                    object : NativeAdCallBack {
-                        override fun onLoad() {
-                            nativeAdViewMain.visibility = View.VISIBLE
-                            llAd.visibility = View.VISIBLE
-                            isNativeDisplayed = true
-                        }
+            Ads.showNativeAd(
+                this,
+                adFrameLayoutNative,
+                Misc.dashboardNativeAm_Al,
+                object : NativeAdCallBack {
+                    override fun onLoad() {
+                        adFrameLayoutNative.visibility = View.VISIBLE
+                        llAd.visibility = View.VISIBLE
+                        isNativeDisplayed = true
                     }
-                )
-            } else {
-                if (Misc.dashboardNativeAm_al == "am_al" || Misc.dashboardNativeAm_al == "al")
-                    Misc.showNativeAd(this, adFrameLayoutNative, true, object : NativeAdCallBack {
-                        override fun onLoad() {
-                            adFrameLayoutNative.visibility = View.VISIBLE
-                            llAd.visibility = View.VISIBLE
-                            isNativeDisplayed = true
-                        }
-                    })
-            }
+                }
+            )
         }
     }
 }

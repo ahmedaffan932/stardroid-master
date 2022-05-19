@@ -18,6 +18,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
@@ -165,7 +166,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             bannerAdFrameLayoutBottom
         }
 
-        Misc.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
+        Ads.showBannerAd(Misc.isCompassBannerEnabled, bannerAdFrameLayout)
 
     }
 
@@ -271,7 +272,7 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isAltitudeBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.altitudeBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }

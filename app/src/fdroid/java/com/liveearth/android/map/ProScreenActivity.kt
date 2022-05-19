@@ -11,12 +11,12 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.android.billingclient.api.*
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.*
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.bannerAdFrameLayoutBottom
 import kotlinx.android.synthetic.fdroid.activity_pro_screen.bannerAdFrameLayoutTop
-import kotlinx.android.synthetic.fdroid.activity_sky_map.*
 import kotlinx.coroutines.*
 
 @SuppressLint("LogNotTimber")
@@ -56,7 +56,7 @@ class ProScreenActivity : AppCompatActivity() {
             bannerAdFrameLayoutBottom
         }
 
-        Misc.showBannerAd(Misc.isProScreenBannerEnabled, bannerAdFrameLayout)
+        Ads.showBannerAd(Misc.isProScreenBannerEnabled, bannerAdFrameLayout)
 
         btnUnlock.setOnClickListener {
             if (isBillingClientConnected) {
@@ -93,7 +93,7 @@ class ProScreenActivity : AppCompatActivity() {
                 override fun onFinish() {
                     btnContinue.visibility = View.VISIBLE
                     btnContinue.setOnClickListener {
-                        Misc.showInterstitial(this@ProScreenActivity, Misc.isMainFromProScreenIntEnabled, object : InterstitialCallBack{
+                        Ads.showInterstitial(this@ProScreenActivity, Misc.mainFromProScreenIntAm_Al, object : InterstitialCallBack{
                             override fun onDismiss() {
                                 startActivity(Intent(this@ProScreenActivity, MainActivity::class.java))
                             }

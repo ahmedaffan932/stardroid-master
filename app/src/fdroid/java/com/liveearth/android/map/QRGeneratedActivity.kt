@@ -20,9 +20,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
 import com.google.zxing.WriterException
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
-import kotlinx.android.synthetic.fdroid.activity_world_quiz_screen_one.*
 import kotlinx.android.synthetic.main.activity_qrgenrated.*
 import kotlinx.android.synthetic.main.activity_qrgenrated.nativeAd
 
@@ -42,10 +42,10 @@ class QRGeneratedActivity : AppCompatActivity() {
         }
 
 
-        Misc.showNativeAd(
+        Ads.showNativeAd(
             this,
             nativeAd,
-            Misc.isCreateQRNativeEnabled,
+            Misc.createQRNativeAm_Al,
             object : NativeAdCallBack {
                 override fun onLoad() {
                     nativeAd.visibility = View.VISIBLE
@@ -129,7 +129,7 @@ class QRGeneratedActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isGenerateQrOnBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.generateQrOnBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }
@@ -138,7 +138,7 @@ class QRGeneratedActivity : AppCompatActivity() {
 
 //    override fun onResume() {
 //        super.onResume()
-//        Misc.showNativeAd(
+//        Ads.showNativeAd(
 //            this,
 //            nativeAdViewQRGenerated,
 //            Misc.isGenerateQrOnBackNativeEnabled,

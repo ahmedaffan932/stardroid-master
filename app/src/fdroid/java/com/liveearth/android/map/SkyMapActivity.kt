@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
 import com.liveearth.android.map.activities.DynamicStarMapActivity
+import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import kotlinx.android.synthetic.fdroid.activity_sky_map.*
@@ -63,7 +64,7 @@ class SkyMapActivity : AppCompatActivity() {
     private fun searchPlanet(str: String){
         val intent = Intent(this, DynamicStarMapActivity::class.java)
         intent.putExtra(Misc.data, str)
-        Misc.showInterstitial(this, Misc.isSkyMapIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.isSkyMapIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 startActivity(intent)
             }
@@ -71,7 +72,7 @@ class SkyMapActivity : AppCompatActivity() {
     }
 //
     override fun onBackPressed() {
-        Misc.showInterstitial(this, Misc.isSkyMapBackIntEnabled, object : InterstitialCallBack {
+        Ads.showInterstitial(this, Misc.skyMapBackIntAm_Al, object : InterstitialCallBack {
             override fun onDismiss() {
                 finish()
             }
@@ -87,7 +88,7 @@ class SkyMapActivity : AppCompatActivity() {
             bannerAdFrameLayoutBottom
         }
 
-        Misc.showBannerAd(Misc.isSkyMapBannerEnabled, bannerAdFrameLayout)
+        Ads.showBannerAd(Misc.isSkyMapBannerEnabled, bannerAdFrameLayout)
 
     }
 }
