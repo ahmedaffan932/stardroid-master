@@ -356,9 +356,13 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
             if (!(addresses == null || addresses.isEmpty())) {
                 mapboxMap.getStyle { style ->
-                    Log.d(Misc.logKey, addresses[0].getAddressLine(0))
-                    address =
-                        addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
+                    if(addresses[0].getAddressLine(0) != null) {
+                        Log.d(Misc.logKey, addresses[0].getAddressLine(0))
+                        address =
+                            addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
+                    }else{
+                        Toast.makeText(this, "Address not found", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 addresses[0].countryName
             } else "null"

@@ -9,6 +9,5 @@
         android:height="@dimen/_100sdp"
         android:width="@dimen/_100sdp"
         android:gravity="center" >
-
     </item>
 </layer-list>

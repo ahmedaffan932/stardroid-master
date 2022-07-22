@@ -24,17 +24,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), PermissionsListener {
+    private lateinit var myIntent: Intent
+    private var isNativeDisplayed = false
+    private val lsvStoragePermission = 101
+    private val micPermissionRequest = 1032
     private val cameraPermissionRequest = 100
+    private val noteCamStoragePermission = 936
+    private val altitudeStoragePermission = 989
+    private val gpsMapCamStoragePermission = 93
     private val cameraPermissionRequestForGPSCam = 10
     private lateinit var permissionsManager: PermissionsManager
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    private val micPermissionRequest = 1032
-    private val lsvStoragePermission = 101
-    private val gpsMapCamStoragePermission = 93
-    private val noteCamStoragePermission = 936
-    private val altitudeStoragePermission = 989
-    private lateinit var myIntent: Intent
-    private var isNativeDisplayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -261,6 +261,11 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (grantResults.isEmpty()){
+            Toast.makeText(this, "Please give required permission.", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         try {
             if (requestCode == lsvStoragePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

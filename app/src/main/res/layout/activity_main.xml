@@ -257,15 +257,16 @@
                         app:tint="@color/white" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding"
-                        android:gravity="center"
                         android:maxLines="2"
                         android:text="@string/gps_map_nmap"
                         android:textColor="@color/white"
+                        android:layout_marginEnd="@dimen/padding"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/icGpsCam"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -356,7 +357,7 @@
                         android:gravity="center"
                         android:text="@string/speedometer"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_12sdp"
+                        android:textSize="@dimen/_11sdp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/icSpeedometer"
@@ -394,14 +395,15 @@
                         app:srcCompat="@drawable/ic_park_voice" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/padding"
-                        android:gravity="center"
                         android:text="@string/noise_detector"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/fab_text_size"
+                        android:layout_marginEnd="@dimen/padding"
+                        android:textSize="@dimen/_13sdp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/icNoiseDetector"
                         app:layout_constraintTop_toTopOf="parent" />

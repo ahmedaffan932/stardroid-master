@@ -84,7 +84,11 @@ open class AmChartsActivity : BaseActivity(), SearchView.OnQueryTextListener {
         webView.settings.javaScriptEnabled = true
         webView.settings.allowFileAccess = true
         webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
-        webView.setBackgroundColor(getColor(R.color.background_color))
+        try {
+            webView.setBackgroundColor(getColor(R.color.background_color))
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)

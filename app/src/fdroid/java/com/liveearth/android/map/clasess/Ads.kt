@@ -41,6 +41,7 @@ class Ads {
         private var isBannerAdLoaded = false
         var mInterstitialAdAdMob: InterstitialAd? = null
         var mNativeAdAdMob: NativeAd? = null
+
         @SuppressLint("StaticFieldLeak")
         var nativeAdView: MaxNativeAdView? = null
         var mNativeAd: MaxAd? = null
@@ -61,7 +62,6 @@ class Ads {
                         mInterstitialAdApplovin =
                             MaxInterstitialAd(Misc.interstitialAdIdApplovin, activity)
                         mInterstitialAdApplovin?.loadAd()
-                        Misc.frequencyCappingApplovinCount++
                         Log.d(
                             logKey,
                             "frequencyCappingApplovinCount ${Misc.frequencyCappingApplovinCount}"
@@ -78,11 +78,19 @@ class Ads {
         }
 
         private fun showApplovinInterstitial(activity: Activity, callBack: InterstitialCallBack?) {
+            if (Misc.adBreakCount < Misc.adBreakLimit) {
+                Misc.adBreakCount++
+                callBack?.onDismiss()
+                return
+            }
+            Misc.adBreakCount = 0
+
             if (mInterstitialAdApplovin != null) {
                 Log.d(logKey, "Filled")
                 if (mInterstitialAdApplovin?.isReady == true) {
                     Log.d(logKey, "Ready")
                     mInterstitialAdApplovin?.showAd()
+                    Misc.frequencyCappingApplovinCount++
                 } else {
                     callBack?.onDismiss()
                 }
@@ -126,7 +134,8 @@ class Ads {
 
                 override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
                     callBack?.onDismiss()
-                    loadApplovinInterstitial(activity, null)
+                    if (Misc.intFailedCount < 3)
+                        loadApplovinInterstitial(activity, null)
                 }
             }
             mInterstitialAdApplovin?.setListener(maxAdListener)
@@ -138,24 +147,18 @@ class Ads {
             isEnabled: String,
             callBack: InterstitialCallBack?
         ) {
-            if (Misc.adBreakCount < Misc.adBreakLimit) {
-                Misc.adBreakCount++
-                callBack?.onDismiss()
-            } else {
-                if (isEnabled.contains("am_al")) {
-                    if (mInterstitialAdAdMob != null) {
-                        showAdMobInterstitial(activity, callBack)
-                    } else {
-                        showApplovinInterstitial(activity, callBack)
-                    }
-                } else if (isEnabled.contains("al")) {
-                    showApplovinInterstitial(activity, callBack)
-                } else if (isEnabled.contains("am")) {
+            if (isEnabled.contains("am_al")) {
+                if (mInterstitialAdAdMob != null) {
                     showAdMobInterstitial(activity, callBack)
-                }else{
-                    callBack?.onDismiss()
+                } else {
+                    showApplovinInterstitial(activity, callBack)
                 }
-                Misc.adBreakCount = 0
+            } else if (isEnabled.contains("al")) {
+                showApplovinInterstitial(activity, callBack)
+            } else if (isEnabled.contains("am")) {
+                showAdMobInterstitial(activity, callBack)
+            } else {
+                callBack?.onDismiss()
             }
         }
 
@@ -239,7 +242,7 @@ class Ads {
                         }
                     })
 
-                    nativeAdLoader.loadAd(createNativeAdView(activity))
+                    nativeAdLoader.loadAd(createApplovinNativeAdView(activity))
                 } else {
                     Log.d(logKey, "Native ad Id = null")
                 }
@@ -249,7 +252,7 @@ class Ads {
             }
         }
 
-        private fun createNativeAdView(activity: Activity): MaxNativeAdView {
+        private fun createApplovinNativeAdView(activity: Activity): MaxNativeAdView {
             val binder: MaxNativeAdViewBinder =
                 MaxNativeAdViewBinder.Builder(R.layout.applovin_native)
                     .setTitleTextViewId(R.id.title_text_view)
@@ -366,6 +369,13 @@ class Ads {
                 callBack?.onDismiss()
                 return
             }
+            if (Misc.adBreakCount < Misc.adBreakLimit) {
+                Misc.adBreakCount++
+                callBack?.onDismiss()
+                return
+            }
+            Misc.adBreakCount = 0
+
             if (mInterstitialAdAdMob != null) {
                 mInterstitialAdAdMob?.show(activity)
 
@@ -399,45 +409,6 @@ class Ads {
                 }
             }
         }
-
-//        fun loadNativeAdApplovin(
-//            activity: Activity,
-//            isEnabled: Boolean,
-//            callback: NativeAdCallBack?
-//        ) {
-//            mNativeAdAdMob = null
-//            if (Misc.getPurchasedStatus(activity))
-//                return
-//            if (isEnabled) {
-//                val adLoader: AdLoader =
-//                    AdLoader.Builder(activity, Misc.nativeAdIdAdMob)
-//                        .forNativeAd { nativeAd ->
-//                            Log.d(logKey, "Native Ad Loaded")
-//
-//                            nativeFailedCount = 0
-//
-//                            mNativeAdAdMob = nativeAd
-//                            if (activity.isDestroyed) {
-//                                nativeAd.destroy()
-//                            }
-//                            callback?.onLoad()
-//
-//                        }.withAdListener(object : AdListener() {
-//                            override fun onAdFailedToLoad(adError: LoadAdError) {
-//                                val clipboard: ClipboardManager =
-//                                    activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//                                val clip =
-//                                    ClipData.newPlainText("Camera Translator", adError.message)
-//                                clipboard.setPrimaryClip(clip)
-//                                nativeFailedCount++
-//                                Log.e(logKey, adError.message)
-////                                callback?
-//                            }
-//                        })
-//                        .build()
-//                adLoader.loadAd(AdRequest.Builder().build())
-//            }
-//        }
 
         private fun showNativeAdAdMob(
             context: Context,
