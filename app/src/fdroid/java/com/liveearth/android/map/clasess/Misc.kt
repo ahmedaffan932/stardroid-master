@@ -35,6 +35,15 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var settingNativeAm_Al: String = "am_al"
+        var isDashboardMRecEnabled: Boolean = true
+        var lifetimePrice = "$99.00"
+        var yearlyPrice = "$79.99"
+        var monthlyPrice = "$39.99"
+
+        var isPremiumScreenIntAm_Al: String = "am_al"
+        var isPremiumScreenEnabled: Boolean = true
+
         var adBreakLimit = 2
         var frequencyCappingAdMobLimit: Int = 2
         var frequencyCappingApplovinLimit: Int = 2
@@ -44,13 +53,12 @@ class Misc {
         var frequencyCappingApplovinCount: Int = 0
 
         var isBannerAdTop: Boolean = true
-        var isSplashLargeNative: Boolean = true
+        var isSplashLargeNative: Boolean = false
         var isSkyMapBannerEnabled: Boolean = true
         var isCompassBannerEnabled: Boolean = true
         var isNoteCamBannerEnabled: Boolean = true
         var isDashboardBannerEnabled: Boolean = true
         var isProScreenBannerEnabled: Boolean = true
-
 
         var lsvIntAm_al: String = "am_al"
         var skyMapIntAm_al: String = "am_al"
@@ -103,40 +111,35 @@ class Misc {
         var nativeAdIdAdMob: String = "ca-app-pub-3940256099942544/2247696110"
         var interstitialAdIdAdMob: String = "ca-app-pub-3940256099942544/1033173712"
 
-        //Not Required.
         var mRecAdId = "dsadf"
 
-        @SuppressLint("StaticFieldLeak")
-        const val appUrl: String =
-            "https://play.google.com/store/apps/details?id=com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
-        const val currencies: String = "currencies"
+        var gameMode: String = ""
+        var levels: String = "levels"
+        var gameContinent: String = ""
+        const val asia: String = "asia"
+        const val data: String = "data"
+        const val flags: String = "flags"
+        const val logKey: String = "logKey"
+        const val europe: String = "europe"
+        const val africa: String = "africa"
         const val oceania: String = "oceania"
         const val america: String = "america"
-        const val africa: String = "africa"
-        const val europe: String = "europe"
-        const val asia: String = "asia"
         const val wholeWorld: String = "world"
-        var gameMode: String = ""
-        var gameContinent: String = ""
-        var levels: String = "levels"
-        var startingTime: Long = 0
-        var navigationLimit = 3
-        const val data: String = "data"
-        var intFailedCount = 0
-        var nativeFailedCount = 0
-        var isRemoteConfigFetched = false
-        const val logKey: String = "logKey"
-        private const val purchasedStatus: String = "purchasedStatus"
-
-
-        const val flags: String = "flags"
         const val capitals: String = "capitals"
-
         const val countries: String = "countries"
         private const val flash: String = "flash"
-
+        const val currencies: String = "currencies"
         private const val lastUri: String = "lastUri"
         private const val cameraFace: String = "cameraFace"
+        private const val purchasedStatus: String = "purchasedStatus"
+        const val appUrl: String =
+            "https://play.google.com/store/apps/details?id=com.liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
+
+        var intFailedCount = 0
+        var navigationLimit = 3
+        var nativeFailedCount = 0
+        var startingTime: Long = 0
+
 
         var location: Location? = null
 

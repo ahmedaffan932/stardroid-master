@@ -14,9 +14,9 @@
             <corners android:radius="@dimen/less_padding"/>
             <gradient
                 android:type="linear"
-                android:angle="0"
-                android:startColor="#FF70B5"
-                android:endColor="#FEB39D" />
+                android:angle="45"
+                android:startColor="@color/yellow"
+                android:endColor="#FFCC00" />
         </shape>
     </item>
 </ripple>

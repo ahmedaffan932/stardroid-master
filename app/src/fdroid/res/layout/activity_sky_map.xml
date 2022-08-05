@@ -24,6 +24,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="@dimen/fab_padding"
             android:background="@drawable/bg_gradient_pink"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -59,8 +60,9 @@
             android:id="@+id/clSearchSkyMap"
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
+            android:elevation="@dimen/padding"
             android:layout_marginTop="@dimen/fab_padding"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_blue_rounded"
             app:layout_constraintEnd_toEndOf="@+id/clMars"
             app:layout_constraintStart_toStartOf="@+id/clMoon"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">

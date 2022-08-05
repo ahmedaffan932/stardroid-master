@@ -229,35 +229,35 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         btnTraffic.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.TRAFFIC_DAY, false)
-            textTraffic.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            textTraffic.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
 
         btnThreeDView.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.MAPBOX_STREETS, true)
-            text3d.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            text3d.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
 
         llDefault.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.OUTDOORS, false)
-            textStreet.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            textStreet.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
 
         llSatellite.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE, false)
-            textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            textSatellite.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
         llTerrain.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE_STREETS, false)
-            textTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            textTerrain.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
         llHybrid.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.DARK, false)
-            textHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            textHybrid.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
 
         btnScreenShot.setOnClickListener {
@@ -283,7 +283,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onMapReady(mapboxMap: MapboxMap) {
         this@LiveEarthActivity.mapboxMap = mapboxMap
-        textSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
+        textSatellite.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         setMapBoxStyle(Style.SATELLITE, false)
     }
 

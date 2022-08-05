@@ -14,8 +14,8 @@ android {
         applicationId "com"
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 14
-        versionName "1.13"
+        versionCode 15
+        versionName "1.14"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -78,6 +78,10 @@ android {
     
     testOptions {
         animationsDisabled = true
+    }
+
+    buildFeatures{
+        viewBinding = true
     }
 
     flavorDimensions "default"
@@ -173,8 +177,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:20.0.0'
 
-    def billing_version = "4.0.0"
-    implementation "com.android.billingclient:billing-ktx:$billing_version"
+//    def billing_version = "4.0.0"
+//    implementation "com.android.billingclient:billing-ktx:$billing_version"
 
     implementation "com.github.tarek360:instacapture:2.0.1"
     implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-beta.21"
@@ -191,6 +195,10 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.3.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.8.0.9'
     implementation 'com.facebook.android:audience-network-sdk:6.8.0'
+
+    implementation 'com.anjlab.android.iab.v3:library:2.0.3'
+    implementation 'com.github.AliAsadi:PowerPreference:2.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

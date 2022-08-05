@@ -14,9 +14,8 @@
             <corners android:radius="15dp"/>
             <gradient
                 android:type="linear"
-                android:angle="180"
-                android:startColor="#2AEFB4"
-                android:endColor="#74FFBC" />
+                android:startColor="#58f8c1"
+                android:endColor="#00e698" />
         </shape>
     </item>
 </ripple>

@@ -27,10 +27,12 @@ class SettingsActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_settings)
 
+       Ads.showNativeAd(this, adFrameLayoutNative, Misc.settingNativeAm_Al, null)
+
         tvUpgradeToPremium.setOnClickListener {
 //            Misc.startActivity(this, Misc.isProScreenIntEnabled, object : StartActivityCallBack{
 //                override fun onStart() {
-                    val intent = Intent(this@SettingsActivity, ProScreenActivity::class.java)
+                    val intent = Intent(this@SettingsActivity, PremiumScreenActivity::class.java)
                     intent.putExtra(Misc.data, Misc.data)
                     startActivity(intent)
 //                }

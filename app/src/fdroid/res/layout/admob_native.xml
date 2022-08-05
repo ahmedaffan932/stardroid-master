@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#363868"
     android:background="@drawable/bg_border">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +45,7 @@
                     android:id="@+id/ad_headline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/green"
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:textSize="16sp"
@@ -57,9 +58,10 @@
                     android:text="Ad"
                     android:textSize="10sp"
                     android:textStyle="bold"
-                    android:textColor="@color/pink"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_borderd_ad"
+                    android:backgroundTint="@color/blue"
                     android:elevation="@dimen/padding"
-                    android:background="@drawable/bg_translucent_less_rounded"
                     android:layout_marginStart="@dimen/padding"
                     android:padding="@dimen/less_padding"
                     app:layout_constraintStart_toEndOf="@id/ad_headline"
@@ -70,7 +72,7 @@
                     android:id="@+id/ad_body"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray_500"
                     app:layout_constraintTop_toBottomOf="@id/ad_headline"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +103,7 @@
             android:id="@+id/bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -111,7 +113,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:minWidth="120dp"
+                android:paddingHorizontal="@dimen/fab_padding"
                 android:textSize="12sp"
+                android:text="@string/app_name"
                 android:background="@drawable/bg_gradient_pink_rounded"
                 android:textColor="@color/blue"/>
         </LinearLayout>

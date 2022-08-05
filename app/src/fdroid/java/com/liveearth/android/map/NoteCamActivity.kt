@@ -54,11 +54,12 @@ class NoteCamActivity : BaseActivity() {
     var isAddNote = false
 
     @SuppressLint("LogNotTimber", "MissingPermission", "SetTextI18n")
-   override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         setContentView(R.layout.activity_note_cam)
 
         getImageForCollection()
@@ -163,52 +164,52 @@ class NoteCamActivity : BaseActivity() {
 //                    object : InterstitialCallBack {
 //                        override fun onDismiss() {
 
-                            val file = File(
-                                externalMediaDirs.firstOrNull(),
-                                ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
-                            )
+                val file = File(
+                    externalMediaDirs.firstOrNull(),
+                    ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
+                )
 
-                            val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
-                            imageCapture.takePicture(
-                                outPut,
-                                ContextCompat.getMainExecutor(this@NoteCamActivity),
-                                object : ImageCapture.OnImageCapturedCallback(),
-                                    ImageCapture.OnImageSavedCallback {
-                                    @SuppressLint("SetTextI18n")
-                                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                        val uri = outputFileResults.savedUri
+                val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
+                imageCapture.takePicture(
+                    outPut,
+                    ContextCompat.getMainExecutor(this@NoteCamActivity),
+                    object : ImageCapture.OnImageCapturedCallback(),
+                        ImageCapture.OnImageSavedCallback {
+                        @SuppressLint("SetTextI18n")
+                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                            val uri = outputFileResults.savedUri
 
-                                        previewImageNoteCam.setImageURI(uri)
-                                        previewImageNoteCam.visibility = View.VISIBLE
+                            previewImageNoteCam.setImageURI(uri)
+                            previewImageNoteCam.visibility = View.VISIBLE
 
-                                        Handler().postDelayed({
-                                            val bitmap = Bitmap.createBitmap(
-                                                clPreviewImageView.width,
-                                                clPreviewImageView.height,
-                                                Bitmap.Config.ARGB_8888
-                                            )
-                                            val canvas = Canvas(bitmap)
-                                            clPreviewImageView.draw(canvas)
+                            Handler().postDelayed({
+                                val bitmap = Bitmap.createBitmap(
+                                    clPreviewImageView.width,
+                                    clPreviewImageView.height,
+                                    Bitmap.Config.ARGB_8888
+                                )
+                                val canvas = Canvas(bitmap)
+                                clPreviewImageView.draw(canvas)
 
-                                            val tempUri =
-                                                Misc.saveImageToExternal(
-                                                    this@NoteCamActivity,
-                                                    bitmap,
-                                                    null
-                                                )
-                                            Misc.setLatestUri(
-                                                tempUri.toString(),
-                                                this@NoteCamActivity
-                                            )
+                                val tempUri =
+                                    Misc.saveImageToExternal(
+                                        this@NoteCamActivity,
+                                        bitmap,
+                                        null
+                                    )
+                                Misc.setLatestUri(
+                                    tempUri.toString(),
+                                    this@NoteCamActivity
+                                )
 
-                                            getImageForCollection()
+                                getImageForCollection()
 
-                                            bottomSheetBehavior.state =
-                                                BottomSheetBehavior.STATE_COLLAPSED
-                                        }, 10)
-                                    }
-                                }
-                            )
+                                bottomSheetBehavior.state =
+                                    BottomSheetBehavior.STATE_COLLAPSED
+                            }, 10)
+                        }
+                    }
+                )
 //                        }
 //                    })
             }
@@ -227,32 +228,32 @@ class NoteCamActivity : BaseActivity() {
 //                    Misc.isBtnClickIntEnable,
 //                    object : InterstitialCallBack {
 //                        override fun onDismiss() {
-                            val file = File(
-                                externalMediaDirs.firstOrNull(),
-                                ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
-                            )
+                val file = File(
+                    externalMediaDirs.firstOrNull(),
+                    ".GpsToolbox - ${System.currentTimeMillis()}.jpg"
+                )
 
-                            val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
-                            imageCapture.takePicture(
-                                outPut,
-                                ContextCompat.getMainExecutor(this@NoteCamActivity),
-                                object : ImageCapture.OnImageCapturedCallback(),
-                                    ImageCapture.OnImageSavedCallback {
-                                    @SuppressLint("SetTextI18n")
-                                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                        val uri = outputFileResults.savedUri
+                val outPut = ImageCapture.OutputFileOptions.Builder(file).build()
+                imageCapture.takePicture(
+                    outPut,
+                    ContextCompat.getMainExecutor(this@NoteCamActivity),
+                    object : ImageCapture.OnImageCapturedCallback(),
+                        ImageCapture.OnImageSavedCallback {
+                        @SuppressLint("SetTextI18n")
+                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                            val uri = outputFileResults.savedUri
 
-                                        previewImageNoteCam.setImageURI(uri)
-                                        previewImageNoteCam.visibility = View.VISIBLE
-                                        bottomSheetBehavior.state =
-                                            BottomSheetBehavior.STATE_EXPANDED
-                                        etPhotoNote.text = etNoteNoteCam.text
-                                        btnSavePhotoNote.text = "Save"
-                                        textViewSavePhoto.text = "Save Photo"
+                            previewImageNoteCam.setImageURI(uri)
+                            previewImageNoteCam.visibility = View.VISIBLE
+                            bottomSheetBehavior.state =
+                                BottomSheetBehavior.STATE_EXPANDED
+                            etPhotoNote.text = etNoteNoteCam.text
+                            btnSavePhotoNote.text = "Save"
+                            textViewSavePhoto.text = "Save Photo"
 
-                                    }
-                                }
-                            )
+                        }
+                    }
+                )
 //                        }
 //                    })
             }
@@ -285,9 +286,9 @@ class NoteCamActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        val bannerAdFrameLayout = if(Misc.isBannerAdTop){
+        val bannerAdFrameLayout = if (Misc.isBannerAdTop) {
             bannerAdFrameLayoutTop
-        }else{
+        } else {
             bannerAdFrameLayoutBottom
         }
 
@@ -314,7 +315,6 @@ class NoteCamActivity : BaseActivity() {
         locationRequest.interval = 5000
         LocationServices.getFusedLocationProviderClient(this)
             .requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
-
     }
 
     override fun onPause() {
@@ -334,7 +334,7 @@ class NoteCamActivity : BaseActivity() {
                 StrictMode.setVmPolicy(builder.build())
 
                 val i: Intent?
-                val manager = packageManager
+//                val manager = packageManager
 //                try {
 //                    i = Intent(manager.getLaunchIntentForPackage("com.google.android.apps.photos"))
 //
@@ -386,8 +386,12 @@ class NoteCamActivity : BaseActivity() {
                     preview,
                     imageCapture
                 )
-            }catch (e: Exception){
-                Toast.makeText(this, "There is some problem with came, Unable to start it.",Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this,
+                    "There is some problem with came, Unable to start it.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 onBackPressed()
             }
         }

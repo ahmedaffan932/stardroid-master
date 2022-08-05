@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreenActivity">
 
-    <!--        <com.google.android.ads.nativetemplates.TemplateView-->
-    <!--            android:id="@+id/nativeAdViewSplash"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:background="@color/nothing"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:gnt_template_type="@layout/custom_native"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
     <FrameLayout
         android:id="@+id/nativeAdFrameLayout"
         android:layout_width="match_parent"
@@ -25,12 +13,11 @@
         android:layout_margin="@dimen/_8sdp"
         android:background="@color/nothing"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animLoading"
@@ -69,14 +56,14 @@
         android:id="@+id/btnStart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/extra_padding"
-        android:layout_marginBottom="@dimen/fab_padding"
-        android:background="@drawable/bg_gradient_pink_rounded"
-        android:padding="@dimen/fab_padding"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/fab_padding"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginTop="@dimen/fab_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textVie"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:background="@drawable/bg_gradient_pink_rounded">
 
         <TextView
             android:layout_width="match_parent"
@@ -86,43 +73,28 @@
             android:textColor="@color/blue"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/padding"
-        android:text="@string/loading"
-        android:textColor="@color/white"
-        android:textSize="@dimen/fab_padding"
-        android:textStyle="bold|italic"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart" />
-
-
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/icSplash"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginHorizontal="@dimen/extra_padding"
-        android:layout_marginBottom="@dimen/extra_padding"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_marginTop="@dimen/extra_padding"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_circle" />
+        app:srcCompat="@drawable/icon_rounded_corners" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/live_earth_map"
-        android:textColor="@color/light_pink"
+        android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textVie"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/icSplash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -132,9 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding"
         android:text="@string/explore_the_unknown_world"
-        android:textColor="@color/white"
+        android:textColor="@color/gray_500"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

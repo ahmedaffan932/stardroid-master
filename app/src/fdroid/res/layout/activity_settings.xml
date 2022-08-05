@@ -11,6 +11,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/fab_padding"
         android:background="@drawable/bg_gradient_pink"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
@@ -56,7 +57,7 @@
                 android:id="@+id/tvUpgradeToPremium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/fab_padding"
                 android:background="@drawable/bg_top_right_corner"
                 android:elevation="@dimen/fab_padding"
@@ -76,7 +77,7 @@
                 android:id="@+id/llShareApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
                 android:background="@drawable/bg_top_right_corner"
                 android:elevation="2dp"
@@ -91,7 +92,7 @@
                     android:layout_marginEnd="@dimen/fab_padding"
                     android:rotation="180"
                     app:srcCompat="@drawable/ic_baseline_share_24"
-                    app:tint="@color/pink" />
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -110,7 +111,7 @@
                 android:id="@+id/llFeedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
                 android:background="@drawable/bg_top_right_corner"
                 android:elevation="2dp"
@@ -124,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fab_padding"
                     app:srcCompat="@drawable/ic_baseline_feedback_24"
-                    app:tint="@color/pink" />
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -139,11 +140,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvUpgradeToPremium" />
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/adFrameLayoutNative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:visibility="gone"
+                android:layout_marginHorizontal="@dimen/fab_padding"
+                android:layout_marginTop="@dimen/padding" />
+
             <LinearLayout
                 android:id="@+id/llRateUs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
                 android:background="@drawable/bg_top_right_corner"
                 android:elevation="2dp"
@@ -157,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fab_padding"
                     app:srcCompat="@drawable/ic_baseline_star_24"
-                    app:tint="@color/pink" />
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -176,7 +185,7 @@
                 android:id="@+id/llPrivacyPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:layout_marginTop="@dimen/padding"
                 android:background="@drawable/bg_top_right_corner"
                 android:elevation="2dp"
@@ -190,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fab_padding"
                     app:srcCompat="@drawable/ic_baseline_privacy_tip_24"
-                    app:tint="@color/pink" />
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -215,7 +224,7 @@
                 android:layout_marginTop="@dimen/padding"
                 android:paddingHorizontal="@dimen/extra_padding"
                 android:background="@drawable/bg_top_right_corner"
-                android:layout_marginHorizontal="@dimen/extra_padding"
+                android:layout_marginHorizontal="@dimen/fab_padding"
                 android:paddingVertical="@dimen/fab_padding">
 
                 <ImageView
@@ -223,7 +232,7 @@
                     android:layout_height="24dp"
                     android:layout_marginEnd="@dimen/fab_padding"
                     app:srcCompat="@drawable/advertising"
-                    app:tint="@color/pink" />
+                    app:tint="@color/yellow" />
 
                 <TextView
                     android:layout_width="match_parent"

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
+        android:elevation="@dimen/fab_padding"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -59,7 +60,7 @@
             android:id="@+id/textEasy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24sdp"
             android:paddingVertical="@dimen/fab_padding"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/easy"
-            android:textColor="@color/white"
+            android:textColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="@id/textEasy"
             app:layout_constraintStart_toStartOf="@id/textEasy"
             app:layout_constraintTop_toBottomOf="@id/textEasy" />
@@ -95,7 +96,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/fab_padding"
             android:text="@string/_0_70"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/medium"
-            android:textColor="@color/white"
+            android:textColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="@id/textMedium"
             app:layout_constraintStart_toStartOf="@id/textMedium"
             app:layout_constraintTop_toBottomOf="@id/textMedium" />
@@ -128,7 +129,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/fab_padding"
             android:text="0 / 150"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hard"
-            android:textColor="@color/white"
+            android:textColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="@id/textHard"
             app:layout_constraintStart_toStartOf="@id/textHard"
             app:layout_constraintTop_toBottomOf="@id/textHard" />
@@ -159,7 +160,7 @@
             android:id="@+id/textPro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/pink"
+            android:textColor="@color/white"
             android:textSize="@dimen/_24sdp"
             android:paddingVertical="@dimen/fab_padding"
             app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pro_player"
-            android:textColor="@color/white"
+            android:textColor="@color/yellow"
             app:layout_constraintEnd_toEndOf="@id/textPro"
             app:layout_constraintStart_toStartOf="@id/textPro"
             app:layout_constraintTop_toBottomOf="@id/textPro" />

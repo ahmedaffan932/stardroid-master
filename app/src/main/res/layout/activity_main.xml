@@ -31,6 +31,7 @@
             android:id="@+id/clTopBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_pink"
             android:elevation="@dimen/fab_padding"
             app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayoutTop">
 
@@ -40,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding"
                 android:elevation="@dimen/fab_padding"
-                android:text="@string/app_name"
+                android:text="Earth Map"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
@@ -64,12 +65,12 @@
 
             <ImageView
                 android:id="@+id/btnPro"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginEnd="@dimen/padding"
                 android:background="@drawable/bg_nothing"
                 android:elevation="@dimen/fab_padding"
-                android:padding="@dimen/padding"
+                android:padding="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,7 +84,7 @@
             android:clipToPadding="false"
             android:paddingBottom="@dimen/padding"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@id/llAd"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clTopBar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,6 +111,14 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:elevation="@dimen/padding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/live_badge" />
+
+                    <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
@@ -120,21 +129,20 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_lem" />
+                        app:srcCompat="@drawable/ic_earth" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/less_padding"
                         android:layout_weight="1"
                         android:text="@string/app_name"
                         android:textColor="@color/white"
                         android:textSize="24dp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        android:layout_marginStart="@dimen/padding"
+                        app:layout_constraintTop_toTopOf="parent"  />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,6 +160,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/llWorldQuiz"
                     app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:elevation="@dimen/padding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/new_badge" />
 
                     <ImageView
                         android:id="@+id/icSkyMap"
@@ -199,6 +215,14 @@
                     app:layout_constraintTop_toBottomOf="@id/llLiveEarthMap">
 
                     <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:elevation="@dimen/padding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/hot_badge" />
+
+                    <ImageView
                         android:id="@+id/iv"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
@@ -225,6 +249,29 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <LinearLayout
+                    android:id="@+id/llAd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/fab_padding"
+                    android:layout_marginBottom="@dimen/padding"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llWorldQuiz">
+
+                    <FrameLayout
+                        android:id="@+id/adFrameLayoutNative"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200sdp"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/fab_padding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/llWorldQuiz" />
+                </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/llGPSMapCams"
                     android:layout_width="0dp"
@@ -239,7 +286,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toStartOf="@+id/llNoteCam"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
+                    app:layout_constraintTop_toBottomOf="@id/llAd">
 
                     <ImageView
                         android:id="@+id/icGpsCam"
@@ -286,7 +333,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/llGPSMapCams"
-                    app:layout_constraintTop_toBottomOf="@id/llSkyMap">
+                    app:layout_constraintTop_toBottomOf="@id/llAd">
 
                     <ImageView
                         android:id="@+id/icNoteCam"
@@ -331,8 +378,8 @@
                     android:elevation="@dimen/fab_padding"
                     android:gravity="center"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/llAltitude"
+                    app:layout_constraintBottom_toTopOf="@id/adFrameLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/llCompass">
 
@@ -498,31 +545,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <FrameLayout
+                    android:id="@+id/adFrameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/llAltitude"
+                    android:layout_marginVertical="@dimen/fab_padding"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/llAd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/fab_padding"
-            android:layout_marginBottom="@dimen/padding"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView">
-
-            <FrameLayout
-                android:id="@+id/adFrameLayoutNative"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llWorldQuiz" />
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/bottom_sheet_quit" />

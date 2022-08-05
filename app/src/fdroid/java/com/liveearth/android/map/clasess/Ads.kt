@@ -305,6 +305,9 @@ class Ads {
         }
 
         fun loadBannerAd(activity: Activity) {
+            if(Misc.getPurchasedStatus(activity)){
+                return
+            }
             try {
                 if (Misc.checkInternetConnection(activity) && Misc.bannerAdId != "") {
                     adView = MaxAdView(Misc.bannerAdId, activity)
@@ -340,11 +343,9 @@ class Ads {
                     })
 
                     val width = ViewGroup.LayoutParams.MATCH_PARENT
-                    val heightPx: Int =
-                        activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
+                    val heightPx: Int = activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
 
                     adView.layoutParams = FrameLayout.LayoutParams(width, heightPx)
-
                     adView.loadAd()
                 }
             } catch (e: Exception) {
@@ -354,14 +355,15 @@ class Ads {
 
         fun showBannerAd(isEnabled: Boolean, rootView: FrameLayout) {
             if (this::adView.isInitialized)
-                if (isEnabled) {
-                    rootView.removeAllViews()
-                    if (adView.parent != null) {
-                        (adView.parent as ViewGroup).removeView(adView)
+                if (isBannerAdLoaded)
+                    if (isEnabled) {
+                        rootView.removeAllViews()
+                        if (adView.parent != null) {
+                            (adView.parent as ViewGroup).removeView(adView)
+                        }
+                        rootView.addView(adView)
+                        rootView.visibility = View.VISIBLE
                     }
-                    rootView.addView(adView)
-                    rootView.visibility = View.VISIBLE
-                }
         }
 
         private fun showAdMobInterstitial(activity: Activity, callBack: InterstitialCallBack?) {
@@ -420,7 +422,7 @@ class Ads {
                 val inflater =
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-                val adView = inflater.inflate(R.layout.native_ad_hctr, null) as NativeAdView
+                val adView = inflater.inflate(R.layout.admob_native, null) as NativeAdView
                 amLayout.removeAllViews()
                 amLayout.addView(adView)
 

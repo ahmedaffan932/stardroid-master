@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
+        android:elevation="@dimen/fab_padding"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView

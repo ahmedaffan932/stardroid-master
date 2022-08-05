@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink"
+        android:elevation="@dimen/fab_padding"
         app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayoutTop">
 
 
@@ -107,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding"
             android:text="@string/location"
-            android:textColor="#FEB39D"
+            android:textColor="@color/yellow"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/btnGetCurrentLocationCompass"

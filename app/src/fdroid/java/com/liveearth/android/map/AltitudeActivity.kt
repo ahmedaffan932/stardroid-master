@@ -112,27 +112,27 @@ class AltitudeActivity : AppCompatActivity(), PermissionsListener,
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 100)
         }
 
-        tvDefault.setTextColor(ContextCompat.getColor(this, R.color.pink))
+        tvDefault.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         llDefault.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.OUTDOORS)
-            tvDefault.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            tvDefault.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
 
         llSatellite.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE)
-            tvSatellite.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            tvSatellite.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
         llTerrain.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE_STREETS)
-            tvTerrain.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            tvTerrain.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
         llHybrid.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.DARK)
-            tvHybrid.setTextColor(ContextCompat.getColor(this, R.color.pink))
+            tvHybrid.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
     }
 

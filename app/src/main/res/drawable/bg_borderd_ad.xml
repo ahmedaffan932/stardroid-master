@@ -10,7 +10,7 @@
                 android:endColor="#FEB39D"
                 android:startColor="#FF70B5"
                 android:type="linear" />
-            <corners android:bottomLeftRadius="2dp" android:topRightRadius="10dp" android:topLeftRadius="2dp" android:bottomRightRadius="2dp"/>
+            <corners android:radius="2dp"/>
         </shape>
     </item>
 </ripple>

@@ -14,11 +14,13 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:background="@drawable/bg_gradient_pink"
+        android:elevation="@dimen/padding"
         app:layout_constraintTop_toTopOf="parent" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/fab_padding"
         android:background="@drawable/bg_gradient_pink"
         app:layout_constraintTop_toBottomOf="@+id/bannerAdFrameLayoutTop">
 
@@ -159,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding"
                 android:text="@string/current_altitude"
-                android:textColor="#FEB39D"
+                android:textColor="@color/yellow"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/btnGetCurrentLocationCompass"
@@ -174,7 +176,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/latitude"
-                android:textColor="@color/white"
+                android:textColor="@color/light_yellow"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnGetCurrentLocationCompass"

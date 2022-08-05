@@ -48,4 +48,11 @@
     <style name="text">
         <item name="android:paddingLeft">5px</item>
     </style>
+
+    <style name="roundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+        <item name="elevation">@dimen/fab_padding</item>
+    </style>
+
 </resources>

@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -49,10 +52,32 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         quitBottomSheet.setOnClickListener { }
-//        Misc.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
+        Ads.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
+
+        Handler().postDelayed({
+            val a: Animation =
+                AnimationUtils.loadAnimation(this, R.anim.pop_up)
+            llLiveEarthMap.startAnimation(a)
+
+            a.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(p0: Animation?) {
+                }
+
+                override fun onAnimationEnd(p0: Animation?) {
+                    val a1: Animation =
+                        AnimationUtils.loadAnimation(this@MainActivity, R.anim.pop_down)
+                    llLiveEarthMap.startAnimation(a1)
+                }
+
+                override fun onAnimationRepeat(p0: Animation?) {
+                }
+
+            })
+
+        }, 1000)
 
         btnPro.setOnClickListener {
-            val intent = Intent(this@MainActivity, ProScreenActivity::class.java)
+            val intent = Intent(this@MainActivity, PremiumScreenActivity::class.java)
             intent.putExtra(Misc.data, Misc.data)
             Firebase.analytics.logEvent("ProScreen", null)
             startActivity(intent)
