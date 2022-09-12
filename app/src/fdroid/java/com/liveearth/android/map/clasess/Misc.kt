@@ -37,9 +37,11 @@ class Misc {
     companion object {
         var settingNativeAm_Al: String = "am_al"
         var isDashboardMRecEnabled: Boolean = true
-        var lifetimePrice = "$99.00"
+        var isSplashLargeNativeNew: Boolean = false
+
         var yearlyPrice = "$79.99"
         var monthlyPrice = "$39.99"
+        var lifetimePrice = "$99.00"
 
         var isPremiumScreenIntAm_Al: String = "am_al"
         var isPremiumScreenEnabled: Boolean = true
@@ -63,7 +65,7 @@ class Misc {
         var lsvIntAm_al: String = "am_al"
         var skyMapIntAm_al: String = "am_al"
         var gpsCamIntAm_al: String = "am_al"
-        var isQuitIntAm_Al: String = "am_al"
+        var isQuitIntAm_Al: String = "al"
         var compassIntAm_al: String = "am_al"
         var noteCamIntAm_al: String = "am_al"
         var quitNativeAm_Al: String = "am_al"
@@ -108,8 +110,18 @@ class Misc {
         var nativeAdIdApplovin: String = "abcd"
         var interstitialAdIdApplovin: String = "okasd"
 
-        var nativeAdIdAdMob: String = "ca-app-pub-3940256099942544/2247696110"
-        var interstitialAdIdAdMob: String = "ca-app-pub-3940256099942544/1033173712"
+        var nativeAdIdAdMob: String =
+            if (BuildConfig.DEBUG) {
+                "ca-app-pub-3940256099942544/2247696110"
+            } else {
+                ""
+            }
+        var interstitialAdIdAdMob: String =
+            if (BuildConfig.DEBUG) {
+                "ca-app-pub-3940256099942544/1033173712"
+            } else {
+                ""
+            }
 
         var mRecAdId = "dsadf"
 

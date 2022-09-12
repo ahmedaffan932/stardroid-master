@@ -163,7 +163,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
 
-
         btnZoomIn.setOnClickListener {
             val position = CameraPosition.Builder()
                 .target(mapboxMap.cameraPosition.target)
@@ -249,11 +248,13 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             setMapBoxStyle(Style.SATELLITE, false)
             textSatellite.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
+
         llTerrain.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.SATELLITE_STREETS, false)
             textTerrain.setTextColor(ContextCompat.getColor(this, R.color.yellow))
         }
+
         llHybrid.setOnClickListener {
             setBtnTextWhiteColor()
             setMapBoxStyle(Style.DARK, false)
@@ -278,7 +279,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 }
             })
         }
-
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
@@ -410,6 +410,13 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
                 } else {
+                    point.latitude =  25.107170
+                    point.longitude =  55.147276
+
+                    animateCamera(point, 12.0)
+                    getAddress(point)
+                    isCameraFocused = true
+
                     locationCallback = object : LocationCallback() {
                         @SuppressLint("SetTextI18n", "LogNotTimber")
                         override fun onLocationResult(p0: LocationResult) {
@@ -418,13 +425,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                             if (!isCameraFocused) {
                                 currentLocation.latitude = loc!!.latitude
                                 currentLocation.longitude = loc!!.longitude
-
-                                point.latitude = loc!!.latitude
-                                point.longitude = loc!!.longitude
-
-                                animateCamera(point, 14.0)
-                                getAddress(point)
-                                isCameraFocused = true
                             }
                         }
                     }

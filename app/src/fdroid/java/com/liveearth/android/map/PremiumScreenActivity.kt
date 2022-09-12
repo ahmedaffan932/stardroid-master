@@ -24,8 +24,8 @@ class PremiumScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPremiumScreenBinding
     private lateinit var bp: BillingProcessor
-    private var monthly = false
-    private var yearly = true
+    private var monthly = true
+    private var yearly = false
     private var lifetime = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,7 +150,6 @@ class PremiumScreenActivity : AppCompatActivity() {
                 override fun onBillingInitialized() {
                     Log.e("TAG", "onBillingInitialized: ")
                 }
-
             })
 
         bp.initialize()
@@ -160,10 +159,10 @@ class PremiumScreenActivity : AppCompatActivity() {
         if (!Misc.getPurchasedStatus(this)) {
             when {
                 monthly -> {
-                    bp.subscribe(this, "monthly_subscription_id")
+                    bp.subscribe(this, "subscription_id_monthly")
                 }
                 yearly -> {
-                    bp.subscribe(this, "yearly_subscription_id")
+                    bp.subscribe(this, "subscription_id_yearly")
                 }
                 lifetime -> {
                     bp.purchase(this, Misc.inAppKey)

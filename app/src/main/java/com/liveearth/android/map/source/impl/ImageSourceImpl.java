@@ -93,7 +93,7 @@ public class ImageSourceImpl extends AbstractSource implements ImageSource {
 
     this.image = BitmapFactory.decodeResource(resources, imageId, opts);
     if (image == null) {
-      throw new RuntimeException("Coud not decode image " + imageId);
+      throw new RuntimeException("Could not decode image " + imageId);
     }
   }
 

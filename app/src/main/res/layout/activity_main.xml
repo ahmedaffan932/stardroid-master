@@ -125,11 +125,12 @@
                         android:layout_margin="@dimen/fab_padding"
                         android:background="@drawable/bg_gradient_1_icon"
                         android:elevation="@dimen/padding"
-                        android:padding="@dimen/padding"
+                        android:padding="@dimen/less_padding"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_earth" />
+                        app:tint="@color/white"
+                        app:srcCompat="@drawable/satellite" />
 
                     <TextView
                         android:layout_width="wrap_content"

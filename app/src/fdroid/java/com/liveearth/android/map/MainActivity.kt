@@ -52,14 +52,14 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         quitBottomSheet.setOnClickListener { }
-        Ads.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
+        Ads.showMREC(this, adFrameLayout, Misc.isDashboardMRecEnabled)
 
         Handler().postDelayed({
             val a: Animation =
                 AnimationUtils.loadAnimation(this, R.anim.pop_up)
             llLiveEarthMap.startAnimation(a)
 
-            a.setAnimationListener(object : Animation.AnimationListener{
+            a.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(p0: Animation?) {
                 }
 
@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         btnNo.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
-
 
         llSkyMap.setOnClickListener {
             val intent = Intent(this@MainActivity, SkyMapActivity::class.java)
@@ -287,7 +286,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (grantResults.isEmpty()){
+        if (grantResults.isEmpty()) {
             Toast.makeText(this, "Please give required permission.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -338,7 +337,8 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
                         intent.putExtra(Misc.data, Misc.data)
                         startMyActivity(intent, Misc.gpsCamIntAm_al)
                     }
-                })
+                }
+            )
         }
 
         if (requestCode == cameraPermissionRequest && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -391,13 +391,21 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             return
         } else {
-            Ads.showInterstitial(this, Misc.isQuitIntAm_Al, object : InterstitialCallBack {
-                override fun onDismiss() {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    Ads.showNativeAd(this@MainActivity, nativeAd, Misc.quitNativeAm_Al, null)
-                }
-
-            })
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            if (Misc.isQuitIntAm_Al == "al") {
+                Ads.showInterstitial(this, Misc.isQuitIntAm_Al, object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        if (Misc.quitNativeAm_Al == "al") {
+                            Ads.showNativeAd(
+                                this@MainActivity,
+                                nativeAd,
+                                Misc.quitNativeAm_Al,
+                                null
+                            )
+                        }
+                    }
+                })
+            }
         }
     }
 

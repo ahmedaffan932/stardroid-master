@@ -185,18 +185,19 @@ class Ads {
             activity: Activity,
             adFrameLayout: FrameLayout,
             isEnabled: String,
-            callBack: NativeAdCallBack?
+            callBack: NativeAdCallBack?,
+            isLargeNative: Boolean = false
         ) {
             try {
                 if (!Misc.getPurchasedStatus(activity))
                     if (isEnabled.contains("am_al")) {
                         if (mNativeAdAdMob != null) {
-                            showNativeAdAdMob(activity, adFrameLayout, callBack)
+                            showNativeAdAdMob(activity, adFrameLayout, callBack, isLargeNative)
                         } else {
                             showApplovinNative(activity, adFrameLayout, callBack)
                         }
                     } else if (isEnabled.contains("am")) {
-                        showNativeAdAdMob(activity, adFrameLayout, callBack)
+                        showNativeAdAdMob(activity, adFrameLayout, callBack, isLargeNative)
                     } else if (isEnabled.contains("al")) {
                         showApplovinNative(activity, adFrameLayout, callBack)
                     }
@@ -205,7 +206,7 @@ class Ads {
             }
         }
 
-        fun loadApplovinNativeAd(activity: Activity, callBack: LoadInterstitialCallBack?) {
+        fun loadApplovinNativeAd(activity: Activity, callBack: LoadInterstitialCallBack?, isLargeNative: Boolean = false) {
             try {
                 if (!Misc.getPurchasedStatus(activity) && Misc.nativeAdIdApplovin != "" && Misc.checkInternetConnection(
                         activity
@@ -242,7 +243,11 @@ class Ads {
                         }
                     })
 
-                    nativeAdLoader.loadAd(createApplovinNativeAdView(activity))
+                    if (isLargeNative){
+                        nativeAdLoader.loadAd(createApplovinNativeAdViewLarge(activity))
+                    }else {
+                        nativeAdLoader.loadAd(createApplovinNativeAdView(activity))
+                    }
                 } else {
                     Log.d(logKey, "Native ad Id = null")
                 }
@@ -266,46 +271,61 @@ class Ads {
             return MaxNativeAdView(binder, activity)
         }
 
+        private fun createApplovinNativeAdViewLarge(activity: Activity): MaxNativeAdView {
+            val binder: MaxNativeAdViewBinder =
+                MaxNativeAdViewBinder.Builder(R.layout.applovin_native_ad_large_btn)
+                    .setTitleTextViewId(R.id.title_text_view)
+                    .setBodyTextViewId(R.id.body_text_view)
+                    .setAdvertiserTextViewId(R.id.advertiser_textView)
+                    .setIconImageViewId(R.id.icon_image_view)
+                    .setMediaContentViewGroupId(R.id.media_view_container)
+                    .setOptionsContentViewGroupId(R.id.options_view)
+                    .setCallToActionButtonId(R.id.cta_button)
+                    .build()
+            return MaxNativeAdView(binder, activity)
+        }
+
         fun showMREC(activity: Activity, marcAdContainer: FrameLayout, isEnabled: Boolean) {
-            if (isEnabled) {
-                val adViewMRec = MaxAdView(Misc.mRecAdId, MaxAdFormat.MREC, activity)
-                val maxAdViewAdListener: MaxAdViewAdListener = object : MaxAdViewAdListener {
-                    override fun onAdExpanded(ad: MaxAd) {}
-                    override fun onAdCollapsed(ad: MaxAd) {}
-                    override fun onAdLoaded(ad: MaxAd) {
-                        Log.e("Add", "LOADED")
-                        marcAdContainer.visibility = View.VISIBLE
-                        //marcAdContainer.addView(adViewMarcs);
-                    }
+            if (Misc.mRecAdId != "")
+                if (isEnabled) {
+                    val adViewMRec = MaxAdView(Misc.mRecAdId, MaxAdFormat.MREC, activity)
+                    val maxAdViewAdListener: MaxAdViewAdListener = object : MaxAdViewAdListener {
+                        override fun onAdExpanded(ad: MaxAd) {}
+                        override fun onAdCollapsed(ad: MaxAd) {}
+                        override fun onAdLoaded(ad: MaxAd) {
+                            Log.e("Add", "LOADED")
+                            marcAdContainer.visibility = View.VISIBLE
+                            //marcAdContainer.addView(adViewMarcs);
+                        }
 
-                    override fun onAdDisplayed(ad: MaxAd) {
-                        Log.e("Add", "DISPLAYED")
-                    }
+                        override fun onAdDisplayed(ad: MaxAd) {
+                            Log.e("Add", "DISPLAYED")
+                        }
 
-                    override fun onAdHidden(ad: MaxAd) {}
-                    override fun onAdClicked(ad: MaxAd) {}
-                    override fun onAdLoadFailed(adUnitId: String, error: MaxError) {
-                        Log.e("Add", "FAILED TO LOADED")
-                    }
+                        override fun onAdHidden(ad: MaxAd) {}
+                        override fun onAdClicked(ad: MaxAd) {}
+                        override fun onAdLoadFailed(adUnitId: String, error: MaxError) {
+                            Log.e("Add", "FAILED TO LOADED")
+                        }
 
-                    override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
-                        Log.e("Add", "FAILED TO DISPLAY")
+                        override fun onAdDisplayFailed(ad: MaxAd, error: MaxError) {
+                            Log.e("Add", "FAILED TO DISPLAY")
+                        }
                     }
+                    val maxAdRevenueListener = MaxAdRevenueListener { ad: MaxAd? -> }
+                    val widthPx = AppLovinSdkUtils.dpToPx(activity, 300)
+                    val heightPx = AppLovinSdkUtils.dpToPx(activity, 250)
+                    adViewMRec.layoutParams = FrameLayout.LayoutParams(widthPx, heightPx)
+                    marcAdContainer.addView(adViewMRec)
+                    adViewMRec.setListener(maxAdViewAdListener)
+                    adViewMRec.setRevenueListener(maxAdRevenueListener)
+                    adViewMRec.loadAd()
+                    adViewMRec.startAutoRefresh()
                 }
-                val maxAdRevenueListener = MaxAdRevenueListener { ad: MaxAd? -> }
-                val widthPx = AppLovinSdkUtils.dpToPx(activity, 300)
-                val heightPx = AppLovinSdkUtils.dpToPx(activity, 250)
-                adViewMRec.layoutParams = FrameLayout.LayoutParams(widthPx, heightPx)
-                marcAdContainer.addView(adViewMRec)
-                adViewMRec.setListener(maxAdViewAdListener)
-                adViewMRec.setRevenueListener(maxAdRevenueListener)
-                adViewMRec.loadAd()
-                adViewMRec.startAutoRefresh()
-            }
         }
 
         fun loadBannerAd(activity: Activity) {
-            if(Misc.getPurchasedStatus(activity)){
+            if (Misc.getPurchasedStatus(activity)) {
                 return
             }
             try {
@@ -343,7 +363,8 @@ class Ads {
                     })
 
                     val width = ViewGroup.LayoutParams.MATCH_PARENT
-                    val heightPx: Int = activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
+                    val heightPx: Int =
+                        activity.resources.getDimensionPixelSize(R.dimen.banner_ad_height)
 
                     adView.layoutParams = FrameLayout.LayoutParams(width, heightPx)
                     adView.loadAd()
@@ -394,7 +415,7 @@ class Ads {
                         loadAdMobInterstitial(activity, null)
                     }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         callBack?.onDismiss()
                         loadAdMobInterstitial(activity, null)
                     }
@@ -415,14 +436,21 @@ class Ads {
         private fun showNativeAdAdMob(
             context: Context,
             amLayout: FrameLayout,
-            callBack: NativeAdCallBack?
+            callBack: NativeAdCallBack?,
+            isLargeNative: Boolean = false
         ) {
             if (mNativeAdAdMob != null) {
                 amLayout.visibility = View.VISIBLE
                 val inflater =
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-                val adView = inflater.inflate(R.layout.admob_native, null) as NativeAdView
+                val adView =
+                    if (isLargeNative) {
+                        inflater.inflate(R.layout.admob_native_ad_large_btn, null) as NativeAdView
+                    }else{
+                        inflater.inflate(R.layout.admob_native, null) as NativeAdView
+                    }
+
                 amLayout.removeAllViews()
                 amLayout.addView(adView)
 
@@ -468,9 +496,6 @@ class Ads {
             activity: Activity,
             callBack: LoadInterstitialCallBack?
         ) {
-            if (!isApplovinNativeRequired()) {
-                return
-            }
             mNativeAdAdMob = null
             if (Misc.getPurchasedStatus(activity))
                 return

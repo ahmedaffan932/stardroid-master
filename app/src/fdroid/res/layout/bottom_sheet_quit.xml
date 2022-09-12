@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bottom_sheet"
+    android:backgroundTint="#282B4E"
     android:elevation="@dimen/extra_padding"
     android:layout_marginHorizontal="@dimen/padding"
     app:behavior_hideable="true"
@@ -20,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@color/nothing"
-        android:layout_marginHorizontal="@dimen/padding"
         android:layout_marginTop="@dimen/padding"
         android:layout_marginBottom="@dimen/fab_padding"
         android:visibility="gone"/>

@@ -52,7 +52,7 @@ class SpeedometerActivity : AppCompatActivity() {
             }
         )
 
-        btnStart.setOnClickListener {
+        btnStartTop.setOnClickListener {
             if (!isStarted) {
                 maxSpeed = 0
                 distance = 0.0

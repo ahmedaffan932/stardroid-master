@@ -12,58 +12,78 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/_8sdp"
         android:background="@color/nothing"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartBottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toBottomOf="@id/btnStartTop"
+        app:layout_constraintVertical_bias="0">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true">
+
+            <include
+                android:id="@+id/shimmer_main"
+                layout="@layout/shimmer_layout_naive" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animLoading"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/btnStart"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"
-        app:layout_constraintTop_toTopOf="@id/btnStart"
+        app:layout_constraintBottom_toBottomOf="@id/btnStartTop"
+        app:layout_constraintEnd_toEndOf="@+id/btnStartTop"
+        app:layout_constraintStart_toStartOf="@+id/btnStartTop"
+        app:layout_constraintTop_toTopOf="@id/btnStartTop"
         app:lottie_autoPlay="true">
 
         <TextView
             android:id="@+id/tvLoadingPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/white"
             android:text="@string/_00"
+            android:textColor="@color/white"
             android:textSize="@dimen/_14sdp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLoadingPercentage"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
             app:lottie_rawRes="@raw/loading_bar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnStart"
+        android:id="@+id/btnStartTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:padding="@dimen/fab_padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/fab_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textVie"
         android:layout_marginHorizontal="@dimen/extra_padding"
-        android:background="@drawable/bg_gradient_pink_rounded">
+        android:layout_marginTop="@dimen/fab_padding"
+        android:background="@drawable/bg_gradient_pink_rounded"
+        android:padding="13dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textVie">
 
         <TextView
             android:layout_width="match_parent"
@@ -82,8 +102,8 @@
         android:layout_marginHorizontal="@dimen/extra_padding"
         android:layout_marginTop="@dimen/extra_padding"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_rounded_corners" />
 
     <TextView
@@ -94,9 +114,9 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/icSplash"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icSplash" />
 
     <TextView
         android:id="@+id/textVie"
@@ -106,8 +126,32 @@
         android:text="@string/explore_the_unknown_world"
         android:textColor="@color/gray_500"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnStartBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:layout_marginBottom="@dimen/fab_padding"
+        android:background="@drawable/bg_gradient_pink_rounded"
+        android:padding="13dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/start"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

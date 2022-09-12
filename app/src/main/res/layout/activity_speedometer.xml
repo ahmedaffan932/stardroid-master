@@ -222,7 +222,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnStart"
+        android:id="@+id/btnStartTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_pink_circle"
@@ -252,9 +252,9 @@
         android:textSize="@dimen/fab_padding"
         android:textStyle="bold|italic"
         android:layout_marginBottom="@dimen/fab_padding"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+        app:layout_constraintEnd_toEndOf="@+id/btnStartTop"
+        app:layout_constraintStart_toStartOf="@+id/btnStartTop"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartTop" />
 
 
     <LinearLayout
