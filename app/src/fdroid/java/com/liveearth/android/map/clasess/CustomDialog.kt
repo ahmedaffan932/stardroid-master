@@ -11,9 +11,6 @@ class CustomDialog(var c: Activity) : Dialog(c), View.OnClickListener {
     var d: Dialog? = null
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dailog_custom)
     }

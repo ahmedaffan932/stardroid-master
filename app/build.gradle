@@ -9,13 +9,14 @@ applovin {
 
 android {
     compileSdkVersion 32
+    ndkVersion "21.3.6528147"
 
     defaultConfig {
         applicationId "com"
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 15
-        versionName "1.14"
+        versionCode 18
+        versionName "1.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,6 +37,8 @@ android {
             //noinspection GradlePath
             applicationIdSuffix "liveearth.android.map.liveearthmap.liveearthcam.streetview.gps.map.worldmap.satellite.app"
             minifyEnabled true
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             productFlavors {
                 gms {
@@ -47,11 +50,17 @@ android {
                 }
             }
 
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
+
         }
         debug{
             //noinspection GradlePath
             applicationIdSuffix "liveearth.android.map"
             minifyEnabled true
+            shrinkResources true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
             productFlavors {
                 gms {
@@ -173,7 +182,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.0.2')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-//    implementation project(':nativetemplates')
+    implementation project(':fcm')
 
     implementation 'com.google.firebase:firebase-core:20.0.0'
 

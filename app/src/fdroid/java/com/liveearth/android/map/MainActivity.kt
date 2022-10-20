@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.liveearth.android.map.clasess.Ads
+import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
 import com.mapbox.android.core.permissions.PermissionsListener
@@ -52,14 +53,16 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         quitBottomSheet.setOnClickListener { }
-        Ads.showMREC(this,adFrameLayout, Misc.isDashboardMRecEnabled)
+        Ads.showMREC(this, adFrameLayout, Misc.isDashboardMRecEnabled)
+
+
 
         Handler().postDelayed({
             val a: Animation =
                 AnimationUtils.loadAnimation(this, R.anim.pop_up)
             llLiveEarthMap.startAnimation(a)
 
-            a.setAnimationListener(object : Animation.AnimationListener{
+            a.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(p0: Animation?) {
                 }
 
@@ -71,10 +74,21 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
                 override fun onAnimationRepeat(p0: Animation?) {
                 }
-
             })
-
         }, 1000)
+
+        if(Misc.isSplashIntAm_al.contains("am") || Misc.isSplashIntAm_al.contains("al")) {
+            val objDialog = CustomDialog(this)
+            objDialog.setCancelable(false)
+            objDialog.setCanceledOnTouchOutside(false)
+            objDialog.window?.setBackgroundDrawableResource(R.color.nothing)
+            objDialog.show()
+            Handler().postDelayed({
+                objDialog.dismiss()
+                if (intent.getStringExtra(Misc.data) != null)
+                    Ads.showInterstitial(this@MainActivity, Misc.isSplashIntAm_al, null)
+            }, 2000)
+        }
 
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, PremiumScreenActivity::class.java)
@@ -287,7 +301,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (grantResults.isEmpty()){
+        if (grantResults.isEmpty()) {
             Toast.makeText(this, "Please give required permission.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -415,7 +429,6 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         } else {
             permissionsManager.requestLocationPermissions(this)
         }
-
     }
 
     override fun onResume() {

@@ -1,2 +1,1 @@
-include ':app', ':datamodel', ':tools', ':country_data'
-//include ':nativetemplates'
+include ':app', ':datamodel', ':tools', ':country_data', ':fcm'

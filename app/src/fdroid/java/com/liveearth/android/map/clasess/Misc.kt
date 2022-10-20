@@ -53,7 +53,7 @@ class Misc {
         var frequencyCappingApplovinCount: Int = 0
 
         var isBannerAdTop: Boolean = true
-        var isSplashLargeNative: Boolean = false
+        var isSplashLargeNative: Boolean = true
         var isSkyMapBannerEnabled: Boolean = true
         var isCompassBannerEnabled: Boolean = true
         var isNoteCamBannerEnabled: Boolean = true
@@ -71,7 +71,7 @@ class Misc {
         var altitudeIntAm_al: String = "am_al"
         var isSplashIntAm_al: String = "am_al"
         var worldQuizIntAm_al: String = "am_al"
-        var splashNativeAm_Al: String = "am_al"
+        var splashNativeAm_Al: String = ""
         var startGameIntAm_Al: String = "am_al"
         var generateQRIntAm_Al: String = "am_al"
         var soundMeterIntAm_al: String = "am_al"

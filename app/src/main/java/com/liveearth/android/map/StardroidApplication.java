@@ -112,14 +112,7 @@ public class StardroidApplication extends Application {
         });
         AudienceNetworkAds.initialize(this);
         AppLovinSdk.getInstance(this).getSettings().setTestDeviceAdvertisingIds(Arrays.asList(
-                "6ccb7a2c-9cfa-4f5e-835e-b5f848e21826",
-                "fd562179-4921-48ff-9072-ba61c40a12d6",
-                "bfddc021-28a9-4628-89d6-07ddddc2a54c",
-                "2d80dce8-e3f1-4ae5-81b7-6b60125b89b0",
-                "8a6c953b-4257-4055-a6a9-0c63543a4200",
-                "52eef28f-3574-405c-88f4-701d40f1104d",
-                "11c62b78-5b5f-4e2c-8f5f-11a9678b7e88",
-                "5cc64ff7-09c8-413c-8af9-8c8601affe0c",
+                "982c50e5-0419-4fee-b3a1-b528a12bd6f8", //Google Pixel 2
                 "468ade50-8f94-43ef-af90-15f0d7181e97"));
         AppLovinSdk.getInstance(this).setMediationProvider("max");
         AppLovinSdk.initializeSdk(this, configuration -> {

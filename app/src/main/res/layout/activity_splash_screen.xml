@@ -12,12 +12,37 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/_8sdp"
         android:background="@color/nothing"
-        android:visibility="gone"
+        android:layout_marginBottom="@dimen/padding"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnStart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnStartBottom"
         app:layout_constraintVertical_bias="0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnStartBottom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="@dimen/fab_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/fab_padding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/extra_padding"
+        android:background="@drawable/bg_gradient_pink_rounded">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/start"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/animLoading"
