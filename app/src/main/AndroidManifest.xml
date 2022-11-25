@@ -22,9 +22,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <uses-feature
         android:name="android.hardware.location.gps"
@@ -58,8 +58,8 @@
 
     <application
         android:name=".StardroidApplication"
-        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -96,17 +96,17 @@
             android:name=".activities.DiagnosticActivity"
             android:label="@string/title_activity_diagnostic" />
 
-<!-- Provides search suggestions. -->
-<!--        <provider-->
-<!--            android:name=".search.SearchTermsProvider"-->
-<!--            android:authorities="com.google.android.stardroid.searchterms"-->
-<!--            android:exported="false"-->
-<!--            android:syncable="false" />-->
+        <!-- Provides search suggestions. -->
+        <!--        <provider-->
+        <!--            android:name=".search.SearchTermsProvider"-->
+        <!--            android:authorities="com.google.android.stardroid.searchterms"-->
+        <!--            android:exported="false"-->
+        <!--            android:syncable="false" />-->
 
         <activity
             android:name=".activities.CompassCalibrationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".SpeedometerActivity"
@@ -151,27 +151,26 @@
             android:exported="true"
             android:foregroundServiceType="location"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustNothing">
 
 
         </activity>
         <activity
             android:name=".NoteCamActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
 
         <activity
             android:name=".WorldQuizActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SkyMapActivity"
@@ -187,27 +186,21 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizSelectContinentActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizScreenOneActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WordQuizModeSelectorActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".WorldQuizCompletedActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <activity
-            android:name=".ProScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -228,16 +221,11 @@
             android:name="com.liveearth.android.map.NavigationActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
             android:name="com.liveearth.android.map.MapboxSearchActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity
-            android:name="com.liveearth.android.map.PermissionsActivity"
-            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
@@ -247,8 +235,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <meta-data android:name="applovin.sdk.key"
-            android:value="rHXhDWaiaAqcqDS2Z_aTTRtM7JFZ6i5Esd1zZndxnU0D-FxK0UfBRDwi18NeNK2Myt-XLzx3wZBH2dpBq6isrG"/>
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="rHXhDWaiaAqcqDS2Z_aTTRtM7JFZ6i5Esd1zZndxnU0D-FxK0UfBRDwi18NeNK2Myt-XLzx3wZBH2dpBq6isrG" />
 
     </application>
 

@@ -7,8 +7,8 @@ import android.content.Intent
 import android.view.WindowManager
 import com.blongho.country_data.World
 import android.annotation.SuppressLint
+import android.os.Looper
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.liveearth.android.map.clasess.Ads
@@ -41,7 +41,6 @@ class SplashScreenActivity : BaseActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         billing()
-
         FirebaseApp.initializeApp(this)
 
         FcmFireBaseID.subscribeToTopic()
@@ -116,143 +115,114 @@ class SplashScreenActivity : BaseActivity() {
     @SuppressLint("LogNotTimber")
     private fun getRemoteConfigValues(): Boolean {
         return try {
-            val mFirebaseRemoteConfig = Firebase.remoteConfig
+            val mFRC = Firebase.remoteConfig
             val configSettings = remoteConfigSettings {
                 minimumFetchIntervalInSeconds = if (BuildConfig.DEBUG) 0 else 3600
             }
-            mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings)
-            mFirebaseRemoteConfig.fetchAndActivate()
+            mFRC.setConfigSettingsAsync(configSettings)
+            mFRC.fetchAndActivate()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val updated = task.result
                         Log.d(Misc.logKey, "Fetch Config params updated: $updated")
-                        mFirebaseRemoteConfig.activate()
+                        mFRC.activate()
 
-                        Misc.isBannerAdTop = mFirebaseRemoteConfig.getBoolean("isBannerAdTop")
+                        Misc.isBannerAdTop = mFRC.getBoolean("isBannerAdTop")
                         Misc.isSplashLargeNative =
-                            mFirebaseRemoteConfig.getBoolean("isSplashLargeNative")
+                            mFRC.getBoolean("isSplashLargeNative")
                         Misc.isSkyMapBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isSkyMapBannerEnabled")
+                            mFRC.getBoolean("isSkyMapBannerEnabled")
                         Misc.isCompassBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isCompassBannerEnabled")
+                            mFRC.getBoolean("isCompassBannerEnabled")
                         Misc.isNoteCamBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isNoteCamBannerEnabled")
+                            mFRC.getBoolean("isNoteCamBannerEnabled")
                         Misc.isDashboardBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isDashboardBannerEnabled")
+                            mFRC.getBoolean("isDashboardBannerEnabled")
                         Misc.isProScreenBannerEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isProScreenBannerEnabled")
+                            mFRC.getBoolean("isProScreenBannerEnabled")
 
-                        Misc.bannerAdId = mFirebaseRemoteConfig.getString("bannerAdId")
+                        Misc.bannerAdId = mFRC.getString("bannerAdId")
                         Misc.nativeAdIdApplovin =
-                            mFirebaseRemoteConfig.getString("nativeAdIdApplovin")
+                            mFRC.getString("nativeAdIdApplovin")
                         Misc.interstitialAdIdApplovin =
-                            mFirebaseRemoteConfig.getString("interstitialAdIdApplovin")
+                            mFRC.getString("interstitialAdIdApplovin")
 
-                        Misc.nativeAdIdAdMob = mFirebaseRemoteConfig.getString("nativeAdIdAdMob")
+                        Misc.nativeAdIdAdMob = mFRC.getString("nativeAdIdAdMob")
                         Misc.interstitialAdIdAdMob =
-                            mFirebaseRemoteConfig.getString("interstitialAdIdAdMob")
+                            mFRC.getString("interstitialAdIdAdMob")
 
-                        Misc.isPremiumScreenEnabled =
-                            mFirebaseRemoteConfig.getBoolean("isPremiumScreenEnabled")
-                        Misc.isPremiumScreenIntAm_Al =
-                            mFirebaseRemoteConfig.getString("isPremiumScreenIntAm_Al")
-                        Misc.lsvIntAm_al = mFirebaseRemoteConfig.getString("lsvIntAm_al")
-                        Misc.lifetimePrice = mFirebaseRemoteConfig.getString("lifetimePrice")
-                        Misc.mRecAdId = mFirebaseRemoteConfig.getString("mRecAdId")
-                        Misc.yearlyPrice = mFirebaseRemoteConfig.getString("yearlyPrice")
-                        Misc.monthlyPrice = mFirebaseRemoteConfig.getString("monthlyPrice")
-                        Misc.skyMapIntAm_al = mFirebaseRemoteConfig.getString("skyMapIntAm_al")
-                        Misc.gpsCamIntAm_al = mFirebaseRemoteConfig.getString("gpsCamIntAm_al")
-                        Misc.isQuitIntAm_Al = mFirebaseRemoteConfig.getString("isQuitIntAm_Al")
-                        Misc.compassIntAm_al = mFirebaseRemoteConfig.getString("compassIntAm_al")
-                        Misc.noteCamIntAm_al = mFirebaseRemoteConfig.getString("noteCamIntAm_al")
-                        Misc.quitNativeAm_Al = mFirebaseRemoteConfig.getString("quitNativeAm_Al")
-                        Misc.isSkyMapIntAm_Al = mFirebaseRemoteConfig.getString("isSkyMapIntAm_Al")
-                        Misc.altitudeIntAm_al = mFirebaseRemoteConfig.getString("altitudeIntAm_al")
-                        Misc.isSplashIntAm_al = mFirebaseRemoteConfig.getString("isSplashIntAm_al")
-                        Misc.worldQuizIntAm_al =
-                            mFirebaseRemoteConfig.getString("worldQuizIntAm_al")
-                        Misc.splashNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("splashNativeAm_Al")
-                        Misc.startGameIntAm_Al =
-                            mFirebaseRemoteConfig.getString("startGameIntAm_Al")
-                        Misc.generateQRIntAm_Al =
-                            mFirebaseRemoteConfig.getString("generateQRIntAm_Al")
-                        Misc.soundMeterIntAm_al =
-                            mFirebaseRemoteConfig.getString("soundMeterIntAm_al")
-                        Misc.skyMapBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("skyMapBackIntAm_Al")
-                        Misc.settingBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("settingBackIntAm_Al")
-                        Misc.compassBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("compassBackIntAm_Al")
-                        Misc.speedometerIntAm_al =
-                            mFirebaseRemoteConfig.getString("speedometerIntAm_al")
-                        Misc.createQRNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("createQRNativeAm_Al")
-                        Misc.dashboardNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("dashboardNativeAm_Al")
-                        Misc.altitudeBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("altitudeBackIntAm_Al")
-                        Misc.quizCompleteIntAm_Al =
-                            mFirebaseRemoteConfig.getString("quizCompleteIntAm_Al")
-                        Misc.quizCountriesIntAm_Al =
-                            mFirebaseRemoteConfig.getString("quizCountriesIntAm_Al")
-                        Misc.viewWorldBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("viewWorldBackIntAm_Al")
-                        Misc.noteCamOnBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("noteCamOnBackIntAm_Al")
-                        Misc.soundMeterNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("soundMeterNativeAm_Al")
-                        Misc.speedoMeterNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("speedoMeterNativeAm_Al")
-                        Misc.soundMeterBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("soundMeterBackIntAm_Al")
-                        Misc.quizSelectModeIntAm_Al =
-                            mFirebaseRemoteConfig.getString("quizSelectModeIntAm_Al")
-                        Misc.quizCompleteNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("quizCompleteNativeAm_Al")
-                        Misc.worldQuizOnBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("worldQuizOnBackIntAm_Al")
-                        Misc.continentSelectIntAm_Al =
-                            mFirebaseRemoteConfig.getString("continentSelectIntAm_Al")
-                        Misc.liveEarthOnBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("liveEarthOnBackIntAm_Al")
-                        Misc.generateQrOnBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("generateQrOnBackIntAm_Al")
-                        Misc.quizCompleteBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("quizCompleteBackIntAm_Al")
-                        Misc.quizScreenOneNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("quizScreenOneNativeAm_Al")
-                        Misc.mainFromProScreenIntAm_Al =
-                            mFirebaseRemoteConfig.getString("mainFromProScreenIntAm_Al")
-                        Misc.quizScreenOneBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("quizScreenOneBackIntAm_Al")
-                        Misc.quizSelectModeNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("quizSelectModeNativeAm_Al")
+                        Misc.mRecAdId = mFRC.getString("mRecAdId")
+                        Misc.lsvIntAm_al = mFRC.getString("lsvIntAm_al")
+                        Misc.yearlyPrice = mFRC.getString("yearlyPrice")
+                        Misc.monthlyPrice = mFRC.getString("monthlyPrice")
+                        Misc.lifetimePrice = mFRC.getString("lifetimePrice")
+
+                        Misc.yearlySubscriptionId = mFRC.getString("yearlySubscriptionId")
+                        Misc.monthlySubscriptionId = mFRC.getString("monthlySubscriptionId")
+
+                        Misc.skyMapIntAm_al = mFRC.getString("skyMapIntAm_al")
+                        Misc.gpsCamIntAm_al = mFRC.getString("gpsCamIntAm_al")
+                        Misc.isQuitIntAm_Al = mFRC.getString("isQuitIntAm_Al")
+                        Misc.compassIntAm_al = mFRC.getString("compassIntAm_al")
+                        Misc.noteCamIntAm_al = mFRC.getString("noteCamIntAm_al")
+                        Misc.quitNativeAm_Al = mFRC.getString("quitNativeAm_Al")
+                        Misc.isSkyMapIntAm_Al = mFRC.getString("isSkyMapIntAm_Al")
+                        Misc.altitudeIntAm_al = mFRC.getString("altitudeIntAm_al")
+                        Misc.isSplashIntAm_al = mFRC.getString("isSplashIntAm_al")
+                        Misc.worldQuizIntAm_al = mFRC.getString("worldQuizIntAm_al")
+                        Misc.splashNativeAm_Al = mFRC.getString("splashNativeAm_Al")
+                        Misc.startGameIntAm_Al = mFRC.getString("startGameIntAm_Al")
+                        Misc.generateQRIntAm_Al = mFRC.getString("generateQRIntAm_Al")
+                        Misc.soundMeterIntAm_al = mFRC.getString("soundMeterIntAm_al")
+                        Misc.skyMapBackIntAm_Al = mFRC.getString("skyMapBackIntAm_Al")
+                        Misc.settingBackIntAm_Al = mFRC.getString("settingBackIntAm_Al")
+                        Misc.compassBackIntAm_Al = mFRC.getString("compassBackIntAm_Al")
+                        Misc.speedometerIntAm_al = mFRC.getString("speedometerIntAm_al")
+                        Misc.createQRNativeAm_Al = mFRC.getString("createQRNativeAm_Al")
+                        Misc.dashboardNativeAm_Al = mFRC.getString("dashboardNativeAm_Al")
+                        Misc.altitudeBackIntAm_Al = mFRC.getString("altitudeBackIntAm_Al")
+                        Misc.quizCompleteIntAm_Al = mFRC.getString("quizCompleteIntAm_Al")
+                        Misc.quizCountriesIntAm_Al = mFRC.getString("quizCountriesIntAm_Al")
+                        Misc.viewWorldBackIntAm_Al = mFRC.getString("viewWorldBackIntAm_Al")
+                        Misc.noteCamOnBackIntAm_Al = mFRC.getString("noteCamOnBackIntAm_Al")
+                        Misc.soundMeterNativeAm_Al = mFRC.getString("soundMeterNativeAm_Al")
+                        Misc.speedoMeterNativeAm_Al = mFRC.getString("speedoMeterNativeAm_Al")
+                        Misc.soundMeterBackIntAm_Al = mFRC.getString("soundMeterBackIntAm_Al")
+                        Misc.quizSelectModeIntAm_Al = mFRC.getString("quizSelectModeIntAm_Al")
+                        Misc.isPremiumScreenEnabled = mFRC.getBoolean("isPremiumScreenEnabled")
+                        Misc.isPremiumScreenIntAm_Al = mFRC.getString("isPremiumScreenIntAm_Al")
+                        Misc.quizCompleteNativeAm_Al = mFRC.getString("quizCompleteNativeAm_Al")
+                        Misc.worldQuizOnBackIntAm_Al = mFRC.getString("worldQuizOnBackIntAm_Al")
+                        Misc.continentSelectIntAm_Al = mFRC.getString("continentSelectIntAm_Al")
+                        Misc.liveEarthOnBackIntAm_Al = mFRC.getString("liveEarthOnBackIntAm_Al")
+                        Misc.generateQrOnBackIntAm_Al = mFRC.getString("generateQrOnBackIntAm_Al")
+                        Misc.quizCompleteBackIntAm_Al = mFRC.getString("quizCompleteBackIntAm_Al")
+                        Misc.quizScreenOneNativeAm_Al = mFRC.getString("quizScreenOneNativeAm_Al")
+                        Misc.mainFromProScreenIntAm_Al = mFRC.getString("mainFromProScreenIntAm_Al")
+                        Misc.quizScreenOneBackIntAm_Al = mFRC.getString("quizScreenOneBackIntAm_Al")
+                        Misc.quizSelectModeNativeAm_Al = mFRC.getString("quizSelectModeNativeAm_Al")
                         Misc.continentSelectNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("continentSelectNativeAm_Al")
+                            mFRC.getString("continentSelectNativeAm_Al")
                         Misc.continentSelectBackIntAm_Al =
-                            mFirebaseRemoteConfig.getString("continentSelectBackIntAm_Al")
+                            mFRC.getString("continentSelectBackIntAm_Al")
                         Misc.worldQuizActivityNativeAm_Al =
-                            mFirebaseRemoteConfig.getString("worldQuizActivityNativeAm_Al")
+                            mFRC.getString("worldQuizActivityNativeAm_Al")
 
                         try {
-                            Misc.adBreakLimit =
-                                mFirebaseRemoteConfig.getString("adBreakLimit").toInt()
+                            Misc.adBreakLimit = mFRC.getString("adBreakLimit").toInt()
                         } catch (e: Exception) {
                             Misc.adBreakLimit = 2
                         }
                         try {
                             Misc.frequencyCappingApplovinLimit =
-                                mFirebaseRemoteConfig.getString("frequencyCappingApplovinLimit")
+                                mFRC.getString("frequencyCappingApplovinLimit")
                                     .toInt()
                         } catch (e: Exception) {
                             Misc.frequencyCappingApplovinLimit = 0
                         }
                         try {
                             Misc.frequencyCappingAdMobLimit =
-                                mFirebaseRemoteConfig.getString("frequencyCappingAdMobLimit")
+                                mFRC.getString("frequencyCappingAdMobLimit")
                                     .toInt()
                         } catch (e: Exception) {
                             Misc.frequencyCappingAdMobLimit = 2
@@ -262,40 +232,37 @@ class SplashScreenActivity : BaseActivity() {
 
                         if (Misc.nativeAdIdAdMob != "" && !isAdRequestSent) {
                             isAdRequestSent = true
-                            Ads.loadApplovinNativeAd(this, object : LoadInterstitialCallBack {
-                                override fun onLoaded() {
-                                    if (Misc.splashNativeAm_Al.contains("al"))
-                                        Misc.splashNativeAm_Al = "al"
-                                    Ads.showNativeAd(
-                                        this@SplashScreenActivity,
-                                        nativeAdFrameLayout,
-                                        Misc.splashNativeAm_Al,
-                                        object : NativeAdCallBack {
-                                            override fun onLoad() {
-                                                if (!Misc.isSplashLargeNative) {
-                                                    val p = nativeAdFrameLayout.layoutParams
-                                                    p.height = 700
-                                                    nativeAdFrameLayout.layoutParams = p
-                                                }
 
-                                                Misc.zoomInView(
-                                                    nativeAdFrameLayout,
-                                                    this@SplashScreenActivity,
-                                                    250
-                                                )
-                                            }
-                                        }
-                                    )
-                                }
-
-                                override fun onFailed() {
-
-                                }
-                            }, Misc.isSplashLargeNative)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                Ads.loadApplovinNativeAd(this, null, Misc.isSplashLargeNative)
+                            }, 1000)
 
                             Ads.loadAdMobNativeAd(
                                 this@SplashScreenActivity,
-                                null
+                                object : LoadInterstitialCallBack {
+                                    override fun onLoaded() {
+                                        Ads.showNativeAd(
+                                            this@SplashScreenActivity,
+                                            nativeAdFrameLayout,
+                                            Misc.splashNativeAm_Al,
+                                            object : NativeAdCallBack {
+                                                override fun onLoad() {
+                                                    if (!Misc.isSplashLargeNative) {
+                                                        val p = nativeAdFrameLayout.layoutParams
+                                                        p.height = 700
+                                                        nativeAdFrameLayout.layoutParams = p
+                                                    }
+
+                                                    Misc.zoomInView(
+                                                        nativeAdFrameLayout,
+                                                        this@SplashScreenActivity,
+                                                        250
+                                                    )
+                                                }
+                                            }
+                                        )
+                                    }
+                                }
                             )
 
                             if (Misc.isSplashIntAm_al.contains("am")) {
@@ -342,14 +309,18 @@ class SplashScreenActivity : BaseActivity() {
                                     })
                             }
                         }
+
                         Handler().postDelayed({
-                            if (!Misc.splashNativeAm_Al.contains("al")) {
+                            if (!Misc.splashNativeAm_Al.contains("al") && !Misc.splashNativeAm_Al.contains(
+                                    "am"
+                                )
+                            ) {
                                 val intent = Intent(this, MainActivity::class.java)
                                 intent.putExtra(Misc.data, Misc.data)
                                 startActivity(intent)
                             }
                         }, 5000)
-                        mFirebaseRemoteConfig.reset()
+                        mFRC.reset()
                     } else {
                         start()
                         Log.e(Misc.logKey, "Fetch failed")

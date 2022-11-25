@@ -77,18 +77,18 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             })
         }, 1000)
 
-        if(Misc.isSplashIntAm_al.contains("am") || Misc.isSplashIntAm_al.contains("al")) {
-            val objDialog = CustomDialog(this)
-            objDialog.setCancelable(false)
-            objDialog.setCanceledOnTouchOutside(false)
-            objDialog.window?.setBackgroundDrawableResource(R.color.nothing)
-            objDialog.show()
-            Handler().postDelayed({
-                objDialog.dismiss()
-                if (intent.getStringExtra(Misc.data) != null)
+        if (intent.getStringExtra(Misc.data) != null)
+            if (Misc.isSplashIntAm_al.contains("am") || Misc.isSplashIntAm_al.contains("al")) {
+                val objDialog = CustomDialog(this)
+                objDialog.setCancelable(false)
+                objDialog.setCanceledOnTouchOutside(false)
+                objDialog.window?.setBackgroundDrawableResource(R.color.nothing)
+                objDialog.show()
+                Handler().postDelayed({
+                    objDialog.dismiss()
                     Ads.showInterstitial(this@MainActivity, Misc.isSplashIntAm_al, null)
-            }, 2000)
-        }
+                }, 2000)
+            }
 
         btnPro.setOnClickListener {
             val intent = Intent(this@MainActivity, PremiumScreenActivity::class.java)

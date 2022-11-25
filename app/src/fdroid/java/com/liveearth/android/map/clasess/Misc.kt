@@ -14,15 +14,10 @@ import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.ads.MaxInterstitialAd
-import com.applovin.mediation.nativeAds.MaxNativeAdLoader
-import com.applovin.mediation.nativeAds.MaxNativeAdView
 import com.liveearth.android.map.BuildConfig
 import com.liveearth.android.map.R
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
@@ -37,6 +32,10 @@ class Misc {
     companion object {
         var settingNativeAm_Al: String = "am_al"
         var isDashboardMRecEnabled: Boolean = true
+
+        var monthlySubscriptionId = "monthly_subscription_id"
+        var yearlySubscriptionId = "yearly_subscription_id"
+
         var lifetimePrice = "$99.00"
         var yearlyPrice = "$79.99"
         var monthlyPrice = "$39.99"

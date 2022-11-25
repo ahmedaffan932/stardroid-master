@@ -8,15 +8,15 @@ applovin {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     ndkVersion "21.3.6528147"
 
     defaultConfig {
         applicationId "com"
         minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 18
-        versionName "1.17"
+        targetSdkVersion 33
+        versionCode 20
+        versionName "1.19"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -184,11 +184,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
-            android:name=".ProScreenActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-
-        <activity
             android:name=".SoundMeterActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

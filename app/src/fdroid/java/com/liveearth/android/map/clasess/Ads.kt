@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import com.applovin.mediation.*
 import com.applovin.mediation.ads.MaxAdView
@@ -26,12 +29,16 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.liveearth.android.map.PremiumScreenActivity
 import com.liveearth.android.map.R
 import com.liveearth.android.map.clasess.Misc.Companion.logKey
 import com.liveearth.android.map.clasess.Misc.Companion.nativeFailedCount
+import com.liveearth.android.map.databinding.AdmobNativeBinding
+import com.liveearth.android.map.databinding.RemoveAdsOnNativeAdBinding
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.LoadInterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
+import kotlinx.android.synthetic.fdroid.admob_native.view.*
 
 @SuppressLint("LogNotTimber")
 class Ads {
@@ -443,46 +450,56 @@ class Ads {
             callBack: NativeAdCallBack?
         ) {
             if (mNativeAdAdMob != null) {
-                val inflater =
-                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//                val inflater =
+//                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-                val adView = inflater.inflate(R.layout.admob_native, null) as NativeAdView
+                val clNativeAd = AdmobNativeBinding.inflate(LayoutInflater.from(context))
+
+                val nativeAdView =  clNativeAd.nativeAd
+//                    inflater.inflate(R.layout.admob_native, null) as NativeAdView
+
                 amLayout.removeAllViews()
-                amLayout.addView(adView)
+                clNativeAd.clRemoveAd.setOnClickListener {
+                    val intent = Intent(context, PremiumScreenActivity::class.java)
+                    intent.putExtra(Misc.data, Misc.data)
+                    context.startActivity(intent)
+                }
+                amLayout.addView(clNativeAd.root)
+                amLayout.setBackgroundResource(R.drawable.bg_native_ad)
 
-                adView.mediaView = adView.findViewById(R.id.ad_media)
-                adView.headlineView = adView.findViewById(R.id.ad_headline)
-                adView.bodyView = adView.findViewById(R.id.ad_body)
-                adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
-                adView.iconView = adView.findViewById(R.id.ad_app_icon)
+                nativeAdView.mediaView = nativeAdView.findViewById(R.id.ad_media)
+                nativeAdView.headlineView = nativeAdView.findViewById(R.id.ad_headline)
+                nativeAdView.bodyView = nativeAdView.findViewById(R.id.ad_body)
+                nativeAdView.callToActionView = nativeAdView.findViewById(R.id.ad_call_to_action)
+                nativeAdView.iconView = nativeAdView.findViewById(R.id.ad_app_icon)
 
-                (adView.headlineView as TextView).text = mNativeAdAdMob?.headline
-                mNativeAdAdMob?.mediaContent?.let { adView.mediaView?.setMediaContent(it) }
+                (nativeAdView.headlineView as TextView).text = mNativeAdAdMob?.headline
+                mNativeAdAdMob?.mediaContent?.let { nativeAdView.mediaView?.setMediaContent(it) }
 
                 if (mNativeAdAdMob?.body == null) {
-                    adView.bodyView?.visibility = View.INVISIBLE
+                    nativeAdView.bodyView?.visibility = View.INVISIBLE
                 } else {
-                    adView.bodyView?.visibility = View.VISIBLE
-                    (adView.bodyView as TextView).text = mNativeAdAdMob?.body
+                    nativeAdView.bodyView?.visibility = View.VISIBLE
+                    (nativeAdView.bodyView as TextView).text = mNativeAdAdMob?.body
                 }
 
                 if (mNativeAdAdMob?.callToAction == null) {
-                    adView.callToActionView?.visibility = View.INVISIBLE
+                    nativeAdView.callToActionView?.visibility = View.INVISIBLE
                 } else {
-                    adView.callToActionView?.visibility = View.VISIBLE
-                    (adView.callToActionView as Button).text = mNativeAdAdMob?.callToAction
+                    nativeAdView.callToActionView?.visibility = View.VISIBLE
+                    (nativeAdView.callToActionView as Button).text = mNativeAdAdMob?.callToAction
                 }
 
                 if (mNativeAdAdMob?.icon == null) {
-                    adView.iconView?.visibility = View.GONE
+                    nativeAdView.iconView?.visibility = View.GONE
                 } else {
-                    (adView.iconView as ImageView).setImageDrawable(
+                    (nativeAdView.iconView as ImageView).setImageDrawable(
                         mNativeAdAdMob!!.icon?.drawable
                     )
-                    adView.iconView?.visibility = View.VISIBLE
+                    nativeAdView.iconView?.visibility = View.VISIBLE
                 }
 
-                adView.setNativeAd(mNativeAdAdMob!!)
+                nativeAdView.setNativeAd(mNativeAdAdMob!!)
                 amLayout.visibility = View.VISIBLE
                 callBack?.onLoad()
             } else {

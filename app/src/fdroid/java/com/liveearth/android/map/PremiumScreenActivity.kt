@@ -125,6 +125,17 @@ class PremiumScreenActivity : AppCompatActivity() {
                 }
             })
         }
+
+        monthly = false
+        yearly = false
+        lifetime = true
+
+        binding.monthly.background =
+            ContextCompat.getDrawable(this, R.drawable.unselected_price_tag)
+        binding.yearly.background =
+            ContextCompat.getDrawable(this, R.drawable.unselected_price_tag)
+        binding.lifetime.background =
+            ContextCompat.getDrawable(this, R.drawable.selected_price_tag)
     }
 
     private fun billing() {
@@ -160,10 +171,10 @@ class PremiumScreenActivity : AppCompatActivity() {
         if (!Misc.getPurchasedStatus(this)) {
             when {
                 monthly -> {
-                    bp.subscribe(this, "monthly_subscription_id")
+                    bp.subscribe(this, Misc.monthlySubscriptionId)
                 }
                 yearly -> {
-                    bp.subscribe(this, "yearly_subscription_id")
+                    bp.subscribe(this, Misc.yearlySubscriptionId)
                 }
                 lifetime -> {
                     bp.purchase(this, Misc.inAppKey)
