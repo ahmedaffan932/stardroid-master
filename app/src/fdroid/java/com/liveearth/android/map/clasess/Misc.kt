@@ -70,7 +70,7 @@ class Misc {
         var altitudeIntAm_al: String = "am_al"
         var isSplashIntAm_al: String = "am_al"
         var worldQuizIntAm_al: String = "am_al"
-        var splashNativeAm_Al: String = ""
+        var splashNativeAm_Al: String = "am_al"
         var startGameIntAm_Al: String = "am_al"
         var generateQRIntAm_Al: String = "am_al"
         var soundMeterIntAm_al: String = "am_al"

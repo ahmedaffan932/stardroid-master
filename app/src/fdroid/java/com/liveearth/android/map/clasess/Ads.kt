@@ -26,6 +26,7 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
+import com.liveearth.android.map.BuildConfig
 import com.liveearth.android.map.PremiumScreenActivity
 import com.liveearth.android.map.R
 import com.liveearth.android.map.clasess.Misc.Companion.logKey
@@ -39,6 +40,20 @@ import kotlinx.android.synthetic.fdroid.admob_native.view.*
 @SuppressLint("LogNotTimber")
 class Ads {
     companion object {
+        var nativeAdIdFB =
+            if (BuildConfig.DEBUG) {
+                "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID"
+            } else {
+                ""
+            }
+
+        var interstitialAdIdFB =
+            if (BuildConfig.DEBUG) {
+                "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID"
+            } else {
+                ""
+            }
+
         @SuppressLint("StaticFieldLeak")
         private lateinit var adView: MaxAdView
         private var isBannerAdLoaded = false

@@ -20,6 +20,7 @@ import com.liveearth.android.map.interfaces.NativeAdCallBack
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.gpsnavigation.customnotification.services.FcmFireBaseID
+import com.liveearth.android.map.clasess.FacebookAds
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.LoadInterstitialCallBack
 
@@ -201,6 +202,10 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.mainFromProScreenIntAm_Al = mFRC.getString("mainFromProScreenIntAm_Al")
                         Misc.quizScreenOneBackIntAm_Al = mFRC.getString("quizScreenOneBackIntAm_Al")
                         Misc.quizSelectModeNativeAm_Al = mFRC.getString("quizSelectModeNativeAm_Al")
+
+                        Ads.nativeAdIdFB = mFRC.getString("nativeAdIdFB")
+                        Ads.interstitialAdIdFB = mFRC.getString("interstitialAdIdFB")
+
                         Misc.continentSelectNativeAm_Al =
                             mFRC.getString("continentSelectNativeAm_Al")
                         Misc.continentSelectBackIntAm_Al =
@@ -237,33 +242,62 @@ class SplashScreenActivity : BaseActivity() {
                                 Ads.loadApplovinNativeAd(this, null, Misc.isSplashLargeNative)
                             }, 1000)
 
-                            Ads.loadAdMobNativeAd(
-                                this@SplashScreenActivity,
-                                object : LoadInterstitialCallBack {
-                                    override fun onLoaded() {
-                                        Ads.showNativeAd(
-                                            this@SplashScreenActivity,
-                                            nativeAdFrameLayout,
-                                            Misc.splashNativeAm_Al,
-                                            object : NativeAdCallBack {
-                                                override fun onLoad() {
-                                                    if (!Misc.isSplashLargeNative) {
-                                                        val p = nativeAdFrameLayout.layoutParams
-                                                        p.height = 700
-                                                        nativeAdFrameLayout.layoutParams = p
-                                                    }
+//                            Ads.loadAdMobNativeAd(
+//                                this@SplashScreenActivity,
+//                                object : LoadInterstitialCallBack {
+//                                    override fun onLoaded() {
+//                                        Ads.showNativeAd(
+//                                            this@SplashScreenActivity,
+//                                            nativeAdFrameLayout,
+//                                            Misc.splashNativeAm_Al,
+//                                            object : NativeAdCallBack {
+//                                                override fun onLoad() {
+//                                                    if (!Misc.isSplashLargeNative) {
+//                                                        val p = nativeAdFrameLayout.layoutParams
+//                                                        p.height = 700
+//                                                        nativeAdFrameLayout.layoutParams = p
+//                                                    }
+//
+//                                                    Misc.zoomInView(
+//                                                        nativeAdFrameLayout,
+//                                                        this@SplashScreenActivity,
+//                                                        250
+//                                                    )
+//                                                }
+//                                            }
+//                                        )
+//                                    }
+//                                }
+//                            )
 
-                                                    Misc.zoomInView(
-                                                        nativeAdFrameLayout,
-                                                        this@SplashScreenActivity,
-                                                        250
-                                                    )
-                                                }
+                            FacebookAds.loadNativeAd(this, object : LoadInterstitialCallBack {
+                                override fun onLoaded() {
+                                    FacebookAds.showNativeAd(
+                                        this@SplashScreenActivity,
+                                        nativeAdFrameLayout
+                                    )
+                                    FacebookAds.loadInterstitialAd(
+                                        this@SplashScreenActivity,
+                                        object : LoadInterstitialCallBack {
+                                            override fun onLoaded() {
+                                                FacebookAds.showInterstitial(this@SplashScreenActivity)
                                             }
-                                        )
-                                    }
+                                        })
                                 }
-                            )
+
+                                override fun onFailed() {
+                                    FacebookAds.loadInterstitialAd(
+                                        this@SplashScreenActivity,
+                                        object : LoadInterstitialCallBack {
+                                            override fun onLoaded() {
+                                                FacebookAds.showInterstitial(this@SplashScreenActivity)
+                                            }
+                                        }
+                                    )
+                                }
+                            })
+
+
 
                             if (Misc.isSplashIntAm_al.contains("am")) {
                                 Ads.loadAdMobInterstitial(
