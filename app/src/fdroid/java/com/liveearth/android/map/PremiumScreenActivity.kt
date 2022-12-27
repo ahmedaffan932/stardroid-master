@@ -161,9 +161,7 @@ class PremiumScreenActivity : AppCompatActivity() {
                 override fun onBillingInitialized() {
                     Log.e("TAG", "onBillingInitialized: ")
                 }
-
             })
-
         bp.initialize()
     }
 
@@ -208,18 +206,6 @@ class PremiumScreenActivity : AppCompatActivity() {
         alarmManager[AlarmManager.RTC, System.currentTimeMillis() + 100] = pendingIntent
         exitProcess(0)
     }
-
-//    private fun textGradient() {
-//        val textPaint: TextPaint = binding.text1.paint
-//        val width: Float = textPaint.measureText(binding.text1.text.toString())
-//
-//        val shaderText: Shader = LinearGradient(
-//            0f, 0f, width, binding.text1.textSize, intArrayOf(
-//                Color.parseColor("#FF2F49"), Color.parseColor("#FF0BB8")
-//            ), null, Shader.TileMode.CLAMP
-//        )
-//        binding.text1.paint.shader = shaderText
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

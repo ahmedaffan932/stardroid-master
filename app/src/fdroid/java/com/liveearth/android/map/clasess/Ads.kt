@@ -13,8 +13,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import com.applovin.mediation.*
 import com.applovin.mediation.ads.MaxAdView
@@ -28,13 +26,11 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
-import com.google.android.gms.ads.nativead.NativeAdView
 import com.liveearth.android.map.PremiumScreenActivity
 import com.liveearth.android.map.R
 import com.liveearth.android.map.clasess.Misc.Companion.logKey
 import com.liveearth.android.map.clasess.Misc.Companion.nativeFailedCount
 import com.liveearth.android.map.databinding.AdmobNativeBinding
-import com.liveearth.android.map.databinding.RemoveAdsOnNativeAdBinding
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 import com.liveearth.android.map.interfaces.LoadInterstitialCallBack
 import com.liveearth.android.map.interfaces.NativeAdCallBack
@@ -52,7 +48,7 @@ class Ads {
         @SuppressLint("StaticFieldLeak")
         var nativeAdView: MaxNativeAdView? = null
         var mNativeAd: MaxAd? = null
-        var mInterstitialAdApplovin: MaxInterstitialAd? = null
+        var mInterstitialAdApplovin:  MaxInterstitialAd? = null
         lateinit var nativeAdLoader: MaxNativeAdLoader
 
         fun loadApplovinInterstitial(activity: Activity, callback: LoadInterstitialCallBack?) {
@@ -426,7 +422,7 @@ class Ads {
                         loadAdMobInterstitial(activity, null)
                     }
 
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         callBack?.onDismiss()
                         loadAdMobInterstitial(activity, null)
                     }
@@ -450,13 +446,9 @@ class Ads {
             callBack: NativeAdCallBack?
         ) {
             if (mNativeAdAdMob != null) {
-//                val inflater =
-//                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
                 val clNativeAd = AdmobNativeBinding.inflate(LayoutInflater.from(context))
-
                 val nativeAdView =  clNativeAd.nativeAd
-//                    inflater.inflate(R.layout.admob_native, null) as NativeAdView
 
                 amLayout.removeAllViews()
                 clNativeAd.clRemoveAd.setOnClickListener {
