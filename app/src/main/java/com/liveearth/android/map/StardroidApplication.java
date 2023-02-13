@@ -106,8 +106,6 @@ public class StardroidApplication extends Application {
 
         performFeatureCheck();
 
-        Log.d(TAG, "StardroidApplication: -onCreate");
-
         MobileAds.initialize(this, initializationStatus -> {
         });
         AudienceNetworkAds.initialize(this);

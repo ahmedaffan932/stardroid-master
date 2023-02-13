@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.liveearth.android.map.clasess.AdMobBannerAds
 import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.CustomDialog
 import com.liveearth.android.map.clasess.Misc
@@ -25,7 +26,6 @@ import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import kotlinx.android.synthetic.fdroid.bottom_sheet_quit.*
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity(), PermissionsListener {
     private lateinit var myIntent: Intent
@@ -53,9 +53,19 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         quitBottomSheet.setOnClickListener { }
-        Ads.showMREC(this, adFrameLayout, Misc.isDashboardMRecEnabled)
+        if (Misc.dashboardMRECBannerAm.contains("am")) {
+            AdMobBannerAds.load(this, object : LoadInterstitialCallBack{
+                override fun onLoaded() {
+                    AdMobBannerAds.show(adFrameLayout)
+                }
 
-
+                override fun onFailed() {
+                    Ads.showMREC(this@MainActivity, adFrameLayout, Misc.isDashboardMRecEnabled)
+                }
+            })
+        } else {
+            Ads.showMREC(this, adFrameLayout, Misc.isDashboardMRecEnabled)
+        }
 
         Handler().postDelayed({
             val a: Animation =
@@ -235,18 +245,15 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
 
         llLiveEarthMap.setOnClickListener {
             Firebase.analytics.logEvent("LiveEarthMap", null)
-            Misc.getStoragePermission(
+            Ads.showInterstitial(
                 this,
-                lsvStoragePermission,
-                object : StoragePermissionInterface {
-                    override fun onPermissionGranted() {
-                        startMyActivity(
-                            Intent(this@MainActivity, LiveEarthActivity::class.java),
-                            Misc.lsvIntAm_al
-                        )
+                Misc.lsvIntAm_al,
+                object : InterstitialCallBack {
+                    override fun onDismiss() {
+                        val intent = Intent(this@MainActivity, LiveEarthActivity::class.java)
+                        startActivity(intent)
                     }
-                }
-            )
+                })
         }
 
         llNoteCam.setOnClickListener {
@@ -408,7 +415,7 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
             Ads.showInterstitial(this, Misc.isQuitIntAm_Al, object : InterstitialCallBack {
                 override fun onDismiss() {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    Ads.showNativeAd(this@MainActivity, nativeAd, Misc.quitNativeAm_Al, null)
+//                    Ads.showNativeAd(this@MainActivity, nativeAd, Misc.quitNativeAm_Al, null)
                 }
 
             })
@@ -435,14 +442,28 @@ class MainActivity : AppCompatActivity(), PermissionsListener {
         super.onResume()
         Ads.showBannerAd(Misc.isDashboardBannerEnabled, bannerAdFrameLayoutTop)
         if (!isNativeDisplayed) {
+
+            val frameLayout =
+                if (Misc.dashboardNativeAm_Al.contains("small") && Misc.dashboardNativeAm_Al.contains(
+                        "am"
+                    )
+                ) {
+                    if (Ads.mNativeAdAdMobOne != null || Ads.mNativeAdAdMobTwo != null) {
+                        nativeAdSmallFrameLayout
+                    } else {
+                        adFrameLayoutNative
+                    }
+                } else {
+                    adFrameLayoutNative
+                }
+
             Ads.showNativeAd(
                 this,
-                adFrameLayoutNative,
+                frameLayout,
                 Misc.dashboardNativeAm_Al,
                 object : NativeAdCallBack {
                     override fun onLoad() {
-                        adFrameLayoutNative.visibility = View.VISIBLE
-                        llAd.visibility = View.VISIBLE
+                        frameLayout.visibility = View.VISIBLE
                         isNativeDisplayed = true
                     }
                 }

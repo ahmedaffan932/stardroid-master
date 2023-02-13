@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Address
@@ -36,6 +37,8 @@ import com.google.android.gms.location.LocationServices
 import com.liveearth.android.map.clasess.Ads
 import com.liveearth.android.map.clasess.Misc
 import com.liveearth.android.map.interfaces.*
+import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.directions.v5.DirectionsCriteria
 import com.mapbox.api.directions.v5.MapboxDirections
 import com.mapbox.api.directions.v5.models.DirectionsResponse
@@ -80,12 +83,11 @@ import java.util.*
 
 @SuppressLint("LogNotTimber")
 class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
-    MapboxMap.OnMapClickListener, AdapterView.OnItemClickListener {
+    MapboxMap.OnMapClickListener, AdapterView.OnItemClickListener, PermissionsListener {
 
     private var address = ""
     private var point = LatLng()
     var placesArray = JSONArray()
-    private var btnClickCount = 0
     private var isFirstTime = true
     private var latLng: String = ""
     private var isRouteAdded = false
@@ -104,14 +106,18 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     private var buildingPlugin: BuildingPlugin? = null
     private lateinit var navMapRoute: NavigationMapRoute
     private lateinit var locationCallback: LocationCallback
+    private val storagePermission = 101
+    private lateinit var permissionsManager: PermissionsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
         setContentView(R.layout.activity_live_earth)
+        permissionsManager = PermissionsManager(this)
 
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
@@ -262,22 +268,15 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         btnScreenShot.setOnClickListener {
-            Instacapture.capture(this, object : SimpleScreenCapturingListener() {
-                override fun onCaptureComplete(bitmap: Bitmap) {
-
-                    Misc.saveImageToExternal(this@LiveEarthActivity, bitmap, object :
-                        OnImageSaveCallBack {
-                        override fun onImageSaved() {
-                            Toast.makeText(
-                                this@LiveEarthActivity,
-                                "Screen Shot Saved in Gallery. ",
-                                Toast.LENGTH_SHORT
-                            ).show()
-//                            manageBtnClickInterstitial()
-                        }
-                    })
+            Misc.getStoragePermission(
+                this,
+                storagePermission,
+                object : StoragePermissionInterface {
+                    override fun onPermissionGranted() {
+                        captureSS()
+                    }
                 }
-            })
+            )
         }
     }
 
@@ -356,11 +355,11 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             addresses = geocoder.getFromLocation(p.latitude, p.longitude, 1)
             if (!(addresses == null || addresses.isEmpty())) {
                 mapboxMap.getStyle { style ->
-                    if(addresses[0].getAddressLine(0) != null) {
+                    if (addresses[0].getAddressLine(0) != null) {
                         Log.d(Misc.logKey, addresses[0].getAddressLine(0))
                         address =
                             addresses[0].getAddressLine(0) + "\n \n http://maps.google.com/?q=${p.latitude},${p.longitude}"
-                    }else{
+                    } else {
                         Toast.makeText(this, "Address not found", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -372,7 +371,6 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
         }
     }
 
-    @SuppressLint("MissingPermission")
     private fun setMapBoxStyle(styleName: String, isThreeDView: Boolean) {
         mapboxMap.setStyle(
             styleName
@@ -410,34 +408,12 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
                 if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps()
                 } else {
-                    point.latitude =  25.107170
-                    point.longitude =  55.147276
-
-                    animateCamera(point, 12.0)
-                    getAddress(point)
-                    isCameraFocused = true
-
-                    locationCallback = object : LocationCallback() {
-                        @SuppressLint("SetTextI18n", "LogNotTimber")
-                        override fun onLocationResult(p0: LocationResult) {
-                            super.onLocationResult(p0)
-                            loc = p0.lastLocation
-                            if (!isCameraFocused) {
-                                currentLocation.latitude = loc!!.latitude
-                                currentLocation.longitude = loc!!.longitude
-                            }
-                        }
+                    if (PermissionsManager.areLocationPermissionsGranted(this)) {
+                       fetchCurrentLocation()
+                    } else {
+                        permissionsManager.requestLocationPermissions(this)
                     }
 
-                    val locationRequest = LocationRequest.create()
-                    locationRequest.fastestInterval = 1000
-                    locationRequest.interval = 5000
-                    LocationServices.getFusedLocationProviderClient(this)
-                        .requestLocationUpdates(
-                            locationRequest,
-                            locationCallback,
-                            Looper.getMainLooper()
-                        )
                 }
 
                 if (loc != null) {
@@ -781,7 +757,7 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
     private fun searchSuggestions() {
         svLocation.setOnEditorActionListener { _, actionId, _ ->
             var handled = false
-            if(svLocation.text.toString().isNotEmpty()){
+            if (svLocation.text.toString().isNotEmpty()) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideSoftKeyboard()
                     svLocation.clearFocus()
@@ -892,6 +868,85 @@ class LiveEarthActivity : AppCompatActivity(), OnMapReadyCallback,
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        try {
+            if (requestCode == storagePermission && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                captureSS()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun captureSS() {
+        Instacapture.capture(this, object : SimpleScreenCapturingListener() {
+            override fun onCaptureComplete(bitmap: Bitmap) {
+                Misc.saveImageToExternal(this@LiveEarthActivity, bitmap, object :
+                    OnImageSaveCallBack {
+                    override fun onImageSaved() {
+                        Toast.makeText(
+                            this@LiveEarthActivity,
+                            "Screen Shot Saved in Gallery. ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+            }
+        })
+    }
+
+    override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
+        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG)
+            .show()
+    }
+
+    override fun onPermissionResult(granted: Boolean) {
+        if (granted) {
+            fetchCurrentLocation()
+        } else {
+            Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun fetchCurrentLocation(){
+        point.latitude = 25.107170
+        point.longitude = 55.147276
+
+        animateCamera(point, 12.0)
+        getAddress(point)
+        isCameraFocused = true
+
+        locationCallback = object : LocationCallback() {
+            @SuppressLint("SetTextI18n", "LogNotTimber")
+            override fun onLocationResult(p0: LocationResult) {
+                super.onLocationResult(p0)
+                loc = p0.lastLocation
+                if (!isCameraFocused) {
+                    currentLocation.latitude = loc!!.latitude
+                    currentLocation.longitude = loc!!.longitude
+                }
+            }
+        }
+
+        val locationRequest = LocationRequest.create()
+        locationRequest.fastestInterval = 1000
+        locationRequest.interval = 5000
+        LocationServices.getFusedLocationProviderClient(this)
+            .requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
     }
 
 }

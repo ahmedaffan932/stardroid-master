@@ -22,8 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/ic_close"
-            app:tint="#78909C"
+            android:src="@drawable/btn_dismiss_pro"
+            app:tint="#CFD8DC"
             android:padding="@dimen/_12sdp"
             android:visibility="gone"/>
 
@@ -122,12 +122,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/monthly"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:paddingHorizontal="@dimen/_20sdp"
         android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@id/monthly"
         android:background="@drawable/unselected_price_tag">
 
         <TextView

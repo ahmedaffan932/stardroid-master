@@ -18,6 +18,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.liveearth.android.map.BuildConfig
 import com.liveearth.android.map.R
 import com.liveearth.android.map.interfaces.OnImageSaveCallBack
@@ -30,6 +31,48 @@ import java.util.*
 class Misc {
     @SuppressLint("LogNotTimber")
     companion object {
+        var dashboardMRECBannerAm: String = "am"
+
+        var banner_id = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/6300978111"
+        } else {
+            "abc"
+        }
+
+        var isSmallNativeSmallBtn: Boolean = false
+        var isRemoveAdTagEnabled: Boolean= true
+        var anyAdLoaded: MutableLiveData<Boolean> = MutableLiveData()
+
+        var interstitialAdIdAdMobOne: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/1033173712"
+        } else {
+            "ca-app-pub-4646444773193134/8594972016"
+        }
+
+        var interstitialAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/1033173712"
+        } else {
+            "ca-app-pub-4646444773193134/5968808670"
+        }
+
+        var interstitialAdIdAdMobThree: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/1033173712"
+        } else {
+            "ca-app-pub-4646444773193134/9872943406"
+        }
+
+        var interstitialAdIdAdMobFour: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/1033173712"
+        } else {
+            "ca-app-pub-4646444773193134/7925436911"
+        }
+
+        var interstitialAdIdAdMobFive: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/1033173712"
+        } else {
+            "ca-app-pub-4646444773193134/6095951127"
+        }
+
         var settingNativeAm_Al: String = "am_al"
         var isDashboardMRecEnabled: Boolean = true
 
@@ -43,21 +86,12 @@ class Misc {
         var isPremiumScreenIntAm_Al: String = "am_al"
         var isPremiumScreenEnabled: Boolean = true
 
-        var adBreakLimit = 2
-        var frequencyCappingAdMobLimit: Int = 2
-        var frequencyCappingApplovinLimit: Int = 2
-
-        var adBreakCount: Int = 0
-        var frequencyCappingAdMobCount = 0
-        var frequencyCappingApplovinCount: Int = 0
-
         var isBannerAdTop: Boolean = true
         var isSplashLargeNative: Boolean = true
         var isSkyMapBannerEnabled: Boolean = true
         var isCompassBannerEnabled: Boolean = true
         var isNoteCamBannerEnabled: Boolean = true
         var isDashboardBannerEnabled: Boolean = true
-        var isProScreenBannerEnabled: Boolean = true
 
         var lsvIntAm_al: String = "am_al"
         var skyMapIntAm_al: String = "am_al"
@@ -70,7 +104,7 @@ class Misc {
         var altitudeIntAm_al: String = "am_al"
         var isSplashIntAm_al: String = "am_al"
         var worldQuizIntAm_al: String = "am_al"
-        var splashNativeAm_Al: String = ""
+        var splashNativeAm_Al: String = "am_al"
         var startGameIntAm_Al: String = "am_al"
         var generateQRIntAm_Al: String = "am_al"
         var soundMeterIntAm_al: String = "am_al"
@@ -79,7 +113,7 @@ class Misc {
         var compassBackIntAm_Al: String = "am_al"
         var speedometerIntAm_al: String = "am_al"
         var createQRNativeAm_Al: String = "am_al"
-        var dashboardNativeAm_Al: String = "am_al"
+        var dashboardNativeAm_Al: String = "am_al_small"
         var altitudeBackIntAm_Al: String = "am_al"
         var quizCompleteIntAm_Al: String = "am_al"
         var quizCountriesIntAm_Al: String = "am_al"
@@ -96,21 +130,27 @@ class Misc {
         var generateQrOnBackIntAm_Al: String = "am_al"
         var quizCompleteBackIntAm_Al: String = "am_al"
         var quizScreenOneNativeAm_Al: String = "am_al"
-        var mainFromProScreenIntAm_Al: String = "am_al"
         var quizScreenOneBackIntAm_Al: String = "am_al"
         var quizSelectModeNativeAm_Al: String = "am_al"
         var continentSelectNativeAm_Al: String = "am_al"
         var continentSelectBackIntAm_Al: String = "am_al"
         var worldQuizActivityNativeAm_Al: String = "am_al"
 
+        var mRecAdId = "dsadf"
         var bannerAdId: String = "zsdf"
         var nativeAdIdApplovin: String = "abcd"
         var interstitialAdIdApplovin: String = "okasd"
 
-        var nativeAdIdAdMob: String = "ca-app-pub-3940256099942544/2247696110"
-        var interstitialAdIdAdMob: String = "ca-app-pub-3940256099942544/1033173712"
-
-        var mRecAdId = "dsadf"
+        var nativeAdIdAdMobOne: String =if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/2247696110"
+        }else{
+            "ca-app-pub-4646444773193134/4498147358"
+        }
+        var nativeAdIdAdMobTwo: String = if (BuildConfig.DEBUG) {
+            "ca-app-pub-3940256099942544/2247696110"
+        }else{
+            "ca-app-pub-4646444773193134/5447171714"
+        }
 
         var gameMode: String = ""
         var levels: String = "levels"

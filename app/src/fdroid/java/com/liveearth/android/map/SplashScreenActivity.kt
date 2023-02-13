@@ -7,6 +7,7 @@ import android.content.Intent
 import android.view.WindowManager
 import com.blongho.country_data.World
 import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import android.os.Looper
 import android.view.View
 import com.google.firebase.FirebaseApp
@@ -29,7 +30,6 @@ class SplashScreenActivity : BaseActivity() {
     private var loadingPercentage = 0
     private lateinit var bp: BillingProcessor
     private var isAdRequestSent: Boolean = false
-    private var isAdMobInterstitialLoaded = false
 
     @SuppressLint("LogNotTimber")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class SplashScreenActivity : BaseActivity() {
 
         FcmFireBaseID.subscribeToTopic()
         getRemoteConfigValues()
+        loadAds()
 
         World.init(this)
         FirebaseApp.initializeApp(applicationContext)
@@ -96,7 +97,6 @@ class SplashScreenActivity : BaseActivity() {
         } else {
             Ads.showInterstitial(this, Misc.isSplashIntAm_al, object : InterstitialCallBack {
                 override fun onDismiss() {
-                    Misc.adBreakCount = Misc.adBreakLimit
                     if (Misc.isPremiumScreenEnabled) {
                         startActivity(
                             Intent(
@@ -138,8 +138,6 @@ class SplashScreenActivity : BaseActivity() {
                             mFRC.getBoolean("isNoteCamBannerEnabled")
                         Misc.isDashboardBannerEnabled =
                             mFRC.getBoolean("isDashboardBannerEnabled")
-                        Misc.isProScreenBannerEnabled =
-                            mFRC.getBoolean("isProScreenBannerEnabled")
 
                         Misc.bannerAdId = mFRC.getString("bannerAdId")
                         Misc.nativeAdIdApplovin =
@@ -147,9 +145,6 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.interstitialAdIdApplovin =
                             mFRC.getString("interstitialAdIdApplovin")
 
-                        Misc.nativeAdIdAdMob = mFRC.getString("nativeAdIdAdMob")
-                        Misc.interstitialAdIdAdMob =
-                            mFRC.getString("interstitialAdIdAdMob")
 
                         Misc.mRecAdId = mFRC.getString("mRecAdId")
                         Misc.lsvIntAm_al = mFRC.getString("lsvIntAm_al")
@@ -161,6 +156,13 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.monthlySubscriptionId = mFRC.getString("monthlySubscriptionId")
 
                         Misc.skyMapIntAm_al = mFRC.getString("skyMapIntAm_al")
+
+                        Misc.interstitialAdIdAdMobOne = mFRC.getString("interstitialAdIdAdMobOne")
+                        Misc.interstitialAdIdAdMobTwo = mFRC.getString("interstitialAdIdAdMobTwo")
+                        Misc.interstitialAdIdAdMobThree = mFRC.getString("interstitialAdIdAdMobThree")
+                        Misc.interstitialAdIdAdMobFour = mFRC.getString("interstitialAdIdAdMobFour")
+                        Misc.interstitialAdIdAdMobFive = mFRC.getString("interstitialAdIdAdMobFive")
+
                         Misc.gpsCamIntAm_al = mFRC.getString("gpsCamIntAm_al")
                         Misc.isQuitIntAm_Al = mFRC.getString("isQuitIntAm_Al")
                         Misc.compassIntAm_al = mFRC.getString("compassIntAm_al")
@@ -198,7 +200,6 @@ class SplashScreenActivity : BaseActivity() {
                         Misc.generateQrOnBackIntAm_Al = mFRC.getString("generateQrOnBackIntAm_Al")
                         Misc.quizCompleteBackIntAm_Al = mFRC.getString("quizCompleteBackIntAm_Al")
                         Misc.quizScreenOneNativeAm_Al = mFRC.getString("quizScreenOneNativeAm_Al")
-                        Misc.mainFromProScreenIntAm_Al = mFRC.getString("mainFromProScreenIntAm_Al")
                         Misc.quizScreenOneBackIntAm_Al = mFRC.getString("quizScreenOneBackIntAm_Al")
                         Misc.quizSelectModeNativeAm_Al = mFRC.getString("quizSelectModeNativeAm_Al")
                         Misc.continentSelectNativeAm_Al =
@@ -207,119 +208,16 @@ class SplashScreenActivity : BaseActivity() {
                             mFRC.getString("continentSelectBackIntAm_Al")
                         Misc.worldQuizActivityNativeAm_Al =
                             mFRC.getString("worldQuizActivityNativeAm_Al")
+                        Misc.dashboardMRECBannerAm =
+                            mFRC.getString("dashboardMRECBannerAm")
+                        Misc.banner_id =
+                            mFRC.getString("banner_id")
+                        Misc.isRemoveAdTagEnabled =
+                            mFRC.getBoolean("isRemoveAdTagEnabled")
+                        Misc.isSmallNativeSmallBtn =
+                            mFRC.getBoolean("isSmallNativeSmallBtn")
 
-                        try {
-                            Misc.adBreakLimit = mFRC.getString("adBreakLimit").toInt()
-                        } catch (e: Exception) {
-                            Misc.adBreakLimit = 2
-                        }
-                        try {
-                            Misc.frequencyCappingApplovinLimit =
-                                mFRC.getString("frequencyCappingApplovinLimit")
-                                    .toInt()
-                        } catch (e: Exception) {
-                            Misc.frequencyCappingApplovinLimit = 0
-                        }
-                        try {
-                            Misc.frequencyCappingAdMobLimit =
-                                mFRC.getString("frequencyCappingAdMobLimit")
-                                    .toInt()
-                        } catch (e: Exception) {
-                            Misc.frequencyCappingAdMobLimit = 2
-                        }
 
-                        Misc.adBreakCount = Misc.adBreakLimit
-
-                        if (Misc.nativeAdIdAdMob != "" && !isAdRequestSent) {
-                            isAdRequestSent = true
-
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                Ads.loadApplovinNativeAd(this, null, Misc.isSplashLargeNative)
-                            }, 1000)
-
-                            Ads.loadAdMobNativeAd(
-                                this@SplashScreenActivity,
-                                object : LoadInterstitialCallBack {
-                                    override fun onLoaded() {
-                                        Ads.showNativeAd(
-                                            this@SplashScreenActivity,
-                                            nativeAdFrameLayout,
-                                            Misc.splashNativeAm_Al,
-                                            object : NativeAdCallBack {
-                                                override fun onLoad() {
-                                                    if (!Misc.isSplashLargeNative) {
-                                                        val p = nativeAdFrameLayout.layoutParams
-                                                        p.height = 700
-                                                        nativeAdFrameLayout.layoutParams = p
-                                                    }
-
-                                                    Misc.zoomInView(
-                                                        nativeAdFrameLayout,
-                                                        this@SplashScreenActivity,
-                                                        250
-                                                    )
-                                                }
-                                            }
-                                        )
-                                    }
-                                }
-                            )
-
-                            if (Misc.isSplashIntAm_al.contains("am")) {
-                                Ads.loadAdMobInterstitial(
-                                    this,
-                                    object : LoadInterstitialCallBack {
-                                        override fun onLoaded() {
-                                            isAdMobInterstitialLoaded = true
-                                            Ads.loadApplovinInterstitial(
-                                                this@SplashScreenActivity,
-                                                null
-                                            )
-                                            Ads.loadBannerAd(this@SplashScreenActivity)
-                                        }
-
-                                        override fun onFailed() {
-                                            Log.d(Misc.logKey, " On Failed.")
-                                            Ads.loadApplovinInterstitial(
-                                                this@SplashScreenActivity,
-                                                null
-                                            )
-                                            Ads.loadBannerAd(this@SplashScreenActivity)
-                                        }
-                                    })
-                            } else {
-                                Ads.loadApplovinInterstitial(
-                                    this,
-                                    object : LoadInterstitialCallBack {
-                                        override fun onLoaded() {
-                                            Ads.loadBannerAd(this@SplashScreenActivity)
-                                            Ads.loadAdMobInterstitial(
-                                                this@SplashScreenActivity,
-                                                null
-                                            )
-                                        }
-
-                                        override fun onFailed() {
-                                            Ads.loadBannerAd(this@SplashScreenActivity)
-                                            Ads.loadAdMobInterstitial(
-                                                this@SplashScreenActivity,
-                                                null
-                                            )
-                                        }
-                                    })
-                            }
-                        }
-
-                        Handler().postDelayed({
-                            if (!Misc.splashNativeAm_Al.contains("al") && !Misc.splashNativeAm_Al.contains(
-                                    "am"
-                                )
-                            ) {
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.putExtra(Misc.data, Misc.data)
-                                startActivity(intent)
-                            }
-                        }, 5000)
                         mFRC.reset()
                     } else {
                         start()
@@ -360,6 +258,61 @@ class SplashScreenActivity : BaseActivity() {
             })
 
         bp.initialize()
+    }
+
+    fun loadAds() {
+        Ads.loadAdMobNativeAd(
+            this@SplashScreenActivity,
+            object : LoadInterstitialCallBack {
+                override fun onLoaded() {
+                    if(!Ads.isSplashNativeDisplayed) {
+                        Ads.showNativeAd(
+                            this@SplashScreenActivity,
+                            nativeAdFrameLayout,
+                            Misc.splashNativeAm_Al,
+                            object : NativeAdCallBack {
+                                override fun onLoad() {
+                                    if (!Misc.isSplashLargeNative) {
+                                        val p = nativeAdFrameLayout.layoutParams
+                                        p.height = 700
+                                        nativeAdFrameLayout.layoutParams = p
+                                    }
+
+                                    Misc.zoomInView(
+                                        nativeAdFrameLayout,
+                                        this@SplashScreenActivity,
+                                        250
+                                    )
+                                }
+                            }
+                        )
+                    }
+                    Ads.isSplashNativeDisplayed = true
+                }
+            }
+        )
+
+        Ads.loadAdMobInterstitial(this)
+
+        object : CountDownTimer(1500, 2000) {
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                Ads.loadApplovinInterstitial(
+                    this@SplashScreenActivity,
+                    null
+                )
+                Ads.loadBannerAd(this@SplashScreenActivity)
+            }
+        }.start()
+
+
+        Handler().postDelayed({
+            if (Misc.splashNativeAm_Al.contains("off")) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra(Misc.data, Misc.data)
+                startActivity(intent)
+            }
+        }, 6000)
     }
 
 }

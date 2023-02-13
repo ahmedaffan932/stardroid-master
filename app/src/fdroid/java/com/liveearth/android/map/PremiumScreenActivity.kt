@@ -21,7 +21,6 @@ import com.liveearth.android.map.databinding.ActivityPremiumScreenBinding
 import com.liveearth.android.map.interfaces.InterstitialCallBack
 
 class PremiumScreenActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityPremiumScreenBinding
     private lateinit var bp: BillingProcessor
     private var monthly = false
@@ -120,7 +119,6 @@ class PremiumScreenActivity : AppCompatActivity() {
                     } else {
                         finish()
                         startActivity(Intent(this@PremiumScreenActivity, MainActivity::class.java))
-                        Misc.adBreakCount = Misc.adBreakLimit
                     }
                 }
             })
