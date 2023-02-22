@@ -124,16 +124,18 @@ class PremiumScreenActivity : AppCompatActivity() {
             })
         }
 
-        monthly = false
+        monthly = true
         yearly = false
-        lifetime = true
+        lifetime = false
 
-        binding.monthly.background =
+        binding.lifetime.background =
             ContextCompat.getDrawable(this, R.drawable.unselected_price_tag)
         binding.yearly.background =
             ContextCompat.getDrawable(this, R.drawable.unselected_price_tag)
-        binding.lifetime.background =
+        binding.monthly.background =
             ContextCompat.getDrawable(this, R.drawable.selected_price_tag)
+
+
     }
 
     private fun billing() {
